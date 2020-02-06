@@ -1,8 +1,8 @@
 import requests
 import functools
-from settings import *
 from datetime import datetime
 from app import app
+from ..settings import *
 
 @app.route('/latest')
 def latest():
