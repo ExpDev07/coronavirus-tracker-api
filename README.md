@@ -21,6 +21,7 @@ You will need the following things properly installed on your computer.
 
 ## Running / Development
 
+* `pipenv shell`
 * `flask run`
 * Visit your app at [http://localhost:5000](http://localhost:5000).
 
