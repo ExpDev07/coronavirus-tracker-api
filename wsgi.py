@@ -1,6 +1,6 @@
 from settings import *
 from app import app
 
+# Run the application (server).
 if __name__ == 'main':
-    # Run the flask application on the specified port!
-    app.run(port=PORT)
+    app.run(port=PORT, threaded=True)
