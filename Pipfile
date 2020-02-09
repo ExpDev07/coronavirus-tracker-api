@@ -12,6 +12,8 @@ python-dotenv = "*"
 requests = "*"
 gunicorn = "*"
 flask-cors = "*"
+geopy = "*"
+cachetools = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-from .settings import *
+from app.settings import *
+from app.location import get_locations
 
 # Create the flask application.
 app = Flask(__name__)
