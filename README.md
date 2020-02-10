@@ -23,11 +23,11 @@ You will need the following things properly installed on your computer.
 
 * `git clone https://github.com/ExpDev07/coronavirus-tracker-api.git`
 * `cd coronavirus-tracker-api`
+* `pipenv shell`
 * `pipenv install`
 
 ## Running / Development
 
-* `pipenv shell`
 * `flask run`
 * Visit your app at [http://localhost:5000](http://localhost:5000).
 
