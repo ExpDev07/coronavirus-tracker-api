@@ -29,6 +29,9 @@ def get_data(type):
 
     for item in data:
 
+        # Filter out all the dates.
+        history = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))A
+
         # Normalize the item and append to locations.
         locations.append({
             # General info.
@@ -42,16 +45,14 @@ def get_data(type):
             },
 
             # History.
-            'history': dict(filter(lambda element: date_util.is_date(element[0]), item.items())),
+            'history': history,
 
-            # TODO: Total.
-            'total': 0
+            # Latest statistic.
+            'latest': sorted(history.values()),
         })
 
     # Return the final data.
     return locations
-
-
 
 
 
