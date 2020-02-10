@@ -5,6 +5,12 @@
 ## Live version
 View the live version here: [https://coronavirus-tracker-api.herokuapp.com/latest](https://coronavirus-tracker-api.herokuapp.com/latest).
 
+## Data
+The data is retrieved programatically and re-formatted from the [2019 Novel Coronavirus (nCoV) Data Repository, provided by JHU CCSE]((https://coronavirus-tracker-api.herokuapp.com/latest)).
+
+## License
+The data is available to the public strictly for educational and academic research purposes.
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
