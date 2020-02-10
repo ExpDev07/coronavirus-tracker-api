@@ -1,6 +1,6 @@
 # coronavirus-tracker (API)
 
-> This is a basic API for tracking development of the new coronavirus (2019-nCoV). It's written in python using 🍼 Flask.
+> This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (2019-nCoV). It's written in python using 🍼 Flask.
 
 ## Live version
 View the live version here: [https://coronavirus-tracker-api.herokuapp.com/latest](https://coronavirus-tracker-api.herokuapp.com/latest).
