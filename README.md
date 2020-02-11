@@ -4,7 +4,7 @@
 
 ## Endpoints
 
-All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com``. You can try them out in your browser to further inspect responses.
+All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com`` (e.g: https://coronavirus-tracker-api.herokuapp.com/all). You can try them out in your browser to further inspect responses.
 
 Getting confirmed cases, deaths, and recoveries:
 ```http
