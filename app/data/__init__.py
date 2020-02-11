@@ -9,16 +9,16 @@ Base URL for fetching data.
 base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/time_series/time_series_2019-ncov-%s.csv';
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
-def get_data(type):
+def get_data(category):
     """
     Retrieves the data for the provided type.
     """
 
-    # Adhere to type naming standard.
-    type = type.lower().capitalize();
+    # Adhere to category naming standard.
+    category = category.lower().capitalize();
     
     # Request the data 
-    request = requests.get(base_url % type)
+    request = requests.get(base_url % category)
     text    = request.text
 
     # Parse the CSV.
@@ -51,8 +51,14 @@ def get_data(type):
             'latest': int(list(history.values())[-1]),
         })
 
+    # Latest total.
+    latest = sum(map(lambda location: location['latest'], locations))
+
     # Return the final data.
-    return locations
+    return {
+        'locations': locations,
+        'latest': latest
+    }
 
 
 

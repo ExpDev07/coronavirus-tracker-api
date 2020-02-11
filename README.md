@@ -2,13 +2,43 @@
 
 > This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (2019-nCoV). It's written in python using 🍼 Flask.
 
-## Live version
-View the live version here: [https://coronavirus-tracker-api.herokuapp.com/latest](https://coronavirus-tracker-api.herokuapp.com/latest).
+## Endpoints
+
+All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com``. You can try them out in your browser to further inspect responses.
+
+Getting confirmed cases, deaths, and recoveries:
+```http
+GET /all
+```
+```json
+{ latest: { ... }, confirmed: { ... }, deaths: { ... }, recovered: { ... } }
+```
+
+Getting just confirmed:
+```http
+GET /confirmed
+```
+```json
+{ latest: 42767, locations: [ ... ] }
+```
+
+Getting just deaths:
+```http
+GET /deaths
+```
+
+Getting just recoveries:
+```http
+GET /recovered
+```
+
 
 ## Data
+
 The data is retrieved programatically and re-formatted from the [2019 Novel Coronavirus (nCoV) Data Repository, provided by JHU CCSE](https://github.com/CSSEGISandData/2019-nCoV).
 
 ## License
+
 The data is available to the public strictly for educational and academic research purposes.
 
 ## Prerequisites
