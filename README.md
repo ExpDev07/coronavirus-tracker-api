@@ -11,7 +11,7 @@ Getting confirmed cases, deaths, and recoveries:
 GET /all
 ```
 ```json
-{ latest: { ... }, confirmed: { ... }, deaths: { ... }, recovered: { ... } }
+{ "latest": { ... }, "confirmed": { ... }, "deaths": { ... }, "recovered": { ... } }
 ```
 
 Getting just confirmed:
@@ -19,7 +19,7 @@ Getting just confirmed:
 GET /confirmed
 ```
 ```json
-{ latest: 42767, locations: [ ... ] }
+{ "latest": 42767, "locations": [ ... ] }
 ```
 
 Getting just deaths:
