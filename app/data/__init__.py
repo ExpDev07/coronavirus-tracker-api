@@ -6,7 +6,7 @@ from app.utils import date as date_util
 """
 Base URL for fetching data.
 """
-base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/time_series/time_series_2019-ncov-%s.csv';
+base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-%s.csv';
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
 def get_data(category):
