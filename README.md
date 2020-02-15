@@ -2,6 +2,12 @@
 
 > This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (2019-nCoV). It's written in python using 🍼 Flask.
 
+![GitHub](https://img.shields.io/github/license/ExpDev07/coronavirus-tracker-api)
+![GitHub last commit](https://img.shields.io/github/last-commit/ExpDev07/coronavirus-tracker-api)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/ExpDev07/coronavirus-tracker-api)
+![GitHub issues](https://img.shields.io/github/issues/ExpDev07/coronavirus-tracker-api)
+
+
 ## Endpoints
 
 All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com`` (e.g: https://coronavirus-tracker-api.herokuapp.com/all). You can try them out in your browser to further inspect responses.
