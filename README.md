@@ -45,10 +45,6 @@ GET /recovered
 
 The data is retrieved programatically and re-formatted from the [2019 Novel Coronavirus (nCoV) Data Repository, provided by JHU CCSE](https://github.com/CSSEGISandData/2019-nCoV).
 
-## License
-
-The data is available to the public strictly for educational and academic research purposes.
-
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
@@ -95,3 +91,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+=======
+
+## License
+
+The data is available to the public strictly for educational and academic research purposes.
