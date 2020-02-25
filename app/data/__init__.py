@@ -28,7 +28,6 @@ def get_data(category):
     locations = []
 
     for item in data:
-
         # Filter out all the dates.
         history = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
 
