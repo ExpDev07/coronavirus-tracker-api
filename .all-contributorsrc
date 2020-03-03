@@ -15,6 +15,15 @@
         "doc",
         "maintenance"
       ]
+    },
+    {
+      "login": "bjarkimg",
+      "name": "bjarkimg",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1289419?v=4",
+      "profile": "https://github.com/bjarkimg",
+      "contributions": [
+        "question"
+      ]
     }
   ],
   "contributorsPerLine": 7,
