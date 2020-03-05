@@ -11,7 +11,7 @@ base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/cs
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
 def get_data(category):
     """
-    Retrieves the data for the provided type.
+    Retrieves the data for the provided type. The data is cached for 1 hour.
     """
 
     # Adhere to category naming standard.

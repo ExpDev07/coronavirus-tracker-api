@@ -40,7 +40,10 @@ GET /recovered
 
 ## Data
 
-The data is retrieved programatically and re-formatted from the [2019 Novel Coronavirus (nCoV) Data Repository, provided by JHU CCSE](https://github.com/CSSEGISandData/2019-nCoV).
+The data comes from the [2019 Novel Coronavirus (nCoV) Data Repository, provided
+by JHU CCSE](https://github.com/CSSEGISandData/2019-nCoV). It is
+programmatically retrieved, re-formatted and stored in the cache for one hour.
+
 
 ## Prerequisites
 
