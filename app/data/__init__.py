@@ -3,6 +3,8 @@ import csv
 from cachetools import cached, TTLCache
 from app.utils import date as date_util
 
+from . import countrycodes as cc
+
 """
 Base URL for fetching data.
 """
@@ -16,8 +18,8 @@ def get_data(category):
 
     # Adhere to category naming standard.
     category = category.lower().capitalize();
-    
-    # Request the data 
+
+    # Request the data
     request = requests.get(base_url % category)
     text    = request.text
 
@@ -31,10 +33,13 @@ def get_data(category):
         # Filter out all the dates.
         history = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
 
+        country = item['Country/Region']
+
         # Normalize the item and append to locations.
         locations.append({
             # General info.
-            'country':  item['Country/Region'],
+            'country':  country,
+            'country_code': cc.country_code(country),
             'province': item['Province/State'],
 
             # Coordinates.
@@ -58,9 +63,3 @@ def get_data(category):
         'locations': locations,
         'latest': latest
     }
-
-
-
-
-    
-
