@@ -24,7 +24,7 @@ Getting just confirmed:
 GET /confirmed
 ```
 ```json
-{ "latest": 42767, "locations": [ ... ] }
+{ "latest": 42767, "locations": [ ... ], "last_updated": "2020-03-07T18:08:58.432242Z", "source": "https://github.com/ExpDev07/coronavirus-tracker-api" }
 ```
 
 Getting just deaths:
