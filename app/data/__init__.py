@@ -2,8 +2,7 @@ import requests
 import csv
 from cachetools import cached, TTLCache
 from app.utils import date as date_util
-
-from . import countrycodes as cc
+from app.utils import countrycodes
 
 """
 Base URL for fetching data.
@@ -43,7 +42,7 @@ def get_data(category):
         locations.append({
             # General info.
             'country':  country,
-            'country_code': cc.country_code(country),
+            'country_code': countrycodes.country_code(country),
             'province': item['Province/State'],
 
             # Coordinates.
@@ -65,5 +64,6 @@ def get_data(category):
     # Return the final data.
     return {
         'locations': locations,
-        'latest': latest
+        'latest': latest,
+        'source': 'https://github.com/ExpDev07/coronavirus-tracker-api',
     }
