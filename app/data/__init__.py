@@ -1,8 +1,8 @@
 import requests
 import csv
+from datetime import datetime
 from cachetools import cached, TTLCache
-from app.utils import date as date_util
-from app.utils import countrycodes
+from app.utils import countrycodes, date as date_util
 
 """
 Base URL for fetching data.
@@ -65,5 +65,6 @@ def get_data(category):
     return {
         'locations': locations,
         'latest': latest,
+        'last_updated': datetime.utcnow().isoformat() + 'Z',
         'source': 'https://github.com/ExpDev07/coronavirus-tracker-api',
     }
