@@ -36,7 +36,7 @@ def get_data(category):
         # Country for this location.
         country = item['Country/Region']
 
-        # Latest data insert.
+        # Latest data insert value.
         latest = list(history.values())[-1];
 
         # Normalize the item and append to locations.
@@ -56,7 +56,7 @@ def get_data(category):
             'history': history,
 
             # Latest statistic.
-            'latest': int(latest) if latest else 0,
+            'latest': int(latest or 0),
         })
 
     # Latest total.

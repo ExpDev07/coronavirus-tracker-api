@@ -1,5 +1,7 @@
-default_country_name = "XX"
+# Default country code.
+default_code = "XX"
 
+# Mapping of country names to alpha-2 codes.
 is_3166_1 = {
     "Afghanistan"                                  : "AF",
     "Åland Islands"                                : "AX",
@@ -254,7 +256,7 @@ is_3166_1 = {
 
 # Mapping of alternative names, spelling, typos to the names of countries used
 # by the ISO 3166-1 norm
-country_name_synonyms = {
+synonyms = {
     "Mainland China"   : "China",
     "Czechia"          : "Czech Republic",
     "South Korea"      : "Korea, Republic of",
@@ -268,6 +270,7 @@ country_name_synonyms = {
     "Iran"             : "Iran, Islamic Republic of",
     "Saint Barthelemy" : "Saint Barthélemy",
     "Palestine"        : "Palestine, State of",
+    "Vatican City"     : "Holy See (Vatican City State)",
     # "Others" has no mapping
 }
 
@@ -280,10 +283,9 @@ def country_code(country):
     if country in is_3166_1:
         return is_3166_1[country]
     else:
-        if country in country_name_synonyms:
-            synonym = country_name_synonyms[country]
+        if country in synonyms:
+            synonym = synonyms[country]
             return is_3166_1[synonym]
         else:
-            print ("No country_code found for '" + country + "'. Using '"
-                   +default_country_name+"'")
-            return default_country_name
+            print ("No country_code found for '" + country + "'. Using '" + default_code + "'")
+            return default_code
