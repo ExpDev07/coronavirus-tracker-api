@@ -33,7 +33,11 @@ def get_data(category):
         # Filter out all the dates.
         history = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
 
+        # Country for this location.
         country = item['Country/Region']
+
+        # Latest data insert.
+        latest = list(history.values())[-1];
 
         # Normalize the item and append to locations.
         locations.append({
@@ -52,7 +56,7 @@ def get_data(category):
             'history': history,
 
             # Latest statistic.
-            'latest': int(list(history.values())[-1]),
+            'latest': int(latest) if latest else 0,
         })
 
     # Latest total.
