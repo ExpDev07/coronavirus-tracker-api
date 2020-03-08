@@ -53,7 +53,7 @@ programmatically retrieved, re-formatted and stored in the cache for one hour.
 
 ## Wrappers
 
-These are the available API wrappers created by the community. These are not neccecarily maintained by any of this project's authors or contributors.
+These are the available API wrappers created by the community. They are not neccecarily maintained by any of this project's authors or contributors.
 
 ### Java
 
