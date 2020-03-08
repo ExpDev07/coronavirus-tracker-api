@@ -3,9 +3,12 @@
 > This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (2019-nCoV). It's written in python using 🍼 Flask.
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+![GitHub stars](https://img.shields.io/github/stars/ExpDev07/coronavirus-tracker-api)
+![GitHub forks](https://img.shields.io/github/forks/ExpDev07/coronavirus-tracker-api)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ExpDev07/coronavirus-tracker-api)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/ExpDev07/coronavirus-tracker-api)
 ![GitHub issues](https://img.shields.io/github/issues/ExpDev07/coronavirus-tracker-api)
+![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)
 
 ## Endpoints
 
