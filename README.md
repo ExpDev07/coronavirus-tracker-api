@@ -55,8 +55,9 @@ programmatically retrieved, re-formatted and stored in the cache for one hour.
 
 These are the available API wrappers created by the community. These are not neccecarily maintained by any of this project's authors or contributors.
 
-* **Java:** [Coronavirus by @mew](https://github.com/mew/Coronavirus).
-* ... add yours?
+### Java
+
+* [Coronavirus by @mew](https://github.com/mew/Coronavirus).
 
 ## Prerequisites
 
