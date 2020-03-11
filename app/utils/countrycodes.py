@@ -257,20 +257,28 @@ is_3166_1 = {
 # Mapping of alternative names, spelling, typos to the names of countries used
 # by the ISO 3166-1 norm
 synonyms = {
-    "Mainland China"   : "China",
-    "Czechia"          : "Czech Republic",
-    "South Korea"      : "Korea, Republic of",
-    "Taiwan"           : "Taiwan, Province of China",
-    "US"               : "United States",
+    "Mainland China"                 : "China",
+    "Czechia"                        : "Czech Republic",
+    "Channel Islands"                : "United Kingdom",
+    "Republic of Korea"              : "Korea, Republic of",
+    "Republic of Moldova"            : "Moldova, Republic of",
+    "Taiwan"                         : "Taiwan, Province of China",
+    "US"                             : "United States",
     # TODO Macau is probably a typo. Report it to CSSEGISandData/COVID-19
-    "Macau"            : "Macao",
-    "Vietnam"          : "Viet Nam",
-    "UK"               : "United Kingdom",
-    "Russia"           : "Russian Federation",
-    "Iran"             : "Iran, Islamic Republic of",
-    "Saint Barthelemy" : "Saint Barthélemy",
-    "Palestine"        : "Palestine, State of",
-    "Vatican City"     : "Holy See (Vatican City State)",
+    "Macau"                          : "Macao",
+    "Macao SAR"                      : "Macao",
+    "Vietnam"                        : "Viet Nam",
+    "UK"                             : "United Kingdom",
+    "Russia"                         : "Russian Federation",
+    "Iran (Islamic Republic of)"     : "Iran, Islamic Republic of",
+    "Saint Barthelemy"               : "Saint Barthélemy",
+    "Saint Martin"                   : "Saint Martin (French part)",
+    "Palestine"                      : "Palestine, State of",
+    "Holy See"                       : "Holy See (Vatican City State)",
+    "Brunei"                         : "Brunei Darussalam",
+    "Hong Kong SAR"                  : "Hong Kong",
+    "Taipei and environs"            : "Taiwan, Province of China",
+    "occupied Palestinian territory" : "Palestine, State of",
     # "Others" has no mapping
 }
 
