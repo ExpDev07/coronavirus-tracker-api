@@ -108,4 +108,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 ## License
 
-The data is available to the public strictly for educational and academic research purposes.
+The data is available to the public strictly for educational and academic research purposes. Please link to this repo somewhere in your project if you can (not required) :).
+ 
