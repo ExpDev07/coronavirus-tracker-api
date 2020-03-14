@@ -27,7 +27,7 @@ def get_data(category):
 
     # The normalized locations.
     locations = []
-
+    keys = []
     for item in data:
         # Filter out all the dates.
         dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
@@ -40,7 +40,10 @@ def get_data(category):
 
         # Latest data insert value.
         latest = list(history.values())[-1];
-
+        if item['Province/State'] == "":
+            keys.append(country)
+        else:
+            keys.append(item['Province/State'])
         # Normalize the item and append to locations.
         locations.append({
             # General info.
@@ -66,7 +69,7 @@ def get_data(category):
 
     # Return the final data.
     return {
-        'locations': locations,
+        'locations': dict(zip(keys, locations)),
         'latest': latest,
         'last_updated': datetime.utcnow().isoformat() + 'Z',
         'source': 'https://github.com/ExpDev07/coronavirus-tracker-api',
