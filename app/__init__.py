@@ -1,15 +1,22 @@
 from flask import Flask
-from flask import json
 from flask_cors import CORS
-from app.settings import *
+from . import settings
 
-# Create the flask application.
-app = Flask(__name__)
-CORS(app)
+def create_app():
+    """
+    Construct the core application.
+    """
 
-# Import assets, models, routes, etc. 
-from . import routes
+    # Create flask app with CORS enabled.
+    app = Flask(__name__)
+    CORS(app)
 
-# Run the application (server).
-if __name__ == 'main':
-    app.run(port=PORT, threaded=True)
+    # Set app config from settings.
+    app.config.from_pyfile('settings.py');
+
+    with app.app_context():
+        # Import routes.
+        from . import routes
+
+        # Return created app.
+        return app

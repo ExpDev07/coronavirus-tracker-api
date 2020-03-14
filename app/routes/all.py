@@ -1,6 +1,6 @@
 from flask import jsonify
-from app import app
-from app.data import get_data
+from flask import current_app as app
+from ..data import get_data
 
 @app.route('/all')
 def all():

@@ -2,7 +2,7 @@ import requests
 import csv
 from datetime import datetime
 from cachetools import cached, TTLCache
-from app.utils import countrycodes, date as date_util
+from ..utils import countrycodes, date as date_util
 
 """
 Base URL for fetching data.
@@ -30,7 +30,10 @@ def get_data(category):
 
     for item in data:
         # Filter out all the dates.
-        history = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
+        dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
+
+        # Make location history from dates.
+        history = { date: int(amount or 0) for date, amount in dates.items() };
 
         # Country for this location.
         country = item['Country/Region']
