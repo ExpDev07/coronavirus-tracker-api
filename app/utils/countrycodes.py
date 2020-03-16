@@ -122,6 +122,8 @@ is_3166_1 = {
     "Kiribati"                                     : "KI",
     "Korea, Democratic People's Republic of"       : "KP",
     "Korea, Republic of"                           : "KR",
+    # Introducing Kosovo may be controversial. I guess we need to bite the bullet.
+    "Kosovo"                                       : "XK",
     "Kuwait"                                       : "KW",
     "Kyrgyzstan"                                   : "KG",
     "Lao People's Democratic Republic"             : "LA",
@@ -332,6 +334,8 @@ synonyms = {
     "Congo (Kinshasa)"               : "Congo, the Democratic Republic of the",
     "Taiwan*"                        : "Taiwan, Province of China",
     "Reunion"                        : "Réunion",
+    "Curacao"                        : "Curaçao",
+    "Congo (Brazzaville)"            : "Congo",
     # "Others" has no mapping, i.e. the default val is used
     # "Cruise Ship" has no mapping, i.e. the default val is used
 }
