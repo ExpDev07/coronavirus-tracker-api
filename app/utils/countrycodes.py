@@ -336,6 +336,12 @@ synonyms = {
     "Reunion"                        : "Réunion",
     "Curacao"                        : "Curaçao",
     "Congo (Brazzaville)"            : "Congo",
+    "Deutschland"                    : "Germany",
+    "Nederland"                      : "Netherlands,
+    "België"                         : "Belgium",
+    "Holland"                        : "Netherlands",
+    "Catalonia"                      : "Spain"
+    
     # "Others" has no mapping, i.e. the default val is used
     # "Cruise Ship" has no mapping, i.e. the default val is used
 }
