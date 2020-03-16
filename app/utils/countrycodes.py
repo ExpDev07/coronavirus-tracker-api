@@ -337,7 +337,7 @@ synonyms = {
     "Curacao"                        : "Curaçao",
     "Congo (Brazzaville)"            : "Congo",
     "Deutschland"                    : "Germany",
-    "Nederland"                      : "Netherlands,
+    "Nederland"                      : "Netherlands",
     "België"                         : "Belgium",
     "Holland"                        : "Netherlands",
     "Catalonia"                      : "Spain"
