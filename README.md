@@ -59,6 +59,10 @@ These are the available API wrappers created by the community. They are not necc
 
 * [Coronavirus by @mew](https://github.com/mew/Coronavirus).
 
+### Node.js
+
+* [jhucsse.covid by @Sem1084](https://www.npmjs.com/package/jhucsse.covid).
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
