@@ -285,6 +285,7 @@ synonyms = {
     "Iran"                           : "Iran, Islamic Republic of",
     "Vatican City"                   : "Holy See (Vatican City State)",
     "DR Congo"                       : "Congo, the Democratic Republic of the",
+    "Republic of the Congo"          : "Congo",
     "Tanzania"                       : "Tanzania, United Republic of",
     "Venezuela"                      : "Venezuela, Bolivarian Republic of",
     "North Korea"                    : "Korea, Democratic People's Republic of",
@@ -337,6 +338,7 @@ synonyms = {
     "Curacao"                        : "Curaçao",
     "Congo (Brazzaville)"            : "Congo",
     "Deutschland"                    : "Germany",
+    "The Bahamas"                    : "Bahamas",
     # "Others" has no mapping, i.e. the default val is used
     # "Cruise Ship" has no mapping, i.e. the default val is used
 }
