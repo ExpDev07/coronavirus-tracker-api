@@ -8,7 +8,7 @@ class JhuLocationService(LocationService):
     Service for retrieving locations from Johns Hopkins CSSE (https://github.com/CSSEGISandData/COVID-19).
     """
 
-    def get_all(self, **kwargs):
+    def get_all(self):
         # Get all of the data categories locations.
         confirmed = get_category('confirmed')['locations']
         deaths    = get_category('deaths')['locations']
