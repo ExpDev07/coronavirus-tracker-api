@@ -29,9 +29,9 @@ GET /confirmed
 ```json
 {
   "latest": 42767,
-  "locations": [ ... ], 
-  "last_updated": "2020-03-07T18:08:58.432242Z", 
-  "source": "https://github.com/ExpDev07/coronavirus-tracker-api" 
+  "locations": [ ... ],
+  "last_updated": "2020-03-07T18:08:58.432242Z",
+  "source": "https://github.com/ExpDev07/coronavirus-tracker-api"
 }
 ```
 
@@ -85,7 +85,11 @@ You will need the following things properly installed on your computer.
 
 ### Running Tests
 
+* `py.test -s -v tests/`
+
 ### Linting
+
+* `pylint app/` 
 
 ### Building
 
@@ -113,4 +117,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 ## License
 
 The data is available to the public strictly for educational and academic research purposes. Please link to this repo somewhere in your project if you can (not required) :).
- 

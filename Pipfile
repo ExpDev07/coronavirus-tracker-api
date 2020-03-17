@@ -5,6 +5,8 @@ verify_ssl = true
 
 [dev-packages]
 bandit = "*"
+pytest = "*"
+pylint = "*"
 
 [packages]
 flask = "*"
