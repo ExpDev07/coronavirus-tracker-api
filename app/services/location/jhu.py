@@ -1,18 +1,63 @@
+from . import LocationService
+from ...location import Location
+from ...coordinates import Coordinates
+from ...timeline import Timeline
+
+class JhuLocationService(LocationService):
+    """
+    Service for retrieving locations from Johns Hopkins CSSE (https://github.com/CSSEGISandData/COVID-19).
+    """
+
+    def get_all(self, **kwargs):
+        # Get all of the data categories locations.
+        confirmed = get_category('confirmed')['locations']
+        deaths    = get_category('deaths')['locations']
+        recovered = get_category('recovered')['locations']
+
+        # Final locations to return.
+        locations = []
+
+        # Go through confirmed locations.
+        for index, location in enumerate(confirmed):
+            # Grab coordinates.
+            coordinates = location['coordinates']
+
+            # Create location and append.
+            locations.append(Location(
+                # General info.
+                index, location['country'], location['province'], Coordinates(coordinates['lat'], coordinates['long']),
+
+                # TODO: date key as ISO format.
+                # { datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': int(amount or 0) for date, amount in history.items() }
+            
+                # Timelines.
+                Timeline(confirmed[index]['history']),
+                Timeline(deaths[index]['history']),
+                Timeline(recovered[index]['history'])
+            ))
+        
+        # Finally, return the locations.
+        return locations
+    
+    def get(self, id):
+        # Get location at the index equal to provided id.
+        return self.get_all()[id]
+
 import requests
 import csv
 from datetime import datetime
 from cachetools import cached, TTLCache
-from ..utils import countrycodes, date as date_util
+from ...utils import countrycodes, date as date_util
 
 """
-Base URL for fetching data.
+Base URL for fetching category.
 """
 base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-%s.csv';
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
-def get_data(category):
+def get_category(category):
     """
-    Retrieves the data for the provided type. The data is cached for 1 hour.
+    Retrieves the data for the provided category. The data is cached for 1 hour.
     """
 
     # Adhere to category naming standard.
@@ -39,7 +84,7 @@ def get_data(category):
         country = item['Country/Region']
 
         # Latest data insert value.
-        latest = list(history.values())[-1];
+        latest = list(sorted(history.values()))[-1];
 
         # Normalize the item and append to locations.
         locations.append({

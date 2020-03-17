@@ -1,13 +1,13 @@
 from flask import jsonify
 from flask import current_app as app
-from ..data import get_data
+from ...services.location.jhu import get_category
 
 @app.route('/all')
 def all():
     # Get all the categories.
-    confirmed = get_data('confirmed')
-    deaths    = get_data('deaths')
-    recovered = get_data('recovered')
+    confirmed = get_category('confirmed')
+    deaths    = get_category('deaths')
+    recovered = get_category('recovered')
 
     return jsonify({
         # Data.

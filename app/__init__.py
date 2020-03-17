@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_cors import CORS
-from . import settings
 
 def create_app():
     """
@@ -12,7 +11,7 @@ def create_app():
     CORS(app)
 
     # Set app config from settings.
-    app.config.from_pyfile('settings.py');
+    app.config.from_pyfile('config/settings.py');
 
     with app.app_context():
         # Import routes.
