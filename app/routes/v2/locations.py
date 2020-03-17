@@ -4,12 +4,19 @@ from ...services import jhu
 @app.route('/v2/locations')
 def locations():
     # Query parameters.
-    country_code = request.args.get('country_code')
+    country_code = request.args.get('country_code', type=str)
+
+    # Retrieve all the locations.
+    locations = jhu.get_all()
+
+    # Filtering my country code if provided.
+    if not country_code is None:
+        locations = list(filter(lambda location: location.country_code == country_code.upper(), locations))
 
     # Serialize each location and return.
     return jsonify({
         'locations': [
-            location.serialize() for location in jhu.get_all(country_code=country_code)
+            location.serialize() for location in locations
         ]
     })
 
