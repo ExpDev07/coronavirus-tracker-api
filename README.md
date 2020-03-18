@@ -148,7 +148,11 @@ You will need the following things properly installed on your computer.
 
 ### Running Tests
 
+* `py.test -s -v tests/`
+
 ### Linting
+
+* `pylint app/`
 
 ### Building
 
@@ -176,4 +180,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 ## License
 
 The data is available to the public strictly for educational and academic research purposes. Please link to this repo somewhere in your project :).
- 
