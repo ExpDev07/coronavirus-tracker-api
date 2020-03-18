@@ -74,7 +74,12 @@ Additionally, you can also filter by country ([alpha-2 country_code](https://en.
 GET /v2/locations?country_code=US
 ```
 
-### Getting a specific location (includes timeline).
+Include timelines.
+```http
+GET /v2/locations?country_code=US&timelines=true
+```
+
+### Getting a specific location (includes timeline by default).
 ```http
 GET /v2/locations/:id
 ```
