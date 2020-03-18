@@ -339,6 +339,7 @@ synonyms = {
     "Congo (Brazzaville)"            : "Congo",
     "Deutschland"                    : "Germany",
     "The Bahamas"                    : "Bahamas",
+    "The Gambia"                     : "Gambia",
     # "Others" has no mapping, i.e. the default val is used
     # "Cruise Ship" has no mapping, i.e. the default val is used
 }
