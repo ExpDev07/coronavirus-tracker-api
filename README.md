@@ -14,6 +14,8 @@
 
 All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com/v2/`` (e.g: https://coronavirus-tracker-api.herokuapp.com/v2/locations). You can try them out in your browser to further inspect responses.
 
+**Note:** The "latest" data  may differ between the legacy API (v1) and v2, although only by a tiny amount. The second version (v2) is more accurate.
+
 ### Getting latest amount of total confirmed cases, deaths, and recoveries.
 ```http
 GET /v2/latest
