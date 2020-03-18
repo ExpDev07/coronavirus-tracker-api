@@ -35,5 +35,6 @@ def location(id):
     # Serialize the location, add timelines, and then return.
     return jsonify({
         'location': {
-            **jhu.get(id).serialize(), **{ 'history': timelines } }
-        })
+            **jhu.get(id).serialize(), **{ 'timelines': timelines }
+        }
+    })
