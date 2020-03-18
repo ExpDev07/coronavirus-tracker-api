@@ -346,8 +346,7 @@ synonyms = {
 
 def country_code(country):
     """
-    Return two letter country code (Alpha-2) according to
-    https://en.wikipedia.org/wiki/ISO_3166-1
+    Return two letter country code (Alpha-2) according to https://en.wikipedia.org/wiki/ISO_3166-1
     Defaults to "XX".
     """
     if country in is_3166_1:
