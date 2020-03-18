@@ -49,7 +49,7 @@ def get_category(category):
     # The normalized locations.
     locations = []
 
-    for i, item in enumerate(data):
+    for item in data:
         # Filter out all the dates.
         dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
 
