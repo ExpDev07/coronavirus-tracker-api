@@ -26,11 +26,15 @@ class Location:
         """
         return (countrycodes.country_code(self.country) or countrycodes.default_code).upper()
 
-    def serialize(self):
+    def serialize(self, timelines = False):
         """
         Serializes the location into a dict.
+
+        :param timelines: Whether to include the timelines.
+        :returns: The serialized location.
+        :rtype: dict
         """
-        return {
+        serialized = {
             # General info.
             'id'          : self.id,
             'country'     : self.country, 
@@ -45,5 +49,16 @@ class Location:
                 'confirmed': self.confirmed.latest,
                 'deaths'   : self.deaths.latest,
                 'recovered': self.recovered.latest
-            }
+            },
         }
+
+        # Whether to include the timelines or not.
+        if timelines:
+            serialized.update({ 'timelines': {
+                'confirmed': self.confirmed.serialize(),
+                'deaths'   : self.deaths.serialize(),
+                'recovered': self.recovered.serialize(),
+            }})
+
+        # Return the serialized location.
+        return serialized

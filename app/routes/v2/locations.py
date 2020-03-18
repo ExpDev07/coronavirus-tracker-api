@@ -4,6 +4,7 @@ from ...services import jhu
 @app.route('/v2/locations')
 def locations():
     # Query parameters.
+    timelines    = request.args.get('timelines', type=bool, default=False)
     country_code = request.args.get('country_code', type=str)
 
     # Retrieve all the locations.
@@ -16,25 +17,13 @@ def locations():
     # Serialize each location and return.
     return jsonify({
         'locations': [
-            location.serialize() for location in locations
+            location.serialize(timelines) for location in locations
         ]
     })
 
 @app.route('/v2/locations/<int:id>')
 def location(id):
-    # Retrieve location with the provided id.
-    location = jhu.get(id)
-
-    # Get all the timelines.
-    timelines = {
-        'confirmed': location.confirmed.serialize(),
-        'deaths'   : location.deaths.serialize(),
-        'recovered': location.recovered.serialize(),
-    }
-
-    # Serialize the location, add timelines, and then return.
+    # Serialize the location with timelines.
     return jsonify({
-        'location': {
-            **jhu.get(id).serialize(), **{ 'timelines': timelines }
-        }
+        'location': jhu.get(id).serialize(True)
     })
