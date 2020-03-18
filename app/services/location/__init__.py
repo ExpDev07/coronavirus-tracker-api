@@ -11,7 +11,7 @@ class LocationService(ABC):
         Gets and returns all of the locations.
 
         :returns: The locations.
-        :rtype: Location
+        :rtype: List[Location]
         """
         raise NotImplementedError
 

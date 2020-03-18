@@ -9,35 +9,8 @@ class JhuLocationService(LocationService):
     """
 
     def get_all(self):
-        # Get all of the data categories locations.
-        confirmed = get_category('confirmed')['locations']
-        deaths    = get_category('deaths')['locations']
-        recovered = get_category('recovered')['locations']
-
-        # Final locations to return.
-        locations = []
-
-        # Go through confirmed locations.
-        for index, location in enumerate(confirmed):
-            # Grab coordinates.
-            coordinates = location['coordinates']
-
-            # Create location and append.
-            locations.append(Location(
-                # General info.
-                index, location['country'], location['province'], Coordinates(coordinates['lat'], coordinates['long']),
-
-                # TODO: date key as ISO format.
-                # { datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': int(amount or 0) for date, amount in history.items() }
-            
-                # Timelines.
-                Timeline(confirmed[index]['history']),
-                Timeline(deaths[index]['history']),
-                Timeline(recovered[index]['history'])
-            ))
-        
-        # Finally, return the locations.
-        return locations
+        # Get the locations.
+        return get_locations()
     
     def get(self, id):
         # Get location at the index equal to provided id.
@@ -58,6 +31,9 @@ base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/cs
 def get_category(category):
     """
     Retrieves the data for the provided category. The data is cached for 1 hour.
+
+    :returns: The data for category.
+    :rtype: dict
     """
 
     # Adhere to category naming standard.
@@ -73,7 +49,7 @@ def get_category(category):
     # The normalized locations.
     locations = []
 
-    for item in data:
+    for i, item in enumerate(data):
         # Filter out all the dates.
         dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
 
@@ -116,3 +92,46 @@ def get_category(category):
         'last_updated': datetime.utcnow().isoformat() + 'Z',
         'source': 'https://github.com/ExpDev07/coronavirus-tracker-api',
     }
+
+@cached(cache=TTLCache(maxsize=1024, ttl=3600))
+def get_locations():
+    """
+    Retrieves the locations from the categories. The locations are cached for 1 hour.
+
+    :returns: The locations.
+    :rtype: List[Location]
+    """
+    # Get all of the data categories locations.
+    confirmed = get_category('confirmed')['locations']
+    deaths    = get_category('deaths')['locations']
+    recovered = get_category('recovered')['locations']
+
+    # Final locations to return.
+    locations = []
+
+    # Go through locations.
+    for index, location in enumerate(confirmed):
+        # Get the timelines.
+        timelines = {
+            'confirmed' : confirmed[index]['history'],
+            'deaths'    : deaths[index]['history'],
+            'recovered' : recovered[index]['history'],
+        }
+
+        # Grab coordinates.
+        coordinates = location['coordinates']
+
+        # Create location and append.
+        locations.append(Location(
+            # General info.
+            index, location['country'], location['province'], Coordinates(coordinates['lat'], coordinates['long']),
+        
+            # Timelines (parse dates as ISO).
+            Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['confirmed'].items() }),
+            Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['deaths'].items() }),
+            Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['recovered'].items() })
+        ))
+    
+    # Finally, return the locations.
+    return locations
+        
