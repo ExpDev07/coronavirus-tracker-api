@@ -10,7 +10,7 @@ from .test_jhu import (mocked_requests_get, mocked_strptime_isoformat,
 
 @mock.patch('app.services.location.jhu.datetime')
 @mock.patch('app.services.location.jhu.requests.get', side_effect=mocked_requests_get)
-class FlaskRoutesV1Test(unittest.TestCase):
+class FlaskRoutesTest(unittest.TestCase):
     """
     Need to mock some objects to control testing data locally
     Routes are hard to test regarding singleton app.
@@ -21,7 +21,7 @@ class FlaskRoutesV1Test(unittest.TestCase):
     app = app.create_app()
 
     def setUp(self):
-        self.client = FlaskRoutesV1Test.app.test_client()
+        self.client = FlaskRoutesTest.app.test_client()
         self.date = DATETIME_STRING
 
     def read_file_v1(self, state):
