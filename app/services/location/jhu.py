@@ -60,7 +60,7 @@ def get_category(category):
         country = item['Country/Region']
 
         # Latest data insert value.
-        latest = list(sorted(history.values()))[-1];
+        latest = list(history.values())[-1];
 
         # Normalize the item and append to locations.
         locations.append({
