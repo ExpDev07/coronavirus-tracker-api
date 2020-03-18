@@ -25,7 +25,7 @@ def location(id):
     # Retrieve location with the provided id.
     location = jhu.get(id)
 
-    # Fetch the timelines.
+    # Get all the timelines.
     timelines = {
         'confirmed': location.confirmed.serialize(),
         'deaths'   : location.deaths.serialize(),
