@@ -1,8 +1,7 @@
-from unittest import mock
+import app
 import datetime
 import pytest
-
-import app
+from unittest import mock
 from app.utils import date
 from app import location
 from app.services.location import jhu
@@ -21,7 +20,6 @@ def mocked_requests_get(*args, **kwargs):
             self.state = state
             self.text = self.read_file(self.state)
 
-
         def read_file(self, state):
             """
             Mock HTTP GET-method and return text from file
@@ -33,8 +31,10 @@ def mocked_requests_get(*args, **kwargs):
 
     #get url from `request.get`
     url = args[0]
+
     #get filename from url
     filename = url.split("/")[-1]
+
     #clean up for id token (e.g. Deaths)
     state = filename.split("-")[-1].replace(".csv", "").lower().capitalize()
 
@@ -58,16 +58,15 @@ def mocked_strptime_isoformat(*args, **kwargs):
 
     return DateTimeStrpTime(date, strformat)
 
-@pytest.mark.parametrize("category, capitalize_category",
-                         [("deaths", "Deaths"),
-                          ("recovered", "Recovered"),
-                          ("confirmed", "Confirmed")])
+@pytest.mark.parametrize("category, capitalize_category", [
+                            ("deaths", "Deaths"),
+                            ("recovered", "Recovered"),
+                            ("confirmed", "Confirmed")])
 @mock.patch('app.services.location.jhu.requests.get', side_effect=mocked_requests_get)
 def test_validate_category(mock_request_get, category, capitalize_category):
-    base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/\
-                master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-%s.csv'
-
+    base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-%s.csv'
     request = app.services.location.jhu.requests.get(base_url % category)
+    
     assert request.state == capitalize_category
 
 @pytest.mark.parametrize("category, datetime_str, latest_value, country_name, \

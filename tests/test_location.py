@@ -1,7 +1,6 @@
-from unittest import mock
 import pytest
-
-from app import (location, coordinates, timeline)
+from unittest import mock
+from app import location, coordinates, timeline
 
 def mocked_timeline(*args, **kwargs):
     class TestTimeline:

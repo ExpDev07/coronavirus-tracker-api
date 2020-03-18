@@ -1,12 +1,10 @@
-import unittest
-from unittest import mock
-import json
-
 import app
+import unittest
+import json
+from unittest import mock
 from app import services
 
-from .test_jhu import (mocked_requests_get, mocked_strptime_isoformat,
-                       DATETIME_STRING)
+from .test_jhu import mocked_requests_get, mocked_strptime_isoformat, DATETIME_STRING
 
 @mock.patch('app.services.location.jhu.datetime')
 @mock.patch('app.services.location.jhu.requests.get', side_effect=mocked_requests_get)
@@ -17,7 +15,7 @@ class FlaskRoutesTest(unittest.TestCase):
     Store all integration testcases in one class to ensure app context
     """
 
-    #load app context only once
+    #load app context only once.
     app = app.create_app()
 
     def setUp(self):
@@ -97,11 +95,9 @@ class FlaskRoutesTest(unittest.TestCase):
 
         state = "locations"
         test_id = 1
-        return_data = self.client.get("/v2/{}/{}".format(state, test_id)) \
-                                                 .data.decode()
+        return_data = self.client.get("/v2/{}/{}".format(state, test_id)).data.decode()
 
-        filepath = "tests/expected_output/v2_{state}_id_{test_id}.json".format(state=state,
-                                                                               test_id=test_id)
+        filepath = "tests/expected_output/v2_{state}_id_{test_id}.json".format(state=state, test_id=test_id)
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
