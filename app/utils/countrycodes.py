@@ -1,7 +1,9 @@
 # Default country code.
 default_code = "XX"
 
-# Mapping of country names to alpha-2 codes.
+# Mapping of country names to alpha-2 codes according to
+# https://en.wikipedia.org/wiki/ISO_3166-1.
+# As a reference see also https://github.com/TakahikoKawasaki/nv-i18n (in Java)
 is_3166_1 = {
     "Afghanistan"                                  : "AF",
     "Åland Islands"                                : "AX",
@@ -122,8 +124,7 @@ is_3166_1 = {
     "Kiribati"                                     : "KI",
     "Korea, Democratic People's Republic of"       : "KP",
     "Korea, Republic of"                           : "KR",
-    # Introducing Kosovo may be controversial. I guess we need to bite the bullet.
-    "Kosovo"                                       : "XK",
+    "Kosovo, Republic of"                          : "XK",
     "Kuwait"                                       : "KW",
     "Kyrgyzstan"                                   : "KG",
     "Lao People's Democratic Republic"             : "LA",
@@ -218,7 +219,7 @@ is_3166_1 = {
     "Sudan"                                        : "SD",
     "Suriname"                                     : "SR",
     "Svalbard and Jan Mayen"                       : "SJ",
-    "Swaziland"                                    : "SZ",
+    "Eswatini"                                     : "SZ",  # previous name "Swaziland"
     "Sweden"                                       : "SE",
     "Switzerland"                                  : "CH",
     "Syrian Arab Republic"                         : "SY",
@@ -340,6 +341,8 @@ synonyms = {
     "Deutschland"                    : "Germany",
     "The Bahamas"                    : "Bahamas",
     "The Gambia"                     : "Gambia",
+    "Kosovo"                         : "Kosovo, Republic of",
+    "Swaziland"                      : "Eswatini",
     # "Others" has no mapping, i.e. the default val is used
     # "Cruise Ship" has no mapping, i.e. the default val is used
 }
