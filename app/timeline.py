@@ -25,7 +25,10 @@ class Timeline:
 
     def serialize(self):
         """
-        Serializes the data into a dict.
+        Serializes the timeline into a dict.
+
+        :returns: The serialized timeline.
+        :rtype: dict
         """
         return {
             'latest'  : self.latest,
