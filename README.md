@@ -79,7 +79,7 @@ Include timelines.
 GET /v2/locations?country_code=US&timelines=true
 ```
 
-### Getting a specific location (includes timeline by default).
+### Getting a specific location (includes timelines by default).
 ```http
 GET /v2/locations/:id
 ```
