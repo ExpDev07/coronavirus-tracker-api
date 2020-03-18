@@ -255,6 +255,16 @@ is_3166_1 = {
     "Yemen"                                        : "YE",
     "Zambia"                                       : "ZM",
     "Zimbabwe"                                     : "ZW",
+
+    # see also
+    # https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_by_continent_(data_file)#Data_file
+    # https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_by_continent
+    "United Nations Neutral Zone"                 : "XD",
+    "Iraq-Saudi Arabia Neutral Zone"              : "XE",
+    "Spratly Islands"                             : "XS",
+
+    # TODO "Disputed Territory" conflicts with `default_code`
+    # "Disputed Territory"                          : "XX",
 }
 
 # Mapping of alternative names, spelling, typos to the names of countries used
