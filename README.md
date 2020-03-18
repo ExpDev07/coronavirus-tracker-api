@@ -12,37 +12,95 @@
 
 ## Endpoints
 
-All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com`` (e.g: https://coronavirus-tracker-api.herokuapp.com/all). You can try them out in your browser to further inspect responses.
+All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com/v2/`` (e.g: https://coronavirus-tracker-api.herokuapp.com/v2/locations). You can try them out in your browser to further inspect responses.
 
-Getting confirmed cases, deaths, and recoveries:
+### Getting latest amount of total confirmed cases, deaths, and recoveries.
 ```http
-GET /all
-```
-```json
-{ "latest": { ... }, "confirmed": { ... }, "deaths": { ... }, "recovered": { ... } }
-```
-
-Getting just confirmed:
-```http
-GET /confirmed
+GET /v2/latest
 ```
 ```json
 {
-  "latest": 42767,
-  "locations": [ ... ],
-  "last_updated": "2020-03-07T18:08:58.432242Z",
-  "source": "https://github.com/ExpDev07/coronavirus-tracker-api"
+  "latest": {
+    "confirmed": 197146,
+    "deaths": 7905,
+    "recovered": 80840
+  }
 }
 ```
 
-Getting just deaths:
+### Getting all locations.
 ```http
-GET /deaths
+GET /v2/locations
+```
+```json
+{
+  "locations": [
+    {
+      "id": 0,
+      "country": "Thailand",
+      "country_code": "TH",
+      "province": "",
+      "coordinates": {
+        "latitude": "15",
+        "longitude": "101"
+      },
+      "latest": {
+        "confirmed": 177,
+        "deaths": 1,
+        "recovered": 41
+      }
+    },
+    {
+      "id": 39,
+      "country": "Norway",
+      "country_code": "NO",
+      "province": "",
+      "coordinates": {
+        "latitude": "60.472",
+        "longitude": "8.4689"
+      },
+      "latest": {
+        "confirmed": 1463,
+        "deaths": 3,
+        "recovered": 1
+      }
+    }
+  ]
+}
 ```
 
-Getting just recoveries:
+Additionally, you can also filter by country ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
 ```http
-GET /recovered
+GET /v2/locations?country_code=US
+```
+
+### Getting a specific location (includes timeline).
+```http
+GET /v2/locations/:id
+```
+```json
+{
+  "location": {
+      "id": 39,
+      "country": "Norway",
+      "country_code": "NO",
+      "province": "",
+      "coordinates": { },
+      "latest": { },
+      "timelines": {
+        "confirmed": {
+          "latest": 1463,
+          "timeline": {
+            "2020-03-16T00:00:00Z": 1333,
+            "2020-03-17T00:00:00Z": 1463
+          }
+        },
+        "deaths": { },
+        "recovered": { }
+      }
+    }
+  }
+}
 ```
 
 ## Data
@@ -89,7 +147,7 @@ You will need the following things properly installed on your computer.
 
 ### Linting
 
-* `pylint app/` 
+* `pylint app/`
 
 ### Building
 
@@ -116,4 +174,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 ## License
 
+<<<<<<< HEAD
 The data is available to the public strictly for educational and academic research purposes. Please link to this repo somewhere in your project if you can (not required) :).
+=======
+The data is available to the public strictly for educational and academic research purposes. Please link to this repo somewhere in your project :).
+
+>>>>>>> 75eaed76fc26be64fbffe6999be24208c3665b8d
