@@ -1,7 +1,8 @@
 from flask import jsonify, request, current_app as app
 from ...services import jhu
+from ...routes import rest_api_v2
 
-@app.route('/v2/locations')
+@rest_api_v2.route('/locations')
 def locations():
     # Query parameters.
     timelines    = request.args.get('timelines', type=bool, default=False)
@@ -21,7 +22,7 @@ def locations():
         ]
     })
 
-@app.route('/v2/locations/<int:id>')
+@rest_api_v2.route('/locations/<int:id>')
 def location(id):
     # Serialize the location with timelines.
     return jsonify({

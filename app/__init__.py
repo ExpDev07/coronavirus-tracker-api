@@ -19,6 +19,9 @@ def create_app():
     with app.app_context():
         # Import routes.
         from . import routes
+        #register api endpoints
+        app.register_blueprint(routes.rest_api_v1)
+        app.register_blueprint(routes.rest_api_v2)
 
         # Return created app.
         return app
