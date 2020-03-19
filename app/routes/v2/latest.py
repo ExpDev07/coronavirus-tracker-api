@@ -1,5 +1,6 @@
 from flask import jsonify, current_app as app
 from ...services import jhu
+from datetime import datetime
 
 @app.route('/v2/latest')
 def latest():
@@ -14,5 +15,7 @@ def latest():
             'confirmed': sum(map(lambda latest: latest['confirmed'], latest)),
             'deaths'   : sum(map(lambda latest: latest['deaths'], latest)),
             'recovered': sum(map(lambda latest: latest['recovered'], latest)),
+            'last_updated': datetime.utcnow().isoformat() + 'Z',
+            'source': 'https://github.com/ExpDev07/coronavirus-tracker-api',
         }
     })
