@@ -76,7 +76,7 @@ GET /v2/locations?country_code=US
 
 Include timelines.
 ```http
-GET /v2/locations?country_code=US&timelines=true
+GET /v2/locations?timelines=1
 ```
 
 ### Getting a specific location (includes timelines by default).
@@ -86,26 +86,30 @@ GET /v2/locations/:id
 ```json
 {
   "location": {
-      "id": 39,
-      "country": "Norway",
-      "country_code": "NO",
-      "province": "",
-      "coordinates": { },
-      "latest": { },
-      "timelines": {
-        "confirmed": {
-          "latest": 1463,
-          "timeline": {
-            "2020-03-16T00:00:00Z": 1333,
-            "2020-03-17T00:00:00Z": 1463
-          }
-        },
-        "deaths": { },
-        "recovered": { }
-      }
+    "id": 39,
+    "country": "Norway",
+    "country_code": "NO",
+    "province": "",
+    "coordinates": { },
+    "latest": { },
+    "timelines": {
+      "confirmed": {
+        "latest": 1463,
+        "timeline": {
+          "2020-03-16T00:00:00Z": 1333,
+          "2020-03-17T00:00:00Z": 1463
+        }
+      },
+      "deaths": { },
+      "recovered": { }
     }
   }
 }
+```
+
+Exclude timelines.
+```http
+GET /v2/locations?timelines=0
 ```
 
 ## Data
