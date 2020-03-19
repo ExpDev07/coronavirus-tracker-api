@@ -1,7 +1,8 @@
 from flask import jsonify, current_app as app
 from ...services import jhu
+from ...routes import rest_api_v2
 
-@app.route('/v2/latest')
+@rest_api_v2.route('/latest')
 def latest():
     # Get the serialized version of all the locations.
     locations = [ location.serialize() for location in jhu.get_all() ]

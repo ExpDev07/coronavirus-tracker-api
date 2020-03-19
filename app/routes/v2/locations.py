@@ -1,8 +1,9 @@
 from distutils.util import strtobool
 from flask import jsonify, request, current_app as app
 from ...services import jhu
+from ...routes import rest_api_v2
 
-@app.route('/v2/locations')
+@rest_api_v2.route('/locations')
 def locations():
     # Query parameters.
     timelines    = strtobool(request.args.get('timelines', default='0'))
@@ -22,7 +23,7 @@ def locations():
         ]
     })
 
-@app.route('/v2/locations/<int:id>')
+@rest_api_v2.route('/locations/<int:id>')
 def location(id):
     # Query parameters.
     timelines = strtobool(request.args.get('timelines', default='1'))
