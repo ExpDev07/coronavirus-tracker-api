@@ -1,10 +1,11 @@
+from distutils.util import strtobool
 from flask import jsonify, request, current_app as app
 from ...services import jhu
 
 @app.route('/v2/locations')
 def locations():
     # Query parameters.
-    timelines    = request.args.get('timelines', type=bool, default=False)
+    timelines    = strtobool(request.args.get('timelines', default='0'))
     country_code = request.args.get('country_code', type=str)
 
     # Retrieve all the locations.
@@ -23,7 +24,10 @@ def locations():
 
 @app.route('/v2/locations/<int:id>')
 def location(id):
-    # Serialize the location with timelines.
+    # Query parameters.
+    timelines = strtobool(request.args.get('timelines', default='1'))
+
+    # Return serialized location.
     return jsonify({
-        'location': jhu.get(id).serialize(True)
+        'location': jhu.get(id).serialize(timelines)
     })
