@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_cors import CORS
 
+#see PEP396
+__version__ = '2.0'
+
 def create_app():
     """
     Construct the core application.
