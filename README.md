@@ -126,6 +126,10 @@ These are the available API wrappers created by the community. They are not necc
 
 * [jhucsse.covid by @Sem1084](https://www.npmjs.com/package/jhucsse.covid).
 
+### Ruby
+
+* [covid19-data-ruby by @jaerodyne](https://github.com/jaerodyne/covid19-data-ruby).
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
