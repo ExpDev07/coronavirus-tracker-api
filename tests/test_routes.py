@@ -28,6 +28,17 @@ class FlaskRoutesTest(unittest.TestCase):
             expected_json_output = file.read()
         return expected_json_output
 
+    def test_root_api(self, mock_request_get, mock_datetime):
+        """Validate redirections of /"""
+        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
+        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+        return_data = self.client.get("/")
+
+        assert return_data.status_code == 302
+
+        assert dict(return_data.headers)["Location"] == \
+            "https://github.com/ExpDev07/coronavirus-tracker-api"
+
     def test_v1_confirmed(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
