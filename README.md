@@ -160,11 +160,11 @@ You will need the following things properly installed on your computer.
 
 ### Running Tests
 
-* `py.test -s -v tests/`
+* `make test`
 
 ### Linting
 
-* `pylint app/`
+* `make lint`
 
 ### Building
 
