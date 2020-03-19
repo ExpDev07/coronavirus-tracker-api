@@ -76,7 +76,7 @@ GET /v2/locations?country_code=US
 
 Include timelines.
 ```http
-GET /v2/locations?country_code=US&timelines=true
+GET /v2/locations?country_code=US&timeline=true
 ```
 
 ### Getting a specific location (includes timelines by default).
