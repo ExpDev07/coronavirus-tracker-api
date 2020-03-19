@@ -118,6 +118,10 @@ programmatically retrieved, re-formatted and stored in the cache for one hour.
 
 These are the available API wrappers created by the community. They are not neccecarily maintained by any of this project's authors or contributors.
 
+### Python
+
+* [COVID19Py by @Kamaropoulos](https://github.com/Kamaropoulos/COVID19Py).
+
 ### Java
 
 * [Coronavirus by @mew](https://github.com/mew/Coronavirus).
