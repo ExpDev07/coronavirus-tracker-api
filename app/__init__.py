@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 
-#see PEP396
+# See PEP396.
 __version__ = '2.0'
 
 def create_app():
@@ -19,9 +19,10 @@ def create_app():
     with app.app_context():
         # Import routes.
         from . import routes
-        #register api endpoints
-        app.register_blueprint(routes.rest_api_v1)
-        app.register_blueprint(routes.rest_api_v2)
+
+        # Register api endpoints.
+        app.register_blueprint(routes.api_v1)
+        app.register_blueprint(routes.api_v2)
 
         # Return created app.
         return app

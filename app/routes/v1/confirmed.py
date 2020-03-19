@@ -1,8 +1,7 @@
 from flask import jsonify
-from flask import current_app as app
+from ...routes import api_v1 as api
 from ...services.location.jhu import get_category
-from ...routes import rest_api_v1
 
-@rest_api_v1.route('/confirmed')
+@api.route('/confirmed')
 def confirmed():
     return jsonify(get_category('confirmed'))
