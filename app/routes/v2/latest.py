@@ -1,4 +1,4 @@
-from flask import jsonify, current_app as app
+from flask import jsonify
 from ...routes import api_v2 as api
 from ...services import jhu
 

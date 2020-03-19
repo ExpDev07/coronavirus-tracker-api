@@ -1,5 +1,5 @@
+from flask import jsonify, request
 from distutils.util import strtobool
-from flask import jsonify, request, current_app as app
 from ...routes import api_v2 as api
 from ...services import jhu
 
