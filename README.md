@@ -150,7 +150,7 @@ GET /v2/locations?source=csbs
 ```
 Additionally, you can also filter by state.
 ```http
-GET /v2/locations?source=usbs&state=Iowa
+GET /v2/locations?source=csbs&state=Iowa
 ```
 
 ## Data
