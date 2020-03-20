@@ -113,11 +113,54 @@ Exclude timelines.
 GET /v2/locations?timelines=0
 ```
 
+### Getting US per county information.
+```http
+GET /v2/locations?source=csbs
+```
+```json
+{   
+  "Iowa":[
+    { 
+      "coordinates":{
+        "latitude":41.67149574,
+        "longitude":-91.58805417 
+      },
+      "county":"Johnson",
+      "latest":{
+        "confirmed":22,
+        "death":0,
+        "new":0      
+      }   
+    },
+    {         
+      "coordinates":{
+        "latitude":41.68541161,
+        "longitude":-93.57344237
+      },
+      "county":"Polk",
+      "latest":{
+        "confirmed":6,
+        "death":0,
+        "new":0
+      }
+    },
+    ...
+  ...
+} 
+```
+Additionally, you can also filter by state.
+```http
+GET /v2/locations?source=usbs&state=Iowa
+```
+
 ## Data
 
 The data comes from the [2019 Novel Coronavirus (nCoV) Data Repository, provided
 by JHU CCSE](https://github.com/CSSEGISandData/2019-nCoV). It is
 programmatically retrieved, re-formatted and stored in the cache for one hour.
+
+US County data comes from CSBS (https://www.csbs.org/information-covid-19-coronavirus)
+It is programmatically retrieved, re-formatted and stored in the cache for one hour.
 
 ## Wrappers
 
