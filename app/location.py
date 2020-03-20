@@ -62,3 +62,34 @@ class Location:
 
         # Return the serialized location.
         return serialized
+
+class LocationCounty:
+    """
+    A county in the United States affected by coronavirus
+    """
+    def __init__(self, county, coordinates, confirmed, new, death):
+        self.county = county
+        self.coordinates = coordinates
+        self.confirmed = confirmed
+        self.new = new
+        self.death = death
+    
+    def serialize(self):
+        """
+        Serializes the LocationCounty into a dict
+        
+        :returns: The serialized LocationCounty
+        :rtype: dict
+        """
+        serialized = {
+            'county': self.county,
+
+            'coordinates': self.coordinates.serialize(),
+
+            'latest': {
+                'confirmed': self.confirmed,
+                'new': self.new,
+                'death': self.death
+            }
+        }
+        return serialized
