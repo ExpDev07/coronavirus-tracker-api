@@ -143,6 +143,10 @@ These are the available API wrappers created by the community. They are not necc
 
 * [covid19-data-ruby by @jaerodyne](https://github.com/jaerodyne/covid19-data-ruby).
 
+### Lua
+
+* [lua-covid-data by @imolein](https://codeberg.org/imo/lua-covid-data).
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
