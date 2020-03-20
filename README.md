@@ -123,6 +123,10 @@ programmatically retrieved, re-formatted and stored in the cache for one hour.
 
 These are the available API wrappers created by the community. They are not neccecarily maintained by any of this project's authors or contributors.
 
+### C#
+
+* [Coronavirus tracker API Wrapper by @Abdirahiim](https://github.com/Abdirahiim/covidtrackerapiwrapper).
+
 ### Python
 
 * [COVID19Py by @Kamaropoulos](https://github.com/Kamaropoulos/COVID19Py).
