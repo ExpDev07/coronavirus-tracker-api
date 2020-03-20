@@ -354,6 +354,7 @@ synonyms = {
     "Kosovo"                         : "Kosovo, Republic of",
     "Swaziland"                      : "Eswatini",
     "Gambia, The"                    : "Gambia",
+    "Bahamas, The"                   : "Bahamas",
     # "Others" has no mapping, i.e. the default val is used
     # "Cruise Ship" has no mapping, i.e. the default val is used
 }
