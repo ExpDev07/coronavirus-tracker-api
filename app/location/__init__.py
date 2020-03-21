@@ -61,9 +61,9 @@ class TimelinedLocation(Location):
             id, country, province, coordinates,
 
             # Statistics (retrieve latest from timelines).
-            confirmed=timelines.get('confirmed').latest,
-            deaths=timelines.get('deaths').latest,
-            recovered=timelines.get('recovered').latest,
+            confirmed=timelines.get('confirmed').latest or 0,
+            deaths=timelines.get('deaths').latest or 0,
+            recovered=timelines.get('recovered').latest or 0,
         )
 
         # Set timelines.
