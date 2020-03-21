@@ -23,7 +23,7 @@ We provide multiple data-sources you can pick from, simply add the query paramat
 
 * **jhu** - https://github.com/CSSEGISandData/COVID-19 - Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
 
-* **csbs** - https://www.csbs.org/information-covid-19-coronavirus - US County data comes from Conference of State Bank Supervisors
+* **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
 
 * **... more to come later**.
 
