@@ -43,6 +43,24 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "oliver-xapix-io",
+      "name": "Oliver Thamm",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/13470858?v=4",
+      "profile": "https://github.com/oliver-xapix-io",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "MM-coder",
+      "name": "Mauro M.",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/22800592?v=4",
+      "profile": "https://maurom.dev",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

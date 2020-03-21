@@ -27,12 +27,9 @@ def mocked_csbs_requests_get(*args, **kwargs):
 @mock.patch('app.services.location.csbs.requests.get', side_effect=mocked_csbs_requests_get)
 def test_get_locations(mock_request_get):
     data = csbs.get_locations()
-    assert isinstance(data, dict)
-    assert isinstance(data["Washington"], list)
-    assert data.get("Wisconsin") == None
+    assert isinstance(data, list)
 
     # check to see that Unknown/Unassigned has been filtered
-    for state in data:
-        for county in data[state]:
-            assert county.county != "Unknown"
-            assert county.county != "Unassigned"
+    for d in data:
+        assert d.county != "Unknown"
+        assert d.county != "Unassigned"

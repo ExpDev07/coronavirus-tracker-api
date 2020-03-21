@@ -15,6 +15,18 @@
 
 All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com/v2/`` (e.g: https://coronavirus-tracker-api.herokuapp.com/v2/locations). You can try them out in your browser to further inspect responses.
 
+### Picking data source
+
+We provide multiple data-sources you can pick from, simply add the query paramater ``?source=your_source_of_choice`` to your requests. JHU will be used as a default if you don't provide one.
+
+#### Available sources:
+
+* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+
+* **csbs** - https://www.csbs.org/information-covid-19-coronavirus - US County data comes from Conference of State Bank Supervisors
+
+* **... more to come later**.
+
 ### Getting latest amount of total confirmed cases, deaths, and recoveries.
 ```http
 GET /v2/latest
@@ -41,6 +53,7 @@ GET /v2/locations
       "country": "Thailand",
       "country_code": "TH",
       "province": "",
+      "last_updated": "2020-03-21T06:59:11.315422Z",
       "coordinates": {
         "latitude": "15",
         "longitude": "101"
@@ -56,6 +69,7 @@ GET /v2/locations
       "country": "Norway",
       "country_code": "NO",
       "province": "",
+      "last_updated": "2020-03-21T06:59:11.315422Z",
       "coordinates": {
         "latitude": "60.472",
         "longitude": "8.4689"
@@ -91,6 +105,7 @@ GET /v2/locations/:id
     "country": "Norway",
     "country_code": "NO",
     "province": "",
+    "last_updated": "2020-03-21T06:59:11.315422Z",
     "coordinates": { },
     "latest": { },
     "timelines": {
@@ -118,53 +133,55 @@ GET /v2/locations?timelines=0
 GET /v2/locations?source=csbs
 ```
 ```json
-{   
-  "Iowa":[
-    { 
-      "coordinates":{
-        "latitude":41.67149574,
-        "longitude":-91.58805417 
+{
+  "locations": [
+    {
+      "coordinates": {
+        "latitude": 40.71455,
+        "longitude": -74.00714
       },
-      "county":"Johnson",
-      "latest":{
-        "confirmed":22,
-        "death":0,
-        "new":0      
-      }   
+      "country": "US",
+      "country_code": "US",
+      "county": "New York",
+      "id": 0,
+      "last_updated": "2020-03-21 14:00 EDT",
+      "latest": {
+        "confirmed": 6211,
+        "deaths": 43,
+        "recovered": 0
+      },
+      "province": "New York",
+      "state": "New York"
     },
-    {         
-      "coordinates":{
-        "latitude":41.68541161,
-        "longitude":-93.57344237
+    {
+      "coordinates": {
+        "latitude": 41.16319759,
+        "longitude": -73.7560629
       },
-      "county":"Polk",
-      "latest":{
-        "confirmed":6,
-        "death":0,
-        "new":0
-      }
+      "country": "US",
+      "country_code": "US",
+      "county": "Westchester",
+      "id": 1,
+      "last_updated": "2020-03-21 14:00 EDT",
+      "latest": {
+        "confirmed": 1385,
+        "deaths": 0,
+        "recovered": 0
+      },
+      "province": "Westchester",
+      "state": "New York"
     },
     ...
-  ...
-} 
-```
-Additionally, you can also filter by state.
-```http
-GET /v2/locations?source=csbs&state=Iowa
-```
-
-## Data
-
-The data comes from the [2019 Novel Coronavirus (nCoV) Data Repository, provided
-by JHU CCSE](https://github.com/CSSEGISandData/2019-nCoV). It is
-programmatically retrieved, re-formatted and stored in the cache for one hour.
-
-US County data comes from CSBS (https://www.csbs.org/information-covid-19-coronavirus)
-It is programmatically retrieved, re-formatted and stored in the cache for one hour.
+  ]
+}
 
 ## Wrappers
 
-These are the available API wrappers created by the community. They are not neccecarily maintained by any of this project's authors or contributors.
+These are the available API wrappers created by the community. They are not necessarily maintained by any of this project's authors or contributors.
+
+### Golang
+
+* [Go-corona by @itsksaurabh](https://github.com/itsksaurabh/go-corona).
 
 ### C#
 
@@ -235,6 +252,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/bjarkimg"><img src="https://avatars2.githubusercontent.com/u/1289419?v=4" width="100px;" alt=""/><br /><sub><b>bjarkimg</b></sub></a><br /><a href="#question-bjarkimg" title="Answering Questions">💬</a></td>
     <td align="center"><a href="https://github.com/Bost"><img src="https://avatars0.githubusercontent.com/u/1174677?v=4" width="100px;" alt=""/><br /><sub><b>Bost</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Bost" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/gribok"><img src="https://avatars1.githubusercontent.com/u/40306040?v=4" width="100px;" alt=""/><br /><sub><b>GRIBOK</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=gribok" title="Code">💻</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=gribok" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/oliver-xapix-io"><img src="https://avatars0.githubusercontent.com/u/13470858?v=4" width="100px;" alt=""/><br /><sub><b>Oliver Thamm</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=oliver-xapix-io" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://maurom.dev"><img src="https://avatars1.githubusercontent.com/u/22800592?v=4" width="100px;" alt=""/><br /><sub><b>Mauro M.</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=MM-coder" title="Documentation">📖</a></td>
   </tr>
 </table>
 

@@ -1,5 +1,5 @@
 from . import LocationService
-from ...location import Location
+from ...location import TimelinedLocation
 from ...coordinates import Coordinates
 from ...timeline import Timeline
 
@@ -15,6 +15,8 @@ class JhuLocationService(LocationService):
     def get(self, id):
         # Get location at the index equal to provided id.
         return self.get_all()[id]
+
+# ---------------------------------------------------------------
 
 import requests
 import csv
@@ -121,15 +123,26 @@ def get_locations():
         # Grab coordinates.
         coordinates = location['coordinates']
 
-        # Create location and append.
-        locations.append(Location(
+        # Create location (supporting timelines) and append.
+        locations.append(TimelinedLocation(
             # General info.
-            index, location['country'], location['province'], Coordinates(coordinates['lat'], coordinates['long']),
+            index, location['country'], location['province'], 
+            
+            # Coordinates.
+            Coordinates(
+                coordinates['lat'], 
+                coordinates['long']
+            ),
+
+            # Last update.
+            datetime.utcnow().isoformat() + 'Z',
         
             # Timelines (parse dates as ISO).
-            Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['confirmed'].items() }),
-            Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['deaths'].items() }),
-            Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['recovered'].items() })
+            {
+                'confirmed': Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['confirmed'].items() }),
+                'deaths'   : Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['deaths'].items() }),
+                'recovered': Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['recovered'].items() })
+            }
         ))
     
     # Finally, return the locations.

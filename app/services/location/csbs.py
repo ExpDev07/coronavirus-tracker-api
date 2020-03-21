@@ -1,5 +1,5 @@
 from . import LocationService
-from ...location import LocationCounty
+from ...location import CSBSLocation
 from ...coordinates import Coordinates
 
 class CSBSLocationService(LocationService):
@@ -11,8 +11,8 @@ class CSBSLocationService(LocationService):
         # Get the locations
         return get_locations()
     
-    def get(self, state):
-        return self.get_all()[state]
+    def get(self, id):
+        return self.get_all()[id]
 
 import requests
 import csv
@@ -35,22 +35,18 @@ def get_locations():
 
     data = list(csv.DictReader(text.splitlines()))
     
-    locations = {}
+    locations = []
 
-    for item in data:
+    for i, item in enumerate(data):
         state = item['State Name']
-        if state not in locations:
-            locations[state] = []
-        
         county = item['County Name']
         if county == "Unassigned" or county == "Unknown":
             continue
 
         confirmed = int(item['Confirmed'] or 0)
-        new = int(item['New'] or 0)
         death = int(item['Death'] or 0)
         coordinates = Coordinates(float(item['Latitude']), float(item['Longitude']))
-        location_county = LocationCounty(county, coordinates, confirmed, new, death)
-        locations[state].append(location_county)
+        last_update = item['Last Update']
+        locations.append(CSBSLocation(i, state, county, coordinates, last_update, confirmed, death))
 
     return locations
