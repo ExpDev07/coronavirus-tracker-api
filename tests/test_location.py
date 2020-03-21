@@ -26,14 +26,14 @@ def test_location_class(mocked_timeline, test_id, country, country_code, provinc
     deaths = timeline.Timeline(deaths_latest)
     recovered = timeline.Timeline(recovered_latest)
 
-    # Location
-    location = location.TimelinedLocation(test_id, country, province, coordinates, {
+    # Location.
+    location_obj = location.TimelinedLocation(test_id, country, province, coordinates, {
         'confirmed': confirmed, 
         'deaths'   : deaths,
         'recovered': recovered,
     })
 
-    assert location.country_code == country_code
+    assert location_obj.country_code == country_code
 
     #validate serialize
     check_dict = {
@@ -52,4 +52,4 @@ def test_location_class(mocked_timeline, test_id, country, country_code, provinc
         }
     }
 
-    assert location.serialize() == check_dict
+    assert location_obj.serialize() == check_dict
