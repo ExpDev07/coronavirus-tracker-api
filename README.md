@@ -3,12 +3,13 @@
 > This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (COVID-19, SARS-CoV-2). It's written in python using 🍼 Flask. Supports multiple sources!
 
 ![Travis build](https://api.travis-ci.com/ExpDev07/coronavirus-tracker-api.svg?branch=master)
+[![License](https://img.shields.io/github/license/ExpDev07/coronavirus-tracker-api)](LICENSE.md)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-![GitHub stars](https://img.shields.io/github/stars/ExpDev07/coronavirus-tracker-api)
-![GitHub forks](https://img.shields.io/github/forks/ExpDev07/coronavirus-tracker-api)
-![GitHub last commit](https://img.shields.io/github/last-commit/ExpDev07/coronavirus-tracker-api)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/ExpDev07/coronavirus-tracker-api)
-![GitHub issues](https://img.shields.io/github/issues/ExpDev07/coronavirus-tracker-api)
+[![GitHub stars](https://img.shields.io/github/stars/ExpDev07/coronavirus-tracker-api)](stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/ExpDev07/coronavirus-tracker-api)](network/members)
+[![GitHub last commit](https://img.shields.io/github/last-commit/ExpDev07/coronavirus-tracker-api)](commits/master)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/ExpDev07/coronavirus-tracker-api)](pulls)
+[![GitHub issues](https://img.shields.io/github/issues/ExpDev07/coronavirus-tracker-api)](issues)
 [![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)](https://twitter.com/intent/tweet?text=COVID19%20Live%20Tracking%20API:%20&url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)
 
 ## Endpoints
@@ -278,4 +279,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 ## License
 
-The data is available to the public strictly for educational and academic research purposes. Please link to this repo somewhere in your project :).
+See [LICENSE.md](LICENSE.md) for the license. Please link to this repo somewhere in your project :).
