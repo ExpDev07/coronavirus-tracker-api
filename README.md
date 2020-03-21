@@ -191,7 +191,7 @@ These are the available API wrappers created by the community. They are not nece
 
 ### C#
 
-* [Coronavirus tracker API Wrapper by @Abdirahiim](https://github.com/Abdirahiim/covidtrackerapiwrapper).
+* [CovidSharp by @Abdirahiim](https://github.com/Abdirahiim/covidtrackerapiwrapper).
 
 ### Python
 
