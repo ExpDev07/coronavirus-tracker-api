@@ -139,6 +139,11 @@ GET /v2/locations?source=csbs
 ```
 ```json
 {
+  "latest": {
+    "confirmed": 7596,
+    "deaths": 43,
+    "recovered": 0
+  },
   "locations": [
     {
       "coordinates": {
@@ -175,8 +180,7 @@ GET /v2/locations?source=csbs
       },
       "province": "Westchester",
       "state": "New York"
-    },
-    ...
+    }
   ]
 }
 ```
