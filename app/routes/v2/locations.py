@@ -1,7 +1,6 @@
 from flask import jsonify, request
 from distutils.util import strtobool
 from ...routes import api_v2 as api
-from ...data import data_source
 
 @api.route('/locations')
 def locations():

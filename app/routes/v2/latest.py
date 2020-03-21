@@ -1,6 +1,5 @@
 from flask import request, jsonify
 from ...routes import api_v2 as api
-from ...data import data_source
 
 @api.route('/latest')
 def latest():
