@@ -193,6 +193,8 @@ You will need the following things properly installed on your computer.
 * `make lint`
 
 ### Building
+Builds a docker container and runs it with the name of covid-api
+`make build`
 
 ### Deploying
 
