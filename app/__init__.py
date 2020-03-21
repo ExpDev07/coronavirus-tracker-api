@@ -8,7 +8,6 @@ def create_app():
     """
     Construct the core application.
     """
-
     # Create flask app with CORS enabled.
     app = Flask(__name__)
     CORS(app)

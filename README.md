@@ -15,6 +15,16 @@
 
 All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com/v2/`` (e.g: https://coronavirus-tracker-api.herokuapp.com/v2/locations). You can try them out in your browser to further inspect responses.
 
+### Picking data source
+
+We provide multiple data-sources you can pick from, simply add the query paramater ``?source=your_source_of_choice`` to your requests. JHU will be used as a default if you don't provide one.
+
+#### Available sources:
+
+* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+
+* **... more to come later**.
+
 ### Getting latest amount of total confirmed cases, deaths, and recoveries.
 ```http
 GET /v2/latest
