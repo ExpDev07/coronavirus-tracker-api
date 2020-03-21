@@ -1,26 +1,26 @@
-from flask import jsonify, request
+from flask import request, jsonify
 from ...routes import api_v2 as api
-from ...services import jhu
 
 @api.route('/latest')
 def latest():
-    #Query parameters.
-    country_code = request.args.get('country_code', type=str)
+    # Query parameters.
+    args = request.args
 
     # Get the serialized version of all the locations.
-    locations = [ location.serialize() for location in jhu.get_all() ]
+    locations = request.source.get_all()
+    #print([i.country_code for i in locations])
 
-    # Return aggregate data for country if provided.
-    if not country_code is None:
-        locations = list(filter(lambda location: location['country_code'] == country_code.upper(), locations))
+    # Filter based on args.
+    if len(args) > 0:
+        locations = [i for i in locations for j in args if hasattr(i, j) and getattr(i, j) == args[j]]
 
     # All the latest information.
-    latest = list(map(lambda location: location['latest'], locations))
+    # latest = list(map(lambda location: location['latest'], locations))
 
     return jsonify({
         'latest': {
-            'confirmed': sum(map(lambda latest: latest['confirmed'], latest)),
-            'deaths'   : sum(map(lambda latest: latest['deaths'], latest)),
-            'recovered': sum(map(lambda latest: latest['recovered'], latest)),
+            'confirmed': sum(map(lambda location: location.confirmed, locations)),
+            'deaths'   : sum(map(lambda location: location.deaths, locations)),
+            'recovered': sum(map(lambda location: location.recovered, locations)),
         }
     })

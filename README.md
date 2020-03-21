@@ -15,6 +15,16 @@
 
 All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com/v2/`` (e.g: https://coronavirus-tracker-api.herokuapp.com/v2/locations). You can try them out in your browser to further inspect responses.
 
+### Picking data source
+
+We provide multiple data-sources you can pick from, simply add the query paramater ``?source=your_source_of_choice`` to your requests. JHU will be used as a default if you don't provide one.
+
+#### Available sources:
+
+* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+
+* **... more to come later**.
+
 ### Getting latest amount of total confirmed cases, deaths, and recoveries.
 ```http
 GET /v2/latest
@@ -41,6 +51,7 @@ GET /v2/locations
       "country": "Thailand",
       "country_code": "TH",
       "province": "",
+      "last_updated": "2020-03-21T06:59:11.315422Z",
       "coordinates": {
         "latitude": "15",
         "longitude": "101"
@@ -56,6 +67,7 @@ GET /v2/locations
       "country": "Norway",
       "country_code": "NO",
       "province": "",
+      "last_updated": "2020-03-21T06:59:11.315422Z",
       "coordinates": {
         "latitude": "60.472",
         "longitude": "8.4689"
@@ -91,6 +103,7 @@ GET /v2/locations/:id
     "country": "Norway",
     "country_code": "NO",
     "province": "",
+    "last_updated": "2020-03-21T06:59:11.315422Z",
     "coordinates": { },
     "latest": { },
     "timelines": {
@@ -121,7 +134,7 @@ programmatically retrieved, re-formatted and stored in the cache for one hour.
 
 ## Wrappers
 
-These are the available API wrappers created by the community. They are not neccecarily maintained by any of this project's authors or contributors.
+These are the available API wrappers created by the community. They are not necessarily maintained by any of this project's authors or contributors.
 
 ### C#
 

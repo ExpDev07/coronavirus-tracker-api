@@ -1,7 +1,6 @@
 from flask import jsonify, request
 from distutils.util import strtobool
 from ...routes import api_v2 as api
-from ...services import jhu
 
 @api.route('/locations')
 def locations():
@@ -10,7 +9,7 @@ def locations():
     country_code = request.args.get('country_code', type=str)
 
     # Retrieve all the locations.
-    locations = jhu.get_all()
+    locations = request.source.get_all()
 
     # Filtering my country code if provided.
     if not country_code is None:
@@ -30,5 +29,5 @@ def location(id):
 
     # Return serialized location.
     return jsonify({
-        'location': jhu.get(id).serialize(timelines)
+        'location': request.source.get(id).serialize(timelines)
     })
