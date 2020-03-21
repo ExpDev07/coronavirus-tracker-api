@@ -13,7 +13,7 @@ def locations():
 
     # Filtering by args if provided.
     for i in args:
-        if i != 'timelines':
+        if i != 'timelines' and i[:2] != '__':
             try:
                 locations = [j for j in locations if getattr(j, i) == args.get(i, type=str)]
             except AttributeError:
@@ -21,7 +21,7 @@ def locations():
 
     # Serialize each location and return.
     return jsonify({
-        'aggregate': {
+        'latest': {
             'confirmed': sum(map(lambda location: location.confirmed, locations)),
             'deaths'   : sum(map(lambda location: location.deaths, locations)),
             'recovered': sum(map(lambda location: location.recovered, locations)),

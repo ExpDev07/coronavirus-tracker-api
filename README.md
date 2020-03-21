@@ -87,7 +87,7 @@ GET /v2/locations
 }
 ```
 
-Additionally, you can also filter by country ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+Additionally, you can also filter by any attribute, including province and country ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
 ```http
 GET /v2/locations?country_code=US
 ```
