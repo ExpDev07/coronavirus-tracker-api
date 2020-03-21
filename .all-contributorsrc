@@ -61,6 +61,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "JKSenthil",
+      "name": "JKSenthil",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12533226?v=4",
+      "profile": "https://github.com/JKSenthil",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
