@@ -1,4 +1,5 @@
 import pytest
+from datetime import datetime
 from unittest import mock
 from app import location, coordinates, timeline
 
@@ -9,14 +10,13 @@ def mocked_timeline(*args, **kwargs):
             
     return TestTimeline(args[0])
 
-@pytest.mark.parametrize("test_id, country, country_code, province, latitude, longitude, \
-                          confirmed_latest, deaths_latest, recovered_latest",
-                         [(0, "Thailand", "TH", "", 15, 100, 1000, 1111, 22222),
-                          (1, "Deutschland", "DE", "", 15, 100, 1000, 1111, 22222),
-                          (2, "Cruise Ship", "XX", "", 15, 100, 1000, 1111, 22222)])
+@pytest.mark.parametrize("test_id, country, country_code, province, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest", [
+    (0, "Thailand", "TH", "", 15, 100, 1000, 1111, 22222),
+    (1, "Deutschland", "DE", "", 15, 100, 1000, 1111, 22222),
+    (2, "Cruise Ship", "XX", "", 15, 100, 1000, 1111, 22222)
+])
 @mock.patch('app.timeline.Timeline', side_effect=mocked_timeline)
-def test_location_class(mocked_timeline, test_id, country, country_code, province, latitude,
-                        longitude, confirmed_latest, deaths_latest, recovered_latest):
+def test_location_class(mocked_timeline, test_id, country, country_code, province, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest):
 
     # id, country, province, coordinates, confirmed, deaths, recovered
     coords = coordinates.Coordinates(latitude=latitude, longitude=longitude)
@@ -26,8 +26,11 @@ def test_location_class(mocked_timeline, test_id, country, country_code, provinc
     deaths = timeline.Timeline(deaths_latest)
     recovered = timeline.Timeline(recovered_latest)
 
+    # Date now.
+    now = datetime.utcnow().isoformat() + 'Z'
+
     # Location.
-    location_obj = location.TimelinedLocation(test_id, country, province, coords, {
+    location_obj = location.TimelinedLocation(test_id, country, province, coords, now, {
         'confirmed': confirmed, 
         'deaths'   : deaths,
         'recovered': recovered,
@@ -41,6 +44,7 @@ def test_location_class(mocked_timeline, test_id, country, country_code, provinc
         'country': country,
         'country_code': country_code,
         'province': province,
+        'last_updated': now,
         'coordinates': {
             'latitude': latitude,
             'longitude': longitude
