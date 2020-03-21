@@ -146,40 +146,40 @@ GET /v2/locations?source=csbs
   },
   "locations": [
     {
+      "id": 0,
+      "country": "US",
+      "country_code": "US",
+      "province": "New York",
+      "state": "New York",
+      "county": "New York",
+      "last_updated": "2020-03-21T14:00:00Z",
       "coordinates": {
         "latitude": 40.71455,
         "longitude": -74.00714
       },
-      "country": "US",
-      "country_code": "US",
-      "county": "New York",
-      "id": 0,
-      "last_updated": "2020-03-21T14:00:00Z",
       "latest": {
         "confirmed": 6211,
         "deaths": 43,
         "recovered": 0
-      },
-      "province": "New York",
-      "state": "New York"
+      }
     },
     {
+      "id": 1,
+      "country": "US",
+      "country_code": "US",
+      "province": "New York",
+      "state": "New York",
+      "county": "Westchester",
+      "last_updated": "2020-03-21T14:00:00Z",
       "coordinates": {
         "latitude": 41.16319759,
         "longitude": -73.7560629
       },
-      "country": "US",
-      "country_code": "US",
-      "county": "Westchester",
-      "id": 1,
-      "last_updated": "2020-03-21T14:00:00Z",
       "latest": {
         "confirmed": 1385,
         "deaths": 0,
         "recovered": 0
       },
-      "province": "Westchester",
-      "state": "New York"
     }
   ]
 }
