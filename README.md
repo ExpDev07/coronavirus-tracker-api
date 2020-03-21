@@ -45,6 +45,11 @@ GET /v2/locations
 ```
 ```json
 {
+  "aggregate": {
+    "confirmed": 272166,
+    "deaths": 11299,
+    "recovered": 87256
+  },
   "locations": [
     {
       "id": 0,
