@@ -1,11 +1,11 @@
-from flask import jsonify
+from flask import request, jsonify
 from ...routes import api_v2 as api
-from ...services import jhu
+from ...data import data_source
 
 @api.route('/latest')
 def latest():
     # Get the serialized version of all the locations.
-    locations = [ location.serialize() for location in jhu.get_all() ]
+    locations = [ location.serialize() for location in request.source.get_all() ]
 
     # All the latest information.
     latest = list(map(lambda location: location['latest'], locations))

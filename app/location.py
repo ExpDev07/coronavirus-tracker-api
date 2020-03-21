@@ -17,8 +17,7 @@ class Location:
         self.confirmed = confirmed
         self.deaths = deaths
         self.recovered = recovered
-
-
+        
     @property
     def country_code(self):
         """
