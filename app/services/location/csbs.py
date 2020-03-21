@@ -1,6 +1,6 @@
 from . import LocationService
-from ...location import CSBSLocation
 from ...coordinates import Coordinates
+from ...location.csbs import CSBSLocation
 
 class CSBSLocationService(LocationService):
     """
