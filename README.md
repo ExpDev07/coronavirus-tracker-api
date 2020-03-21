@@ -136,6 +136,10 @@ programmatically retrieved, re-formatted and stored in the cache for one hour.
 
 These are the available API wrappers created by the community. They are not necessarily maintained by any of this project's authors or contributors.
 
+### Golang
+
+* [Go-corona by @itsksaurabh](https://github.com/itsksaurabh/go-corona).
+
 ### C#
 
 * [Coronavirus tracker API Wrapper by @Abdirahiim](https://github.com/Abdirahiim/covidtrackerapiwrapper).
