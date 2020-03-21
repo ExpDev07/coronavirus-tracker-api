@@ -5,7 +5,7 @@ data_sources = {
     'jhu': JhuLocationService(),
 }
 
-def data_source(source: str):
+def data_source(source):
     """
     Retrieves the provided data-source service.
 

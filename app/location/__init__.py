@@ -1,5 +1,5 @@
-from .coordinates import Coordinates
-from .utils import countrycodes
+from ..coordinates import Coordinates
+from ..utils import countrycodes
 
 class Location:
     """
@@ -13,7 +13,7 @@ class Location:
         self.province = province.strip()
         self.coordinates = coordinates
 
-        # Data.
+        # Statistics.
         self.confirmed = confirmed
         self.deaths = deaths
         self.recovered = recovered
@@ -25,6 +25,50 @@ class Location:
         """
         return (countrycodes.country_code(self.country) or countrycodes.default_code).upper()
 
+    def serialize(self):
+        """
+        Serializes the location into a dict.
+
+        :returns: The serialized location.
+        :rtype: dict
+        """
+        return {
+            # General info.
+            'id'          : self.id,
+            'country'     : self.country, 
+            'country_code': self.country_code,
+            'province'    : self.province,
+
+            # Coordinates.
+            'coordinates': self.coordinates.serialize(),
+
+            # Latest data (statistics).
+            'latest': {
+                'confirmed': self.confirmed,
+                'deaths'   : self.deaths,
+                'recovered': self.recovered
+            },
+        }
+
+class TimelinedLocation(Location):
+    """
+    A location with timelines.
+    """
+
+    def __init__(self, id, country, province, coordinates, timelines):
+        super().__init__(
+            # General info.
+            id, country, province, coordinates,
+
+            # Statistics (retrieve latest from timelines).
+            confirmed=timelines.get('confirmed').latest,
+            deaths=timelines.get('deaths').latest,
+            recovered=timelines.get('recovered').latest,
+        )
+
+        # Set timelines.
+        self.timelines = timelines
+
     def serialize(self, timelines = False):
         """
         Serializes the location into a dict.
@@ -33,30 +77,13 @@ class Location:
         :returns: The serialized location.
         :rtype: dict
         """
-        serialized = {
-            # General info.
-            'id'          : self.id,
-            'country'     : self.country, 
-            'province'    : self.province,
-            'country_code': self.country_code,
-
-            # Coordinates.
-            'coordinates': self.coordinates.serialize(),
-
-            # Latest data.
-            'latest': {
-                'confirmed': self.confirmed.latest,
-                'deaths'   : self.deaths.latest,
-                'recovered': self.recovered.latest
-            },
-        }
+        serialized = super().serialize()
 
         # Whether to include the timelines or not.
         if timelines:
             serialized.update({ 'timelines': {
-                'confirmed': self.confirmed.serialize(),
-                'deaths'   : self.deaths.serialize(),
-                'recovered': self.recovered.serialize(),
+                # Serialize all the timelines.
+                key: value.serialize() for (key, value) in self.timelines.items()
             }})
 
         # Return the serialized location.

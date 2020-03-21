@@ -21,7 +21,7 @@ We provide multiple data-sources you can pick from, simply add the query paramat
 
 #### Available sources:
 
-* **jhu** -  https://github.com/CSSEGISandData/COVID-19 - Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
 
 * **... more to come later**.
 
