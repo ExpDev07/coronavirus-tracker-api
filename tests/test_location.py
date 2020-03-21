@@ -19,7 +19,7 @@ def test_location_class(mocked_timeline, test_id, country, country_code, provinc
                         longitude, confirmed_latest, deaths_latest, recovered_latest):
 
     # id, country, province, coordinates, confirmed, deaths, recovered
-    coordinates = coordinates.Coordinates(latitude=latitude, longitude=longitude)
+    coords = coordinates.Coordinates(latitude=latitude, longitude=longitude)
 
     # Timelines
     confirmed = timeline.Timeline(confirmed_latest)
@@ -27,7 +27,7 @@ def test_location_class(mocked_timeline, test_id, country, country_code, provinc
     recovered = timeline.Timeline(recovered_latest)
 
     # Location.
-    location_obj = location.TimelinedLocation(test_id, country, province, coordinates, {
+    location_obj = location.TimelinedLocation(test_id, country, province, coords, {
         'confirmed': confirmed, 
         'deaths'   : deaths,
         'recovered': recovered,
