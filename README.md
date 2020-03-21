@@ -144,7 +144,7 @@ GET /v2/locations?source=csbs
       "country_code": "US",
       "county": "New York",
       "id": 0,
-      "last_updated": "2020-03-21 14:00 EDT",
+      "last_updated": "2020-03-21T14:00:00Z",
       "latest": {
         "confirmed": 6211,
         "deaths": 43,
@@ -162,7 +162,7 @@ GET /v2/locations?source=csbs
       "country_code": "US",
       "county": "Westchester",
       "id": 1,
-      "last_updated": "2020-03-21 14:00 EDT",
+      "last_updated": "2020-03-21T14:00:00Z",
       "latest": {
         "confirmed": 1385,
         "deaths": 0,

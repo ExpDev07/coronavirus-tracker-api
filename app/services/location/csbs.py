@@ -46,7 +46,20 @@ def get_locations():
         confirmed = int(item['Confirmed'] or 0)
         death = int(item['Death'] or 0)
         coordinates = Coordinates(float(item['Latitude']), float(item['Longitude']))
+        
+        # Parse time to ISO format
         last_update = item['Last Update']
+        date = last_update.split("-")
+        year = int(date[0])
+        month = int(date[1])
+        date = date[2].split(" ")
+        day = int(date[0])
+        time = date[1].split(":")
+        hour = int(time[0])
+        minute = int(time[1])
+        d = datetime(year=year, month=month, day=day, hour=hour, minute=minute)
+        last_update = d.isoformat() + 'Z'
+
         locations.append(CSBSLocation(i, state, county, coordinates, last_update, confirmed, death))
 
     return locations
