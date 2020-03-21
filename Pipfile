@@ -9,6 +9,7 @@ pytest = "*"
 pylint = "*"
 
 [packages]
+fastapi = "*"
 flask = "*"
 python-dotenv = "*"
 requests = "*"
@@ -16,6 +17,11 @@ gunicorn = "*"
 flask-cors = "*"
 cachetools = "*"
 python-dateutil = "*"
+uvicorn = "*"
 
 [requires]
 python_version = "3.8"
+
+[scripts]
+dev_app = "uvicorn app.main:APP --reload"
+app = "uvicorn app.main:APP"
