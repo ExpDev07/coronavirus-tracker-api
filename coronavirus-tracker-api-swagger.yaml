@@ -86,6 +86,43 @@ paths:
                 $ref: '#/definitions/Location'
         '404':
           description: Location not found
+  /country:
+    get:
+      summary: Latest Corona stats by country
+      operationId: latest
+      produces:
+        - application/json
+            parameters:
+        - name: country_code
+          in: query
+          description: "ISO alpha 2 country code. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
+          required: true
+          type: string
+          x-example: US
+        - name: country
+          in: query
+          description: "Country to search by"
+          required: true
+          type: string
+          x-example: "China"
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: object
+            properties:
+              latest:
+                type: object
+                properties:
+                  confirmed:
+                    type: number
+                    example: 214910
+                  deaths:
+                    type: number
+                    example: 8733
+                  recovered:
+                    type: number
+                    example: 83207
 definitions:
   Location:
     type: object
