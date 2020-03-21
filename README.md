@@ -51,6 +51,7 @@ GET /v2/locations
       "country": "Thailand",
       "country_code": "TH",
       "province": "",
+      "last_updated": "2020-03-21T06:59:11.315422Z",
       "coordinates": {
         "latitude": "15",
         "longitude": "101"
@@ -66,6 +67,7 @@ GET /v2/locations
       "country": "Norway",
       "country_code": "NO",
       "province": "",
+      "last_updated": "2020-03-21T06:59:11.315422Z",
       "coordinates": {
         "latitude": "60.472",
         "longitude": "8.4689"
@@ -101,6 +103,7 @@ GET /v2/locations/:id
     "country": "Norway",
     "country_code": "NO",
     "province": "",
+    "last_updated": "2020-03-21T06:59:11.315422Z",
     "coordinates": { },
     "latest": { },
     "timelines": {
