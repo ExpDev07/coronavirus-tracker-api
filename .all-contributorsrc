@@ -72,6 +72,17 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "SeanCena",
+      "name": "SeanCena",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17202203?v=4",
+      "profile": "https://github.com/SeanCena",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
