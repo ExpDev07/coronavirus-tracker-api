@@ -23,6 +23,8 @@ We provide multiple data-sources you can pick from, simply add the query paramat
 
 * **jhu** - https://github.com/CSSEGISandData/COVID-19 - Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
 
+* **csbs** - https://www.csbs.org/information-covid-19-coronavirus - US County data comes from Conference of State Bank Supervisors
+
 * **... more to come later**.
 
 ### Getting latest amount of total confirmed cases, deaths, and recoveries.
@@ -126,11 +128,53 @@ Exclude timelines.
 GET /v2/locations?timelines=0
 ```
 
-## Data
-
-The data comes from the [2019 Novel Coronavirus (nCoV) Data Repository, provided
-by JHU CCSE](https://github.com/CSSEGISandData/2019-nCoV). It is
-programmatically retrieved, re-formatted and stored in the cache for one hour.
+### Getting US per county information.
+```http
+GET /v2/locations?source=csbs
+```
+```json
+{
+  "locations": [
+    {
+      "coordinates": {
+        "latitude": 40.71455,
+        "longitude": -74.00714
+      },
+      "country": "US",
+      "country_code": "US",
+      "county": "New York",
+      "id": 0,
+      "last_updated": "2020-03-21T14:00:00Z",
+      "latest": {
+        "confirmed": 6211,
+        "deaths": 43,
+        "recovered": 0
+      },
+      "province": "New York",
+      "state": "New York"
+    },
+    {
+      "coordinates": {
+        "latitude": 41.16319759,
+        "longitude": -73.7560629
+      },
+      "country": "US",
+      "country_code": "US",
+      "county": "Westchester",
+      "id": 1,
+      "last_updated": "2020-03-21T14:00:00Z",
+      "latest": {
+        "confirmed": 1385,
+        "deaths": 0,
+        "recovered": 0
+      },
+      "province": "Westchester",
+      "state": "New York"
+    },
+    ...
+  ]
+}
+```
 
 ## Wrappers
 
