@@ -126,7 +126,16 @@ def get_locations():
         # Create location (supporting timelines) and append.
         locations.append(TimelinedLocation(
             # General info.
-            index, location['country'], location['province'], Coordinates(coordinates['lat'], coordinates['long']),
+            index, location['country'], location['province'], 
+            
+            # Coordinates.
+            Coordinates(
+                coordinates['lat'], 
+                coordinates['long']
+            ),
+
+            # Last update.
+            datetime.utcnow().isoformat() + 'Z',
         
             # Timelines (parse dates as ISO).
             {
