@@ -5,18 +5,27 @@ from ...routes import api_v2 as api
 @api.route('/locations')
 def locations():
     # Query parameters.
-    timelines    = strtobool(request.args.get('timelines', default='0'))
-    country_code = request.args.get('country_code', type=str)
+    args         = request.args
+    timelines    = strtobool(args.get('timelines', default='0'))
 
     # Retrieve all the locations.
     locations = request.source.get_all()
 
-    # Filtering my country code if provided.
-    if not country_code is None:
-        locations = list(filter(lambda location: location.country_code == country_code.upper(), locations))
+    # Filtering by args if provided.
+    for i in args:
+        if i != 'timelines' and i[:2] != '__':
+            try:
+                locations = [j for j in locations if getattr(j, i) == args.get(i, type=str)]
+            except AttributeError:
+                print('TimelinedLocation object does not have attribute {}.'.format(i))
 
     # Serialize each location and return.
     return jsonify({
+        'latest': {
+            'confirmed': sum(map(lambda location: location.confirmed, locations)),
+            'deaths'   : sum(map(lambda location: location.deaths, locations)),
+            'recovered': sum(map(lambda location: location.recovered, locations)),
+        },
         'locations': [
             location.serialize(timelines) for location in locations
         ]

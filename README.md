@@ -47,6 +47,11 @@ GET /v2/locations
 ```
 ```json
 {
+  "latest": {
+    "confirmed": 272166,
+    "deaths": 11299,
+    "recovered": 87256
+  },
   "locations": [
     {
       "id": 0,
@@ -84,7 +89,7 @@ GET /v2/locations
 }
 ```
 
-Additionally, you can also filter by country ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+Additionally, you can also filter by any attribute, including province and country ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
 ```http
 GET /v2/locations?country_code=US
 ```
