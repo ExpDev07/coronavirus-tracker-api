@@ -6,7 +6,7 @@ def mocked_timeline(*args, **kwargs):
     class TestTimeline:
         def __init__(self, latest):
             self.latest = latest
-
+            
     return TestTimeline(args[0])
 
 @pytest.mark.parametrize("test_id, country, country_code, province, latitude, longitude, \
@@ -19,25 +19,37 @@ def test_location_class(mocked_timeline, test_id, country, country_code, provinc
                         longitude, confirmed_latest, deaths_latest, recovered_latest):
 
     # id, country, province, coordinates, confirmed, deaths, recovered
-    coordinate = coordinates.Coordinates(latitude=latitude, longitude=longitude)
+    coordinates = coordinates.Coordinates(latitude=latitude, longitude=longitude)
+
+    # Timelines
     confirmed = timeline.Timeline(confirmed_latest)
     deaths = timeline.Timeline(deaths_latest)
     recovered = timeline.Timeline(recovered_latest)
 
-    location_obj = location.Location(test_id, country, province, coordinate,
-                                     confirmed, deaths, recovered)
+    # Location
+    location = location.TimelinedLocation(test_id, country, province, coordinates, {
+        'confirmed': confirmed, 
+        'deaths'   : deaths,
+        'recovered': recovered,
+    })
 
-    assert location_obj.country_code == country_code
+    assert location.country_code == country_code
 
     #validate serialize
-    check_dict = {'id': test_id,
-                  'country': country,
-                  'province': province,
-                  'country_code': country_code,
-                  'coordinates': {'latitude': latitude,
-                                  'longitude': longitude},
-                  'latest': {'confirmed': confirmed_latest,
-                             'deaths': deaths_latest,
-                             'recovered': recovered_latest}}
+    check_dict = {
+        'id': test_id,
+        'country': country,
+        'country_code': country_code,
+        'province': province,
+        'coordinates': {
+            'latitude': latitude,
+            'longitude': longitude
+        },
+        'latest': {
+            'confirmed': confirmed_latest,
+            'deaths': deaths_latest,
+            'recovered': recovered_latest
+        }
+    }
 
-    assert location_obj.serialize() == check_dict
+    assert location.serialize() == check_dict
