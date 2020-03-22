@@ -198,6 +198,10 @@ GET /v2/locations?source=csbs
 
 These are the available API wrappers created by the community. They are not necessarily maintained by any of this project's authors or contributors.
 
+### PHP
+
+* [CovidPHP by @o-ba](https://github.com/o-ba/covid-php).
+
 ### Golang
 
 * [Go-corona by @itsksaurabh](https://github.com/itsksaurabh/go-corona).
