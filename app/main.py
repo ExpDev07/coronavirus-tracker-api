@@ -10,8 +10,10 @@ from typing import Dict, List
 import fastapi
 import pydantic
 import uvicorn
+from fastapi.middleware.wsgi import WSGIMiddleware
 
 from .data import data_source
+from .core import create_app
 
 # #################################
 # Models
@@ -153,6 +155,8 @@ def get_all_locations(
 def get_location_by_id(request: fastapi.Request, id: int, timelines: int = 1):
     return {"location": request.state.source.get(id).serialize(timelines)}
 
+# mount the existing Flask app to /v2
+APP.mount("/v2", WSGIMiddleware(create_app()))
 
 if __name__ == "__main__":
     uvicorn.run(
