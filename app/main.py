@@ -12,54 +12,9 @@ import pydantic
 import uvicorn
 from fastapi.middleware.wsgi import WSGIMiddleware
 
-from .data import data_source
+from . import models
 from .core import create_app
-
-# #################################
-# Models
-# #################################
-
-
-class Totals(pydantic.BaseModel):
-    confirmed: int
-    deaths: int
-    recovered: int
-
-
-class Latest(pydantic.BaseModel):
-    latest: Totals
-
-
-class TimelineStats(pydantic.BaseModel):
-    latest: int
-    timeline: Dict[str, int]
-
-
-class TimelinedLocation(pydantic.BaseModel):
-    confirmed: TimelineStats
-    deaths: TimelineStats
-    recovered: TimelineStats
-
-
-class Country(pydantic.BaseModel):
-    coordinates: Dict
-    country: str
-    country_code: str
-    id: int
-    last_updated: dt.datetime
-    latest: Totals
-    province: str = ""
-    timelines: TimelinedLocation = None  # FIXME
-
-
-class AllLocations(pydantic.BaseModel):
-    latest: Totals
-    locations: List[Country]
-
-
-class Location(pydantic.BaseModel):
-    location: Country
-
+from .data import data_source
 
 # ################
 # Dependencies
@@ -113,7 +68,7 @@ async def handle_validation_error(
 # ################
 
 
-@APP.get("/latest", response_model=Latest)
+@APP.get("/latest", response_model=models.Latest)
 def get_latest(request: fastapi.Request):
     """Getting latest amount of total confirmed cases, deaths, and recoveries."""
     locations = request.state.source.get_all()
@@ -126,7 +81,7 @@ def get_latest(request: fastapi.Request):
     }
 
 
-@APP.get("/locations", response_model=AllLocations)
+@APP.get("/locations", response_model=models.AllLocations)
 def get_all_locations(
     request: fastapi.Request, country_code: str = None, timelines: int = 0
 ):
@@ -152,9 +107,10 @@ def get_all_locations(
     }
 
 
-@APP.get("/locations/{id}", response_model=Location)
+@APP.get("/locations/{id}", response_model=models.Location)
 def get_location_by_id(request: fastapi.Request, id: int, timelines: int = 1):
     return {"location": request.state.source.get(id).serialize(timelines)}
+
 
 # mount the existing Flask app to /v2
 APP.mount("/v2", WSGIMiddleware(create_app()))
