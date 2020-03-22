@@ -1,6 +1,6 @@
-<center>
-  # coronavirus-tracker (API)
-</center>
+<h1 style="text-align: center">
+  coronavirus-tracker (API)
+</h1>
 
 > This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (COVID-19, SARS-CoV-2). It's written in python using 🍼 Flask. Supports multiple sources!
 
