@@ -54,25 +54,26 @@ class Location(pydantic.BaseModel):
 APP = fastapi.FastAPI(
     title="Coronavirus Tracker",
     description="API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak.",
-    version="3.0.0",
-    prefix="/v3",
-    docs_url="/v3",
+    version="2.1.0",
+    prefix="/v2-1",
+    docs_url="/v2-1",
     redoc_url="/docs",
 )
 
 
 @APP.get("/latest", response_model=Latest)
 def get_latest():
+    """Getting latest amount of total confirmed cases, deaths, and recoveries."""
     sample_data = {"latest": {"confirmed": 197146, "deaths": 7905, "recovered": 80840}}
     return sample_data
 
 
-@APP.get("/locations")
+@APP.get("/locations", response_model=AllLocations)
 def get_all_locations(country_code: str = None, timelines: int = None):
     return
 
 
-@APP.get("/locations/{id}")
+@APP.get("/locations/{id}", response_model=Location)
 def get_location_by_id(id: int):
     return
 
