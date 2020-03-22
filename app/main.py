@@ -1,9 +1,9 @@
 """
 app.main.py
 """
-import os
-import logging
 import datetime as dt
+import logging
+import os
 from typing import Dict, List
 
 import fastapi
@@ -94,6 +94,18 @@ async def add_datasource(request: fastapi.Request, call_next):
 
 
 # ################
+# Exception Handler
+# ################
+
+
+@APP.exception_handler(pydantic.error_wrappers.ValidationError)
+async def handle_validation_error(
+    request: fastapi.Request, exc: pydantic.error_wrappers.ValidationError
+):
+    return fastapi.responses.JSONResponse({"message": exc.errors()}, status_code=422)
+
+
+# ################
 # Routes
 # ################
 
@@ -112,7 +124,7 @@ def get_latest(request: fastapi.Request):
 
 
 @APP.get("/locations", response_model=AllLocations)
-def get_all_locations(country_code: str = None, timelines: int = None):
+def get_all_locations(country_code: str = None, timelines: int = 0):
     return
 
 
