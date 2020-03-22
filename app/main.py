@@ -81,7 +81,7 @@ def get_latest(request: fastapi.Request):
     }
 
 
-@APP.get("/locations", response_model=models.AllLocations)
+@APP.get("/locations", response_model=models.AllLocations, response_model_exclude_unset=True)
 def get_all_locations(
     request: fastapi.Request, country_code: str = None, timelines: int = 0
 ):
