@@ -129,8 +129,8 @@ def get_all_locations(country_code: str = None, timelines: int = 0):
 
 
 @APP.get("/locations/{id}", response_model=Location)
-def get_location_by_id(id: int):
-    return
+def get_location_by_id(request: fastapi.Request, id: int, timelines: int = 1):
+    return {"location": request.state.source.get(id).serialize(timelines)}
 
 
 if __name__ == "__main__":
