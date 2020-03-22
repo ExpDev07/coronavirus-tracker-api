@@ -4,6 +4,7 @@ app.main.py
 import datetime as dt
 import logging
 import os
+import reprlib
 from typing import Dict, List
 
 import fastapi
@@ -46,11 +47,11 @@ class Country(pydantic.BaseModel):
     last_updated: dt.datetime
     latest: Totals
     province: str = ""
-    timelines: TimelinedLocation
+    timelines: TimelinedLocation = None  # FIXME
 
 
 class AllLocations(pydantic.BaseModel):
-    latest: Totals
+    latest: Totals = None  # FIXME
     locations: List[Country]
 
 
@@ -124,8 +125,25 @@ def get_latest(request: fastapi.Request):
 
 
 @APP.get("/locations", response_model=AllLocations)
-def get_all_locations(country_code: str = None, timelines: int = 0):
-    return
+def get_all_locations(
+    request: fastapi.Request, country_code: str = None, timelines: int = 0
+):
+    # Retrieve all the locations.
+    locations = request.state.source.get_all()
+
+    # Filtering my country code if provided.
+    if country_code:
+        locations = list(
+            filter(
+                lambda location: location.country_code == country_code.upper(),
+                locations,
+            )
+        )
+    response_dict = {
+        "locations": [location.serialize(timelines) for location in locations]
+    }
+    LOGGER.info(f"response: {reprlib.repr(response_dict)}")
+    return response_dict
 
 
 @APP.get("/locations/{id}", response_model=Location)
