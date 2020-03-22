@@ -32,14 +32,14 @@ class TimelinedLocation(pydantic.BaseModel):
 
 
 class Country(pydantic.BaseModel):
-    coordinates: Dict = None
+    coordinates: Dict
     country: str
     country_code: str
     id: int
-    last_updated: dt.datetime = None
-    latest: Totals = None
-    province: str = None
-    timelines: TimelinedLocation = None
+    last_updated: dt.datetime
+    latest: Totals
+    province: str = ""
+    timelines: TimelinedLocation
 
 
 class AllLocations(pydantic.BaseModel):
