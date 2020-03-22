@@ -141,6 +141,7 @@ def get_all_locations(
                 locations,
             )
         )
+    # FIXME: timelines are not showing up
     return {
         "latest": {
             "confirmed": sum(map(lambda location: location.confirmed, locations)),
