@@ -14,6 +14,12 @@
 [![GitHub issues](https://img.shields.io/github/issues/ExpDev07/coronavirus-tracker-api)](https://github.com/ExpDev07/coronavirus-tracker-api/issues)
 [![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)](https://twitter.com/intent/tweet?text=COVID19%20Live%20Tracking%20API:%20&url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)
 
+**Live global stats (provided by [fight-covid19/bagdes](https://github.com/fight-covid19/bagdes)) from this API:**
+
+![Covid-19 Confirmed](https://covid19-badges.herokuapp.com/confirmed/latest)
+![Covid-19 Recovered](https://covid19-badges.herokuapp.com/recovered/latest)
+![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
+
 ## Endpoints
 
 All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com/v2/`` (e.g: https://coronavirus-tracker-api.herokuapp.com/v2/locations). You can try them out in your browser to further inspect responses.
