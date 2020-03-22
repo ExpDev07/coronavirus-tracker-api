@@ -51,7 +51,7 @@ class Country(pydantic.BaseModel):
 
 
 class AllLocations(pydantic.BaseModel):
-    latest: Totals = None  # FIXME
+    latest: Totals
     locations: List[Country]
 
 
@@ -139,11 +139,14 @@ def get_all_locations(
                 locations,
             )
         )
-    response_dict = {
-        "locations": [location.serialize(timelines) for location in locations]
+    return {
+        "latest": {
+            "confirmed": sum(map(lambda location: location.confirmed, locations)),
+            "deaths": sum(map(lambda location: location.deaths, locations)),
+            "recovered": sum(map(lambda location: location.recovered, locations)),
+        },
+        "locations": [location.serialize(timelines) for location in locations],
     }
-    LOGGER.info(f"response: {reprlib.repr(response_dict)}")
-    return response_dict
 
 
 @APP.get("/locations/{id}", response_model=Location)
