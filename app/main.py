@@ -10,6 +10,11 @@ import pydantic
 import uvicorn
 
 
+# #################################
+# Models
+# #################################
+
+
 class Totals(pydantic.BaseModel):
     confirmed: int
     deaths: int
@@ -51,6 +56,16 @@ class Location(pydantic.BaseModel):
     location: Country
 
 
+# ################
+# Dependencies
+# ################
+
+
+# ############
+# FastAPI App
+# ############
+LOGGER = logging.getLogger("api")
+
 APP = fastapi.FastAPI(
     title="Coronavirus Tracker",
     description="API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak.",
@@ -59,6 +74,15 @@ APP = fastapi.FastAPI(
     docs_url="/v2-1",
     redoc_url="/docs",
 )
+
+# #####################
+# Middleware
+#######################
+
+
+# ################
+# Routes
+# ################
 
 
 @APP.get("/latest", response_model=Latest)
