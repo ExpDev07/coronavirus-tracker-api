@@ -41,6 +41,22 @@ APP = fastapi.FastAPI(
 )
 
 
+@APP.get("/latest", response_model=Latest)
+def get_latest():
+    sample_data = {"latest": {"confirmed": 197146, "deaths": 7905, "recovered": 80840}}
+    return sample_data
+
+
+@APP.get("/locations")
+def get_all_locations(country_code: str = None, timelines: int = None):
+    return
+
+
+@APP.get("/locations/{id}")
+def get_location_by_id(id: int):
+    return
+
+
 if __name__ == "__main__":
     uvicorn.run(
         "app.main:APP",
