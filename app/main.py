@@ -25,7 +25,7 @@ class TimelineStats(pydantic.BaseModel):
     timeline: Dict[str, int]
 
 
-class Timelines(pydantic.BaseModel):
+class TimelinedLocation(pydantic.BaseModel):
     confirmed: TimelineStats
     deaths: TimelineStats
     recovered: TimelineStats
@@ -39,7 +39,7 @@ class Country(pydantic.BaseModel):
     last_updated: dt.datetime = None
     latest: Totals = None
     province: str = None
-    timelines: Timelines = None
+    timelines: TimelinedLocation = None
 
 
 class AllLocations(pydantic.BaseModel):
