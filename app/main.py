@@ -2,9 +2,34 @@
 app.main.py
 """
 import os
+import datetime as dt
+from typing import Dict
 
 import fastapi
+import pydantic
 import uvicorn
+
+
+class Stats(pydantic.BaseModel):
+    confirmed: int
+    deaths: int
+    recovered: int
+
+
+class Latest(pydantic.BaseModel):
+    latest: Stats
+
+
+class Country(pydantic.BaseModel):
+    id: int
+    country: str
+    country_code: str
+    province: str = None
+    last_updated: dt.datetime = None
+    coordinates: Dict = None
+    latest: Stats = None
+    timelines: Dict = None
+
 
 APP = fastapi.FastAPI(
     title="Coronavirus Tracker",
