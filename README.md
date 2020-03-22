@@ -1,6 +1,5 @@
-<h1 align="center">
-  coronavirus-tracker (API)
-</h1>
+## Coronavirus Tracker API
+Provides up-to-date data about Coronavirus outbreak. Includes numbers about confirmed cases, deaths and recovered.
 
 > This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (COVID-19, SARS-CoV-2). It's written in python using 🍼 Flask. Supports multiple sources!
 
@@ -19,6 +18,7 @@
 ![Covid-19 Confirmed](https://covid19-badges.herokuapp.com/confirmed/latest)
 ![Covid-19 Recovered](https://covid19-badges.herokuapp.com/recovered/latest)
 ![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
+
 
 ## Endpoints
 
