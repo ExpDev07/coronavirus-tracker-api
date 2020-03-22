@@ -3,32 +3,52 @@ app.main.py
 """
 import os
 import datetime as dt
-from typing import Dict
+from typing import Dict, List
 
 import fastapi
 import pydantic
 import uvicorn
 
 
-class Stats(pydantic.BaseModel):
+class Totals(pydantic.BaseModel):
     confirmed: int
     deaths: int
     recovered: int
 
 
 class Latest(pydantic.BaseModel):
-    latest: Stats
+    latest: Totals
+
+
+class TimelineStats(pydantic.BaseModel):
+    latest: int
+    timeline: Dict[str, int]
+
+
+class Timelines(pydantic.BaseModel):
+    confirmed: TimelineStats
+    deaths: TimelineStats
+    recovered: TimelineStats
 
 
 class Country(pydantic.BaseModel):
-    id: int
+    coordinates: Dict = None
     country: str
     country_code: str
-    province: str = None
+    id: int
     last_updated: dt.datetime = None
-    coordinates: Dict = None
-    latest: Stats = None
-    timelines: Dict = None
+    latest: Totals = None
+    province: str = None
+    timelines: Timelines = None
+
+
+class AllLocations(pydantic.BaseModel):
+    latest: Totals
+    locations: List[Country]
+
+
+class Location(pydantic.BaseModel):
+    location: Country
 
 
 APP = fastapi.FastAPI(
