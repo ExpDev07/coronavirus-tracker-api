@@ -2,6 +2,7 @@
 app.main.py
 """
 import os
+import logging
 import datetime as dt
 from typing import Dict, List
 
@@ -9,6 +10,7 @@ import fastapi
 import pydantic
 import uvicorn
 
+from .data import data_source
 
 # #################################
 # Models
@@ -80,16 +82,33 @@ APP = fastapi.FastAPI(
 #######################
 
 
+# TODO this could probably just be a FastAPI dependency
+@APP.middleware("http")
+async def add_datasource(request: fastapi.Request, call_next):
+    """Attach the data source to the request.state."""
+    source = request.query_params.get("source", default="jhu")
+    request.state.source = data_source(source)
+    LOGGER.info(f"source: {request.state.source.__class__.__name__}")
+    response = await call_next(request)
+    return response
+
+
 # ################
 # Routes
 # ################
 
 
 @APP.get("/latest", response_model=Latest)
-def get_latest():
+def get_latest(request: fastapi.Request):
     """Getting latest amount of total confirmed cases, deaths, and recoveries."""
-    sample_data = {"latest": {"confirmed": 197146, "deaths": 7905, "recovered": 80840}}
-    return sample_data
+    locations = request.state.source.get_all()
+    return {
+        "latest": {
+            "confirmed": sum(map(lambda location: location.confirmed, locations)),
+            "deaths": sum(map(lambda location: location.deaths, locations)),
+            "recovered": sum(map(lambda location: location.recovered, locations)),
+        }
+    }
 
 
 @APP.get("/locations", response_model=AllLocations)
