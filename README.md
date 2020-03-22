@@ -20,7 +20,7 @@ All requests must be made to the base url: ``https://coronavirus-tracker-api.her
 
 ### Picking data source
 
-We provide multiple data-sources you can pick from, simply add the query paramater ``?source=your_source_of_choice`` to your requests. JHU will be used as a default if you don't provide one.
+We provide multiple data-sources you can pick from, simply add the query parameter ``?source=your_source_of_choice`` to your requests. JHU will be used as a default if you don't provide one.
 
 #### Available sources:
 
