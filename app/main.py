@@ -123,8 +123,10 @@ def get_location_by_id(request: fastapi.Request, id: int, timelines: int = 1):
     return {"location": request.state.source.get(id).serialize(timelines)}
 
 
-# mount the existing Flask app to /v2
-APP.mount("/v2", WSGIMiddleware(create_app()))
+# mount the existing Flask app
+# v1 @ /
+# v2 @ /v2
+APP.mount("/", WSGIMiddleware(create_app()))
 
 if __name__ == "__main__":
     uvicorn.run(
