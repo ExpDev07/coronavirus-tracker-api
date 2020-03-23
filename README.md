@@ -43,6 +43,24 @@ curl https://coronavirus-tracker-api.herokuapp.com/v2/locations | json_pp
 
 ## API Endpoints 
 
+### Sources Endpoint
+
+Getting the available data-sources
+
+```http
+GET /v2/sources
+```
+
+__Sample response__
+```json
+{
+    "sources": [
+        "jhu",
+        "csbs"
+    ]
+}
+```
+
 ### Latest Endpoint
 
 Getting latest amount of total confirmed cases, deaths, and recoveries.
@@ -233,6 +251,7 @@ __Sample Response__
 __Parameter: source__
 Getting the data from the data-source specified by the *source parameter*, in this case [csbs](https://www.csbs.org/information-covid-19-coronavirus)
 
+
 ```http
 GET /v2/locations?source=csbs
 ```
@@ -299,6 +318,7 @@ curl https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1 | js
 ```
 
 __NOTE:__ Timelines tracking starts from day 22nd January 2020 and ends to the last available day in the data-source.
+
 
 
 ## Wrappers

@@ -38,28 +38,41 @@ def get_locations():
     locations = []
 
     for i, item in enumerate(data):
+        # General info.
         state = item['State Name']
         county = item['County Name']
+
+        # Ensure country is specified.
         if county == "Unassigned" or county == "Unknown":
             continue
 
-        confirmed = int(item['Confirmed'] or 0)
-        death = int(item['Death'] or 0)
-        coordinates = Coordinates(float(item['Latitude']), float(item['Longitude']))
+        # Coordinates.
+        coordinates = Coordinates(
+            item['Latitude'], 
+            item['Longitude']
+        )
         
-        # Parse time to ISO format
-        last_update = item['Last Update']
-        date = last_update.split("-")
-        year = int(date[0])
-        month = int(date[1])
-        date = date[2].split(" ")
-        day = int(date[0])
-        time = date[1].split(":")
-        hour = int(time[0])
-        minute = int(time[1])
-        d = datetime(year=year, month=month, day=day, hour=hour, minute=minute)
-        last_update = d.isoformat() + 'Z'
+        # Date string without "EDT" at end.
+        last_update = ' '.join(item['Last Update'].split(' ')[0:2])
+        
+        # Append to locations.
+        locations.append(CSBSLocation(
+            # General info.
+            i, state, county,
+            
+            # Coordinates.
+            Coordinates(
+                item['Latitude'], 
+                item['Longitude']
+            ),
 
-        locations.append(CSBSLocation(i, state, county, coordinates, last_update, confirmed, death))
+            # Last update (parse as ISO).
+            datetime.strptime(last_update, '%Y/%m/%d %H:%M').isoformat() + 'Z', 
+            
+            # Statistics.
+            int(item['Confirmed'] or 0),
+            int(item['Death'] or 0)
+        ))
 
+    # Return the locations.
     return locations
