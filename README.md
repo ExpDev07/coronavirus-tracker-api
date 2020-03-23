@@ -1,8 +1,6 @@
-<h1 align="center">
-  coronavirus-tracker (API)
-</h1>
-
-> This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (COVID-19, SARS-CoV-2). It's written in python using 🍼 Flask. Supports multiple sources!
+## Coronavirus Tracker API
+Provides up-to-date data about Coronavirus outbreak. Includes numbers about confirmed cases, deaths and recovered.
+Support multiple data-sources.
 
 ![Travis build](https://api.travis-ci.com/ExpDev07/coronavirus-tracker-api.svg?branch=master)
 [![License](https://img.shields.io/github/license/ExpDev07/coronavirus-tracker-api)](LICENSE.md)
@@ -20,26 +18,58 @@
 ![Covid-19 Recovered](https://covid19-badges.herokuapp.com/recovered/latest)
 ![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
 
-## Endpoints
+## Available data-sources:
 
-All requests must be made to the base url: ``https://coronavirus-tracker-api.herokuapp.com/v2/`` (e.g: https://coronavirus-tracker-api.herokuapp.com/v2/locations). You can try them out in your browser to further inspect responses.
+Currently 2 different data-sources are available to retrieve the data:
 
-### Picking data source
-
-We provide multiple data-sources you can pick from, simply add the query parameter ``?source=your_source_of_choice`` to your requests. JHU will be used as a default if you don't provide one. Dynamically retrieve available sources at ``/v2/sources``.
-
-#### Available sources:
-
-* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE). 
 
 * **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
 
-* **... more to come later**.
+__jhu__ data-source will be used as a default source if you don't specify a *source parameter* in your request.
 
-### Getting latest amount of total confirmed cases, deaths, and recoveries.
+
+## API Reference
+
+All endpoints are located at ``coronavirus-tracker-api.herokuapp.com/v2/`` and are accessible via https. For instance: you can get data per location by using this URL: 
+*[https://coronavirus-tracker-api.herokuapp.com/v2/locations](https://coronavirus-tracker-api.herokuapp.com/v2/locations)*
+
+You can open the URL in your browser to further inspect the response. Or you can make this curl call in your terminal to see the prettified response:
+
+```
+curl https://coronavirus-tracker-api.herokuapp.com/v2/locations | json_pp
+```
+
+
+## API Endpoints 
+
+### Sources Endpoint
+
+Getting the data-sources that are currently available to Coronavirus Tracker API to retrieve the data of the pandemic.
+
+```http
+GET /v2/sources
+```
+
+__Sample response__
+```json
+{
+    "sources": [
+        "jhu",
+        "csbs"
+    ]
+}
+```
+
+### Latest Endpoint
+
+Getting latest amount of total confirmed cases, deaths, and recovered.
+
 ```http
 GET /v2/latest
 ```
+
+__Sample response__
 ```json
 {
   "latest": {
@@ -50,10 +80,63 @@ GET /v2/latest
 }
 ```
 
-### Getting all locations.
+__Query String Parameters__
+| __Query string parameter__ | __Description__                                                                  | __Type__ |
+| -------------------------- | -------------------------------------------------------------------------------- | -------- |
+| source                     | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String   |
+
+
+### Locations Endpoint
+
+Getting latest amount of confirmed cases, deaths, and recovered per location.
+
+#### The Location Object
+```http
+GET /v2/locations/:id
+```
+
+__Path Parameters__
+| __Path parameter__ | __Required/Optional__ | __Description__                                                           | __Type__ |
+| ------------------ | --------------------- | ------------------------------------------------------------------------- | -------- |
+| id                 | OPTIONAL              | The unique location id for which you want to call the Locations Endpoint. | Integer  |
+
+
+#### Example Request
+```http
+GET /v2/locations/39
+```
+__Sample response__
+```json
+{
+  "location": {
+    "id": 39,
+    "country": "Norway",
+    "country_code": "NO",
+    "province": "",
+    "last_updated": "2020-03-21T06:59:11.315422Z",
+    "coordinates": { },
+    "latest": { },
+    "timelines": {
+      "confirmed": {
+        "latest": 1463,
+        "timeline": {
+          "2020-03-16T00:00:00Z": 1333,
+          "2020-03-17T00:00:00Z": 1463
+        }
+      },
+      "deaths": { },
+      "recovered": { }
+    }
+  }
+}
+```
+
+#### List of all locations
 ```http
 GET /v2/locations
 ```
+
+__Sample response__
 ```json
 {
   "latest": {
@@ -98,49 +181,148 @@ GET /v2/locations
 }
 ```
 
-Additionally, you can also filter by any attribute, including province and country ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+__Query String Parameters__
+| __Query string parameter__ | __Description__                                                                                                                                  | __Type__ |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| source                     | The data-source where data will be retrieved from.<br>__Value__ can be: *jhu/csbs*. __Default__ is *jhu*                                         | String   |
+| country_code               | The ISO ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to the Country/Province for which you're calling the Endpoint | String   |
+| timelines                  | To set the visibility of timelines (*daily tracking*).<br>__Value__ can be: *0/1*. __Default__ is *0* (timelines are not visible)                | Integer  |
+
+
+__Response definitions__
+| __Response Item__                              | __Description__                                                                                                                                  | __Type__ |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| {latest}                                       | The total amount of confirmed cases, deaths and recovered for all the locations                                                                  | Object   |
+| {latest}/confirmed                             | The up-to-date total number of confirmed cases for all the locations within the data-source                                                      | Integer  |
+| {latest}/deaths                                | The up-to-date total amount of deaths for all the locations within the data-source                                                               | Integer  |
+| {latest}/recovered                             | The up-to-date total amount of recovered for all the locations within the data-source                                                            | Integer  |
+| {locations}                                    | The collection of locations contained within the  data-source                                                                                    | Object   |
+| {location}                                     | Information that identifies a location                                                                                                           | Object   |
+| {latest}                                       | The amount of confirmed cases, deaths and recovered related to the specific location                                                             | Object   |
+| {locations}/{location}/{latest}/confirmed      | The up-to-date number of confirmed cases related to the specific location                                                                        | Integer  |
+| {locations}/{location}/{latest}/deaths         | The up-to-date number of deaths related to the specific location                                                                                 | Integer  |
+| {locations}/{location}/{latest}/recovered      | The up-to-date number of recovered related to the specific location                                                                              | Integer  |
+| {locations}/{location}/id                      | The location id. This unique id is assigned to the location by the data-source.                                                                  | Integer  |
+| {locations}/{location}/country                 | The Country name                                                                                                                                 | String   |
+| {locations}/{location}/country_code            | The [ISO alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) Country code for the location.                                  | String   |
+| {locations}/{location}/province                | The province where the location belongs to. (Used for US locations coming from __csbs data-source__.<br>__Empty__ when *jhu data-source* is used | String   |
+| {locations}/{location}/{coordinates}/latitude  | The location latitude                                                                                                                            | Float    |
+| {locations}/{location}/{coordinates}/longitude | The location longitude                                                                                                                           | Float    |
+
+
+### Example Requests with parameters
+
+__Parameter: country_code__
+
+Getting data for the Country specified by the *country_code parameter*, in this case Italy - IT
+
 ```http
-GET /v2/locations?country_code=US
+GET /v2/locations?country_code=IT
 ```
 
-Include timelines.
-```http
-GET /v2/locations?timelines=1
-```
-
-### Getting a specific location (includes timelines by default).
-```http
-GET /v2/locations/:id
-```
+__Sample Response__
 ```json
 {
-  "location": {
-    "id": 39,
-    "country": "Norway",
-    "country_code": "NO",
-    "province": "",
-    "last_updated": "2020-03-21T06:59:11.315422Z",
-    "coordinates": { },
-    "latest": { },
-    "timelines": {
-      "confirmed": {
-        "latest": 1463,
-        "timeline": {
-          "2020-03-16T00:00:00Z": 1333,
-          "2020-03-17T00:00:00Z": 1463
+    "latest": {
+        "confirmed": 59138,
+        "deaths": 5476,
+        "recovered": 7024
+    },
+    "locations": [
+        {
+            "coordinates": {
+                "latitude": "43",
+                "longitude": "12"
+            },
+            "country": "Italy",
+            "country_code": "IT",
+            "id": 16,
+            "last_updated": "2020-03-23T13:32:23.913872Z",
+            "latest": {
+                "confirmed": 59138,
+                "deaths": 5476,
+                "recovered": 7024
+            },
+            "province": ""
         }
-      },
-      "deaths": { },
-      "recovered": { }
-    }
-  }
+    ]
 }
 ```
 
-Exclude timelines.
+__Parameter: source__
+
+Getting the data from the data-source specified by the *source parameter*, in this case [csbs](https://www.csbs.org/information-covid-19-coronavirus)
+
+
 ```http
-GET /v2/locations?timelines=0
+GET /v2/locations?source=csbs
 ```
+
+__Sample Response__
+```json
+{
+  "latest": {
+    "confirmed": 7596,
+    "deaths": 43,
+    "recovered": 0
+  },
+  "locations": [
+    {
+      "id": 0,
+      "country": "US",
+      "country_code": "US",
+      "province": "New York",
+      "state": "New York",
+      "county": "New York",
+      "last_updated": "2020-03-21T14:00:00Z",
+      "coordinates": {
+        "latitude": 40.71455,
+        "longitude": -74.00714
+      },
+      "latest": {
+        "confirmed": 6211,
+        "deaths": 43,
+        "recovered": 0
+      }
+    },
+    {
+      "id": 1,
+      "country": "US",
+      "country_code": "US",
+      "province": "New York",
+      "state": "New York",
+      "county": "Westchester",
+      "last_updated": "2020-03-21T14:00:00Z",
+      "coordinates": {
+        "latitude": 41.16319759,
+        "longitude": -73.7560629
+      },
+      "latest": {
+        "confirmed": 1385,
+        "deaths": 0,
+        "recovered": 0
+      },
+    }
+  ]
+}
+```
+
+__Parameter: timelines__
+
+Getting the data for all the locations including the daily tracking of confirmed cases, deaths and recovered per location.
+
+```http
+GET /v2/locations?timelines=1
+```
+Explore the response by opening the URL in your browser [https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1](https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1) or make the following curl call in your terminal:
+
+```
+curl https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1 | json_pp
+```
+
+__NOTE:__ Timelines tracking starts from day 22nd January 2020 and ends to the last available day in the data-source.
+
+
 
 ## Wrappers
 
