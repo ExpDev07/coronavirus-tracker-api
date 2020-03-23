@@ -156,8 +156,7 @@ __Sample response__
 __Query String Parameters__
 | Query string parameter | Description                                                                                                                                      | Type    |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| source                 | The data-source where data will be retrieved from. __Value__ can be: __jhu/csbs__.                                                               |
-| __Default__ is __jhu__ | String                                                                                                                                           |
+| source                 | The data-source where data will be retrieved from. __Value__ can be: __jhu/csbs__. __Default__ is __jhu__                                        | String  |
 | country_code           | The ISO ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to the Country/Province for which you're calling the Endpoint | String  |
 | timelines              | To set the visibility of timelines (*daily tracking*).__Value__ can be: __0/1__. __Default__ is __0__                                            | Integer |
 
