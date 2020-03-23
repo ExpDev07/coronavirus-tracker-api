@@ -1,6 +1,6 @@
 ## Coronavirus Tracker API
 Provides up-to-date data about Coronavirus outbreak. Includes numbers about confirmed cases, deaths and recovered.
-Support multiple data sources.
+Support multiple data-sources.
 
 ![Travis build](https://api.travis-ci.com/ExpDev07/coronavirus-tracker-api.svg?branch=master)
 [![License](https://img.shields.io/github/license/ExpDev07/coronavirus-tracker-api)](LICENSE.md)
@@ -19,7 +19,7 @@ Support multiple data sources.
 ![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
 
 
-## Endpoints
+## API Endpoints
 
 All endpoints are located at ``coronavirus-tracker-api.herokuapp.com/v2/`` and are accessible via https. For instance: you can get data per location by using this URL: 
 ``https://coronavirus-tracker-api.herokuapp.com/v2/locations``
@@ -27,22 +27,25 @@ All endpoints are located at ``coronavirus-tracker-api.herokuapp.com/v2/`` and a
 You can try to open the URL in your browser to further inspect the response.
 
 
-### Picking data source
+#### Available data-sources:
 
-We provide multiple data-sources you can pick from, simply add the query parameter ``?source=your_source_of_choice`` to your requests. JHU will be used as a default if you don't provide one.
+Currently 2 different data-sources are available to retrieve the data:
 
-#### Available sources:
-
-* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
+* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE). 
 
 * **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
 
-* **... more to come later**.
+__JHU__ data-source will be used as a default source if you don't specify a source parameter in your request.
 
-### Getting latest amount of total confirmed cases, deaths, and recoveries.
+### Latest Endpoint
+
+Getting latest amount of total confirmed cases, deaths, and recoveries.
+
 ```http
 GET /v2/latest
 ```
+
+__Sample response__
 ```json
 {
   "latest": {
@@ -53,10 +56,20 @@ GET /v2/latest
 }
 ```
 
-### Getting all locations.
+__Parameters__
+| Query string parameter | Description                                                                      | Type   |
+| ---------------------- | -------------------------------------------------------------------------------- | ------ |
+| source                 | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String |
+
+### Locations Endpoint
+
+Getting latest amount of total confirmed cases, deaths, and recoveries per location. 
+
 ```http
 GET /v2/locations
 ```
+
+__Sample response__
 ```json
 {
   "latest": {
@@ -100,13 +113,40 @@ GET /v2/locations
   ]
 }
 ```
+| Query string parameter | Description                                                                                                                                      | Type    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| source                 | The data-source where data will be retrieved from. __Value__ can be: __jhu/csbs__.                                                               |
+| __Default__ is __jhu__ | String                                                                                                                                           |
+| country_code           | The ISO ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to the Country/Province for which you're calling the Endpoint | String  |
+| timelines              | To set the visibility of timelines (*daily tracking*).__Value__ can be: __0/1__. __Default__ is __0__                                            | Integer |
 
-Additionally, you can also filter by any attribute, including province and country ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+
+__Response definitions__
+| Response Item                                  | Description                                                                                                                          | Type    |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| {latest}                                       | The total amount of confirmed cases, deaths and recoveries for all the locations                                                     | Object  |
+| {latest}/confirmed                             | The up-to-date total number of confirmed cases for all the locations within the data-source                                          | Integer |
+| {latest}/deaths                                | The up-to-date total amount of deaths for all the locations within the data-source                                                   | Integer |
+| {latest}/recovered                             | The up-to-date total amount of recovered for all the locations within the data-source                                                | Integer |
+| {locations}                                    | The collection of locations contained within the  data-source                                                                        | Object  |
+| {location}                                     | Information that identifies a location                                                                                               | Object  |
+| {latest}                                       | The amount of confirmed cases, deaths and recovered related to the specific location                                                 | Object  |
+| {locations}/{location}/{latest}/confirmed      | The up-to-date number of confirmed cases related to the specific location                                                            | Integer |
+| {locations}/{location}/{latest}/deaths         | The up-to-date number of deaths related to the specific location                                                                     | Integer |
+| {locations}/{location}/{latest}/deaths         | The up-to-date number of recovered related to the specific location                                                                  | Integer |
+| {locations}/{location}/id                      | The location id. This id number is assigned to the location by the data-source.                                                      | Integer |
+| {locations}/{location}/country                 | The Country name                                                                                                                     | String  |
+| {locations}/{location}/country_code            | The ISO ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) Country code for the location.                    | String  |
+| {locations}/{location}/province                | The province where the location belongs to. (Used only for __csbs data-source__ of US locations. __Empty__ with __jhu data-source__. | String  |
+| {locations}/{location}/{coordinates}/latitude  | The location latitude                                                                                                                | Float   |
+| {locations}/{location}/{coordinates}/longitude | The location longitude                                                                                                               | Float   |
+
+
+
 ```http
 GET /v2/locations?country_code=US
 ```
 
-Include timelines.
 ```http
 GET /v2/locations?timelines=1
 ```
