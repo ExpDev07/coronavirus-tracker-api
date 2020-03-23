@@ -76,7 +76,7 @@ V2 = fastapi.APIRouter()
 
 
 @V2.get("/latest", response_model=models.Latest)
-def get_latest(request: fastapi.Request):
+def get_latest(request: fastapi.Request, source: Sources = "jhu"):
     """Getting latest amount of total confirmed cases, deaths, and recoveries."""
     locations = request.state.source.get_all()
     return {
@@ -94,7 +94,7 @@ def get_latest(request: fastapi.Request):
 def get_all_locations(
     request: fastapi.Request,
     country_code: str = None,
-    timelines: int = 0,
+    timelines: bool = False,
     source: Sources = "jhu",
 ):
     # Retrieve all the locations.
@@ -120,18 +120,16 @@ def get_all_locations(
 
 
 @V2.get("/locations/{id}", response_model=models.Location)
-def get_location_by_id(request: fastapi.Request, id: int, timelines: int = 1):
+def get_location_by_id(request: fastapi.Request, id: int, timelines: bool = True):
     return {"location": request.state.source.get(id).serialize(timelines)}
 
 
-@V2.get('/sources')
+@V2.get("/sources")
 async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
     """
-    return {
-        'sources': list(data_sources.keys())
-    }
+    return {"sources": list(data_sources.keys())}
 
 
 APP.include_router(V2, prefix="/v2-beta", tags=["v2"])
