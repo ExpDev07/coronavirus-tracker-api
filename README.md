@@ -18,6 +18,16 @@ Support multiple data-sources.
 ![Covid-19 Recovered](https://covid19-badges.herokuapp.com/recovered/latest)
 ![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
 
+## Available data-sources:
+
+Currently 2 different data-sources are available to retrieve the data:
+
+* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE). 
+
+* **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
+
+__jhu__ data-source will be used as a default source if you don't specify a *source parameter* in your request.
+
 
 ## API Reference
 
@@ -30,16 +40,6 @@ You can try to open the URL in your browser to further inspect the response. Or 
 curl https://coronavirus-tracker-api.herokuapp.com/v2/locations | json_pp
 ```
 
-
-#### Available data-sources:
-
-Currently 2 different data-sources are available to retrieve the data:
-
-* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE). 
-
-* **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
-
-__jhu__ data-source will be used as a default source if you don't specify a source parameter in your request.
 
 ## API Endpoints 
 
@@ -78,9 +78,9 @@ GET /v2/locations/:id
 ```
 
 __Path Parameters__
-| Path parameter | Required/Optional | Description                                                        | Type    |
-| -------------- | ----------------- | ------------------------------------------------------------------ | ------- |
-| id             | OPTIONAL          | The location id for which you want to call the locations Endpoint. | Integer |
+| Path parameter | Required/Optional | Description                                                               | Type    |
+| -------------- | ----------------- | ------------------------------------------------------------------------- | ------- |
+| id             | OPTIONAL          | The unique location id for which you want to call the Locations Endpoint. | Integer |
 
 
 #### Example Request
@@ -198,7 +198,7 @@ __Parameter: country_code__
 Getting data for the Country specified by the *country_code parameter*, in this case Italy - IT
 
 ```http
-GET https://coronavirus-tracker-api.herokuapp.com/v2/locations?country_code=IT
+GET /v2/locations?country_code=IT
 ```
 
 __Sample Response__
@@ -231,7 +231,7 @@ __Sample Response__
 ```
 
 __Parameter: source__
-Getting the data from the data-source (csbs)[https://www.csbs.org/information-covid-19-coronavirus]
+Getting the data from the data-source specified by the *source parameter*, in this case [csbs](https://www.csbs.org/information-covid-19-coronavirus)
 
 ```http
 GET /v2/locations?source=csbs
@@ -287,12 +287,18 @@ __Sample Response__
 ```
 
 __Parameter: timelines__
-Getting the data for all the locations including the daily tracking of confirmed cases, deaths and recovered
+Getting the data for all the locations including the daily tracking of confirmed cases, deaths and recovered per location.
 
 ```http
-GET https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1
+GET /v2/locations?timelines=1
 ```
-__NOTE:__ Timelines tracking starts from day 22nd January 2020 and ends to the last available day on the data-source.
+Explore the response by opening the URL in your browser [https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1](https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1) or make the following curl call on your terminal:
+
+```
+curl https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1 | json_pp
+```
+
+__NOTE:__ Timelines tracking starts from day 22nd January 2020 and ends to the last available day in the data-source.
 
 ## Wrappers
 
