@@ -2,6 +2,7 @@
 app.main.py
 """
 import datetime as dt
+import enum
 import logging
 import os
 import reprlib
@@ -19,6 +20,11 @@ from .data import data_source
 # ################
 # Dependencies
 # ################
+
+
+class Sources(str, enum.Enum):
+    jhu = "jhu"
+    csbs = "csbs"
 
 
 # ############
@@ -81,9 +87,14 @@ def get_latest(request: fastapi.Request):
     }
 
 
-@APP.get("/locations", response_model=models.AllLocations, response_model_exclude_unset=True)
+@APP.get(
+    "/locations", response_model=models.AllLocations, response_model_exclude_unset=True
+)
 def get_all_locations(
-    request: fastapi.Request, country_code: str = None, timelines: int = 0
+    request: fastapi.Request,
+    country_code: str = None,
+    timelines: int = 0,
+    source: Sources = "jhu",
 ):
     # Retrieve all the locations.
     locations = request.state.source.get_all()
