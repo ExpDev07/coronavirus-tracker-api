@@ -182,13 +182,11 @@ __Sample response__
 ```
 
 __Query String Parameters__
-| __Query string parameter__                                              | __Description__                                                                                                                                  | __Type__ |
-| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| source                                                                  | The data-source where data will be retrieved from.                                                                                               |
-| __Value__ can be: *jhu/csbs*. __Default__ is *jhu*                      | String                                                                                                                                           |
-| country_code                                                            | The ISO ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to the Country/Province for which you're calling the Endpoint | String   |
-| timelines                                                               | To set the visibility of timelines (*daily tracking*).                                                                                           |
-| __Value__ can be: *0/1*. __Default__ is *0* (timelines are not visible) | Integer                                                                                                                                          |
+| __Query string parameter__ | __Description__                                                                                                                                  | __Type__ |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| source                     | The data-source where data will be retrieved from.<br>__Value__ can be: *jhu/csbs*. __Default__ is *jhu*                                         | String   |
+| country_code               | The ISO ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to the Country/Province for which you're calling the Endpoint | String   |
+| timelines                  | To set the visibility of timelines (*daily tracking*).<br>__Value__ can be: *0/1*. __Default__ is *0* (timelines are not visible)                | Integer  |
 
 
 __Response definitions__
