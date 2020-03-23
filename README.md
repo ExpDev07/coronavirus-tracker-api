@@ -190,25 +190,24 @@ __Query String Parameters__
 
 
 __Response definitions__
-| __Response Item__                              | __Description__                                                                                                 | __Type__ |
-| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- |
-| {latest}                                       | The total amount of confirmed cases, deaths and recovered for all the locations                                 | Object   |
-| {latest}/confirmed                             | The up-to-date total number of confirmed cases for all the locations within the data-source                     | Integer  |
-| {latest}/deaths                                | The up-to-date total amount of deaths for all the locations within the data-source                              | Integer  |
-| {latest}/recovered                             | The up-to-date total amount of recovered for all the locations within the data-source                           | Integer  |
-| {locations}                                    | The collection of locations contained within the  data-source                                                   | Object   |
-| {location}                                     | Information that identifies a location                                                                          | Object   |
-| {latest}                                       | The amount of confirmed cases, deaths and recovered related to the specific location                            | Object   |
-| {locations}/{location}/{latest}/confirmed      | The up-to-date number of confirmed cases related to the specific location                                       | Integer  |
-| {locations}/{location}/{latest}/deaths         | The up-to-date number of deaths related to the specific location                                                | Integer  |
-| {locations}/{location}/{latest}/recovered      | The up-to-date number of recovered related to the specific location                                             | Integer  |
-| {locations}/{location}/id                      | The location id. This unique id is assigned to the location by the data-source.                                 | Integer  |
-| {locations}/{location}/country                 | The Country name                                                                                                | String   |
-| {locations}/{location}/country_code            | The [ISO alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) Country code for the location. | String   |
-| {locations}/{location}/province                | The province where the location belongs to. (Used for US locations coming from __csbs data-source__.            |
-| __Empty__ when *jhu data-source* is used       | String                                                                                                          |
-| {locations}/{location}/{coordinates}/latitude  | The location latitude                                                                                           | Float    |
-| {locations}/{location}/{coordinates}/longitude | The location longitude                                                                                          | Float    |
+| __Response Item__                              | __Description__                                                                                                                                  | __Type__ |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| {latest}                                       | The total amount of confirmed cases, deaths and recovered for all the locations                                                                  | Object   |
+| {latest}/confirmed                             | The up-to-date total number of confirmed cases for all the locations within the data-source                                                      | Integer  |
+| {latest}/deaths                                | The up-to-date total amount of deaths for all the locations within the data-source                                                               | Integer  |
+| {latest}/recovered                             | The up-to-date total amount of recovered for all the locations within the data-source                                                            | Integer  |
+| {locations}                                    | The collection of locations contained within the  data-source                                                                                    | Object   |
+| {location}                                     | Information that identifies a location                                                                                                           | Object   |
+| {latest}                                       | The amount of confirmed cases, deaths and recovered related to the specific location                                                             | Object   |
+| {locations}/{location}/{latest}/confirmed      | The up-to-date number of confirmed cases related to the specific location                                                                        | Integer  |
+| {locations}/{location}/{latest}/deaths         | The up-to-date number of deaths related to the specific location                                                                                 | Integer  |
+| {locations}/{location}/{latest}/recovered      | The up-to-date number of recovered related to the specific location                                                                              | Integer  |
+| {locations}/{location}/id                      | The location id. This unique id is assigned to the location by the data-source.                                                                  | Integer  |
+| {locations}/{location}/country                 | The Country name                                                                                                                                 | String   |
+| {locations}/{location}/country_code            | The [ISO alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) Country code for the location.                                  | String   |
+| {locations}/{location}/province                | The province where the location belongs to. (Used for US locations coming from __csbs data-source__.<br>__Empty__ when *jhu data-source* is used | String   |
+| {locations}/{location}/{coordinates}/latitude  | The location latitude                                                                                                                            | Float    |
+| {locations}/{location}/{coordinates}/longitude | The location longitude                                                                                                                           | Float    |
 
 
 ### Example Requests with parameters
