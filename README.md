@@ -68,14 +68,17 @@ Getting latest amount of total confirmed cases, deaths, and recoveries per locat
 ```http
 GET /v2/locations/{locationId}
 ```
+
 __Path Parameters__
 | Path parameter | Required/Optional | Description                                                        | Type    |
 | -------------- | ----------------- | ------------------------------------------------------------------ | ------- |
 | locationId     | OPTIONAL          | The location id for which you want to call the locations Endpoint. | Integer |
 
+
 ```http
-GET /v2/locations/:id
+GET /v2/locations/39
 ```
+__Sample response__
 ```json
 {
   "location": {
@@ -99,6 +102,10 @@ GET /v2/locations/:id
     }
   }
 }
+```
+
+```http
+GET /v2/locations
 ```
 
 __Sample response__
@@ -145,6 +152,8 @@ __Sample response__
   ]
 }
 ```
+
+__Query String Parameters__
 | Query string parameter | Description                                                                                                                                      | Type    |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
 | source                 | The data-source where data will be retrieved from. __Value__ can be: __jhu/csbs__.                                                               |
@@ -172,7 +181,6 @@ __Response definitions__
 | {locations}/{location}/province                | The province where the location belongs to. (Used only for __csbs data-source__ of US locations. __Empty__ with __jhu data-source__. | String  |
 | {locations}/{location}/{coordinates}/latitude  | The location latitude                                                                                                                | Float   |
 | {locations}/{location}/{coordinates}/longitude | The location longitude                                                                                                               | Float   |
-
 
 
 ```http
