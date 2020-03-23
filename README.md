@@ -19,7 +19,7 @@ Support multiple data-sources.
 ![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
 
 
-## API Endpoints
+## API Reference
 
 All endpoints are located at ``coronavirus-tracker-api.herokuapp.com/v2/`` and are accessible via https. For instance: you can get data per location by using this URL: 
 ``https://coronavirus-tracker-api.herokuapp.com/v2/locations``
@@ -35,7 +35,9 @@ Currently 2 different data-sources are available to retrieve the data:
 
 * **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
 
-__JHU__ data-source will be used as a default source if you don't specify a source parameter in your request.
+__jhu__ data-source will be used as a default source if you don't specify a source parameter in your request.
+
+## API Endpoints 
 
 ### Latest Endpoint
 
@@ -61,20 +63,23 @@ __Query String Parameters__
 | ---------------------- | -------------------------------------------------------------------------------- | ------ |
 | source                 | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String |
 
+
 ### Locations Endpoint
 
 Getting latest amount of total confirmed cases, deaths, and recoveries per location. 
 
+#### The Location Object
 ```http
-GET /v2/locations/{locationId}
+GET /v2/locations/:id
 ```
 
 __Path Parameters__
 | Path parameter | Required/Optional | Description                                                        | Type    |
 | -------------- | ----------------- | ------------------------------------------------------------------ | ------- |
-| locationId     | OPTIONAL          | The location id for which you want to call the locations Endpoint. | Integer |
+| id             | OPTIONAL          | The location id for which you want to call the locations Endpoint. | Integer |
 
 
+#### Example Request
 ```http
 GET /v2/locations/39
 ```
@@ -104,6 +109,7 @@ __Sample response__
 }
 ```
 
+#### List of all locations
 ```http
 GET /v2/locations
 ```
@@ -182,26 +188,52 @@ __Response definitions__
 | {locations}/{location}/{coordinates}/longitude | The location longitude                                                                                                               | Float   |
 
 
-```http
-GET /v2/locations?country_code=US
-```
+### Example Requests with parameters
+
+__Parameter: country_code__
+Getting data for the Country specified by the *country_code parameter*, in this case Italy - IT
 
 ```http
-GET /v2/locations?timelines=1
+GET https://coronavirus-tracker-api.herokuapp.com/v2/locations?country_code=IT
 ```
 
-### Getting a specific location (includes timelines by default).
-
-
-Exclude timelines.
-```http
-GET /v2/locations?timelines=0
+__Sample Response__
+```json
+{
+    "latest": {
+        "confirmed": 59138,
+        "deaths": 5476,
+        "recovered": 7024
+    },
+    "locations": [
+        {
+            "coordinates": {
+                "latitude": "43",
+                "longitude": "12"
+            },
+            "country": "Italy",
+            "country_code": "IT",
+            "id": 16,
+            "last_updated": "2020-03-23T13:32:23.913872Z",
+            "latest": {
+                "confirmed": 59138,
+                "deaths": 5476,
+                "recovered": 7024
+            },
+            "province": ""
+        }
+    ]
+}
 ```
 
-### Getting US per county information.
+__Parameter: source__
+Getting the data from the data-source (csbs)[https://www.csbs.org/information-covid-19-coronavirus]
+
 ```http
 GET /v2/locations?source=csbs
 ```
+
+__Sample Response__
 ```json
 {
   "latest": {
@@ -249,6 +281,14 @@ GET /v2/locations?source=csbs
   ]
 }
 ```
+
+__Parameter: timelines__
+Getting the data for all the locations including the daily tracking of confirmed cases, deaths and recovered
+
+```http
+GET https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1
+```
+__NOTE:__ Timelines tracking starts from day 22nd January 2020 and ends to the last available day on the data-source.
 
 ## Wrappers
 
