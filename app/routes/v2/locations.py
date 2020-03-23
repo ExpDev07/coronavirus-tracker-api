@@ -17,7 +17,7 @@ def locations():
             try:
                 locations = [j for j in locations if getattr(j, i) == args.get(i, type=str)]
             except AttributeError:
-                print('TimelinedLocation object does not have attribute {}.'.format(i))
+                print('Location does not have attribute {}.'.format(i))
 
     # Serialize each location and return.
     return jsonify({
