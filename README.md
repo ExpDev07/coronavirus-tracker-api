@@ -56,7 +56,7 @@ __Sample response__
 }
 ```
 
-__ Query String Parameters__
+__Query String Parameters__
 | Query string parameter | Description                                                                      | Type   |
 | ---------------------- | -------------------------------------------------------------------------------- | ------ |
 | source                 | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String |
