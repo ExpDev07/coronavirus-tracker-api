@@ -26,7 +26,7 @@ All requests must be made to the base url: ``https://coronavirus-tracker-api.her
 
 ### Picking data source
 
-We provide multiple data-sources you can pick from, simply add the query parameter ``?source=your_source_of_choice`` to your requests. JHU will be used as a default if you don't provide one.
+We provide multiple data-sources you can pick from, simply add the query parameter ``?source=your_source_of_choice`` to your requests. JHU will be used as a default if you don't provide one. Dynamically retrieve available sources at ``/v2/sources``.
 
 #### Available sources:
 
@@ -140,58 +140,6 @@ GET /v2/locations/:id
 Exclude timelines.
 ```http
 GET /v2/locations?timelines=0
-```
-
-### Getting US per county information.
-```http
-GET /v2/locations?source=csbs
-```
-```json
-{
-  "latest": {
-    "confirmed": 7596,
-    "deaths": 43,
-    "recovered": 0
-  },
-  "locations": [
-    {
-      "id": 0,
-      "country": "US",
-      "country_code": "US",
-      "province": "New York",
-      "state": "New York",
-      "county": "New York",
-      "last_updated": "2020-03-21T14:00:00Z",
-      "coordinates": {
-        "latitude": 40.71455,
-        "longitude": -74.00714
-      },
-      "latest": {
-        "confirmed": 6211,
-        "deaths": 43,
-        "recovered": 0
-      }
-    },
-    {
-      "id": 1,
-      "country": "US",
-      "country_code": "US",
-      "province": "New York",
-      "state": "New York",
-      "county": "Westchester",
-      "last_updated": "2020-03-21T14:00:00Z",
-      "coordinates": {
-        "latitude": 41.16319759,
-        "longitude": -73.7560629
-      },
-      "latest": {
-        "confirmed": 1385,
-        "deaths": 0,
-        "recovered": 0
-      },
-    }
-  ]
-}
 ```
 
 ## Wrappers
