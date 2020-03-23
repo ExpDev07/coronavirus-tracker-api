@@ -56,7 +56,7 @@ __Sample response__
 }
 ```
 
-__Parameters__
+__ Query String Parameters__
 | Query string parameter | Description                                                                      | Type   |
 | ---------------------- | -------------------------------------------------------------------------------- | ------ |
 | source                 | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String |
@@ -66,7 +66,39 @@ __Parameters__
 Getting latest amount of total confirmed cases, deaths, and recoveries per location. 
 
 ```http
-GET /v2/locations
+GET /v2/locations/{locationId}
+```
+__ Path Parameters__
+| Path parameter | Required/Optional | Description                                                        | Type    |
+| -------------- | ----------------- | ------------------------------------------------------------------ |
+| locationId     | OPTIONAL          | The location id for which you want to call the locations Endpoint. | Integer |
+
+```http
+GET /v2/locations/:id
+```
+```json
+{
+  "location": {
+    "id": 39,
+    "country": "Norway",
+    "country_code": "NO",
+    "province": "",
+    "last_updated": "2020-03-21T06:59:11.315422Z",
+    "coordinates": { },
+    "latest": { },
+    "timelines": {
+      "confirmed": {
+        "latest": 1463,
+        "timeline": {
+          "2020-03-16T00:00:00Z": 1333,
+          "2020-03-17T00:00:00Z": 1463
+        }
+      },
+      "deaths": { },
+      "recovered": { }
+    }
+  }
+}
 ```
 
 __Sample response__
@@ -152,33 +184,7 @@ GET /v2/locations?timelines=1
 ```
 
 ### Getting a specific location (includes timelines by default).
-```http
-GET /v2/locations/:id
-```
-```json
-{
-  "location": {
-    "id": 39,
-    "country": "Norway",
-    "country_code": "NO",
-    "province": "",
-    "last_updated": "2020-03-21T06:59:11.315422Z",
-    "coordinates": { },
-    "latest": { },
-    "timelines": {
-      "confirmed": {
-        "latest": 1463,
-        "timeline": {
-          "2020-03-16T00:00:00Z": 1333,
-          "2020-03-17T00:00:00Z": 1463
-        }
-      },
-      "deaths": { },
-      "recovered": { }
-    }
-  }
-}
-```
+
 
 Exclude timelines.
 ```http
