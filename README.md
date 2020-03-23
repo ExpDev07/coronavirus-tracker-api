@@ -22,9 +22,13 @@ Support multiple data-sources.
 ## API Reference
 
 All endpoints are located at ``coronavirus-tracker-api.herokuapp.com/v2/`` and are accessible via https. For instance: you can get data per location by using this URL: 
-*(https://coronavirus-tracker-api.herokuapp.com/v2/locations)[https://coronavirus-tracker-api.herokuapp.com/v2/locations]*
+*[https://coronavirus-tracker-api.herokuapp.com/v2/locations](https://coronavirus-tracker-api.herokuapp.com/v2/locations)*
 
-You can try to open the URL in your browser to further inspect the response.
+You can try to open the URL in your browser to further inspect the response. Or you can make this curl call on your terminal to see the prettified response:
+
+```
+curl https://coronavirus-tracker-api.herokuapp.com/v2/locations | json_pp
+```
 
 
 #### Available data-sources:
