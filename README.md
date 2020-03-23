@@ -68,9 +68,9 @@ Getting latest amount of total confirmed cases, deaths, and recoveries per locat
 ```http
 GET /v2/locations/{locationId}
 ```
-__ Path Parameters__
+__Path Parameters__
 | Path parameter | Required/Optional | Description                                                        | Type    |
-| -------------- | ----------------- | ------------------------------------------------------------------ |
+| -------------- | ----------------- | ------------------------------------------------------------------ | ------- |
 | locationId     | OPTIONAL          | The location id for which you want to call the locations Endpoint. | Integer |
 
 ```http
