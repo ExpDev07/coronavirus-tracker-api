@@ -201,7 +201,7 @@ __Response definitions__
 | {latest}                                       | The amount of confirmed cases, deaths and recovered related to the specific location                            | Object   |
 | {locations}/{location}/{latest}/confirmed      | The up-to-date number of confirmed cases related to the specific location                                       | Integer  |
 | {locations}/{location}/{latest}/deaths         | The up-to-date number of deaths related to the specific location                                                | Integer  |
-| {locations}/{location}/{latest}/deaths         | The up-to-date number of recovered related to the specific location                                             | Integer  |
+| {locations}/{location}/{latest}/recovered      | The up-to-date number of recovered related to the specific location                                             | Integer  |
 | {locations}/{location}/id                      | The location id. This unique id is assigned to the location by the data-source.                                 | Integer  |
 | {locations}/{location}/country                 | The Country name                                                                                                | String   |
 | {locations}/{location}/country_code            | The [ISO alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) Country code for the location. | String   |
