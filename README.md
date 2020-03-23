@@ -69,6 +69,11 @@ Getting latest amount of total confirmed cases, deaths, and recovered.
 GET /v2/latest
 ```
 
+__Query String Parameters__
+| __Query string parameter__ | __Description__                                                                  | __Type__ |
+| -------------------------- | -------------------------------------------------------------------------------- | -------- |
+| source                     | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String   |
+
 __Sample response__
 ```json
 {
@@ -79,12 +84,6 @@ __Sample response__
   }
 }
 ```
-
-__Query String Parameters__
-| __Query string parameter__ | __Description__                                                                  | __Type__ |
-| -------------------------- | -------------------------------------------------------------------------------- | -------- |
-| source                     | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String   |
-
 
 ### Locations Endpoint
 
@@ -100,11 +99,16 @@ __Path Parameters__
 | ------------------ | --------------------- | ------------------------------------------------------------------------- | -------- |
 | id                 | OPTIONAL              | The unique location id for which you want to call the Locations Endpoint. | Integer  |
 
+__Query String Parameters__
+| __Query string parameter__ | __Description__                                                                  | __Type__ |
+| -------------------------- | -------------------------------------------------------------------------------- | -------- |
+| source                     | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String   |
 
 #### Example Request
 ```http
 GET /v2/locations/39
 ```
+
 __Sample response__
 ```json
 {
@@ -135,6 +139,13 @@ __Sample response__
 ```http
 GET /v2/locations
 ```
+
+__Query String Parameters__
+| __Query string parameter__ | __Description__                                                                                                                                  | __Type__ |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| source                     | The data-source where data will be retrieved from.<br>__Value__ can be: *jhu/csbs*. __Default__ is *jhu*                                         | String   |
+| country_code               | The ISO ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to the Country/Province for which you're calling the Endpoint | String   |
+| timelines                  | To set the visibility of timelines (*daily tracking*).<br>__Value__ can be: *0/1*. __Default__ is *0* (timelines are not visible)                | Integer  |
 
 __Sample response__
 ```json
@@ -180,14 +191,6 @@ __Sample response__
   ]
 }
 ```
-
-__Query String Parameters__
-| __Query string parameter__ | __Description__                                                                                                                                  | __Type__ |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| source                     | The data-source where data will be retrieved from.<br>__Value__ can be: *jhu/csbs*. __Default__ is *jhu*                                         | String   |
-| country_code               | The ISO ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to the Country/Province for which you're calling the Endpoint | String   |
-| timelines                  | To set the visibility of timelines (*daily tracking*).<br>__Value__ can be: *0/1*. __Default__ is *0* (timelines are not visible)                | Integer  |
-
 
 __Response definitions__
 | __Response Item__                              | __Description__                                                                                                                                  | __Type__ |
