@@ -46,6 +46,14 @@ You can open the URL in your browser to further inspect the response. Or you can
 curl https://coronavirus-tracker-api.herokuapp.com/v2/locations | json_pp
 ```
 
+### Swagger/OpenAPI
+
+An [interactive SwaggerUI](https://coronavirus-tracker-api.herokuapp.com/) exists for the `v2` endpoints.
+
+Mobile friendly ReDocs can be reached at https://coronavirus-tracker-api.herokuapp.com/docs
+
+The [OpenAPI](https://swagger.io/docs/specification/about/) json can be downloaded at https://coronavirus-tracker-api.herokuapp.com/openapi.json
+
 ## API Endpoints 
 
 ### Sources Endpoint
