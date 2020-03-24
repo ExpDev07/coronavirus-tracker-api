@@ -50,7 +50,7 @@ APP = fastapi.FastAPI(
 async def add_datasource(request: fastapi.Request, call_next):
     """Attach the data source to the request.state."""
     # Retrieve the datas ource from query param.
-    source = data_source(request.query_params.get('source', type=str, default='jhu'))
+    source = data_source(request.query_params.get('source', default='jhu'))
     
     # Abort with 404 if source cannot be found.
     if not source:
