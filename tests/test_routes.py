@@ -32,7 +32,7 @@ class FlaskRoutesTest(unittest.TestCase):
         return expected_json_output
 
     def test_root_api(self, mock_request_get, mock_datetime):
-        """Validate that / returns content and is not a redirect."""
+        """Validate that / returns a 200 and is not a redirect."""
         response = self.asgi_client.get("/")
 
         assert response.status_code == 200
