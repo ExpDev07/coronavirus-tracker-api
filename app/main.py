@@ -23,6 +23,9 @@ from .data import data_source, data_sources
 
 
 class Sources(str, enum.Enum):
+    """
+    A source available for retrieving data.
+    """
     jhu = 'jhu'
     csbs = 'csbs'
 
@@ -48,13 +51,15 @@ APP = fastapi.FastAPI(
 # TODO this could probably just be a FastAPI dependency.
 @APP.middleware('http')
 async def add_datasource(request: fastapi.Request, call_next):
-    """Attach the data source to the request.state."""
+    """
+    Attach the data source to the request.state.
+    """
     # Retrieve the datas ource from query param.
     source = data_source(request.query_params.get('source', default='jhu'))
     
     # Abort with 404 if source cannot be found.
     if not source:
-        raise HTTPException(status_code=404, detail='The provided data-source was not found.')
+        return fastapi.Response('The provided data-source was not found.', status_code=404)
     
     # Attach source to request.
     request.state.source = source
@@ -74,6 +79,9 @@ async def add_datasource(request: fastapi.Request, call_next):
 async def handle_validation_error(
     request: fastapi.Request, exc: pydantic.error_wrappers.ValidationError
 ):
+    """
+    Handles validation errors.
+    """
     return fastapi.responses.JSONResponse({'message': exc.errors()}, status_code=422)
 
 
@@ -86,7 +94,9 @@ V2 = fastapi.APIRouter()
 
 @V2.get('/latest', response_model=models.Latest)
 def get_latest(request: fastapi.Request, source: Sources = 'jhu'):
-    """Getting latest amount of total confirmed cases, deaths, and recoveries."""
+    """
+    Getting latest amount of total confirmed cases, deaths, and recoveries.
+    """
     locations = request.state.source.get_all()
     return {
         'latest': {
@@ -106,6 +116,9 @@ def get_all_locations(
     timelines: bool = False,
     source: Sources = 'jhu',
 ):
+    """
+    Getting all the locations.
+    """
     # Retrieve all the locations.
     locations = request.state.source.get_all()
 
@@ -130,7 +143,12 @@ def get_all_locations(
 
 @V2.get('/locations/{id}', response_model=models.Location)
 def get_location_by_id(request: fastapi.Request, id: int, timelines: bool = True):
-    return {'location': request.state.source.get(id).serialize(timelines)}
+    """
+    Getting specific location by id.
+    """
+    return {
+        'location': request.state.source.get(id).serialize(timelines)
+    }
 
 
 @V2.get('/sources')
@@ -138,7 +156,9 @@ async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
     """
-    return {'sources': list(data_sources.keys())}
+    return {
+        'sources': list(data_sources.keys())
+    }
 
 # Include routers.
 APP.include_router(V2, prefix='/v2', tags=['v2'])
@@ -147,6 +167,7 @@ APP.include_router(V2, prefix='/v2', tags=['v2'])
 # v1 @ /
 APP.mount('/', WSGIMiddleware(create_app()))
 
+# Running of app.
 if __name__ == '__main__':
     uvicorn.run(
         'app.main:APP',
