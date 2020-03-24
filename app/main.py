@@ -23,21 +23,21 @@ from .data import data_source, data_sources
 
 
 class Sources(str, enum.Enum):
-    jhu = "jhu"
-    csbs = "csbs"
+    jhu = 'jhu'
+    csbs = 'csbs'
 
 
 # ############
 # FastAPI App
 # ############
-LOGGER = logging.getLogger("api")
+LOGGER = logging.getLogger('api')
 
 APP = fastapi.FastAPI(
-    title="Coronavirus Tracker",
-    description="API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak.",
-    version="2.0.1",
-    docs_url="/",
-    redoc_url="/docs",
+    title='Coronavirus Tracker',
+    description='API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak.',
+    version='2.0.1',
+    docs_url='/',
+    redoc_url='/docs',
 )
 
 # #####################
@@ -45,8 +45,8 @@ APP = fastapi.FastAPI(
 #######################
 
 
-# TODO this could probably just be a FastAPI dependency
-@APP.middleware("http")
+# TODO this could probably just be a FastAPI dependency.
+@APP.middleware('http')
 async def add_datasource(request: fastapi.Request, call_next):
     """Attach the data source to the request.state."""
     # Retrieve the datas ource from query param.
@@ -60,7 +60,7 @@ async def add_datasource(request: fastapi.Request, call_next):
     request.state.source = source
     
     # Move on...
-    LOGGER.info(f"source: {source.__class__.__name__}")
+    LOGGER.info(f'source: {source.__class__.__name__}')
     response = await call_next(request)
     return response
 
@@ -74,7 +74,7 @@ async def add_datasource(request: fastapi.Request, call_next):
 async def handle_validation_error(
     request: fastapi.Request, exc: pydantic.error_wrappers.ValidationError
 ):
-    return fastapi.responses.JSONResponse({"message": exc.errors()}, status_code=422)
+    return fastapi.responses.JSONResponse({'message': exc.errors()}, status_code=422)
 
 
 # ################
@@ -84,27 +84,27 @@ async def handle_validation_error(
 V2 = fastapi.APIRouter()
 
 
-@V2.get("/latest", response_model=models.Latest)
-def get_latest(request: fastapi.Request, source: Sources = "jhu"):
+@V2.get('/latest', response_model=models.Latest)
+def get_latest(request: fastapi.Request, source: Sources = 'jhu'):
     """Getting latest amount of total confirmed cases, deaths, and recoveries."""
     locations = request.state.source.get_all()
     return {
-        "latest": {
-            "confirmed": sum(map(lambda location: location.confirmed, locations)),
-            "deaths": sum(map(lambda location: location.deaths, locations)),
-            "recovered": sum(map(lambda location: location.recovered, locations)),
+        'latest': {
+            'confirmed': sum(map(lambda location: location.confirmed, locations)),
+            'deaths': sum(map(lambda location: location.deaths, locations)),
+            'recovered': sum(map(lambda location: location.recovered, locations)),
         }
     }
 
 
 @V2.get(
-    "/locations", response_model=models.Locations, response_model_exclude_unset=True
+    '/locations', response_model=models.Locations, response_model_exclude_unset=True
 )
 def get_all_locations(
     request: fastapi.Request,
     country_code: str = None,
     timelines: bool = False,
-    source: Sources = "jhu",
+    source: Sources = 'jhu',
 ):
     # Retrieve all the locations.
     locations = request.state.source.get_all()
@@ -119,38 +119,38 @@ def get_all_locations(
         )
     # FIXME: timelines are not showing up
     return {
-        "latest": {
-            "confirmed": sum(map(lambda location: location.confirmed, locations)),
-            "deaths": sum(map(lambda location: location.deaths, locations)),
-            "recovered": sum(map(lambda location: location.recovered, locations)),
+        'latest': {
+            'confirmed': sum(map(lambda location: location.confirmed, locations)),
+            'deaths': sum(map(lambda location: location.deaths, locations)),
+            'recovered': sum(map(lambda location: location.recovered, locations)),
         },
-        "locations": [location.serialize(timelines) for location in locations],
+        'locations': [location.serialize(timelines) for location in locations],
     }
 
 
-@V2.get("/locations/{id}", response_model=models.Location)
+@V2.get('/locations/{id}', response_model=models.Location)
 def get_location_by_id(request: fastapi.Request, id: int, timelines: bool = True):
-    return {"location": request.state.source.get(id).serialize(timelines)}
+    return {'location': request.state.source.get(id).serialize(timelines)}
 
 
-@V2.get("/sources")
+@V2.get('/sources')
 async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
     """
-    return {"sources": list(data_sources.keys())}
+    return {'sources': list(data_sources.keys())}
 
 # Include routers.
-APP.include_router(V2, prefix="/v2", tags=["v2"])
+APP.include_router(V2, prefix='/v2', tags=['v2'])
 
 # mount the existing Flask app
 # v1 @ /
-APP.mount("/", WSGIMiddleware(create_app()))
+APP.mount('/', WSGIMiddleware(create_app()))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     uvicorn.run(
-        "app.main:APP",
-        host="127.0.0.1",
-        port=int(os.getenv("PORT", 5000)),
-        log_level="info",
+        'app.main:APP',
+        host='127.0.0.1',
+        port=int(os.getenv('PORT', 5000)),
+        log_level='info',
     )
