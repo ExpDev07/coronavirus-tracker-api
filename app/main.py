@@ -36,8 +36,7 @@ APP = fastapi.FastAPI(
     title="Coronavirus Tracker",
     description="API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak.",
     version="2.0.1",
-    prefix="/v2-beta",
-    docs_url="/v2-beta",
+    docs_url="/",
     redoc_url="/docs",
 )
 
