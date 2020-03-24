@@ -27,7 +27,7 @@ def mocked_requests_get(*args, **kwargs):
             state = state.lower()
 
             # Determine filepath.
-            filepath = "tests/example_data/time_series_covid19_{}_global".format(state)
+            filepath = "tests/example_data/{}".format(state)
 
             if state == 'recovered':
                 filepath = 'tests/example_data/time_series_19-covid-Recovered.csv'
