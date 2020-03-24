@@ -86,7 +86,7 @@ class FlaskRoutesTest(unittest.TestCase):
             'latest': {
                 'confirmed': 1940,
                 'deaths': 1940,
-                'recovered': 1940
+                'recovered': 0
             }
         }
 

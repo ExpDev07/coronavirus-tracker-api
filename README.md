@@ -1,4 +1,7 @@
-## Coronavirus Tracker API
+<h1 align="center">
+    Coronavirus Tracker API
+</h1>
+
 Provides up-to-date data about Coronavirus outbreak. Includes numbers about confirmed cases, deaths and recovered.
 Support multiple data-sources.
 
@@ -18,6 +21,10 @@ Support multiple data-sources.
 ![Covid-19 Recovered](https://covid19-badges.herokuapp.com/recovered/latest)
 ![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
 
+## Recovered cases showing 0
+
+**JHU (our main data provider) [no longer provides data for amount of recoveries](https://github.com/ExpDev07/coronavirus-tracker-api/issues/155), and as a result, the API will be showing 0 for this statistic. Apolegies for any inconvenience. Hopefully we'll be able to find an alternative data-source that offers this.**
+
 ## Available data-sources:
 
 Currently 2 different data-sources are available to retrieve the data:
@@ -27,7 +34,6 @@ Currently 2 different data-sources are available to retrieve the data:
 * **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
 
 __jhu__ data-source will be used as a default source if you don't specify a *source parameter* in your request.
-
 
 ## API Reference
 
@@ -39,7 +45,6 @@ You can open the URL in your browser to further inspect the response. Or you can
 ```
 curl https://coronavirus-tracker-api.herokuapp.com/v2/locations | json_pp
 ```
-
 
 ## API Endpoints 
 
