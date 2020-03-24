@@ -24,7 +24,15 @@ def mocked_requests_get(*args, **kwargs):
             """
             Mock HTTP GET-method and return text from file
             """
-            filepath = "tests/example_data/time_series_19-covid-{}.csv".format(state)
+            state = state.lowered()
+
+            # Determine filepath.
+            filepath = "tests/example_data/time_series_19-covid-Time_series_covid19_{}_global.csv".format(state.lower())
+
+            if state == 'recovered':
+                filepath = 'tests/example_data/time_series_19-covid-Recovered.csv'
+
+            # Return fake response.
             print("Try to read {}".format(filepath))
             with open(filepath, "r") as file:
                 return file.read()
