@@ -27,7 +27,7 @@ from ...utils import countrycodes, date as date_util
 """
 Base URL for fetching category.
 """
-base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-%s.csv';
+base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_%s_global.csv';
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
 def get_category(category):
@@ -39,7 +39,7 @@ def get_category(category):
     """
 
     # Adhere to category naming standard.
-    category = category.lower().capitalize();
+    category = category.lower();
 
     # Request the data
     request = requests.get(base_url % category)
@@ -106,7 +106,6 @@ def get_locations():
     # Get all of the data categories locations.
     confirmed = get_category('confirmed')['locations']
     deaths    = get_category('deaths')['locations']
-    recovered = get_category('recovered')['locations']
 
     # Final locations to return.
     locations = []
@@ -117,7 +116,7 @@ def get_locations():
         timelines = {
             'confirmed' : confirmed[index]['history'],
             'deaths'    : deaths[index]['history'],
-            'recovered' : recovered[index]['history'],
+            'recovered' : {},
         }
 
         # Grab coordinates.
@@ -141,7 +140,7 @@ def get_locations():
             {
                 'confirmed': Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['confirmed'].items() }),
                 'deaths'   : Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['deaths'].items() }),
-                'recovered': Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['recovered'].items() })
+                'recovered': Timeline({})
             }
         ))
     
