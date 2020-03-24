@@ -67,7 +67,7 @@ def get_locations():
             ),
 
             # Last update (parse as ISO).
-            datetime.strptime(last_update, '%Y/%m/%d %H:%M').isoformat() + 'Z', 
+            datetime.strptime(last_update, '%Y-%m-%d %H:%M').isoformat() + 'Z', 
             
             # Statistics.
             int(item['Confirmed'] or 0),
