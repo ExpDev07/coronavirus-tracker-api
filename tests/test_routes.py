@@ -1,8 +1,10 @@
 import app
 import unittest
+from fastapi.testclient import TestClient
 import json
 from unittest import mock
 from app import services
+from app.main import APP
 
 from .test_jhu import mocked_requests_get, mocked_strptime_isoformat, DATETIME_STRING
 
@@ -20,6 +22,7 @@ class FlaskRoutesTest(unittest.TestCase):
 
     def setUp(self):
         self.client = FlaskRoutesTest.app.test_client()
+        self.asgi_client = TestClient(APP)
         self.date = DATETIME_STRING
 
     def read_file_v1(self, state):
@@ -29,15 +32,11 @@ class FlaskRoutesTest(unittest.TestCase):
         return expected_json_output
 
     def test_root_api(self, mock_request_get, mock_datetime):
-        """Validate redirections of /"""
-        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        return_data = self.client.get("/")
+        """Validate that / returns content and is not a redirect."""
+        response = self.asgi_client.get("/")
 
-        assert return_data.status_code == 302
-
-        assert dict(return_data.headers)["Location"] == \
-            "https://github.com/ExpDev07/coronavirus-tracker-api"
+        assert response.status_code == 200
+        assert not response.is_redirect 
 
     def test_v1_confirmed(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
@@ -79,8 +78,7 @@ class FlaskRoutesTest(unittest.TestCase):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
         state = "latest"
-        return_data = self.client.get("/v2/{}".format(state)).data.decode()
-        return_data = json.loads(return_data)
+        return_data = self.asgi_client.get(f"/v2/{state}").json()
 
         check_dict = {
             'latest': {
@@ -96,13 +94,13 @@ class FlaskRoutesTest(unittest.TestCase):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
         state = "locations"
-        return_data = self.client.get("/v2/{}".format(state)).data.decode()
+        return_data = self.asgi_client.get("/v2/{}".format(state)).json()
 
         filepath = "tests/expected_output/v2_{state}.json".format(state=state)
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
-        #assert return_data == expected_json_output
+        # assert return_data == json.loads(expected_json_output)
 
     def test_v2_locations_id(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
@@ -110,7 +108,7 @@ class FlaskRoutesTest(unittest.TestCase):
 
         state = "locations"
         test_id = 1
-        return_data = self.client.get("/v2/{}/{}".format(state, test_id)).data.decode()
+        return_data = self.asgi_client.get("/v2/{}/{}".format(state, test_id)).json()
 
         filepath = "tests/expected_output/v2_{state}_id_{test_id}.json".format(state=state, test_id=test_id)
         with open(filepath, "r") as file:
