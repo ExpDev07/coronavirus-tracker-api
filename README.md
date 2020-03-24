@@ -100,9 +100,9 @@ GET /v2/locations/:id
 ```
 
 __Path Parameters__
-| __Path parameter__ | __Required/Optional__ | __Description__                                                           | __Type__ |
-| ------------------ | --------------------- | ------------------------------------------------------------------------- | -------- |
-| id                 | OPTIONAL              | The unique location id for which you want to call the Locations Endpoint. | Integer  |
+| __Path parameter__ | __Required/Optional__ | __Description__                                                                                                                                                          | __Type__ |
+| ------------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| id                 | OPTIONAL              | The unique location id for which you want to call the Locations Endpoint. The list of valid location IDs (:id) can be found in the locations response: ``/v2/locations`` | Integer  |
 
 __Query String Parameters__
 | __Query string parameter__ | __Description__                                                                  | __Type__ |
