@@ -15,7 +15,7 @@ from fastapi.middleware.wsgi import WSGIMiddleware
 
 from . import models
 from .core import create_app
-from .data import data_source
+from .data import data_source, data_sources
 
 # ################
 # Dependencies
@@ -121,6 +121,16 @@ def get_all_locations(
 @APP.get("/locations/{id}", response_model=models.Location)
 def get_location_by_id(request: fastapi.Request, id: int, timelines: int = 1):
     return {"location": request.state.source.get(id).serialize(timelines)}
+
+
+@APP.get('/sources')
+async def sources():
+    """
+    Retrieves a list of data-sources that are availble to use.
+    """
+    return {
+        'sources': list(data_sources.keys())
+    }
 
 
 # mount the existing Flask app
