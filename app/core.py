@@ -18,7 +18,6 @@ def create_app():
 
         # Register api endpoints.
         app.register_blueprint(routes.api_v1)
-        app.register_blueprint(routes.api_v2)
 
         # Return created app.
         return app
