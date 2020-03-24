@@ -66,17 +66,6 @@ def mocked_strptime_isoformat(*args, **kwargs):
 
     return DateTimeStrpTime(date, strformat)
 
-@pytest.mark.parametrize("category, capitalize_category", [
-                            ("deaths", "Deaths"),
-                            ("recovered", "Recovered"),
-                            ("confirmed", "Confirmed")])
-@mock.patch('app.services.location.jhu.requests.get', side_effect=mocked_requests_get)
-def test_validate_category(mock_request_get, category, capitalize_category):
-    base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-%s.csv'
-    request = app.services.location.jhu.requests.get(base_url % category)
-    
-    assert request.state == capitalize_category
-
 @pytest.mark.parametrize("category, datetime_str, latest_value, country_name, \
                           country_code, province, latest_country_value, \
                           coordinate_lat, coordinate_long",
