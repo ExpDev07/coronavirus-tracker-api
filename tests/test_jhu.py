@@ -24,7 +24,7 @@ def mocked_requests_get(*args, **kwargs):
             """
             Mock HTTP GET-method and return text from file
             """
-            state = state.lowered()
+            state = state.lower()
 
             # Determine filepath.
             filepath = "tests/example_data/time_series_19-covid-Time_series_covid19_{}_global.csv".format(state.lower())
