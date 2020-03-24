@@ -72,8 +72,10 @@ async def handle_validation_error(
 # Routes
 # ################
 
+V2 = fastapi.APIRouter()
 
-@APP.get("/latest", response_model=models.Latest)
+
+@V2.get("/latest", response_model=models.Latest)
 def get_latest(request: fastapi.Request):
     """Getting latest amount of total confirmed cases, deaths, and recoveries."""
     locations = request.state.source.get_all()
@@ -86,7 +88,7 @@ def get_latest(request: fastapi.Request):
     }
 
 
-@APP.get(
+@V2.get(
     "/locations", response_model=models.AllLocations, response_model_exclude_unset=True
 )
 def get_all_locations(
@@ -117,12 +119,12 @@ def get_all_locations(
     }
 
 
-@APP.get("/locations/{id}", response_model=models.Location)
+@V2.get("/locations/{id}", response_model=models.Location)
 def get_location_by_id(request: fastapi.Request, id: int, timelines: int = 1):
     return {"location": request.state.source.get(id).serialize(timelines)}
 
 
-@APP.get('/sources')
+@V2.get('/sources')
 async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
@@ -132,6 +134,7 @@ async def sources():
     }
 
 
+APP.include_router(V2, prefix="/v2-beta", tags=["v2"])
 # mount the existing Flask app
 # v1 @ /
 # v2 @ /v2
