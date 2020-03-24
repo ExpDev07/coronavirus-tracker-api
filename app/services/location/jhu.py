@@ -116,7 +116,7 @@ def get_locations():
     # Get all of the data categories locations.
     confirmed = get_category('confirmed')['locations']
     deaths    = get_category('deaths')['locations']
-    recovered = get_category('recovered')['locations']
+    # recovered = get_category('recovered')['locations']
 
     # Final locations to return.
     locations = []
@@ -127,7 +127,7 @@ def get_locations():
         timelines = {
             'confirmed' : confirmed[index]['history'],
             'deaths'    : deaths[index]['history'],
-            'recovered' : recovered[index]['history'],
+            # 'recovered' : recovered[index]['history'],
         }
 
         # Grab coordinates.
@@ -151,7 +151,7 @@ def get_locations():
             {
                 'confirmed': Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['confirmed'].items() }),
                 'deaths'   : Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['deaths'].items() }),
-                'recovered': Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['recovered'].items() })
+                'recovered': Timeline({})
             }
         ))
     
