@@ -1,4 +1,7 @@
-## Coronavirus Tracker API
+<h1 align="center">
+    Coronavirus Tracker API
+</h1>
+
 Provides up-to-date data about Coronavirus outbreak. Includes numbers about confirmed cases, deaths and recovered.
 Support multiple data-sources.
 
@@ -19,7 +22,8 @@ Support multiple data-sources.
 ![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
 
 ## Recovered cases showing 0
-JHU (our main data provider) [no longer provides data for amount of recoveries](https://github.com/ExpDev07/coronavirus-tracker-api/issues/155), and as a result, the API will be showing 0 for this statistic. Apolegies for any inconvenience. Hopefully we'll be able to find an alternative data-source that offers this.**
+
+**JHU (our main data provider) [no longer provides data for amount of recoveries](https://github.com/ExpDev07/coronavirus-tracker-api/issues/155), and as a result, the API will be showing 0 for this statistic. Apolegies for any inconvenience. Hopefully we'll be able to find an alternative data-source that offers this.**
 
 ## Available data-sources:
 
