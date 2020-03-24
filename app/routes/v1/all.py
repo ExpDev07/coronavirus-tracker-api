@@ -1,5 +1,4 @@
 from flask import jsonify
-from .recovered import dummy
 from ...routes import api_v1 as api
 from ...services.location.jhu import get_category
 
@@ -8,17 +7,18 @@ def all():
     # Get all the categories.
     confirmed = get_category('confirmed')
     deaths    = get_category('deaths')
+    recovered = get_category('recovered')
 
     return jsonify({
         # Data.
         'confirmed': confirmed,
         'deaths':    deaths,
-        'recovered': dummy,
+        'recovered': recovered,
 
         # Latest.
         'latest': {
             'confirmed': confirmed['latest'],
             'deaths':    deaths['latest'],
-            'recovered': 0,
+            'recovered': recovered['latest'],
         }
     })

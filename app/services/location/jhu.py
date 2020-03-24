@@ -27,7 +27,7 @@ from ...utils import countrycodes, date as date_util
 """
 Base URL for fetching category.
 """
-base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_%s_global.csv';
+base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/';
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
 def get_category(category):
@@ -41,8 +41,18 @@ def get_category(category):
     # Adhere to category naming standard.
     category = category.lower();
 
+    # URL to request data from.
+    url = base_url + 'time_series_covid19_%s_global.csv' % category
+
+    # Different URL is needed for recoveries.
+    # Read about deprecation here: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series.
+    if category == 'recovered':
+        url = base_url + 'time_series_19-covid-Recovered.csv'
+
+    print (url)
+
     # Request the data
-    request = requests.get(base_url % category)
+    request = requests.get(url)
     text    = request.text
 
     # Parse the CSV.
@@ -106,6 +116,7 @@ def get_locations():
     # Get all of the data categories locations.
     confirmed = get_category('confirmed')['locations']
     deaths    = get_category('deaths')['locations']
+    recovered = get_category('recovered')['locations']
 
     # Final locations to return.
     locations = []
@@ -116,7 +127,7 @@ def get_locations():
         timelines = {
             'confirmed' : confirmed[index]['history'],
             'deaths'    : deaths[index]['history'],
-            'recovered' : {},
+            'recovered' : recovered[index]['history'],
         }
 
         # Grab coordinates.
@@ -140,7 +151,7 @@ def get_locations():
             {
                 'confirmed': Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['confirmed'].items() }),
                 'deaths'   : Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['deaths'].items() }),
-                'recovered': Timeline({})
+                'recovered': Timeline({ datetime.strptime(date, '%m/%d/%y').isoformat() + 'Z': amount for date, amount in timelines['recovered'].items() })
             }
         ))
     
