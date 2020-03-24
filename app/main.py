@@ -49,9 +49,18 @@ APP = fastapi.FastAPI(
 @APP.middleware("http")
 async def add_datasource(request: fastapi.Request, call_next):
     """Attach the data source to the request.state."""
-    source = request.query_params.get("source", default="jhu")
-    request.state.source = data_source(source)
-    LOGGER.info(f"source: {request.state.source.__class__.__name__}")
+    # Retrieve the datas ource from query param.
+    source = data_source(request.query_params.get('source', type=str, default='jhu'))
+    
+    # Abort with 404 if source cannot be found.
+    if not source:
+        raise HTTPException(status_code=404, detail='The provided data-source was not found.')
+    
+    # Attach source to request.
+    request.state.source = source
+    
+    # Move on...
+    LOGGER.info(f"source: {source.__class__.__name__}")
     response = await call_next(request)
     return response
 
