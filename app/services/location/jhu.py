@@ -27,7 +27,7 @@ from ...utils import countrycodes, date as date_util
 """
 Base URL for fetching category.
 """
-base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-%s.csv';
+base_url = 'https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/';
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
 def get_category(category):
@@ -39,10 +39,20 @@ def get_category(category):
     """
 
     # Adhere to category naming standard.
-    category = category.lower().capitalize();
+    category = category.lower();
+
+    # URL to request data from.
+    url = base_url + 'time_series_covid19_%s_global.csv' % category
+
+    # Different URL is needed for recoveries.
+    # Read about deprecation here: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series.
+    if category == 'recovered':
+        url = base_url + 'time_series_19-covid-Recovered.csv'
+
+    print (url)
 
     # Request the data
-    request = requests.get(base_url % category)
+    request = requests.get(url)
     text    = request.text
 
     # Parse the CSV.

@@ -21,7 +21,15 @@ class Timeline:
         """
         Gets the latest available history value.
         """
-        return list(self.timeline.values())[-1] or 0
+        # Get values in a list.
+        values = list(self.timeline.values())
+
+        # Last item is the latest.
+        if len(values):
+            return values[-1] or 0
+        
+        # Fallback value of 0.
+        return 0
 
     def serialize(self):
         """
