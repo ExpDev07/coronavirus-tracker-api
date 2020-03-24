@@ -89,7 +89,7 @@ def get_latest(request: fastapi.Request, source: Sources = "jhu"):
 
 
 @V2.get(
-    "/locations", response_model=models.AllLocations, response_model_exclude_unset=True
+    "/locations", response_model=models.Locations, response_model_exclude_unset=True
 )
 def get_all_locations(
     request: fastapi.Request,
@@ -131,8 +131,9 @@ async def sources():
     """
     return {"sources": list(data_sources.keys())}
 
-
+# Include routers.
 APP.include_router(V2, prefix="/v2-beta", tags=["v2"])
+
 # mount the existing Flask app
 # v1 @ /
 # v2 @ /v2

@@ -3,48 +3,45 @@ app.models.py
 ~~~~~~~~~~~~~
 Reponse data models.
 """
-import datetime as dt
+from pydantic import BaseModel
 from typing import Dict, List
 
-import pydantic
-
-
-class Totals(pydantic.BaseModel):
+class Totals(BaseModel):
     confirmed: int
     deaths: int
     recovered: int
 
 
-class Latest(pydantic.BaseModel):
+class Latest(BaseModel):
     latest: Totals
 
 
-class TimelineStats(pydantic.BaseModel):
+class TimelineStats(BaseModel):
     latest: int
-    timeline: Dict[str, int]
+    timeline: Dict[str, int] = {}
 
 
-class TimelinedLocation(pydantic.BaseModel):
+class TimelinedLocation(BaseModel):
     confirmed: TimelineStats
     deaths: TimelineStats
     recovered: TimelineStats
 
 
-class Country(pydantic.BaseModel):
-    coordinates: Dict
+class Country(BaseModel):
+    id: int
     country: str
     country_code: str
-    id: int
-    last_updated: dt.datetime
-    latest: Totals
     province: str = ""
-    timelines: TimelinedLocation = None  # FIXME
-
-
-class AllLocations(pydantic.BaseModel):
+    last_updated: str # TODO use datetime.datetime type.
+    coordinates: Dict
     latest: Totals
-    locations: List[Country]
+    timelines: TimelinedLocation = {}
 
 
-class Location(pydantic.BaseModel):
+class Locations(BaseModel):
+    latest: Totals
+    locations: List[Country] = []
+
+
+class Location(BaseModel):
     location: Country
