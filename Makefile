@@ -19,3 +19,11 @@ test:
 
 lint:
 	pylint $(APP) || true
+
+fmt:
+	isort -rc --atomic
+	black .
+
+check-fmt:
+	isort -rc --check
+	black . --check --diff
