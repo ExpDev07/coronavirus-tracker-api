@@ -4,6 +4,7 @@ default_code = "XX"
 # Mapping of country names to alpha-2 codes according to
 # https://en.wikipedia.org/wiki/ISO_3166-1.
 # As a reference see also https://github.com/TakahikoKawasaki/nv-i18n (in Java)
+# fmt: off
 is_3166_1 = {
     "Afghanistan"                                  : "AF",
     "Åland Islands"                                : "AX",
@@ -359,6 +360,7 @@ synonyms = {
     # "Cruise Ship" has no mapping, i.e. the default val is used
 }
 
+# fmt: on
 def country_code(country):
     """
     Return two letter country code (Alpha-2) according to https://en.wikipedia.org/wiki/ISO_3166-1
@@ -371,5 +373,5 @@ def country_code(country):
             synonym = synonyms[country]
             return is_3166_1[synonym]
         else:
-            print ("No country_code found for '" + country + "'. Using '" + default_code + "'")
+            print("No country_code found for '" + country + "'. Using '" + default_code + "'")
             return default_code

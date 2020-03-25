@@ -1,12 +1,13 @@
 from datetime import datetime
 from collections import OrderedDict
 
+
 class Timeline:
     """
     Timeline with history of data.
     """
 
-    def __init__(self, history = {}):
+    def __init__(self, history={}):
         self.__timeline = history
 
     @property
@@ -27,7 +28,7 @@ class Timeline:
         # Last item is the latest.
         if len(values):
             return values[-1] or 0
-        
+
         # Fallback value of 0.
         return 0
 
@@ -38,7 +39,4 @@ class Timeline:
         :returns: The serialized timeline.
         :rtype: dict
         """
-        return {
-            'latest'  : self.latest,
-            'timeline': self.timeline
-        }
+        return {"latest": self.latest, "timeline": self.timeline}

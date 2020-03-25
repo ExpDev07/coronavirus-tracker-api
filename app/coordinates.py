@@ -14,10 +14,7 @@ class Coordinates:
         :returns: The serialized coordinates.
         :rtype: dict
         """
-        return {
-            'latitude' : self.latitude,
-            'longitude': self.longitude
-        }
+        return {"latitude": self.latitude, "longitude": self.longitude}
 
     def __str__(self):
-        return 'lat: %s, long: %s' % (self.latitude, self.longitude)
+        return "lat: %s, long: %s" % (self.latitude, self.longitude)

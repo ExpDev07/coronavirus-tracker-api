@@ -26,14 +26,14 @@ from .models.latest import LatestResponse as Latest
 # ############
 # FastAPI App
 # ############
-LOGGER = logging.getLogger('api')
+LOGGER = logging.getLogger("api")
 
 APP = FastAPI(
-    title='Coronavirus Tracker',
-    description='API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak. Project page: https://github.com/ExpDev07/coronavirus-tracker-api.',
-    version='2.0.1',
-    docs_url='/',
-    redoc_url='/docs',
+    title="Coronavirus Tracker",
+    description="API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak. Project page: https://github.com/ExpDev07/coronavirus-tracker-api.",
+    version="2.0.1",
+    docs_url="/",
+    redoc_url="/docs",
 )
 
 # #####################
@@ -42,31 +42,27 @@ APP = FastAPI(
 
 # Enable CORS.
 APP.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=['*'],
-    allow_methods=['*'],
-    allow_headers=['*'],
+    CORSMiddleware, allow_credentials=True, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],
 )
 
 # TODO this could probably just be a FastAPI dependency.
-@APP.middleware('http')
+@APP.middleware("http")
 async def add_datasource(request: Request, call_next):
     """
     Attach the data source to the request.state.
     """
     # Retrieve the datas ource from query param.
-    source = data_source(request.query_params.get('source', default='jhu'))
-    
+    source = data_source(request.query_params.get("source", default="jhu"))
+
     # Abort with 404 if source cannot be found.
     if not source:
-        return Response('The provided data-source was not found.', status_code=404)
-    
+        return Response("The provided data-source was not found.", status_code=404)
+
     # Attach source to request.
     request.state.source = source
-    
+
     # Move on...
-    LOGGER.info(f'source provided: {source.__class__.__name__}')
+    LOGGER.info(f"source provided: {source.__class__.__name__}")
     response = await call_next(request)
     return response
 
@@ -77,13 +73,11 @@ async def add_datasource(request: Request, call_next):
 
 
 @APP.exception_handler(pydantic.error_wrappers.ValidationError)
-async def handle_validation_error(
-    request: Request, exc: pydantic.error_wrappers.ValidationError
-):
+async def handle_validation_error(request: Request, exc: pydantic.error_wrappers.ValidationError):
     """
     Handles validation errors.
     """
-    return JSONResponse({'message': exc.errors()}, status_code=422)
+    return JSONResponse({"message": exc.errors()}, status_code=422)
 
 
 # ################
@@ -93,17 +87,14 @@ async def handle_validation_error(
 from .router import router
 
 # Include routers.
-APP.include_router(router, prefix='/v2', tags=['v2'])
+APP.include_router(router, prefix="/v2", tags=["v2"])
 
 # mount the existing Flask app
 # v1 @ /
-APP.mount('/', WSGIMiddleware(create_app()))
+APP.mount("/", WSGIMiddleware(create_app()))
 
 # Running of app.
-if __name__ == '__main__':
+if __name__ == "__main__":
     uvicorn.run(
-        'app.main:APP',
-        host='127.0.0.1',
-        port=int(os.getenv('PORT', 5000)),
-        log_level='info',
+        "app.main:APP", host="127.0.0.1", port=int(os.getenv("PORT", 5000)), log_level="info",
     )
