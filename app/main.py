@@ -65,7 +65,7 @@ async def add_datasource(request: fastapi.Request, call_next):
     request.state.source = source
     
     # Move on...
-    LOGGER.info(f'source: {source.__class__.__name__}')
+    LOGGER.info(f'source provided: {source.__class__.__name__}')
     response = await call_next(request)
     return response
 
@@ -92,7 +92,7 @@ async def handle_validation_error(
 V2 = fastapi.APIRouter()
 
 
-@V2.get('/latest', response_model=models.Latest)
+@V2.get('/latest', response_model=models.LatestResponse)
 def get_latest(request: fastapi.Request, source: Sources = 'jhu'):
     """
     Getting latest amount of total confirmed cases, deaths, and recoveries.
@@ -101,20 +101,20 @@ def get_latest(request: fastapi.Request, source: Sources = 'jhu'):
     return {
         'latest': {
             'confirmed': sum(map(lambda location: location.confirmed, locations)),
-            'deaths': sum(map(lambda location: location.deaths, locations)),
+            'deaths'   : sum(map(lambda location: location.deaths, locations)),
             'recovered': sum(map(lambda location: location.recovered, locations)),
         }
     }
 
 
 @V2.get(
-    '/locations', response_model=models.Locations, response_model_exclude_unset=True
+    '/locations', response_model=models.LocationsResponse, response_model_exclude_unset=True
 )
 def get_locations(
     request: fastapi.Request,
+    source: Sources = 'jhu',
     country_code: str = None,
     timelines: bool = False,
-    source: Sources = 'jhu',
 ):
     """
     Getting the locations.
@@ -126,23 +126,23 @@ def get_locations(
     if country_code:
         locations = list(
             filter(
-                lambda location: location.country_code == country_code.upper(),
-                locations,
+                lambda location: location.country_code == country_code.upper(), locations,
             )
         )
-    # FIXME: timelines are not showing up
+
+    # Return final serialized data.
     return {
         'latest': {
             'confirmed': sum(map(lambda location: location.confirmed, locations)),
-            'deaths': sum(map(lambda location: location.deaths, locations)),
+            'deaths'   : sum(map(lambda location: location.deaths, locations)),
             'recovered': sum(map(lambda location: location.recovered, locations)),
         },
         'locations': [location.serialize(timelines) for location in locations],
     }
 
 
-@V2.get('/locations/{id}', response_model=models.Location)
-def get_location_by_id(request: fastapi.Request, id: int, timelines: bool = True):
+@V2.get('/locations/{id}', response_model=models.LocationResponse)
+def get_location_by_id(request: fastapi.Request, id: int, source: Sources = 'jhu', timelines: bool = True):
     """
     Getting specific location by id.
     """

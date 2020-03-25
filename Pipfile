@@ -23,5 +23,5 @@ uvicorn = "*"
 python_version = "3.8"
 
 [scripts]
-dev_app = "uvicorn app.main:APP --reload"
-app = "uvicorn app.main:APP"
+dev = "uvicorn app.main:APP --reload"
+start = "uvicorn app.main:APP"
