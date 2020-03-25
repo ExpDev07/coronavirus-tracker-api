@@ -22,7 +22,6 @@ class CSBSLocationService(LocationService):
         return self.get_all()[id]
 
 
-
 # Base URL for fetching data
 base_url = "https://facts.csbs.org/covid-19/covid19_county.csv"
 
