@@ -48,11 +48,10 @@ curl https://coronavirus-tracker-api.herokuapp.com/v2/locations | json_pp
 
 ### Swagger/OpenAPI
 
-An [interactive SwaggerUI](https://coronavirus-tracker-api.herokuapp.com/) exists for the `v2` endpoints.
+Consume our API through [an interactive SwaggerUI](https://coronavirus-tracker-api.herokuapp.com/) (on mobile, use the [mobile friendly ReDocs](https://coronavirus-tracker-api.herokuapp.com/docs) instead for the best experience).
 
-Mobile friendly ReDocs can be reached at https://coronavirus-tracker-api.herokuapp.com/docs
 
-The [OpenAPI](https://swagger.io/docs/specification/about/) json can be downloaded at https://coronavirus-tracker-api.herokuapp.com/openapi.json
+The [OpenAPI](https://swagger.io/docs/specification/about/) json definition can be downloaded at https://coronavirus-tracker-api.herokuapp.com/openapi.json
 
 ## API Endpoints 
 
@@ -130,6 +129,7 @@ __Sample response__
     "country": "Norway",
     "country_code": "NO",
     "province": "",
+    "county": "",
     "last_updated": "2020-03-21T06:59:11.315422Z",
     "coordinates": { },
     "latest": { },
@@ -174,6 +174,7 @@ __Sample response__
       "country": "Thailand",
       "country_code": "TH",
       "province": "",
+      "county": "",
       "last_updated": "2020-03-21T06:59:11.315422Z",
       "coordinates": {
         "latitude": "15",
@@ -190,6 +191,7 @@ __Sample response__
       "country": "Norway",
       "country_code": "NO",
       "province": "",
+      "county": "",
       "last_updated": "2020-03-21T06:59:11.315422Z",
       "coordinates": {
         "latitude": "60.472",
@@ -239,29 +241,30 @@ GET /v2/locations?country_code=IT
 __Sample Response__
 ```json
 {
-    "latest": {
-        "confirmed": 59138,
-        "deaths": 5476,
-        "recovered": 7024
-    },
-    "locations": [
-        {
-            "coordinates": {
-                "latitude": "43",
-                "longitude": "12"
-            },
-            "country": "Italy",
-            "country_code": "IT",
-            "id": 16,
-            "last_updated": "2020-03-23T13:32:23.913872Z",
-            "latest": {
-                "confirmed": 59138,
-                "deaths": 5476,
-                "recovered": 7024
-            },
-            "province": ""
-        }
-    ]
+  "latest": {
+    "confirmed": 59138,
+    "deaths": 5476,
+    "recovered": 7024
+  },
+  "locations": [
+    {
+      "id": 16,
+      "country": "Italy",
+      "country_code": "IT",
+      "province": "",
+      "county": "",
+      "last_updated": "2020-03-23T13:32:23.913872Z",
+      "coordinates": {
+          "latitude": "43",
+          "longitude": "12"
+      },
+      "latest": {
+          "confirmed": 59138,
+          "deaths": 5476,
+          "recovered": 7024
+      }
+    }
+  ]
 }
 ```
 
