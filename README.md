@@ -48,7 +48,7 @@ curl https://coronavirus-tracker-api.herokuapp.com/v2/locations | json_pp
 
 ### Swagger/OpenAPI
 
-Consume our API through [an interactive SwaggerUI](https://coronavirus-tracker-api.herokuapp.com/) (on mobile, use the [mobile friendly ReDocs](https://coronavirus-tracker-api.herokuapp.com/docs) instead for the best experience).
+Consume our API through [our super awesome and interactive SwaggerUI](https://coronavirus-tracker-api.herokuapp.com/) (on mobile, use the [mobile friendly ReDocs](https://coronavirus-tracker-api.herokuapp.com/docs) instead for the best experience).
 
 
 The [OpenAPI](https://swagger.io/docs/specification/about/) json definition can be downloaded at https://coronavirus-tracker-api.herokuapp.com/openapi.json
