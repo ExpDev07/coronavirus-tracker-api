@@ -119,6 +119,18 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Kilo59",
+      "name": "Gabriel",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/13108583?v=4",
+      "profile": "https://github.com/Kilo59",
+      "contributions": [
+        "code",
+        "infra",
+        "test",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
