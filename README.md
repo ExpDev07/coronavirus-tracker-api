@@ -419,7 +419,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-
 <table>
   <tr>
     <td align="center"><a href="https://github.com/ExpDev07"><img src="https://avatars3.githubusercontent.com/u/10024730?v=4" width="100px;" alt=""/><br /><sub><b>ExpDev</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=ExpDev07" title="Code">💻</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=ExpDev07" title="Documentation">📖</a> <a href="#maintenance-ExpDev07" title="Maintenance">🚧</a></td>
@@ -437,6 +436,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/o-ba"><img src="https://avatars1.githubusercontent.com/u/8812114?v=4" width="100px;" alt=""/><br /><sub><b>Oliver</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=o-ba" title="Documentation">📖</a></td>
     <td align="center"><a href="http://www.carmelagreco.dev"><img src="https://avatars0.githubusercontent.com/u/5394906?v=4" width="100px;" alt=""/><br /><sub><b>carmelag</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=carmelag" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/Kilo59"><img src="https://avatars3.githubusercontent.com/u/13108583?v=4" width="100px;" alt=""/><br /><sub><b>Gabriel</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Kilo59" title="Code">💻</a> <a href="#infra-Kilo59" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Kilo59" title="Tests">⚠️</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Kilo59" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://lioncoding.com"><img src="https://avatars0.githubusercontent.com/u/26142591?v=4" width="100px;" alt=""/><br /><sub><b>Kodjo Laurent Egbakou</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=egbakou" title="Documentation">📖</a> <a href="#tool-egbakou" title="Tools">🔧</a> <a href="#platform-egbakou" title="Packaging/porting to new platform">📦</a></td>
   </tr>
 </table>
 
