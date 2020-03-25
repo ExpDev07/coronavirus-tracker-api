@@ -1,3 +1,5 @@
+from itertools import chain
+
 # Default country code.
 default_code = "XX"
 
@@ -359,7 +361,7 @@ synonyms = {
     # "Cruise Ship" has no mapping, i.e. the default val is used
 }
 
-def country_code(country):
+def country_code(country, verbose=True):
     """
     Return two letter country code (Alpha-2) according to https://en.wikipedia.org/wiki/ISO_3166-1
     Defaults to "XX".
@@ -371,5 +373,15 @@ def country_code(country):
             synonym = synonyms[country]
             return is_3166_1[synonym]
         else:
-            print ("No country_code found for '" + country + "'. Using '" + default_code + "'")
+            if verbose:
+                print ("No country_code found for '" + country + "'. Using '" + default_code + "'")
             return default_code
+
+def country_in_database(country):
+    """
+    Checks if a given country is in the database. 
+    """
+    if country in chain(is_3166_1, synonyms):
+        return True
+    else:
+        return False
