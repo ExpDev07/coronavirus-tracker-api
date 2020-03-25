@@ -47,6 +47,7 @@ APP = fastapi.FastAPI(
 # Middleware
 #######################
 
+# Enable CORS.
 APP.add_middleware(
     fastapi.middleware.cors.CORSMiddleware,
     allow_credentials=True,
