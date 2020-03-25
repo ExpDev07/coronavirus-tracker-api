@@ -3,6 +3,7 @@ import unittest
 from fastapi.testclient import TestClient
 import json
 from unittest import mock
+import pytest
 from app import services
 from app.main import APP
 
