@@ -11,12 +11,15 @@ from typing import Dict, List
 import fastapi
 import pydantic
 import uvicorn
+
 from fastapi.middleware.wsgi import WSGIMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 
-from . import models
 from .core import create_app
 from .data import data_source, data_sources
+
+from .models.location import LocationResponse as Location, LocationsResponse as Locations
+from .models.latest import LatestResponse as Latest
 
 # ################
 # Dependencies
@@ -100,8 +103,7 @@ async def handle_validation_error(
 
 V2 = fastapi.APIRouter()
 
-
-@V2.get('/latest', response_model=models.LatestResponse)
+@V2.get('/latest', response_model=Latest)
 def get_latest(request: fastapi.Request, source: Sources = 'jhu'):
     """
     Getting latest amount of total confirmed cases, deaths, and recoveries.
@@ -117,7 +119,7 @@ def get_latest(request: fastapi.Request, source: Sources = 'jhu'):
 
 
 @V2.get(
-    '/locations', response_model=models.LocationsResponse, response_model_exclude_unset=True
+    '/locations', response_model=Locations, response_model_exclude_unset=True
 )
 def get_locations(
     request: fastapi.Request,
@@ -163,7 +165,7 @@ def get_locations(
     }
 
 
-@V2.get('/locations/{id}', response_model=models.LocationResponse)
+@V2.get('/locations/{id}', response_model=Location)
 def get_location_by_id(request: fastapi.Request, id: int, source: Sources = 'jhu', timelines: bool = True):
     """
     Getting specific location by id.
