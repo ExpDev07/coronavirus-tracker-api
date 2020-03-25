@@ -11,18 +11,22 @@ class Latest(BaseModel):
     deaths: int
     recovered: int
 
+        
 class LatestResponse(BaseModel):
     latest: Latest
 
+        
 class Timeline(BaseModel):
     latest: int
     timeline: Dict[str, int] = {}
 
+        
 class Timelines(BaseModel):
     confirmed: Timeline
     deaths: Timeline
     recovered: Timeline
 
+        
 class Location(BaseModel):
     id: int
     country: str
@@ -34,11 +38,11 @@ class Location(BaseModel):
     latest: Latest
     timelines: Timelines = {}
 
-
+        
 class LocationsResponse(BaseModel):
     latest: Latest
     locations: List[Location] = []
 
-
+        
 class LocationResponse(BaseModel):
     location: Location
