@@ -27,12 +27,13 @@ class Location:
         """
         Gets the population of this location.
         """
+        country_code = self.country_code
 
         # Population data is unavailable for provinces
-        if self.province:
+        if not self.country_code:
             return None
         else:
-            return countrypopulation.get_population_dict()[self.country_code]
+            return countrypopulation.get_population_dict()[country_code]
         
     @property
     def country_code(self):
