@@ -3,6 +3,7 @@ import unittest
 from fastapi.testclient import TestClient
 import json
 from unittest import mock
+from pprint import pformat as pf
 import pytest
 from app import services
 from app.main import APP
@@ -128,6 +129,7 @@ class FlaskRoutesTest(unittest.TestCase):
         {"source": "jhu"},
         {"timelines": True},
         {"timelines": "true"},
+        {"timelines": 1},
         {"source": "jhu", "timelines": True},
     ],
 )
@@ -135,3 +137,26 @@ def test_locations_status_code(api_client, query_params):
     response = api_client.get("/v2/locations", params=query_params)
     print(f"GET {response.url}\n{response}")
     assert response.status_code == 200
+
+
+@pytest.mark.parametrize(
+    "query_params",
+    [
+        {"source": "csbs"},
+        {"source": "jhu"},
+        {"timelines": True},
+        {"timelines": "true"},
+        {"timelines": 1},
+        {"source": "jhu", "timelines": True},
+    ],
+)
+def test_latest(api_client, query_params):
+    response = api_client.get("/v2/latest", params=query_params)
+    print(f"GET {response.url}\n{response}")
+
+    response_json = response.json()
+    print(f"\tjson:\n{pf(response_json)}")
+
+    assert response.status_code == 200
+    assert response_json["latest"]["confirmed"]
+    assert response_json["latest"]["deaths"]
