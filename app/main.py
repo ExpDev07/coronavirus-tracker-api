@@ -12,6 +12,7 @@ import fastapi
 import pydantic
 import uvicorn
 from fastapi.middleware.wsgi import WSGIMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 from . import models
 from .core import create_app
@@ -49,7 +50,7 @@ APP = fastapi.FastAPI(
 
 # Enable CORS.
 APP.add_middleware(
-    fastapi.middleware.cors.CORSMiddleware,
+    CORSMiddleware,
     allow_credentials=True,
     allow_origins=['*'],
     allow_methods=['*'],
