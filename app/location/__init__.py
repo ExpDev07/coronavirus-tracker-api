@@ -1,6 +1,6 @@
 from ..coordinates import Coordinates
 from ..utils import countrycodes
-from ..services.population import countrypopulation
+from ..utils.population import countrypopulation
 
 class Location:
     """
@@ -23,7 +23,7 @@ class Location:
         self.recovered = recovered
     
     @property
-    def population(self):
+    def country_population(self):
         """
         Gets the population of this location.
         """
@@ -32,7 +32,6 @@ class Location:
         if self.province:
             return None
         else:
-            print(countrypopulation.get_population_dict()[self.country_code])
             return countrypopulation.get_population_dict()[self.country_code]
         
     @property
