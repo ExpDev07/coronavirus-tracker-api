@@ -39,7 +39,7 @@ def get_population_dict():
             # verify that country is in database
             if country_in_database(row[0]):
 
-                # Populate dict with last non-None value
+                # Populate dict with last non-None value (https://stackoverflow.com/a/18533669)
                 key = country_code(row[0], verbose=False)
                 popluation_dict.update({key: int(next((el for el in row[::-1] if el), None))})
 
