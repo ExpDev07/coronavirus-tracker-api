@@ -1,5 +1,6 @@
 from ..coordinates import Coordinates
 from ..utils import countrycodes
+from ..services.population import countrypopulation
 
 class Location:
     """
@@ -20,6 +21,19 @@ class Location:
         self.confirmed = confirmed
         self.deaths = deaths
         self.recovered = recovered
+    
+    @property
+    def population(self):
+        """
+        Gets the population of this location.
+        """
+
+        # Population data is unavailable for provinces
+        if self.province:
+            return None
+        else:
+            print(countrypopulation.get_population_dict()[self.country_code])
+            return countrypopulation.get_population_dict()[self.country_code]
         
     @property
     def country_code(self):
