@@ -110,14 +110,14 @@ def get_latest(request: fastapi.Request, source: Sources = 'jhu'):
 @V2.get(
     '/locations', response_model=models.Locations, response_model_exclude_unset=True
 )
-def get_all_locations(
+def get_locations(
     request: fastapi.Request,
     country_code: str = None,
     timelines: bool = False,
     source: Sources = 'jhu',
 ):
     """
-    Getting all the locations.
+    Getting the locations.
     """
     # Retrieve all the locations.
     locations = request.state.source.get_all()
