@@ -1,5 +1,5 @@
-from ..services.location.jhu import JhuLocationService
 from ..services.location.csbs import CSBSLocationService
+from ..services.location.jhu import JhuLocationService
 
 # Mapping of services to data-sources.
 data_sources = {"jhu": JhuLocationService(), "csbs": CSBSLocationService()}

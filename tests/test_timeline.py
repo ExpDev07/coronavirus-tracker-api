@@ -1,6 +1,8 @@
-import pytest
-from unittest import mock
 from collections import OrderedDict
+from unittest import mock
+
+import pytest
+
 from app import timeline
 
 

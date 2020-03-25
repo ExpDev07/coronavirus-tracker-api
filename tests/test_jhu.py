@@ -1,10 +1,12 @@
-import app
 import datetime
-import pytest
 from unittest import mock
-from app.utils import date
+
+import pytest
+
+import app
 from app import location
 from app.services.location import jhu
+from app.utils import date
 
 DATETIME_STRING = "2020-03-17T10:23:22.505550"
 

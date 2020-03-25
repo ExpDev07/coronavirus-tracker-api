@@ -1,5 +1,5 @@
-from . import router
 from ..data import data_sources
+from . import router
 
 
 @router.get("/sources")

@@ -1,7 +1,15 @@
-from . import LocationService
-from ...location import TimelinedLocation
+import csv
+from datetime import datetime
+
+import requests
+from cachetools import TTLCache, cached
+
 from ...coordinates import Coordinates
+from ...location import TimelinedLocation
 from ...timeline import Timeline
+from ...utils import countrycodes
+from ...utils import date as date_util
+from . import LocationService
 
 
 class JhuLocationService(LocationService):
@@ -20,11 +28,6 @@ class JhuLocationService(LocationService):
 
 # ---------------------------------------------------------------
 
-import requests
-import csv
-from datetime import datetime
-from cachetools import cached, TTLCache
-from ...utils import countrycodes, date as date_util
 
 """
 Base URL for fetching category.

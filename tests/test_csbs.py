@@ -1,7 +1,9 @@
-import app
 import datetime
-import pytest
 from unittest import mock
+
+import pytest
+
+import app
 from app.services.location import csbs
 
 

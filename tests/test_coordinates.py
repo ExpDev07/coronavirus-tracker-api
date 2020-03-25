@@ -1,5 +1,7 @@
-import pytest
 from unittest import mock
+
+import pytest
+
 from app import coordinates
 
 

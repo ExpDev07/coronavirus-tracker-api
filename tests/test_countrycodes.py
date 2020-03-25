@@ -1,5 +1,7 @@
 import pytest
+
 from app.utils import countrycodes
+
 
 """
 Todo:

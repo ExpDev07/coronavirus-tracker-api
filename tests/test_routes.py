@@ -1,14 +1,16 @@
-import app
-import unittest
-from fastapi.testclient import TestClient
 import json
-from unittest import mock
+import unittest
 from pprint import pformat as pf
+from unittest import mock
+
 import pytest
+from fastapi.testclient import TestClient
+
+import app
 from app import services
 from app.main import APP
 
-from .test_jhu import mocked_requests_get, mocked_strptime_isoformat, DATETIME_STRING
+from .test_jhu import DATETIME_STRING, mocked_requests_get, mocked_strptime_isoformat
 
 
 @mock.patch("app.services.location.jhu.datetime")

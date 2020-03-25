@@ -1,7 +1,9 @@
-import pytest
 from datetime import datetime
 from unittest import mock
-from app import location, coordinates, timeline
+
+import pytest
+
+from app import coordinates, location, timeline
 
 
 def mocked_timeline(*args, **kwargs):

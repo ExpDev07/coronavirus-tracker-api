@@ -1,7 +1,9 @@
-from pydantic import BaseModel
 from typing import Dict, List
-from .timeline import Timelines
+
+from pydantic import BaseModel
+
 from .latest import Latest
+from .timeline import Timelines
 
 
 class Location(BaseModel):

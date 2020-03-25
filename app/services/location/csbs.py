@@ -1,6 +1,12 @@
-from . import LocationService
+import csv
+from datetime import datetime
+
+import requests
+from cachetools import TTLCache, cached
+
 from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
+from . import LocationService
 
 
 class CSBSLocationService(LocationService):
@@ -16,10 +22,6 @@ class CSBSLocationService(LocationService):
         return self.get_all()[id]
 
 
-import requests
-import csv
-from datetime import datetime
-from cachetools import cached, TTLCache
 
 # Base URL for fetching data
 base_url = "https://facts.csbs.org/covid-19/covid19_county.csv"

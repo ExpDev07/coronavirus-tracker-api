@@ -1,7 +1,9 @@
 from fastapi import Request
-from . import router
+
 from ..enums.sources import Sources
-from ..models.location import LocationResponse as Location, LocationsResponse as Locations
+from ..models.location import LocationResponse as Location
+from ..models.location import LocationsResponse as Locations
+from . import router
 
 
 @router.get("/locations", response_model=Locations, response_model_exclude_unset=True)

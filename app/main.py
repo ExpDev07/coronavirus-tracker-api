@@ -1,27 +1,24 @@
 """
 app.main.py
 """
+import datetime as dt
 import logging
 import os
 import reprlib
-import datetime as dt
 
 import pydantic
 import uvicorn
-
-from fastapi import FastAPI
-from fastapi import Request, Response
-
-from fastapi.responses import JSONResponse
-
-from fastapi.middleware.wsgi import WSGIMiddleware
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.wsgi import WSGIMiddleware
+from fastapi.responses import JSONResponse
 
 from .core import create_app
 from .data import data_source
-
-from .models.location import LocationResponse as Location, LocationsResponse as Locations
 from .models.latest import LatestResponse as Latest
+from .models.location import LocationResponse as Location
+from .models.location import LocationsResponse as Locations
+from .router import router
 
 # ############
 # FastAPI App
@@ -84,7 +81,6 @@ async def handle_validation_error(request: Request, exc: pydantic.error_wrappers
 # Routing
 # ################
 
-from .router import router
 
 # Include routers.
 APP.include_router(router, prefix="/v2", tags=["v2"])

@@ -1,7 +1,8 @@
 from fastapi import Request
-from . import router
+
 from ..enums.sources import Sources
 from ..models.latest import LatestResponse as Latest
+from . import router
 
 
 @router.get("/latest", response_model=Latest)
