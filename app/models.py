@@ -31,6 +31,7 @@ class Country(BaseModel):
     id: int
     country: str
     country_code: str
+    county: str = None
     province: str = ''
     last_updated: str # TODO use datetime.datetime type.
     coordinates: Dict
