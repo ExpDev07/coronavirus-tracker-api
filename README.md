@@ -357,7 +357,8 @@ These are the available API wrappers created by the community. They are not nece
 
 ### C#
 
-* [CovidSharp by @Abdirahiim](https://github.com/Abdirahiim/covidtrackerapiwrapper).
+* [CovidSharp by @Abdirahiim](https://github.com/Abdirahiim/covidtrackerapiwrapper) 
+* [Covid19Tracker.NET by @egbakou](https://github.com/egbakou/Covid19Tracker.NET)
 
 ### Python
 
@@ -418,6 +419,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+
 <table>
   <tr>
     <td align="center"><a href="https://github.com/ExpDev07"><img src="https://avatars3.githubusercontent.com/u/10024730?v=4" width="100px;" alt=""/><br /><sub><b>ExpDev</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=ExpDev07" title="Code">💻</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=ExpDev07" title="Documentation">📖</a> <a href="#maintenance-ExpDev07" title="Maintenance">🚧</a></td>
