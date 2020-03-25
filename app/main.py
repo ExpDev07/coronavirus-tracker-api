@@ -47,6 +47,13 @@ APP = fastapi.FastAPI(
 # Middleware
 #######################
 
+APP.add_middleware(
+    fastapi.middleware.cors.CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=['*'],
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
 
 # TODO this could probably just be a FastAPI dependency.
 @APP.middleware('http')
