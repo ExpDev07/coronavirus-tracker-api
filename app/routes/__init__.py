@@ -1,3 +1,8 @@
+"""
+app.routes
+
+isort:skip_file
+"""
 from flask import Blueprint, redirect, request, abort, current_app as app
 from ..data import data_source
 
