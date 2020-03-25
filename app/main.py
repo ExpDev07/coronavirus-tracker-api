@@ -37,7 +37,7 @@ LOGGER = logging.getLogger('api')
 
 APP = fastapi.FastAPI(
     title='Coronavirus Tracker',
-    description='API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak.',
+    description='API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak. Project page: https://github.com/ExpDev07/coronavirus-tracker-api.',
     version='2.0.1',
     docs_url='/',
     redoc_url='/docs',
