@@ -124,6 +124,10 @@ def get_locations(
     # All query paramameters.
     params = dict(request.query_params)
 
+    # Remove reserved params.
+    params.pop('source')
+    params.pop('timelines')
+
     # Retrieve all the locations.
     locations = request.state.source.get_all()
 
