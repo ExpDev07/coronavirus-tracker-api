@@ -118,3 +118,19 @@ class FlaskRoutesTest(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+
+@pytest.mark.parametrize(
+    "query_params",
+    [
+        {"source": "csbs"},
+        {"source": "jhu"},
+        {"timelines": True},
+        {"timelines": "true"},
+        {"source": "jhu", "timelines": True},
+    ],
+)
+def test_locations_status_code(api_client, query_params):
+    response = api_client.get("/v2/locations", params=query_params)
+    print(f"GET {response.url}\n{response}")
+    assert response.status_code == 200
