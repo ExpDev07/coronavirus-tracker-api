@@ -49,8 +49,6 @@ def get_category(category):
     if category == 'recovered':
         url = base_url + 'time_series_19-covid-Recovered.csv'
 
-    print (url)
-
     # Request the data
     request = requests.get(url)
     text    = request.text
