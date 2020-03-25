@@ -64,3 +64,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# OSX Stuff
+.DS_Store
