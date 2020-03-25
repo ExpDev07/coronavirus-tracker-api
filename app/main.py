@@ -1,17 +1,18 @@
 """
 app.main.py
 """
-import datetime as dt
-import enum
 import logging
 import os
 import reprlib
+import datetime as dt
 
-import fastapi
 import pydantic
 import uvicorn
 
-from typing import Dict, List
+from fastapi import FastAPI
+from fastapi import Request, Response
+
+from fastapi.responses import JSONResponse
 
 from fastapi.middleware.wsgi import WSGIMiddleware
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,7 +28,7 @@ from .models.latest import LatestResponse as Latest
 # ############
 LOGGER = logging.getLogger('api')
 
-APP = fastapi.FastAPI(
+APP = FastAPI(
     title='Coronavirus Tracker',
     description='API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak. Project page: https://github.com/ExpDev07/coronavirus-tracker-api.',
     version='2.0.1',
@@ -50,7 +51,7 @@ APP.add_middleware(
 
 # TODO this could probably just be a FastAPI dependency.
 @APP.middleware('http')
-async def add_datasource(request: fastapi.Request, call_next):
+async def add_datasource(request: Request, call_next):
     """
     Attach the data source to the request.state.
     """
@@ -59,7 +60,7 @@ async def add_datasource(request: fastapi.Request, call_next):
     
     # Abort with 404 if source cannot be found.
     if not source:
-        return fastapi.Response('The provided data-source was not found.', status_code=404)
+        return Response('The provided data-source was not found.', status_code=404)
     
     # Attach source to request.
     request.state.source = source
@@ -77,12 +78,12 @@ async def add_datasource(request: fastapi.Request, call_next):
 
 @APP.exception_handler(pydantic.error_wrappers.ValidationError)
 async def handle_validation_error(
-    request: fastapi.Request, exc: pydantic.error_wrappers.ValidationError
+    request: Request, exc: pydantic.error_wrappers.ValidationError
 ):
     """
     Handles validation errors.
     """
-    return fastapi.responses.JSONResponse({'message': exc.errors()}, status_code=422)
+    return JSONResponse({'message': exc.errors()}, status_code=422)
 
 
 # ################
