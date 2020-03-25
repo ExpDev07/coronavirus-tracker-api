@@ -114,21 +114,30 @@ def get_locations(
     request: fastapi.Request,
     source: Sources = 'jhu',
     country_code: str = None,
+    province: str = None,
+    county: str = None,
     timelines: bool = False,
 ):
     """
     Getting the locations.
     """
+    # All query paramameters.
+    params = dict(request.query_params)
+
     # Retrieve all the locations.
     locations = request.state.source.get_all()
 
-    # Filtering my country code if provided.
-    if country_code:
-        locations = list(
-            filter(
-                lambda location: location.country_code == country_code.upper(), locations,
-            )
-        )
+    # Attempt to filter out locations with properties matching the provided query params.
+    for key, value in params.items():
+        # Clean keys for security purposes.
+        key   = key.lower()
+        value = value.lower().strip('__')
+
+        # Do filtering.
+        try:
+            locations = [location for location in locations if str(getattr(location, key)).lower() == str(value)]
+        except AttributeError:
+            pass
 
     # Return final serialized data.
     return {
