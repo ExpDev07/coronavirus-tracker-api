@@ -13,6 +13,24 @@ from app.main import APP
 from .test_jhu import DATETIME_STRING, mocked_requests_get, mocked_strptime_isoformat
 
 
+def format_json(s):
+    return json.dumps(json.loads(s), indent=4, sort_keys=True)
+
+def do_test_v1(obj, state, mock_request_get, mock_datetime):
+    "Formatted json-strings make debugging easier"
+    mock_datetime.utcnow.return_value.isoformat.return_value = obj.date
+    mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+
+    json_ret = obj.asgi_client.get("/{}".format(state)).json()
+    ret = str(json_ret).replace("\'", "\"")
+
+    filepath = "tests/expected_output/v1_{state}.json".format(state=state)
+    with open(filepath, "r") as file:
+        exp = file.read()
+
+    assert format_json(ret) == format_json(exp)
+
+
 @mock.patch("app.services.location.jhu.datetime")
 @mock.patch("app.services.location.jhu.requests.get", side_effect=mocked_requests_get)
 class FlaskRoutesTest(unittest.TestCase):
@@ -26,12 +44,6 @@ class FlaskRoutesTest(unittest.TestCase):
         self.asgi_client = TestClient(APP)
         self.date = DATETIME_STRING
 
-    def read_file_v1(self, state):
-        filepath = "tests/expected_output/v1_{state}.json".format(state=state)
-        with open(filepath, "r") as file:
-            expected_json_output = file.read()
-        return expected_json_output
-
     def test_root_api(self, mock_request_get, mock_datetime):
         """Validate that / returns a 200 and is not a redirect."""
         response = self.asgi_client.get("/")
@@ -40,49 +52,23 @@ class FlaskRoutesTest(unittest.TestCase):
         assert not response.is_redirect
 
     def test_v1_confirmed(self, mock_request_get, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        state = "confirmed"
-        expected_json_output = self.read_file_v1(state=state)
-        return_data = self.asgi_client.get("/{}".format(state)).json()
-
-        assert return_data == json.loads(expected_json_output)
+        do_test_v1(self, "confirmed", mock_request_get, mock_datetime)
 
     def test_v1_deaths(self, mock_request_get, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        state = "deaths"
-        expected_json_output = self.read_file_v1(state=state)
-        return_data = self.asgi_client.get("/{}".format(state)).json()
-
-        assert return_data == json.loads(expected_json_output)
+        do_test_v1(self, "deaths", mock_request_get, mock_datetime)
 
     def test_v1_recovered(self, mock_request_get, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        state = "recovered"
-        expected_json_output = self.read_file_v1(state=state)
-        return_data = self.asgi_client.get("/{}".format(state)).json()
-
-        assert return_data == json.loads(expected_json_output)
+        do_test_v1(self, "recovered", mock_request_get, mock_datetime)
 
     def test_v1_all(self, mock_request_get, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        state = "all"
-        expected_json_output = self.read_file_v1(state=state)
-        return_data = self.asgi_client.get("/{}".format(state)).json()
-
-        assert return_data == json.loads(expected_json_output)
+        do_test_v1(self, "all", mock_request_get, mock_datetime)
 
     def test_v2_latest(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
         state = "latest"
         return_data = self.asgi_client.get(f"/v2/{state}").json()
-
         check_dict = {"latest": {"confirmed": 1940, "deaths": 1940, "recovered": 0}}
-
         assert return_data == check_dict
 
     def test_v2_locations(self, mock_request_get, mock_datetime):
@@ -93,9 +79,7 @@ class FlaskRoutesTest(unittest.TestCase):
 
         filepath = "tests/expected_output/v2_{state}.json".format(state=state)
         with open(filepath, "r") as file:
-            expected_json_output = file.read()
-
-        # assert return_data == json.loads(expected_json_output)
+            data_read = file.read()
 
     def test_v2_locations_id(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
@@ -107,9 +91,7 @@ class FlaskRoutesTest(unittest.TestCase):
 
         filepath = "tests/expected_output/v2_{state}_id_{test_id}.json".format(state=state, test_id=test_id)
         with open(filepath, "r") as file:
-            expected_json_output = file.read()
-
-        # assert return_data == expected_json_output
+            data_read = file.read()
 
     def tearDown(self):
         pass
