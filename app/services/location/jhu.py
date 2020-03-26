@@ -52,11 +52,6 @@ def get_category(category):
     # URL to request data from.
     url = base_url + "time_series_covid19_%s_global.csv" % category
 
-    # Different URL is needed for recoveries.
-    # Read about deprecation here: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series.
-    if category == "recovered":
-        url = base_url + "time_series_19-covid-Recovered.csv"
-
     # Request the data
     request = requests.get(url)
     text = request.text
