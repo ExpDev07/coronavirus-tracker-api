@@ -10,13 +10,13 @@ def mocked_timeline(*args, **kwargs):
             
     return TestTimeline(args[0])
 
-@pytest.mark.parametrize("test_id, country, country_code, province, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest", [
-    (0, "Thailand", "TH", "", 15, 100, 1000, 1111, 22222),
-    (1, "Deutschland", "DE", "", 15, 100, 1000, 1111, 22222),
-    (2, "Cruise Ship", "XX", "", 15, 100, 1000, 1111, 22222)
+@pytest.mark.parametrize("test_id, country, country_code, country_population, province, county, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest", [
+    (0, "Thailand", "TH", 1000, "", "", 15, 100, 1000, 1111, 22222),
+    (1, "Deutschland", "DE", 1000, "", "", 15, 100, 1000, 1111, 22222),
+    (2, "Cruise Ship", "XX", 1000, "", "", 15, 100, 1000, 1111, 22222)
 ])
 @mock.patch('app.timeline.Timeline', side_effect=mocked_timeline)
-def test_location_class(mocked_timeline, test_id, country, country_code, province, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest):
+def test_location_class(mocked_timeline, test_id, country, country_code, country_population, province, county, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest):
 
     # id, country, province, coordinates, confirmed, deaths, recovered
     coords = coordinates.Coordinates(latitude=latitude, longitude=longitude)
@@ -43,6 +43,7 @@ def test_location_class(mocked_timeline, test_id, country, country_code, provinc
         'id': test_id,
         'country': country,
         'country_code': country_code,
+        'country_population': country_population,
         'province': province,
         'last_updated': now,
         'coordinates': {
