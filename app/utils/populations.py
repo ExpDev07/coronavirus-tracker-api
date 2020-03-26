@@ -1,8 +1,11 @@
-import requests
-from io import StringIO, BytesIO
-from cachetools import cached, TTLCache
+from io import BytesIO, StringIO
 from zipfile import ZipFile, ZipInfo
+
+import requests
+from cachetools import TTLCache, cached
+
 from .countrycodes import country_code
+
 
 # Fetching of the populations.
 def fetch_populations():
