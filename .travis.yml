@@ -7,4 +7,4 @@ install:
   - "pip install pipenv"
   - "pipenv install --dev --skip-lock"
 script:
-  - "make test lint"
+  - "make test lint check-fmt"

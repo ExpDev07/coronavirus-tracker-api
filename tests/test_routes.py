@@ -1,17 +1,20 @@
-import app
-import unittest
-from fastapi.testclient import TestClient
 import json
-from unittest import mock
+import unittest
 from pprint import pformat as pf
+from unittest import mock
+
 import pytest
+from fastapi.testclient import TestClient
+
+import app
 from app import services
 from app.main import APP
 
-from .test_jhu import mocked_requests_get, mocked_strptime_isoformat, DATETIME_STRING
+from .test_jhu import DATETIME_STRING, mocked_requests_get, mocked_strptime_isoformat
 
-@mock.patch('app.services.location.jhu.datetime')
-@mock.patch('app.services.location.jhu.requests.get', side_effect=mocked_requests_get)
+
+@mock.patch("app.services.location.jhu.datetime")
+@mock.patch("app.services.location.jhu.requests.get", side_effect=mocked_requests_get)
 class FlaskRoutesTest(unittest.TestCase):
     """
     Need to mock some objects to control testing data locally
@@ -19,7 +22,7 @@ class FlaskRoutesTest(unittest.TestCase):
     Store all integration testcases in one class to ensure app context
     """
 
-    #load app context only once.
+    # load app context only once.
     app = app.create_app()
 
     def setUp(self):
@@ -38,7 +41,7 @@ class FlaskRoutesTest(unittest.TestCase):
         response = self.asgi_client.get("/")
 
         assert response.status_code == 200
-        assert not response.is_redirect 
+        assert not response.is_redirect
 
     def test_v1_confirmed(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
@@ -73,7 +76,7 @@ class FlaskRoutesTest(unittest.TestCase):
         state = "all"
         expected_json_output = self.read_file_v1(state=state)
         return_data = self.client.get("/{}".format(state)).data.decode()
-        #print(return_data)
+        # print(return_data)
         assert return_data == expected_json_output
 
     def test_v2_latest(self, mock_request_get, mock_datetime):
@@ -82,13 +85,7 @@ class FlaskRoutesTest(unittest.TestCase):
         state = "latest"
         return_data = self.asgi_client.get(f"/v2/{state}").json()
 
-        check_dict = {
-            'latest': {
-                'confirmed': 1940,
-                'deaths': 1940,
-                'recovered': 0
-            }
-        }
+        check_dict = {"latest": {"confirmed": 1940, "deaths": 1940, "recovered": 0}}
 
         assert return_data == check_dict
 
@@ -116,7 +113,7 @@ class FlaskRoutesTest(unittest.TestCase):
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
-        #assert return_data == expected_json_output
+        # assert return_data == expected_json_output
 
     def tearDown(self):
         pass

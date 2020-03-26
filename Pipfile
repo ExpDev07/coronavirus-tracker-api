@@ -5,6 +5,8 @@ verify_ssl = true
 
 [dev-packages]
 bandit = "*"
+black = "==19.10b0"
+isort = "*"
 pytest = "*"
 pylint = "*"
 
@@ -25,3 +27,5 @@ python_version = "3.8"
 [scripts]
 dev = "uvicorn app.main:APP --reload"
 start = "uvicorn app.main:APP"
+fmt = "black . -l 120"
+sort = "isort --apply --atomic"

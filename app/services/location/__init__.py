@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class LocationService(ABC):
     """
     Service for retrieving locations.

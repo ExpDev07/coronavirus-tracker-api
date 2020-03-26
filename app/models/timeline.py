@@ -1,5 +1,7 @@
-from pydantic import BaseModel
 from typing import Dict
+
+from pydantic import BaseModel
+
 
 class Timeline(BaseModel):
     """
@@ -9,10 +11,12 @@ class Timeline(BaseModel):
     latest: int
     timeline: Dict[str, int] = {}
 
+
 class Timelines(BaseModel):
     """
     Timelines model.
     """
+
     confirmed: Timeline
     deaths: Timeline
     recovered: Timeline

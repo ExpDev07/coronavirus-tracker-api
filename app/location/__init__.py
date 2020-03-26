@@ -2,6 +2,7 @@ from ..coordinates import Coordinates
 from ..utils import countrycodes
 from ..utils.populations import country_population
 
+
 class Location:
     """
     A location in the world affected by the coronavirus.
@@ -21,7 +22,7 @@ class Location:
         self.confirmed = confirmed
         self.deaths = deaths
         self.recovered = recovered
-        
+
     @property
     def country_code(self):
         """
@@ -51,25 +52,19 @@ class Location:
         """
         return {
             # General info.
-            'id'                : self.id,
-            'country'           : self.country, 
-            'country_code'      : self.country_code,
-            'country_population': self.country_population,
-            'province'          : self.province,
-
+            "id": self.id,
+            "country": self.country,
+            "country_code": self.country_code,
+            "country_population": self.country_population,
+            "province": self.province,
             # Coordinates.
-            'coordinates': self.coordinates.serialize(),
-
+            "coordinates": self.coordinates.serialize(),
             # Last updated.
-            'last_updated': self.last_updated,
-
+            "last_updated": self.last_updated,
             # Latest data (statistics).
-            'latest': {
-                'confirmed': self.confirmed,
-                'deaths'   : self.deaths,
-                'recovered': self.recovered
-            },
+            "latest": {"confirmed": self.confirmed, "deaths": self.deaths, "recovered": self.recovered},
         }
+
 
 class TimelinedLocation(Location):
     """
@@ -79,18 +74,21 @@ class TimelinedLocation(Location):
     def __init__(self, id, country, province, coordinates, last_updated, timelines):
         super().__init__(
             # General info.
-            id, country, province, coordinates, last_updated,
-
+            id,
+            country,
+            province,
+            coordinates,
+            last_updated,
             # Statistics (retrieve latest from timelines).
-            confirmed=timelines.get('confirmed').latest or 0,
-            deaths=timelines.get('deaths').latest or 0,
-            recovered=timelines.get('recovered').latest or 0,
+            confirmed=timelines.get("confirmed").latest or 0,
+            deaths=timelines.get("deaths").latest or 0,
+            recovered=timelines.get("recovered").latest or 0,
         )
 
         # Set timelines.
         self.timelines = timelines
 
-    def serialize(self, timelines = False):
+    def serialize(self, timelines=False):
         """
         Serializes the location into a dict.
 
@@ -102,10 +100,15 @@ class TimelinedLocation(Location):
 
         # Whether to include the timelines or not.
         if timelines:
-            serialized.update({ 'timelines': {
-                # Serialize all the timelines.
-                key: value.serialize() for (key, value) in self.timelines.items()
-            }})
+            serialized.update(
+                {
+                    "timelines": {
+                        # Serialize all the timelines.
+                        key: value.serialize()
+                        for (key, value) in self.timelines.items()
+                    }
+                }
+            )
 
         # Return the serialized location.
         return serialized

@@ -6,8 +6,8 @@ Global conftest file for shared pytest fixtures
 import pytest
 from fastapi.testclient import TestClient
 
-
 from app.main import APP
+
 
 @pytest.fixture
 def api_client():

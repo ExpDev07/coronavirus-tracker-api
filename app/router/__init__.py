@@ -4,4 +4,4 @@ from fastapi import APIRouter
 router = APIRouter()
 
 # The routes.
-from . import latest, sources, locations
+from . import latest, sources, locations  # isort:skip
