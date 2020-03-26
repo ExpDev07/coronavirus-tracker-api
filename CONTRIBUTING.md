@@ -25,10 +25,11 @@ Unsure where to begin contributing to coronavirus-tracker-api ? You can start by
 ## Styleguide
 
 Please follow [PEP8](https://www.python.org/dev/peps/pep-0008/) guide.
-See [Running Test](./README.md#i#running-tests) and [Linting](./README.md#linting) for further instructions.
+See [Running Test](./README.md#running-tests) and [Linting](./README.md#linting) for further instructions.
 
 
+We encourage you to pitch in and join the [Coronavirus Tracker API Team](https://github.com/ExpDev07/coronavirus-tracker-api#contributors-)!
 
 Thanks! :heart: :heart: :heart:
 
-Coronavirus Tracker API Team
+[Coronavirus Tracker API Team](https://github.com/ExpDev07/coronavirus-tracker-api#contributors-)
