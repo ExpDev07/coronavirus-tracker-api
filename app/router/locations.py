@@ -1,4 +1,4 @@
-from fastapi import Request
+from fastapi import HTTPException, Request
 
 from ..enums.sources import Sources
 from ..models.location import LocationResponse as Location
@@ -39,6 +39,8 @@ def get_locations(
             locations = [location for location in locations if str(getattr(location, key)).lower() == str(value)]
         except AttributeError:
             pass
+        if not locations:
+            raise HTTPException(404, detail=f"Source `{source}` does not have the desired location data.")
 
     # Return final serialized data.
     return {
