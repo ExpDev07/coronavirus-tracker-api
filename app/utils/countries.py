@@ -365,11 +365,11 @@ country_name__country_code = {
 # fmt: on
 def country_code(s):
     """
-    Return two letter country code (Alpha-2) according to https://en.wikipedia.org/wiki/ISO_3166-1
-    Defaults to "XX".
+    Return two letter country code (Alpha-2) according to
+    https://en.wikipedia.org/wiki/ISO_3166-1 Defaults to "XX".
     """
-    country_code = country_name__country_code.get(s, default_country_code)
-    if country_code == default_country_code:
-        LOGGER.warning(f"No country code found for '{s}'. Using '{country_code}'!")
+    code = country_name__country_code.get(s, default_country_code)
+    if code == default_country_code:
+        LOGGER.warning(f"No country code found for '{s}'. Using '{code}'!")
 
-    return country_code
+    return code

@@ -1,5 +1,5 @@
 from ..coordinates import Coordinates
-from ..utils import countries
+from ..utils import countries, continents
 from ..utils.populations import country_population
 
 
@@ -26,12 +26,25 @@ class Location:
     @property
     def country_code(self):
         """
-        Gets the alpha-2 code represention of the country. Returns 'XX' if none is found.
+        Gets the alpha-2 code representation of the country. Returns 'XX' if none is found.
 
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.default_country_code).upper()
+        return countries.country_code(self.country) or countries.default_country_code
+
+    @property
+    def continent_codes_list(self):
+        """
+        Gets the alpha-3 code representations of the continent codes where the
+        country represented by the country code is located. Returns 'CCC' if
+        none is found.
+
+        :returns: The list of continent codes.
+        :rtype: list
+        """
+        country_code = countries.country_code(self.country)
+        return continents.continent_codes_list(country_code) or continents.default_continent_codes_list
 
     @property
     def country_population(self):
@@ -55,6 +68,7 @@ class Location:
             "id": self.id,
             "country": self.country,
             "country_code": self.country_code,
+            "continent_codes_list": self.continent_codes_list,
             "country_population": self.country_population,
             "province": self.province,
             # Coordinates.
