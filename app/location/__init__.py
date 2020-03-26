@@ -40,9 +40,6 @@ class Location:
         :returns: The population.
         :rtype: int
         """
-        country_code = self.country_code
-        
-        # Return population.
         return country_population(self.country_code)
 
     def serialize(self):
