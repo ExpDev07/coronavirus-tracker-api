@@ -7,6 +7,7 @@
             },
             "country":"Thailand",
             "country_code":"TH",
+            "continent_codes_list":["ASI"],
             "id":0,
             "latest":{
                 "confirmed":114,
@@ -22,6 +23,7 @@
             },
             "country":"Japan",
             "country_code":"JP",
+            "continent_codes_list":["ASI"],
             "id":1,
             "latest":{
                 "confirmed":839,
@@ -37,6 +39,7 @@
             },
             "country":"Singapore",
             "country_code":"SG",
+            "continent_codes_list":["ASI"],
             "id":2,
             "latest":{
                 "confirmed":226,
@@ -52,6 +55,7 @@
             },
             "country":"Nepal",
             "country_code":"NP",
+            "continent_codes_list":["ASI"],
             "id":3,
             "latest":{
                 "confirmed":1,
@@ -67,6 +71,7 @@
             },
             "country":"Malaysia",
             "country_code":"MY",
+            "continent_codes_list":["ASI"],
             "id":4,
             "latest":{
                 "confirmed":428,
@@ -82,6 +87,7 @@
             },
             "country":"Canada",
             "country_code":"CA",
+            "continent_codes_list":["NAC"],
             "id":5,
             "latest":{
                 "confirmed":73,
@@ -97,6 +103,7 @@
             },
             "country":"Australia",
             "country_code":"AU",
+            "continent_codes_list":["OCE"],
             "id":6,
             "latest":{
                 "confirmed":134,
@@ -112,6 +119,7 @@
             },
             "country":"Australia",
             "country_code":"AU",
+            "continent_codes_list":["OCE"],
             "id":7,
             "latest":{
                 "confirmed":57,
@@ -127,6 +135,7 @@
             },
             "country":"Australia",
             "country_code":"AU",
+            "continent_codes_list":["OCE"],
             "id":8,
             "latest":{
                 "confirmed":61,
@@ -142,6 +151,7 @@
             },
             "country":"Cambodia",
             "country_code":"KH",
+            "continent_codes_list":["ASI"],
             "id":9,
             "latest":{
                 "confirmed":7,

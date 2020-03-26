@@ -14,6 +14,7 @@ class Location(BaseModel):
     id: int
     country: str
     country_code: str
+    continent_codes_list: list = []
     country_population: int = None
     province: str = ""
     county: str = ""
