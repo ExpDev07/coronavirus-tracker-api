@@ -12,6 +12,13 @@ from app.main import APP
 
 from .test_jhu import DATETIME_STRING, mocked_requests_get, mocked_strptime_isoformat
 
+def format_json(s):
+    return json.dumps(json.loads(s), indent=4, sort_keys=True)
+
+def assert_equal(ret, exp):
+    "Formatted json-strings make debugging easier"
+    assert format_json(ret) == format_json(exp)
+
 
 @mock.patch("app.services.location.jhu.datetime")
 @mock.patch("app.services.location.jhu.requests.get", side_effect=mocked_requests_get)
@@ -49,8 +56,7 @@ class FlaskRoutesTest(unittest.TestCase):
         state = "confirmed"
         expected_json_output = self.read_file_v1(state=state)
         return_data = self.client.get("/{}".format(state)).data.decode()
-
-        assert return_data == expected_json_output
+        assert_equal(return_data, expected_json_output)
 
     def test_v1_deaths(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
@@ -58,8 +64,7 @@ class FlaskRoutesTest(unittest.TestCase):
         state = "deaths"
         expected_json_output = self.read_file_v1(state=state)
         return_data = self.client.get("/{}".format(state)).data.decode()
-
-        assert return_data == expected_json_output
+        assert_equal(return_data, expected_json_output)
 
     def test_v1_recovered(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
@@ -67,8 +72,7 @@ class FlaskRoutesTest(unittest.TestCase):
         state = "recovered"
         expected_json_output = self.read_file_v1(state=state)
         return_data = self.client.get("/{}".format(state)).data.decode()
-
-        assert return_data == expected_json_output
+        assert_equal(return_data, expected_json_output)
 
     def test_v1_all(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
@@ -77,16 +81,14 @@ class FlaskRoutesTest(unittest.TestCase):
         expected_json_output = self.read_file_v1(state=state)
         return_data = self.client.get("/{}".format(state)).data.decode()
         # print(return_data)
-        assert return_data == expected_json_output
+        assert_equal(return_data, expected_json_output)
 
     def test_v2_latest(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
         state = "latest"
         return_data = self.asgi_client.get(f"/v2/{state}").json()
-
         check_dict = {"latest": {"confirmed": 1940, "deaths": 1940, "recovered": 0}}
-
         assert return_data == check_dict
 
     def test_v2_locations(self, mock_request_get, mock_datetime):
@@ -99,7 +101,7 @@ class FlaskRoutesTest(unittest.TestCase):
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
-        # assert return_data == json.loads(expected_json_output)
+        # assert_equal(return_data, expected_json_output)
 
     def test_v2_locations_id(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
@@ -113,7 +115,7 @@ class FlaskRoutesTest(unittest.TestCase):
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
-        # assert return_data == expected_json_output
+        # assert_equal(return_data, expected_json_output)
 
     def tearDown(self):
         pass
