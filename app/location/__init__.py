@@ -1,5 +1,6 @@
 from ..coordinates import Coordinates
 from ..utils import countrycodes
+from ..utils.populations import country_population
 
 class Location:
     """
@@ -25,8 +26,21 @@ class Location:
     def country_code(self):
         """
         Gets the alpha-2 code represention of the country. Returns 'XX' if none is found.
+
+        :returns: The country code.
+        :rtype: str
         """
         return (countrycodes.country_code(self.country) or countrycodes.default_code).upper()
+
+    @property
+    def country_population(self):
+        """
+        Gets the population of this location.
+
+        :returns: The population.
+        :rtype: int
+        """
+        return country_population(self.country_code)
 
     def serialize(self):
         """
@@ -37,10 +51,11 @@ class Location:
         """
         return {
             # General info.
-            'id'          : self.id,
-            'country'     : self.country, 
-            'country_code': self.country_code,
-            'province'    : self.province,
+            'id'                : self.id,
+            'country'           : self.country, 
+            'country_code'      : self.country_code,
+            'country_population': self.country_population,
+            'province'          : self.province,
 
             # Coordinates.
             'coordinates': self.coordinates.serialize(),

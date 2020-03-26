@@ -10,6 +10,7 @@ class Location(BaseModel):
     id: int
     country: str
     country_code: str
+    country_population: int = None
     county: str = ''
     province: str = ''
     last_updated: str # TODO use datetime.datetime type.
