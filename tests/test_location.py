@@ -13,6 +13,7 @@ def mocked_timeline(*args, **kwargs):
 
     return TestTimeline(args[0])
 
+
 @pytest.mark.parametrize(
     "test_id, country, country_code, province, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest",
     [
@@ -39,7 +40,7 @@ def test_location_class(
 
     # Timelines
     confirmed = timeline.Timeline(confirmed_latest)
-    deaths    = timeline.Timeline(deaths_latest)
+    deaths = timeline.Timeline(deaths_latest)
     recovered = timeline.Timeline(recovered_latest)
 
     # Date now.

@@ -52,11 +52,11 @@ class Location:
         """
         return {
             # General info.
-            'id'                : self.id,
-            'country'           : self.country, 
-            'country_code'      : self.country_code,
-            'country_population': self.country_population,
-            'province'          : self.province,
+            "id": self.id,
+            "country": self.country,
+            "country_code": self.country_code,
+            "country_population": self.country_population,
+            "province": self.province,
             # Coordinates.
             "coordinates": self.coordinates.serialize(),
             # Last updated.

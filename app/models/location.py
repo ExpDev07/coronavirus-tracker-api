@@ -15,9 +15,9 @@ class Location(BaseModel):
     country: str
     country_code: str
     country_population: int = None
-    province: str = ''
-    county: str = ''
-    last_updated: str # TODO use datetime.datetime type.
+    province: str = ""
+    county: str = ""
+    last_updated: str  # TODO use datetime.datetime type.
     coordinates: Dict
     latest: Latest
     timelines: Timelines = {}

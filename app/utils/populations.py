@@ -12,20 +12,21 @@ def fetch_populations():
     :returns: The mapping of populations.
     :rtype: dict
     """
-    print ("Fetching populations...")
+    print("Fetching populations...")
 
     # Mapping of populations
     mappings = {}
 
     # Fetch the countries.
-    countries = requests.get("http://api.geonames.org/countryInfoJSON?username=dperic").json()['geonames']
+    countries = requests.get("http://api.geonames.org/countryInfoJSON?username=dperic").json()["geonames"]
 
     # Go through all the countries and perform the mapping.
     for country in countries:
-        mappings.update({ country["countryCode"]: int(country["population"]) or None })
+        mappings.update({country["countryCode"]: int(country["population"]) or None})
 
     # Finally, return the mappings.
     return mappings
+
 
 # Mapping of alpha-2 codes country codes to population.
 populations = fetch_populations()
@@ -39,5 +40,3 @@ def country_population(country_code, default=None):
     :rtype: int
     """
     return populations.get(country_code, default)
-
-
