@@ -18,14 +18,15 @@ Please write new test cases for new code you create.
 
 Unsure where to begin contributing to coronavirus-tracker-api ? You can start by looking through these issues labels:
 
-* [Enhancement issues][enhancement] - issues for new feature or request
-* [Help wanted issues][help wanted] -  extra attention is needed
-* [Documentation issues][documentation] - improvements or additions to documentation
+* [Enhancement issues](https://github.com/ExpDev07/coronavirus-tracker-api/labels/enhancement) - issues for new feature or request
+* [Help wanted issues](https://github.com/ExpDev07/coronavirus-tracker-api/labels/help%20wanted) -  extra attention is needed
+* [Documentation issues](https://github.com/ExpDev07/coronavirus-tracker-api/labels/documentation) - improvements or additions to documentation
 
 ## Styleguide
 
 Please follow [PEP8](https://www.python.org/dev/peps/pep-0008/) guide.
 See [Running Test](./README.md#i#running-tests) and [Linting](./README.md#linting) for further instructions.
+
 
 
 Thanks! :heart: :heart: :heart:
