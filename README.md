@@ -398,6 +398,13 @@ You will need the following things properly installed on your computer.
 
 * `git clone https://github.com/ExpDev07/coronavirus-tracker-api.git`
 * `cd coronavirus-tracker-api`
+
+Now, make sure you're running python 3.8 and that your `pipenv` actually uses it! It may use packages from `$HOME/.local/lib/python3.7` even when started with `pipenv --python 3.8`. To combat this, (re)install it using:
+```
+/path/to/python3.8 -m pip install pipenv
+```
+And don't despair if don't get the python setup working on the first try. No one did. Guido got pretty close... once. But that's another story. Good luck. 
+
 * `pipenv shell`
 * `pipenv install`
 
