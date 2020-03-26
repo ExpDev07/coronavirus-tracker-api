@@ -129,6 +129,7 @@ __Sample response__
     "id": 39,
     "country": "Norway",
     "country_code": "NO",
+    "country_population": 5009150,
     "province": "",
     "county": "",
     "last_updated": "2020-03-21T06:59:11.315422Z",
@@ -174,6 +175,7 @@ __Sample response__
       "id": 0,
       "country": "Thailand",
       "country_code": "TH",
+      "country_population": 67089500,
       "province": "",
       "county": "",
       "last_updated": "2020-03-21T06:59:11.315422Z",
@@ -252,6 +254,7 @@ __Sample Response__
       "id": 16,
       "country": "Italy",
       "country_code": "IT",
+      "country_population": 60340328,
       "province": "",
       "county": "",
       "last_updated": "2020-03-23T13:32:23.913872Z",
@@ -291,6 +294,7 @@ __Sample Response__
       "id": 0,
       "country": "US",
       "country_code": "US",
+      "country_population": 310232863,
       "province": "New York",
       "state": "New York",
       "county": "New York",
@@ -309,6 +313,7 @@ __Sample Response__
       "id": 1,
       "country": "US",
       "country_code": "US",
+      "country_population": 310232863,
       "province": "New York",
       "state": "New York",
       "county": "Westchester",
@@ -432,7 +437,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/SeanCena"><img src="https://avatars1.githubusercontent.com/u/17202203?v=4" width="100px;" alt=""/><br /><sub><b>SeanCena</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=SeanCena" title="Code">💻</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=SeanCena" title="Documentation">📖</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=SeanCena" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/Abdirahiim"><img src="https://avatars0.githubusercontent.com/u/13730460?v=4" width="100px;" alt=""/><br /><sub><b>Abdirahiim Yassin </b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Abdirahiim" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/Abdirahiim"><img src="https://avatars0.githubusercontent.com/u/13730460?v=4" width="100px;" alt=""/><br /><sub><b>Abdirahiim Yassin </b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Abdirahiim" title="Documentation">📖</a> <a href="#tool-Abdirahiim" title="Tools">🔧</a> <a href="#platform-Abdirahiim" title="Packaging/porting to new platform">📦</a></td>
     <td align="center"><a href="https://github.com/kant"><img src="https://avatars1.githubusercontent.com/u/32717?v=4" width="100px;" alt=""/><br /><sub><b>Darío Hereñú</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=kant" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/o-ba"><img src="https://avatars1.githubusercontent.com/u/8812114?v=4" width="100px;" alt=""/><br /><sub><b>Oliver</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=o-ba" title="Documentation">📖</a></td>
     <td align="center"><a href="http://www.carmelagreco.dev"><img src="https://avatars0.githubusercontent.com/u/5394906?v=4" width="100px;" alt=""/><br /><sub><b>carmelag</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=carmelag" title="Documentation">📖</a></td>
