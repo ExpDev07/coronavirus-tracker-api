@@ -361,27 +361,19 @@ synonyms = {
     # "Cruise Ship" has no mapping, i.e. the default val is used
 }
 
-def country_code(country, verbose=True):
+def country_code(country):
     """
     Return two letter country code (Alpha-2) according to https://en.wikipedia.org/wiki/ISO_3166-1
     Defaults to "XX".
     """
+    # Look in synonyms if not found.
+    if not country in is_3166_1 and country in synonyms:
+        country = synonyms[country]
+
+    # Return code if country was found.
     if country in is_3166_1:
         return is_3166_1[country]
-    else:
-        if country in synonyms:
-            synonym = synonyms[country]
-            return is_3166_1[synonym]
-        else:
-            if verbose:
-                print ("No country_code found for '" + country + "'. Using '" + default_code + "'")
-            return default_code
 
-def country_in_database(country):
-    """
-    Checks if a given country is in the database. 
-    """
-    if country in chain(is_3166_1, synonyms):
-        return True
-    else:
-        return False
+    # Default to default_code.
+    print ("No country_code found for '" + country + "'. Using '" + default_code + "'")
+    return default_code
