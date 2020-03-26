@@ -415,11 +415,19 @@ And don't despair if don't get the python setup working on the first try. No one
 
 ### Running Tests
 
-* `make test`
+```bash
+pipenv shell
+pipenv install --dev
+make test
+```
 
 ### Linting
 
-* `make lint`
+```bash
+pipenv shell
+pipenv install --dev
+make lint
+```
 
 ### Building
 
