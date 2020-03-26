@@ -114,7 +114,7 @@ def get_locations():
     # Get all of the data categories locations.
     confirmed = get_category("confirmed")["locations"]
     deaths = get_category("deaths")["locations"]
-    recovered = get_category('recovered')['locations']
+    # recovered = get_category('recovered')['locations']
 
     # Final locations to return.
     locations = []
