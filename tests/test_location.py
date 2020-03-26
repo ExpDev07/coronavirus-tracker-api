@@ -45,6 +45,7 @@ def test_location_class(mocked_timeline, test_id, country, country_code, country
         'country_code': country_code,
         'country_population': country_population,
         'province': province,
+        'county': county,
         'last_updated': now,
         'coordinates': {
             'latitude': latitude,
