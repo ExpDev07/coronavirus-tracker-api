@@ -443,6 +443,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Kilo59"><img src="https://avatars3.githubusercontent.com/u/13108583?v=4" width="100px;" alt=""/><br /><sub><b>Gabriel</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Kilo59" title="Code">💻</a> <a href="#infra-Kilo59" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Kilo59" title="Tests">⚠️</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Kilo59" title="Documentation">📖</a></td>
     <td align="center"><a href="https://lioncoding.com"><img src="https://avatars0.githubusercontent.com/u/26142591?v=4" width="100px;" alt=""/><br /><sub><b>Kodjo Laurent Egbakou</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=egbakou" title="Documentation">📖</a> <a href="#tool-egbakou" title="Tools">🔧</a> <a href="#platform-egbakou" title="Packaging/porting to new platform">📦</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Turreted"><img src="https://avatars2.githubusercontent.com/u/41593269?v=4" width="100px;" alt=""/><br /><sub><b>Turreted</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Turreted" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->

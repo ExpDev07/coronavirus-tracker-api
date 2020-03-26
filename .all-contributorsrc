@@ -144,6 +144,15 @@
         "tool",
         "platform"
       ]
+    },
+    {
+      "login": "Turreted",
+      "name": "Turreted",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/41593269?v=4",
+      "profile": "https://github.com/Turreted",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
