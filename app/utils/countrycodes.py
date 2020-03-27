@@ -380,5 +380,5 @@ def country_code(country):
     if country_code == default_code:
         print("No country_code found for '%s'. Using '%s'!" % (country, country_code))
 
-    # Return
+    # Return.
     return country_code
