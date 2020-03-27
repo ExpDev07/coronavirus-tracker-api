@@ -1,5 +1,5 @@
 from ..coordinates import Coordinates
-from ..utils import countries, continents
+from ..utils import continents, countries
 from ..utils.populations import country_population
 
 

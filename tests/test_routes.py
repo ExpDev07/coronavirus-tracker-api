@@ -16,13 +16,14 @@ from .test_jhu import DATETIME_STRING, mocked_requests_get, mocked_strptime_isof
 def format_json(s):
     return json.dumps(json.loads(s), indent=4, sort_keys=True)
 
+
 def do_test_v1(obj, state, mock_request_get, mock_datetime):
     "Formatted json-strings make debugging easier"
     mock_datetime.utcnow.return_value.isoformat.return_value = obj.date
     mock_datetime.strptime.side_effect = mocked_strptime_isoformat
 
     json_ret = obj.asgi_client.get("/{}".format(state)).json()
-    ret = str(json_ret).replace("\'", "\"")
+    ret = str(json_ret).replace("'", '"')
 
     filepath = "tests/expected_output/v1_{state}.json".format(state=state)
     with open(filepath, "r") as file:
@@ -107,7 +108,7 @@ class FlaskRoutesTest(unittest.TestCase):
         ({"timelines": 1}, 200),
         ({"source": "jhu", "timelines": True}, 200),
         ({"source": "csbs", "country_code": "US"}, 200),
-        ({"source": "jhu",  "country_code": "US"}, 404),
+        ({"source": "jhu", "country_code": "US"}, 404),
     ],
 )
 def test_locations_status_code(api_client, query_params, expected_status):
