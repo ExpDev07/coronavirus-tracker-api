@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 bandit = "*"
 black = "==19.10b0"
+invoke = "*"
 isort = "*"
 pytest = "*"
 pylint = "*"
