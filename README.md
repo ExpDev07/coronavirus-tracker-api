@@ -399,14 +399,15 @@ You will need the following things properly installed on your computer.
 * `git clone https://github.com/ExpDev07/coronavirus-tracker-api.git`
 * `cd coronavirus-tracker-api`
 
-Now, make sure you're running python 3.8 and that your `pipenv` actually uses it! It may use packages from `$HOME/.local/lib/python3.7` even when started with `pipenv --python 3.8`. To combat this, (re)install it using:
-```
-/path/to/python3.8 -m pip install pipenv
-```
-And don't despair if don't get the python setup working on the first try. No one did. Guido got pretty close... once. But that's another story. Good luck. 
+1. Make sure you have [`python3.8` installed and on your `PATH`](https://docs.python-guide.org/starting/installation/).
+2. [Install the `pipenv` dependency manager](https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv)
+   *  with [pipx](https://pipxproject.github.io/pipx/) `$ pipx install pipenv`
+   * with [Homebrew/Linuxbrew](https://pipenv.readthedocs.io/en/latest/install/#homebrew-installation-of-pipenv) `$ brew install pipenv`
+   * with [pip/pip3 directly](https://pipenv.readthedocs.io/en/latest/install/#pragmatic-installation-of-pipenv) `$ pip install --user pipenv`
+3. Create virtual environment and install all dependencies `$ pipenv sync --dev`
+4. Activate/enter the virtual environment `$ pipenv shell`
 
-* `pipenv shell`
-* `pipenv install`
+And don't despair if don't get the python setup working on the first try. No one did. Guido got pretty close... once. But that's another story. Good luck. 
 
 ## Running / Development
 
@@ -416,18 +417,30 @@ And don't despair if don't get the python setup working on the first try. No one
 ### Running Tests
 
 ```bash
+pipenv sync --dev
 pipenv shell
-pipenv install --dev
 make test
 ```
 
 ### Linting
 
 ```bash
+pipenv sync --dev
 pipenv shell
-pipenv install --dev
 make lint
 ```
+
+### Formatting
+
+```bash
+pipenv run fmt
+```
+or
+```bash
+pipenv shell
+make fmt
+```
+
 
 ### Building
 
