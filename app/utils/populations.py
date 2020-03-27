@@ -1,3 +1,4 @@
+import logging
 from io import BytesIO, StringIO
 from zipfile import ZipFile, ZipInfo
 
@@ -6,6 +7,7 @@ from cachetools import TTLCache, cached
 
 from .countrycodes import country_code
 
+LOGGER = logging.getLogger(__name__)
 
 # Fetching of the populations.
 def fetch_populations():
@@ -15,7 +17,7 @@ def fetch_populations():
     :returns: The mapping of populations.
     :rtype: dict
     """
-    print("Fetching populations...")
+    LOGGER.info("Fetching populations...")
 
     # Mapping of populations
     mappings = {}

@@ -1,4 +1,7 @@
+import logging
 from itertools import chain
+
+LOGGER = logging.getLogger(__name__)
 
 # Default country code.
 default_code = "XX"
@@ -374,4 +377,11 @@ def country_code(country):
         country = synonyms[country]
 
     # Get country or fallback to default_code.
-    return is_3166_1.get(country, default_code)
+    country_code = is_3166_1.get(country, default_code)
+
+    # Default picked?
+    if country_code == default_code:
+        LOGGER.warning(f"No country_code found for '{country}'. Using '{country_code}'!")
+
+    # Return.
+    return country_code
