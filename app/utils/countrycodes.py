@@ -1,7 +1,6 @@
 import logging
 from itertools import chain
 
-
 LOGGER = logging.getLogger(__name__)
 
 # Default country code.

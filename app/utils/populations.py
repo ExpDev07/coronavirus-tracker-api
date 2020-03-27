@@ -7,7 +7,6 @@ from cachetools import TTLCache, cached
 
 from .countrycodes import country_code
 
-
 LOGGER = logging.getLogger(__name__)
 
 # Fetching of the populations.
