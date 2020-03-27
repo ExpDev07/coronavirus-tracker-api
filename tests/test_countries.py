@@ -1,6 +1,6 @@
 import pytest
 
-from app.utils import countrycodes
+from app.utils import countries
 
 
 """
@@ -18,13 +18,13 @@ Todo:
         ("BlaBla", "XX"),
     ],
 )
-def test_countrycodes_is_3166_1(country_name, expected_country_code):
-    assert countrycodes.country_code(country_name) == expected_country_code
+def test_countries_country_name__country_code(country_name, expected_country_code):
+    assert countries.country_code(country_name) == expected_country_code
 
 
 @pytest.mark.parametrize(
-    "country_name_synonym, expected_country_code",
+    "country_name_alias, expected_country_code",
     [("Deutschland", "DE"), ("Iran (Islamic Republic of)", "IR"), ("British Virgin Islands", "VG")],
 )
-def test_countrycodes_synonym(country_name_synonym, expected_country_code):
-    assert countrycodes.country_code(country_name_synonym) == expected_country_code
+def test_country_name_alias(country_name_alias, expected_country_code):
+    assert countries.country_code(country_name_alias) == expected_country_code
