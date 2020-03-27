@@ -4,11 +4,11 @@ from pprint import pformat as pf
 from unittest import mock
 
 import pytest
-from fastapi.testclient import TestClient
 
 import app
 from app import services
 from app.main import APP
+from fastapi.testclient import TestClient
 
 from .test_jhu import DATETIME_STRING, mocked_requests_get, mocked_strptime_isoformat
 

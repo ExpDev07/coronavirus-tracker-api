@@ -374,4 +374,11 @@ def country_code(country):
         country = synonyms[country]
 
     # Get country or fallback to default_code.
-    return is_3166_1.get(country, default_code)
+    country_code = is_3166_1.get(country, default_code)
+
+    # Default picked?
+    if country_code == default_code:
+        print("No country_code found for '%s'. Using '%s'!" % (country, country_code))
+
+    # Return
+    return country_code
