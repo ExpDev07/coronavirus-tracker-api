@@ -371,5 +371,4 @@ def country_code(s):
     code = country_name__country_code.get(s, default_country_code)
     if code == default_country_code:
         LOGGER.warning(f"No country code found for '{s}'. Using '{code}'!")
-
     return code

@@ -17,7 +17,7 @@ def mocked_timeline(*args, **kwargs):
 @pytest.mark.parametrize(
     "test_id, country, country_code, continent_codes_list, province, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest",
     [
-        (0, "Thailand",    "TH", ["ASI"], "", 15, 100, 1000, 1111, 22222),
+        (0, "Thailand", "TH", ["ASI"], "", 15, 100, 1000, 1111, 22222),
         (1, "Deutschland", "DE", ["EUR"], "", 15, 100, 1000, 1111, 22222),
         (2, "Cruise Ship", "XX", ["CCC"], "", 15, 100, 1000, 1111, 22222),
     ],

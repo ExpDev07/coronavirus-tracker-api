@@ -12,8 +12,10 @@ from app.main import APP
 
 from .test_jhu import DATETIME_STRING, mocked_requests_get, mocked_strptime_isoformat
 
+
 def format_json(s):
     return json.dumps(json.loads(s), indent=4, sort_keys=True)
+
 
 def assert_equal(ret, exp):
     "Formatted json-strings make debugging easier"
@@ -131,7 +133,7 @@ class FlaskRoutesTest(unittest.TestCase):
         ({"timelines": 1}, 200),
         ({"source": "jhu", "timelines": True}, 200),
         ({"source": "csbs", "country_code": "US"}, 200),
-        ({"source": "jhu",  "country_code": "US"}, 404),
+        ({"source": "jhu", "country_code": "US"}, 404),
     ],
 )
 def test_locations_status_code(api_client, query_params, expected_status):
