@@ -236,6 +236,7 @@ country_name__country_code = {
     "occupied Palestinian territory"               : "PS",
     "State of Palestine"                           : "PS",
     "The West Bank and Gaza"                       : "PS",
+    "West Bank and Gaza"                           : "PS",
     "Panama"                                       : "PA",
     "Papua New Guinea"                             : "PG",
     "Paraguay"                                     : "PY",
@@ -353,6 +354,7 @@ country_name__country_code = {
     "Iraq-Saudi Arabia Neutral Zone"               : "XE",
     "Spratly Islands"                              : "XS",
 
+    # "Diamond Princess"                             : default_country_code,
     # TODO "Disputed Territory" conflicts with `default_country_code`
     # "Disputed Territory"                         : "XX",
 
