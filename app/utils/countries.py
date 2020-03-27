@@ -4,13 +4,13 @@ from itertools import chain
 LOGGER = logging.getLogger(__name__)
 
 # Default country code.
-default_code = "XX"
+default_country_code = "XX"
 
 # Mapping of country names to alpha-2 codes according to
 # https://en.wikipedia.org/wiki/ISO_3166-1.
 # As a reference see also https://github.com/TakahikoKawasaki/nv-i18n (in Java)
 # fmt: off
-is_3166_1 = {
+country_name__country_code = {
     "Afghanistan"                                  : "AF",
     "Åland Islands"                                : "AX",
     "Albania"                                      : "AL",
@@ -269,13 +269,13 @@ is_3166_1 = {
     "Iraq-Saudi Arabia Neutral Zone"              : "XE",
     "Spratly Islands"                             : "XS",
 
-    # TODO "Disputed Territory" conflicts with `default_code`
+    # TODO "Disputed Territory" conflicts with `default_country_code`
     # "Disputed Territory"                          : "XX",
 }
 
 # Mapping of alternative names, spelling, typos to the names of countries used
 # by the ISO 3166-1 norm
-synonyms = {
+country_alias__country_name = {
     "Mainland China"                 : "China",
     "Czechia"                        : "Czech Republic",
     "Channel Islands"                : "United Kingdom",
@@ -372,16 +372,15 @@ def country_code(country):
     Return two letter country code (Alpha-2) according to https://en.wikipedia.org/wiki/ISO_3166-1
     Defaults to "XX".
     """
-    # Look in synonyms if not found.
-    if not country in is_3166_1 and country in synonyms:
-        country = synonyms[country]
+    if not country in country_name__country_code and country in country_alias__country_name:
+        country = country_alias__country_name[country]
 
     # Get country or fallback to default_code.
-    country_code = is_3166_1.get(country, default_code)
+    country_code = country_name__country_code.get(country, default_country_code)
 
     # Default picked?
-    if country_code == default_code:
-        LOGGER.warning(f"No country_code found for '{country}'. Using '{country_code}'!")
+    if country_code == default_country_code:
+        LOGGER.warning(f"No country code found for '{country}'. Using '{country_code}'!")
 
     # Return.
     return country_code

@@ -5,7 +5,7 @@ from zipfile import ZipFile, ZipInfo
 import requests
 from cachetools import TTLCache, cached
 
-from .countrycodes import country_code
+from .countries import country_code
 
 LOGGER = logging.getLogger(__name__)
 

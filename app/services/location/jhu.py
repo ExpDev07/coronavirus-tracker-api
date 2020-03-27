@@ -7,7 +7,7 @@ from cachetools import TTLCache, cached
 from ...coordinates import Coordinates
 from ...location import TimelinedLocation
 from ...timeline import Timeline
-from ...utils import countrycodes
+from ...utils import countries
 from ...utils import date as date_util
 from . import LocationService
 
@@ -80,7 +80,7 @@ def get_category(category):
             {
                 # General info.
                 "country": country,
-                "country_code": countrycodes.country_code(country),
+                "country_code": countries.country_code(country),
                 "province": item["Province/State"],
                 # Coordinates.
                 "coordinates": {"lat": item["Lat"], "long": item["Long"],},

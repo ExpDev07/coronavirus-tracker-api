@@ -1,5 +1,5 @@
 from ..coordinates import Coordinates
-from ..utils import countrycodes
+from ..utils import countries
 from ..utils.populations import country_population
 
 
@@ -31,7 +31,7 @@ class Location:
         :returns: The country code.
         :rtype: str
         """
-        return (countrycodes.country_code(self.country) or countrycodes.default_code).upper()
+        return (countries.country_code(self.country) or countries.default_country_code).upper()
 
     @property
     def country_population(self):
