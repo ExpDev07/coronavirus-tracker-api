@@ -15,16 +15,10 @@ Todo:
         ("Germany", "DE"),
         ("Bolivia, Plurinational State of", "BO"),
         ("Korea, Democratic People's Republic of", "KP"),
-        ("BlaBla", "XX"),
+        ("US", "US"),
+        ("BlaBla", countries.default_country_code),
+        ("Others", countries.default_country_code),
     ],
 )
 def test_countries_country_name__country_code(country_name, expected_country_code):
     assert countries.country_code(country_name) == expected_country_code
-
-
-@pytest.mark.parametrize(
-    "country_name_alias, expected_country_code",
-    [("Deutschland", "DE"), ("Iran (Islamic Republic of)", "IR"), ("British Virgin Islands", "VG")],
-)
-def test_country_name_alias(country_name_alias, expected_country_code):
-    assert countries.country_code(country_name_alias) == expected_country_code
