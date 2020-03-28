@@ -256,7 +256,7 @@ country_code__continent_codes_set = {
     "UG": {"AFR"},
     "UA": {"EUR"},
     "MK": {"EUR"},
-    "EG": {"AFR"},
+    "EG": {"ASI" "AFR"},
     "GB": {"EUR"},
     "GG": {"EUR"},
     "JE": {"EUR"},
@@ -302,6 +302,9 @@ def continent_codes_set(s):
         TR - Turkey
         KZ - Kazakhstan
         AZ - Azerbaijan
+
+    ASI - Asia and AFR - Africa
+        EG - Egypt
     """
     codes_set = country_code__continent_codes_set.get(s, default_continent_codes_set)
     if codes_set == default_continent_codes_set:
