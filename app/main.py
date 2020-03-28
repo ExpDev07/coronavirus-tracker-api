@@ -18,7 +18,7 @@ from .data import data_source
 from .models.latest import LatestResponse as Latest
 from .models.location import LocationResponse as Location
 from .models.location import LocationsResponse as Locations
-from .router.v2 import router
+from .router.v2 import router as v2router
 
 # ############
 # FastAPI App
@@ -84,7 +84,7 @@ async def handle_validation_error(request: Request, exc: pydantic.error_wrappers
 
 # Include routers.
 # APP.include_router(router, prefix="/", tags=["v1"])
-APP.include_router(router, prefix="/v2", tags=["v2"])
+APP.include_router(v2router, prefix="/v2", tags=["v2"])
 
 # mount the existing Flask app
 # v1 @ /
