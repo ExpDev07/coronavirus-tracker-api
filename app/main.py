@@ -10,7 +10,7 @@ import pydantic
 import uvicorn
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.wsgi import WSGIMiddleware
+# from fastapi.middleware.wsgi import WSGIMiddleware
 from fastapi.responses import JSONResponse
 
 from .core import create_app
@@ -18,6 +18,7 @@ from .data import data_source
 from .models.latest import LatestResponse as Latest
 from .models.location import LocationResponse as Location
 from .models.location import LocationsResponse as Locations
+from .router.v1 import router as v1router
 from .router.v2 import router as v2router
 
 # ############
@@ -83,12 +84,14 @@ async def handle_validation_error(request: Request, exc: pydantic.error_wrappers
 
 
 # Include routers.
-# APP.include_router(router, prefix="/", tags=["v1"])
+APP.include_router(v1router, prefix="", tags=["v1"])
 APP.include_router(v2router, prefix="/v2", tags=["v2"])
 
+'''
 # mount the existing Flask app
 # v1 @ /
 APP.mount("/", WSGIMiddleware(create_app()))
+'''
 
 
 # Running of app.
