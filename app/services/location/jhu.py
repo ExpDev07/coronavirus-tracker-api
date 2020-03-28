@@ -83,7 +83,7 @@ def get_category(category):
                 # General info.
                 "country": country,
                 "country_code": country_code,
-                "continent_codes_list": continents.continent_codes_list(country_code),
+                "continent_codes_set": list(continents.continent_codes_set(country_code)),
                 "province": item["Province/State"],
                 # Coordinates.
                 "coordinates": {"lat": item["Lat"], "long": item["Long"],},

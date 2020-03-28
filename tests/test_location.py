@@ -15,7 +15,7 @@ def mocked_timeline(*args, **kwargs):
 
 
 @pytest.mark.parametrize(
-    "test_id, country, country_code, continent_codes_list, province, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest",
+    "test_id, country, country_code, continent_codes_set, province, latitude, longitude, confirmed_latest, deaths_latest, recovered_latest",
     [
         (0, "Thailand", "TH", ["ASI"], "", 15, 100, 1000, 1111, 22222),
         (1, "Deutschland", "DE", ["EUR"], "", 15, 100, 1000, 1111, 22222),
@@ -28,7 +28,7 @@ def test_location_class(
     test_id,
     country,
     country_code,
-    continent_codes_list,
+    continent_codes_set,
     province,
     latitude,
     longitude,
@@ -53,5 +53,5 @@ def test_location_class(
     )
 
     assert location_obj.country_code == country_code
-    assert location_obj.continent_codes_list == continent_codes_list
+    assert location_obj.continent_codes_set == set(continent_codes_set)
     assert not location_obj.serialize() == None

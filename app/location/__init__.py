@@ -34,7 +34,7 @@ class Location:
         return countries.country_code(self.country) or countries.default_country_code
 
     @property
-    def continent_codes_list(self):
+    def continent_codes_set(self):
         """
         Gets the alpha-3 code representations of the continent codes where the
         country represented by the country code is located. Returns 'CCC' if
@@ -44,7 +44,7 @@ class Location:
         :rtype: list
         """
         country_code = countries.country_code(self.country)
-        return continents.continent_codes_list(country_code) or continents.default_continent_codes_list
+        return continents.continent_codes_set(country_code) or continents.default_continent_codes_set
 
     @property
     def country_population(self):
@@ -68,7 +68,7 @@ class Location:
             "id": self.id,
             "country": self.country,
             "country_code": self.country_code,
-            "continent_codes_list": self.continent_codes_list,
+            "continent_codes_set": self.continent_codes_set,
             "country_population": self.country_population,
             "province": self.province,
             # Coordinates.

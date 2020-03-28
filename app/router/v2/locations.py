@@ -11,7 +11,7 @@ def get_locations(
     request: Request,
     source: Sources = "jhu",
     country_code: str = None,
-    continent_codes_list: list = [],
+    continent_codes_set: list = {},
     province: str = None,
     county: str = None,
     timelines: bool = False,

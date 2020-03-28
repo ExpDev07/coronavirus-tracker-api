@@ -5,7 +5,7 @@ from app.utils import continents, countries
 
 # fmt: off
 @pytest.mark.parametrize(
-    "country_name,expected_continent_codes_list",
+    "country_name,expected_continent_codes_set",
     [
         ("Germany",                                ["EUR"]),
         ("Bolivia, Plurinational State of",        ["SAC"]),
@@ -22,7 +22,7 @@ from app.utils import continents, countries
         (" Azerbaijan",                            ["EUR", "ASI"]),
     ],
 )
-def test_country_name__continent_codes_list(country_name, expected_continent_codes_list):
+def test_country_name__continent_codes_set(country_name, expected_continent_codes_set):
     country_code = countries.country_code(country_name)
-    continent_codes_list = continents.continent_codes_list(country_code)
-    assert continent_codes_list == expected_continent_codes_list
+    continent_codes_set = continents.continent_codes_set(country_code)
+    assert continent_codes_set == set(expected_continent_codes_set)

@@ -129,7 +129,7 @@ __Sample response__
     "id": 39,
     "country": "Norway",
     "country_code": "NO",
-    "continent_codes_list": ["EUR"],
+    "continent_codes_set": {"EUR"},
     "country_population": 5009150,
     "province": "",
     "county": "",
@@ -176,7 +176,7 @@ __Sample response__
       "id": 0,
       "country": "Thailand",
       "country_code": "TH",
-      "continent_codes_list": ["ASI"],
+      "continent_codes_set": {"ASI"},
       "country_population": 67089500,
       "province": "",
       "county": "",
@@ -194,7 +194,7 @@ __Sample response__
     {
       "id": 39,
       "country": "Norway",
-      "continent_codes_list": ["EUR"],
+      "continent_codes_set": {"EUR"},
       "country_code": "NO",
       "province": "",
       "county": "",
@@ -227,8 +227,9 @@ __Response definitions__
 | {locations}/{location}/{latest}/deaths         | The up-to-date number of deaths related to the specific location                                                                                 | Integer  |
 | {locations}/{location}/{latest}/recovered      | The up-to-date number of recovered related to the specific location                                                                              | Integer  |
 | {locations}/{location}/id                      | The location id. This unique id is assigned to the location by the data-source.                                                                  | Integer  |
-| {locations}/{location}/country                 | The Country name                                                                                                                                 | String   |
-| {locations}/{location}/country_code            | The [ISO alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) Country code for the location.                                  | String   |
+| {locations}/{location}/country                 | The country name                                                                                                                                 | String   |
+| {locations}/{location}/country_code            | The [ISO alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the country.                                                 | String   |
+| {locations}/{location}/continent_codes_set     | The List, in fact a set of alpha-3 continent codes of the country location.                                                                      | List     |
 | {locations}/{location}/province                | The province where the location belongs to. (Used for US locations coming from __csbs data-source__.<br>__Empty__ when *jhu data-source* is used | String   |
 | {locations}/{location}/{coordinates}/latitude  | The location latitude                                                                                                                            | Float    |
 | {locations}/{location}/{coordinates}/longitude | The location longitude                                                                                                                           | Float    |
@@ -257,7 +258,7 @@ __Sample Response__
       "id": 16,
       "country": "Italy",
       "country_code": "IT",
-      "continent_codes_list": ["EUR"],
+      "continent_codes_set": {"EUR"},
       "country_population": 60340328,
       "province": "",
       "county": "",
@@ -298,7 +299,7 @@ __Sample Response__
       "id": 0,
       "country": "US",
       "country_code": "US",
-      "continent_codes_list": ["NAC"],
+      "continent_codes_set": {"NAC"},
       "country_population": 310232863,
       "province": "New York",
       "state": "New York",
@@ -318,7 +319,7 @@ __Sample Response__
       "id": 1,
       "country": "US",
       "country_code": "US",
-      "continent_codes_list": ["NAC"],
+      "continent_codes_set": {"NAC"},
       "country_population": 310232863,
       "province": "New York",
       "state": "New York",

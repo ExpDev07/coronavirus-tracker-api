@@ -10,7 +10,7 @@
                 },
                 "country":"Thailand",
                 "country_code":"TH",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":2,
                     "1/23/20":3,
@@ -77,7 +77,7 @@
                 },
                 "country":"Japan",
                 "country_code":"JP",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":2,
                     "1/23/20":1,
@@ -144,7 +144,7 @@
                 },
                 "country":"Singapore",
                 "country_code":"SG",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":1,
@@ -211,7 +211,7 @@
                 },
                 "country":"Nepal",
                 "country_code":"NP",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -278,7 +278,7 @@
                 },
                 "country":"Malaysia",
                 "country_code":"MY",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -345,7 +345,7 @@
                 },
                 "country":"Canada",
                 "country_code":"CA",
-                "continent_codes_list":["NAC"],
+                "continent_codes_set":["NAC"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -412,7 +412,7 @@
                 },
                 "country":"Australia",
                 "country_code":"AU",
-                "continent_codes_list":["OCE"],
+                "continent_codes_set":["OCE"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -479,7 +479,7 @@
                 },
                 "country":"Australia",
                 "country_code":"AU",
-                "continent_codes_list":["OCE"],
+                "continent_codes_set":["OCE"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -546,7 +546,7 @@
                 },
                 "country":"Australia",
                 "country_code":"AU",
-                "continent_codes_list":["OCE"],
+                "continent_codes_set":["OCE"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -613,7 +613,7 @@
                 },
                 "country":"Cambodia",
                 "country_code":"KH",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -687,7 +687,7 @@
                 },
                 "country":"Thailand",
                 "country_code":"TH",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":2,
                     "1/23/20":3,
@@ -754,7 +754,7 @@
                 },
                 "country":"Japan",
                 "country_code":"JP",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":2,
                     "1/23/20":1,
@@ -821,7 +821,7 @@
                 },
                 "country":"Singapore",
                 "country_code":"SG",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":1,
@@ -888,7 +888,7 @@
                 },
                 "country":"Nepal",
                 "country_code":"NP",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -955,7 +955,7 @@
                 },
                 "country":"Malaysia",
                 "country_code":"MY",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1022,7 +1022,7 @@
                 },
                 "country":"Canada",
                 "country_code":"CA",
-                "continent_codes_list":["NAC"],
+                "continent_codes_set":["NAC"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1089,7 +1089,7 @@
                 },
                 "country":"Australia",
                 "country_code":"AU",
-                "continent_codes_list":["OCE"],
+                "continent_codes_set":["OCE"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1156,7 +1156,7 @@
                 },
                 "country":"Australia",
                 "country_code":"AU",
-                "continent_codes_list":["OCE"],
+                "continent_codes_set":["OCE"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1223,7 +1223,7 @@
                 },
                 "country":"Australia",
                 "country_code":"AU",
-                "continent_codes_list":["OCE"],
+                "continent_codes_set":["OCE"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1290,7 +1290,7 @@
                 },
                 "country":"Cambodia",
                 "country_code":"KH",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1369,7 +1369,7 @@
                 },
                 "country":"Thailand",
                 "country_code":"TH",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":2,
                     "1/23/20":3,
@@ -1436,7 +1436,7 @@
                 },
                 "country":"Japan",
                 "country_code":"JP",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":2,
                     "1/23/20":1,
@@ -1503,7 +1503,7 @@
                 },
                 "country":"Singapore",
                 "country_code":"SG",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":1,
@@ -1570,7 +1570,7 @@
                 },
                 "country":"Nepal",
                 "country_code":"NP",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1637,7 +1637,7 @@
                 },
                 "country":"Malaysia",
                 "country_code":"MY",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1704,7 +1704,7 @@
                 },
                 "country":"Canada",
                 "country_code":"CA",
-                "continent_codes_list":["NAC"],
+                "continent_codes_set":["NAC"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1771,7 +1771,7 @@
                 },
                 "country":"Australia",
                 "country_code":"AU",
-                "continent_codes_list":["OCE"],
+                "continent_codes_set":["OCE"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1838,7 +1838,7 @@
                 },
                 "country":"Australia",
                 "country_code":"AU",
-                "continent_codes_list":["OCE"],
+                "continent_codes_set":["OCE"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1905,7 +1905,7 @@
                 },
                 "country":"Australia",
                 "country_code":"AU",
-                "continent_codes_list":["OCE"],
+                "continent_codes_set":["OCE"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
@@ -1972,7 +1972,7 @@
                 },
                 "country":"Cambodia",
                 "country_code":"KH",
-                "continent_codes_list":["ASI"],
+                "continent_codes_set":["ASI"],
                 "history":{
                     "1/22/20":0,
                     "1/23/20":0,
