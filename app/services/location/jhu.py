@@ -7,7 +7,7 @@ from cachetools import TTLCache, cached
 from ...coordinates import Coordinates
 from ...location import TimelinedLocation
 from ...timeline import Timeline
-from ...utils import countrycodes
+from ...utils import countries
 from ...utils import date as date_util
 from . import LocationService
 
@@ -52,11 +52,6 @@ def get_category(category):
     # URL to request data from.
     url = base_url + "time_series_covid19_%s_global.csv" % category
 
-    # Different URL is needed for recoveries.
-    # Read about deprecation here: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series.
-    if category == "recovered":
-        url = base_url + "time_series_19-covid-Recovered.csv"
-
     # Request the data
     request = requests.get(url)
     text = request.text
@@ -85,7 +80,7 @@ def get_category(category):
             {
                 # General info.
                 "country": country,
-                "country_code": countrycodes.country_code(country),
+                "country_code": countries.country_code(country),
                 "province": item["Province/State"],
                 # Coordinates.
                 "coordinates": {"lat": item["Lat"], "long": item["Long"],},

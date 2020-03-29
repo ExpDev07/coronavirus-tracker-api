@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 
-# Create the router.
-router = APIRouter()
+from .v1 import all, confirmed, deaths, recovered
 
 # The routes.
-from . import latest, sources, locations  # isort:skip
+from .v2 import latest, sources, locations  # isort:skip

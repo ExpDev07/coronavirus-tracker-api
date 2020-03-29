@@ -33,9 +33,6 @@ def mocked_requests_get(*args, **kwargs):
             # Determine filepath.
             filepath = "tests/example_data/{}.csv".format(state)
 
-            if state == "recovered":
-                filepath = "tests/example_data/time_series_19-covid-Recovered.csv"
-
             # Return fake response.
             print("Try to read {}".format(filepath))
             with open(filepath, "r") as file:

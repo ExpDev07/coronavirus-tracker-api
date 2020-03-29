@@ -1,4 +1,4 @@
-from ..data import data_sources
+from ...data import data_sources
 from . import router
 
 
