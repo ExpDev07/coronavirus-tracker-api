@@ -8,7 +8,9 @@ bandit = "*"
 black = "==19.10b0"
 isort = "*"
 pytest = "*"
+pytest-cov="*"
 pylint = "*"
+coveralls = "*"
 
 [packages]
 fastapi = "*"

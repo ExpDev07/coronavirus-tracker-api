@@ -6,5 +6,8 @@ python:
 install:
   - "pip install pipenv"
   - "pipenv install --dev --skip-lock"
+  - "pipenv install coveralls"
 script:
-  - "make test lint check-fmt"
+  - "make coverage-test lint check-fmt"
+after_success:
+  - coveralls --verbose

@@ -27,3 +27,6 @@ fmt:
 check-fmt:
 	isort -rc --check
 	black . --check --diff
+
+coverage-test:
+	coverage run --source=$(APP) `which py.test` -s -v $(TEST)
