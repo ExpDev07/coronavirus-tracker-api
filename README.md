@@ -391,7 +391,6 @@ These are the available API wrappers created by the community. They are not nece
 You will need the following things properly installed on your computer.
 
 * [Python 3](https://www.python.org/downloads/) (with pip)
-* [Flask](https://pypi.org/project/Flask/)
 * [pipenv](https://pypi.org/project/pipenv/)
 
 ## Installation
