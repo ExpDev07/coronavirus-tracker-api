@@ -7,6 +7,6 @@ from . import router
 
 @router.get("/deaths")
 def deaths():
-    return {
-        get_category("deaths")
-    }
+    deaths = get_category("deaths")
+    
+    return deaths

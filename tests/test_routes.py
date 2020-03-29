@@ -6,8 +6,8 @@ from unittest import mock
 import pytest
 from fastapi.testclient import TestClient
 
-import app
-from app import services
+# import app
+# from app import services
 from app.main import APP
 
 from .test_jhu import DATETIME_STRING, mocked_requests_get, mocked_strptime_isoformat
@@ -23,10 +23,10 @@ class FlaskRoutesTest(unittest.TestCase):
     """
 
     # load app context only once.
-    app = app.create_app()
+    # app = app.create_app()
 
     def setUp(self):
-        self.client = FlaskRoutesTest.app.test_client()
+        # self.client = FlaskRoutesTest.app.test_client()
         self.asgi_client = TestClient(APP)
         self.date = DATETIME_STRING
 
@@ -48,36 +48,36 @@ class FlaskRoutesTest(unittest.TestCase):
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
         state = "confirmed"
         expected_json_output = self.read_file_v1(state=state)
-        return_data = self.client.get("/{}".format(state)).data.decode()
+        return_data = self.asgi_client.get("/{}".format(state)).json()
 
-        assert return_data == expected_json_output
+        assert return_data == json.loads(expected_json_output)
 
     def test_v1_deaths(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
         state = "deaths"
         expected_json_output = self.read_file_v1(state=state)
-        return_data = self.client.get("/{}".format(state)).data.decode()
+        return_data = self.asgi_client.get("/{}".format(state)).json()
 
-        assert return_data == expected_json_output
+        assert return_data == json.loads(expected_json_output)
 
     def test_v1_recovered(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
         state = "recovered"
         expected_json_output = self.read_file_v1(state=state)
-        return_data = self.client.get("/{}".format(state)).data.decode()
+        return_data = self.asgi_client.get("/{}".format(state)).json()
 
-        assert return_data == expected_json_output
+        assert return_data == json.loads(expected_json_output)
 
     def test_v1_all(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
         state = "all"
         expected_json_output = self.read_file_v1(state=state)
-        return_data = self.client.get("/{}".format(state)).data.decode()
-        # print(return_data)
-        assert return_data == expected_json_output
+        return_data = self.asgi_client.get("/{}".format(state)).json()
+        
+        assert return_data == json.loads(expected_json_output)
 
     def test_v2_latest(self, mock_request_get, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
