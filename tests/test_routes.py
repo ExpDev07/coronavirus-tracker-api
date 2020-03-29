@@ -22,11 +22,7 @@ class FlaskRoutesTest(unittest.TestCase):
     Store all integration testcases in one class to ensure app context
     """
 
-    # load app context only once.
-    # app = app.create_app()
-
     def setUp(self):
-        # self.client = FlaskRoutesTest.app.test_client()
         self.asgi_client = TestClient(APP)
         self.date = DATETIME_STRING
 

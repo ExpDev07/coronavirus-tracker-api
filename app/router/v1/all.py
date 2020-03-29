@@ -1,5 +1,3 @@
-#from flask import jsonify
-
 from ...services.location.jhu import get_category
 from . import router
 
