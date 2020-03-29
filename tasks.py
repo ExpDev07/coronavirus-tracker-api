@@ -7,6 +7,7 @@ Available commands
   invoke --list
   invoke fmt
   invoke sort
+  invoke check
 """
 import invoke
 
@@ -28,17 +29,22 @@ def fmt(ctx, targets="."):
     args = ["black", targets]
     ctx.run(" ".join(args))
 
+
 @invoke.task
-def check(ctx, fmt=False, sort=False):
+def check(ctx, fmt=False, sort=False, diff=False):  # pylint: disable=redefined-outer-name
     """Check code format and import order."""
     if not any([fmt, sort]):
         fmt = True
         sort = True
 
-    fmt_args = ["black", "--check", "--diff", "."]
-    sort_args = ["isort", "-rc", "--check", "--diff", "."]
-    cmd_args = []
+    fmt_args = ["black", "--check", "."]
+    sort_args = ["isort", "-rc", "--check", "."]
 
+    if diff:
+        fmt_args.append("--diff")
+        sort_args.append("--diff")
+
+    cmd_args = []
     if fmt:
         cmd_args.extend(fmt_args)
     if sort:
