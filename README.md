@@ -391,7 +391,6 @@ These are the available API wrappers created by the community. They are not nece
 You will need the following things properly installed on your computer.
 
 * [Python 3](https://www.python.org/downloads/) (with pip)
-* [Flask](https://pypi.org/project/Flask/)
 * [pipenv](https://pypi.org/project/pipenv/)
 
 ## Installation
@@ -415,32 +414,26 @@ And don't despair if don't get the python setup working on the first try. No one
 * Visit your app at [http://localhost:5000](http://localhost:5000).
 
 ### Running Tests
+> [pytest](https://docs.pytest.org/en/latest/)
 
 ```bash
-pipenv sync --dev
-pipenv shell
-make test
+pipenv run test
 ```
 
+
 ### Linting
+> [pylint](https://www.pylint.org/)
 
 ```bash
-pipenv sync --dev
-pipenv shell
-make lint
+pipenv run lint
 ```
 
 ### Formatting
+> [black](https://black.readthedocs.io/en/stable/)
 
 ```bash
 pipenv run fmt
 ```
-or
-```bash
-pipenv shell
-make fmt
-```
-
 
 ### Building
 
