@@ -52,3 +52,15 @@ def check(ctx, fmt=False, sort=False, diff=False):  # pylint: disable=redefined-
             cmd_args.append("&")
         cmd_args.extend(sort_args)
     ctx.run(" ".join(cmd_args))
+
+
+@invoke.task
+def lint(ctx):
+    """Run linter."""
+    ctx.run(" ".join(["pylint", "app"]))
+
+
+@invoke.task
+def test(ctx):
+    """Run pytest tests."""
+    ctx.run(" ".join(["pytest", "-v"]))
