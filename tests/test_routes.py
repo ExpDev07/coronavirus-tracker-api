@@ -72,7 +72,7 @@ class FlaskRoutesTest(unittest.TestCase):
         state = "all"
         expected_json_output = self.read_file_v1(state=state)
         return_data = self.asgi_client.get("/{}".format(state)).json()
-        
+
         assert return_data == json.loads(expected_json_output)
 
     def test_v2_latest(self, mock_request_get, mock_datetime):

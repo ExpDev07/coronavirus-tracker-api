@@ -5,5 +5,5 @@ from . import router
 @router.get("/recovered")
 def recovered():
     recovered = get_category("recovered")
-    
+
     return recovered

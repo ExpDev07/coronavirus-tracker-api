@@ -15,5 +15,5 @@ def all():
         "deaths": deaths,
         "recovered": recovered,
         # Latest.
-        "latest": {"confirmed":confirmed["latest"], "deaths": deaths["latest"], "recovered": recovered["latest"],},
+        "latest": {"confirmed": confirmed["latest"], "deaths": deaths["latest"], "recovered": recovered["latest"],},
     }
