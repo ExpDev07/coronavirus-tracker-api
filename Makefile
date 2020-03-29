@@ -21,9 +21,7 @@ lint:
 	pylint $(APP) || true
 
 fmt:
-	isort --apply --atomic
-	black . -l 120
+	invoke fmt
 
 check-fmt:
-	isort -rc --check
-	black . --check --diff
+	invoke check --fmt --sort

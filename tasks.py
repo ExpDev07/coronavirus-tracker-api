@@ -27,3 +27,22 @@ def fmt(ctx, targets="."):
     print("formatting ...")
     args = ["black", targets]
     ctx.run(" ".join(args))
+
+@invoke.task
+def check(ctx, fmt=False, sort=False):
+    """Check code format and import order."""
+    if not any([fmt, sort]):
+        fmt = True
+        sort = True
+
+    fmt_args = ["black", "--check", "--diff", "."]
+    sort_args = ["isort", "-rc", "--check", "--diff", "."]
+    cmd_args = []
+
+    if fmt:
+        cmd_args.extend(fmt_args)
+    if sort:
+        if cmd_args:
+            cmd_args.append("&")
+        cmd_args.extend(sort_args)
+    ctx.run(" ".join(cmd_args))
