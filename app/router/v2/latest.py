@@ -1,7 +1,7 @@
 from fastapi import Request
 
-from ..enums.sources import Sources
-from ..models.latest import LatestResponse as Latest
+from ...enums.sources import Sources
+from ...models.latest import LatestResponse as Latest
 from . import router
 
 
