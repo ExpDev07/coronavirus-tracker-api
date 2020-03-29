@@ -215,6 +215,7 @@ country_name__country_code = {
     "Morocco"                                      : "MA",
     "Mozambique"                                   : "MZ",
     "Myanmar"                                      : "MM",
+    "Burma"                                        : "MM",
     "Namibia"                                      : "NA",
     "Nauru"                                        : "NR",
     "Nepal"                                        : "NP",
@@ -359,7 +360,10 @@ country_name__country_code = {
     # "Disputed Territory"                         : "XX",
 
     # "Others" has no mapping, i.e. the default val is used
-    # "Cruise Ship" has no mapping, i.e. the default val is used
+
+    # ships:
+    # "Cruise Ship"
+    # "MS Zaandam"
 }
 
 # fmt: on
