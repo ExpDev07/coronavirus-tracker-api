@@ -6,6 +6,7 @@ Provides up-to-date data about Coronavirus outbreak. Includes numbers about conf
 Support multiple data-sources.
 
 ![Travis build](https://api.travis-ci.com/ExpDev07/coronavirus-tracker-api.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/ExpDev07/coronavirus-tracker-api/badge.svg?branch=master)](https://coveralls.io/github/ExpDev07/coronavirus-tracker-api?branch=master)
 [![License](https://img.shields.io/github/license/ExpDev07/coronavirus-tracker-api)](LICENSE.md)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 [![GitHub stars](https://img.shields.io/github/stars/ExpDev07/coronavirus-tracker-api)](https://github.com/ExpDev07/coronavirus-tracker-api/stargazers)
