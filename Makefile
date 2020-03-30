@@ -15,8 +15,7 @@ APP = app
 TEST = tests
 
 test:
-	$(PYTHON) `which py.test` -s -v $(TEST)
-
+	pytest -v $(TEST)  --cov-report term --cov-report xml --cov=$(APP)
 lint:
 	pylint $(APP) || true
 

@@ -6,20 +6,20 @@ verify_ssl = true
 [dev-packages]
 bandit = "*"
 black = "==19.10b0"
+coveralls = "*"
 invoke = "*"
 isort = "*"
-pytest = "*"
 pylint = "*"
+pytest = "*"
+pytest-cov = "*"
 
 [packages]
+cachetools = "*"
 fastapi = "*"
-flask = "*"
+gunicorn = "*"
+python-dateutil = "*"
 python-dotenv = "*"
 requests = "*"
-gunicorn = "*"
-flask-cors = "*"
-cachetools = "*"
-python-dateutil = "*"
 uvicorn = "*"
 
 [requires]
