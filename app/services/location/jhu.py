@@ -2,7 +2,6 @@
 import csv
 from datetime import datetime
 
-import requests
 from cachetools import TTLCache, cached
 
 from ...coordinates import Coordinates
@@ -10,6 +9,7 @@ from ...location import TimelinedLocation
 from ...timeline import Timeline
 from ...utils import countries
 from ...utils import date as date_util
+from ...utils import httputils
 from . import LocationService
 
 
@@ -37,7 +37,7 @@ BASE_URL = (
 
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
-def get_category(category):
+async def get_category(category):
     """
     Retrieves the data for the provided category. The data is cached for 1 hour.
 
@@ -52,8 +52,8 @@ def get_category(category):
     url = BASE_URL + "time_series_covid19_%s_global.csv" % category
 
     # Request the data
-    request = requests.get(url)
-    text = request.text
+    async with httputils.client_session.get(url) as response:
+        text = await response.text()
 
     # Parse the CSV.
     data = list(csv.DictReader(text.splitlines()))

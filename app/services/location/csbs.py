@@ -2,11 +2,11 @@
 import csv
 from datetime import datetime
 
-import requests
 from cachetools import TTLCache, cached
 
 from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
+from ...utils import httputils
 from . import LocationService
 
 
@@ -28,15 +28,15 @@ BASE_URL = "https://facts.csbs.org/covid-19/covid19_county.csv"
 
 
 @cached(cache=TTLCache(maxsize=1, ttl=3600))
-def get_locations():
+async def get_locations():
     """
     Retrieves county locations; locations are cached for 1 hour
 
     :returns: The locations.
     :rtype: dict
     """
-    request = requests.get(BASE_URL)
-    text = request.text
+    async with httputils.client_session.get(BASE_URL) as response:
+        text = await response.text()
 
     data = list(csv.DictReader(text.splitlines()))
 
