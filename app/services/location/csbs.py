@@ -2,7 +2,8 @@
 import csv
 from datetime import datetime
 
-from cachetools import TTLCache, cached
+from asyncache import cached
+from cachetools import TTLCache
 
 from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
