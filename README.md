@@ -366,6 +366,7 @@ These are the available API wrappers created by the community. They are not nece
 
 * [CovidSharp by @Abdirahiim](https://github.com/Abdirahiim/covidtrackerapiwrapper) 
 * [Covid19Tracker.NET by @egbakou](https://github.com/egbakou/Covid19Tracker.NET)
+* [CovidDotNet by @degant](https://github.com/degant/CovidDotNet)
 
 ### Python
 
