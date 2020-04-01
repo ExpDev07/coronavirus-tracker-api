@@ -4,6 +4,8 @@ from . import V1
 
 
 @V1.get("/recovered")
-def recovered():
+async def recovered():
     """Recovered cases."""
-    return get_category("recovered")
+    recovered = await get_category("recovered")
+
+    return recovered

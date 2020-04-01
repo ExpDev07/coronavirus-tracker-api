@@ -12,15 +12,18 @@ from . import LocationService
 
 class CSBSLocationService(LocationService):
     """
-    Servive for retrieving locations from csbs
+    Service for retrieving locations from csbs
     """
 
-    def get_all(self):
-        # Get the locations
-        return get_locations()
+    async def get_all(self):
+        # Get the locations.
+        locations = await get_locations()
+        return locations
 
-    def get(self, loc_id):  # pylint: disable=arguments-differ
-        return self.get_all()[loc_id]
+    async def get(self, loc_id):  # pylint: disable=arguments-differ
+        # Get location at the index equal to the provided id.
+        locations = await self.get_all()
+        return locations[loc_id]
 
 
 # Base URL for fetching data

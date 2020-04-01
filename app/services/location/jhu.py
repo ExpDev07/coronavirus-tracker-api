@@ -18,13 +18,15 @@ class JhuLocationService(LocationService):
     Service for retrieving locations from Johns Hopkins CSSE (https://github.com/CSSEGISandData/COVID-19).
     """
 
-    def get_all(self):
+    async def get_all(self):
         # Get the locations.
-        return get_locations()
+        locations = await get_locations()
+        return locations
 
-    def get(self, loc_id):  # pylint: disable=arguments-differ
+    async def get(self, loc_id):  # pylint: disable=arguments-differ
         # Get location at the index equal to provided id.
-        return self.get_all()[loc_id]
+        locations = await self.get_all()
+        return locations[loc_id]
 
 
 # ---------------------------------------------------------------
@@ -103,7 +105,7 @@ async def get_category(category):
 
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
-def get_locations():
+async def get_locations():
     """
     Retrieves the locations from the categories. The locations are cached for 1 hour.
 
@@ -111,20 +113,24 @@ def get_locations():
     :rtype: List[Location]
     """
     # Get all of the data categories locations.
-    confirmed = get_category("confirmed")["locations"]
-    deaths = get_category("deaths")["locations"]
-    # recovered = get_category('recovered')['locations']
+    confirmed = await get_category("confirmed")
+    deaths = await get_category("deaths")
+    # recovered = await get_category("recovered")
+
+    locations_confirmed = confirmed["locations"]
+    locations_deaths = deaths["locations"]
+    # locations_recovered = recovered["locations"]
 
     # Final locations to return.
     locations = []
 
     # Go through locations.
-    for index, location in enumerate(confirmed):
+    for index, location in enumerate(locations_confirmed):
         # Get the timelines.
         timelines = {
-            "confirmed": confirmed[index]["history"],
-            "deaths": deaths[index]["history"],
-            # 'recovered' : recovered[index]['history'],
+            "confirmed": locations_confirmed[index]["history"],
+            "deaths": locations_deaths[index]["history"],
+            # 'recovered' : locations_recovered[index]['history'],
         }
 
         # Grab coordinates.

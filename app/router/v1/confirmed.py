@@ -4,6 +4,8 @@ from . import V1
 
 
 @V1.get("/confirmed")
-def confirmed():
+async def confirmed():
     """Confirmed cases."""
-    return get_category("confirmed")
+    confirmed = await get_category("confirmed")
+
+    return confirmed
