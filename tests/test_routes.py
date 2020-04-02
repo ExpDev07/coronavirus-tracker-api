@@ -31,82 +31,81 @@ class FlaskRoutesTest(unittest.TestCase):
             expected_json_output = file.read()
         return expected_json_output
 
-    @mock.patch("app.services.location.jhu.datetime")
-    async def test_root_api(self, mock_datetime):
+    async def test_root_api(self):
         """Validate that / returns a 200 and is not a redirect."""
         response = await self.asgi_client.get("/")
 
         assert response.status_code == 200
         assert not response.is_redirect
 
-    @mock.patch("app.services.location.jhu.datetime")
-    async def test_v1_confirmed(self, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-
+    async def test_v1_confirmed(self):
         state = "confirmed"
         expected_json_output = self.read_file_v1(state=state)
-        response = await self.asgi_client.get("/{}".format(state))
-        return_data = response.json()
 
+        with mock.patch("app.services.location.jhu.datetime") as mock_datetime:
+            mock_datetime.utcnow.return_value.isoformat.return_value = self.date
+            mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+            response = await self.asgi_client.get("/{}".format(state))
+
+        return_data = response.json()
         assert return_data == json.loads(expected_json_output)
 
-    @mock.patch("app.services.location.jhu.datetime")
-    async def test_v1_deaths(self, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-
+    async def test_v1_deaths(self):
         state = "deaths"
         expected_json_output = self.read_file_v1(state=state)
-        response = await self.asgi_client.get("/{}".format(state))
-        return_data = response.json()
 
+        with mock.patch("app.services.location.jhu.datetime") as mock_datetime:
+            mock_datetime.utcnow.return_value.isoformat.return_value = self.date
+            mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+            response = await self.asgi_client.get("/{}".format(state))
+
+        return_data = response.json()
         assert return_data == json.loads(expected_json_output)
 
-    @mock.patch("app.services.location.jhu.datetime")
-    async def test_v1_recovered(self, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-
+    async def test_v1_recovered(self):
         state = "recovered"
         expected_json_output = self.read_file_v1(state=state)
-        response = await self.asgi_client.get("/{}".format(state))
-        return_data = response.json()
 
+        with mock.patch("app.services.location.jhu.datetime") as mock_datetime:
+            mock_datetime.utcnow.return_value.isoformat.return_value = self.date
+            mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+            response = await self.asgi_client.get("/{}".format(state))
+
+        return_data = response.json()
         assert return_data == json.loads(expected_json_output)
 
-    @mock.patch("app.services.location.jhu.datetime")
-    async def test_v1_all(self, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = self.date
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-
+    async def test_v1_all(self):
         state = "all"
         expected_json_output = self.read_file_v1(state=state)
-        response = await self.asgi_client.get("/{}".format(state))
-        return_data = response.json()
 
+        with mock.patch("app.services.location.jhu.datetime") as mock_datetime:
+            mock_datetime.utcnow.return_value.isoformat.return_value = self.date
+            mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+            response = await self.asgi_client.get("/{}".format(state))
+
+        return_data = response.json()
         assert return_data == json.loads(expected_json_output)
 
-    @mock.patch("app.services.location.jhu.datetime")
-    async def test_v2_latest(self, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-
+    async def test_v2_latest(self):
         state = "latest"
-        response = await self.asgi_client.get(f"/v2/{state}")
+
+        with mock.patch("app.services.location.jhu.datetime") as mock_datetime:
+            mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
+            mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+            response = await self.asgi_client.get(f"/v2/{state}")
+
         return_data = response.json()
-
         check_dict = {"latest": {"confirmed": 1940, "deaths": 1940, "recovered": 0}}
-
         assert return_data == check_dict
 
-    @mock.patch("app.services.location.jhu.datetime")
-    async def test_v2_locations(self, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-
+    async def test_v2_locations(self):
         state = "locations"
-        response = await self.asgi_client.get("/v2/{}".format(state))
+
+        with mock.patch("app.services.location.jhu.datetime") as mock_datetime:
+            mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
+            mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+            response = await self.asgi_client.get("/v2/{}".format(state))
+
         return_data = response.json()
 
         filepath = "tests/expected_output/v2_{state}.json".format(state=state)
@@ -116,14 +115,15 @@ class FlaskRoutesTest(unittest.TestCase):
         # TODO: Why is this failing?
         # assert return_data == json.loads(expected_json_output)
 
-    @mock.patch("app.services.location.jhu.datetime")
-    async def test_v2_locations_id(self, mock_datetime):
-        mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
-        mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-
+    async def test_v2_locations_id(self):
         state = "locations"
         test_id = 1
-        response = await self.asgi_client.get("/v2/{}/{}".format(state, test_id))
+
+        with mock.patch("app.services.location.jhu.datetime") as mock_datetime:
+            mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
+            mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+            response = await self.asgi_client.get("/v2/{}/{}".format(state, test_id))
+
         return_data = response.json()
 
         filepath = "tests/expected_output/v2_{state}_id_{test_id}.json".format(state=state, test_id=test_id)
