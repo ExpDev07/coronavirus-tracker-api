@@ -14,6 +14,7 @@ Support multiple data-sources.
 [![GitHub last commit](https://img.shields.io/github/last-commit/ExpDev07/coronavirus-tracker-api)](https://github.com/ExpDev07/coronavirus-tracker-api/commits/master)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/ExpDev07/coronavirus-tracker-api)](https://github.com/ExpDev07/coronavirus-tracker-api/pulls)
 [![GitHub issues](https://img.shields.io/github/issues/ExpDev07/coronavirus-tracker-api)](https://github.com/ExpDev07/coronavirus-tracker-api/issues)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/ExpDev07/coronavirus-tracker-api.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ExpDev07/coronavirus-tracker-api/alerts/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)](https://twitter.com/intent/tweet?text=COVID19%20Live%20Tracking%20API:%20&url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)
 
