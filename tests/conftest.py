@@ -5,15 +5,27 @@ Global conftest file for shared pytest fixtures
 """
 import datetime
 import os
-from contextlib import asynccontextmanager
-from unittest import mock
 
 import pytest
 from async_asgi_testclient import TestClient as AsyncTestClient
-from fastapi.testclient import TestClient
 
 from app.main import APP
 from app.utils import httputils
+from fastapi.testclient import TestClient
+
+try:
+    from unittest.mock import AsyncMock
+except ImportError:
+    # Python 3.7 backwards compat
+    from asyncmock import AsyncMock
+
+try:
+    from contextlib import asynccontextmanager
+except ImportError:
+    # Python 3.6 backwards compat
+    from async_generator import asynccontextmanager
+
+
 
 
 @pytest.fixture
@@ -80,7 +92,7 @@ def mock_client_session_class(request):
     See: https://docs.pytest.org/en/5.4.1/unittest.html#mixing-pytest-fixtures-into-unittest-testcase-subclasses-using-marks
     """
 
-    httputils.CLIENT_SESSION = request.cls.mock_client_session = mock.AsyncMock()
+    httputils.CLIENT_SESSION = request.cls.mock_client_session = AsyncMock()
     httputils.CLIENT_SESSION.get = mocked_session_get
     try:
         yield
@@ -94,7 +106,7 @@ async def mock_client_session():
     instance.
     """
 
-    httputils.CLIENT_SESSION = mock.AsyncMock()
+    httputils.CLIENT_SESSION = AsyncMock()
     httputils.CLIENT_SESSION.get = mocked_session_get
     try:
         yield httputils.CLIENT_SESSION

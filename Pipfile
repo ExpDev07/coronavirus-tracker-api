@@ -5,6 +5,8 @@ verify_ssl = true
 
 [dev-packages]
 async-asgi-testclient = "*"
+async_generator = "*"
+asyncmock = "*"
 bandit = "*"
 black = "==19.10b0"
 coveralls = "*"
