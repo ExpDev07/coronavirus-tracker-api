@@ -1,9 +1,7 @@
-import datetime
 from unittest import mock
 
 import pytest
 
-import app
 from app import location
 from app.services.location import jhu
 from tests.fixtures import mock_client_session

@@ -1,9 +1,5 @@
-import datetime
-from unittest import mock
-
 import pytest
 
-import app
 from app.services.location import csbs
 from tests.fixtures import mock_client_session
 from tests.fixtures import mocked_session_get
