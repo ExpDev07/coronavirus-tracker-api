@@ -151,11 +151,10 @@ class FlaskRoutesTest(unittest.TestCase):
         ({"source": "jhu", "country_code": "US"}, 404),
     ],
 )
-async def test_locations_status_code(query_params, expected_status):
-    api_client = TestClient(APP)
+async def test_locations_status_code(async_api_client, query_params, expected_status):
     async with mock_client_session() as mocked_client_session:
         mocked_client_session.get = mocked_session_get
-        response = await api_client.get("/v2/locations", query_string=query_params)
+        response = await async_api_client.get("/v2/locations", query_string=query_params)
 
     print(f"GET {response.url}\n{response}")
     print(f"\tjson:\n{pf(response.json())[:1000]}\n\t...")
@@ -174,11 +173,10 @@ async def test_locations_status_code(query_params, expected_status):
         {"source": "jhu", "timelines": True},
     ],
 )
-async def test_latest(query_params):
-    api_client = TestClient(APP)
+async def test_latest(async_api_client, query_params):
     async with mock_client_session() as mocked_client_session:
         mocked_client_session.get = mocked_session_get
-        response = await api_client.get("/v2/latest", query_string=query_params)
+        response = await async_api_client.get("/v2/latest", query_string=query_params)
 
     print(f"GET {response.url}\n{response}")
 
