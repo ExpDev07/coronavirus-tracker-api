@@ -1,7 +1,6 @@
 import pytest
 
 from app.services.location import csbs
-from tests.conftest import mocked_session_get
 
 
 def mocked_csbs_requests_get(*args, **kwargs):
@@ -28,7 +27,6 @@ def mocked_csbs_requests_get(*args, **kwargs):
 
 @pytest.mark.asyncio
 async def test_get_locations(mock_client_session):
-    mock_client_session.get = mocked_session_get
     data = await csbs.get_locations()
 
     assert isinstance(data, list)

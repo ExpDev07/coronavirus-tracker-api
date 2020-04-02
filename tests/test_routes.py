@@ -6,7 +6,6 @@ from unittest import mock
 import pytest
 from async_asgi_testclient import TestClient
 
-from .conftest import mocked_session_get
 from .conftest import mocked_strptime_isoformat
 from .test_jhu import DATETIME_STRING
 from app.main import APP
@@ -34,8 +33,6 @@ class FlaskRoutesTest(unittest.TestCase):
     @mock.patch("app.services.location.jhu.datetime")
     async def test_root_api(self, mock_datetime):
         """Validate that / returns a 200 and is not a redirect."""
-        self.mock_client_session.get = mocked_session_get
-
         response = await self.asgi_client.get("/")
 
         assert response.status_code == 200
@@ -45,7 +42,6 @@ class FlaskRoutesTest(unittest.TestCase):
     async def test_v1_confirmed(self, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        self.mock_client_session.get = mocked_session_get
 
         state = "confirmed"
         expected_json_output = self.read_file_v1(state=state)
@@ -58,7 +54,6 @@ class FlaskRoutesTest(unittest.TestCase):
     async def test_v1_deaths(self, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        self.mock_client_session.get = mocked_session_get
 
         state = "deaths"
         expected_json_output = self.read_file_v1(state=state)
@@ -71,7 +66,6 @@ class FlaskRoutesTest(unittest.TestCase):
     async def test_v1_recovered(self, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        self.mock_client_session.get = mocked_session_get
 
         state = "recovered"
         expected_json_output = self.read_file_v1(state=state)
@@ -84,7 +78,6 @@ class FlaskRoutesTest(unittest.TestCase):
     async def test_v1_all(self, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = self.date
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        self.mock_client_session.get = mocked_session_get
 
         state = "all"
         expected_json_output = self.read_file_v1(state=state)
@@ -97,7 +90,6 @@ class FlaskRoutesTest(unittest.TestCase):
     async def test_v2_latest(self, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        self.mock_client_session.get = mocked_session_get
 
         state = "latest"
         response = await self.asgi_client.get(f"/v2/{state}")
@@ -111,7 +103,6 @@ class FlaskRoutesTest(unittest.TestCase):
     async def test_v2_locations(self, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        self.mock_client_session.get = mocked_session_get
 
         state = "locations"
         response = await self.asgi_client.get("/v2/{}".format(state))
@@ -128,7 +119,6 @@ class FlaskRoutesTest(unittest.TestCase):
     async def test_v2_locations_id(self, mock_datetime):
         mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
         mock_datetime.strptime.side_effect = mocked_strptime_isoformat
-        self.mock_client_session.get = mocked_session_get
 
         state = "locations"
         test_id = 1
@@ -158,7 +148,6 @@ class FlaskRoutesTest(unittest.TestCase):
     ],
 )
 async def test_locations_status_code(async_api_client, query_params, expected_status, mock_client_session):
-    mock_client_session.get = mocked_session_get
     response = await async_api_client.get("/v2/locations", query_string=query_params)
 
     print(f"GET {response.url}\n{response}")
@@ -179,7 +168,6 @@ async def test_locations_status_code(async_api_client, query_params, expected_st
     ],
 )
 async def test_latest(async_api_client, query_params, mock_client_session):
-    mock_client_session.get = mocked_session_get
     response = await async_api_client.get("/v2/latest", query_string=query_params)
 
     print(f"GET {response.url}\n{response}")

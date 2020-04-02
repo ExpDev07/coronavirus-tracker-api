@@ -81,6 +81,7 @@ def mock_client_session_class(request):
     """
 
     httputils.client_session = request.cls.mock_client_session = mock.AsyncMock()
+    httputils.client_session.get = mocked_session_get
     try:
         yield
     finally:
@@ -94,6 +95,7 @@ async def mock_client_session():
     """
 
     httputils.client_session = mock.AsyncMock()
+    httputils.client_session.get = mocked_session_get
     try:
         yield httputils.client_session
     finally:

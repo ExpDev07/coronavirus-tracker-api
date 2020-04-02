@@ -4,7 +4,6 @@ import pytest
 
 from app import location
 from app.services.location import jhu
-from tests.conftest import mocked_session_get
 from tests.conftest import mocked_strptime_isoformat
 
 DATETIME_STRING = "2020-03-17T10:23:22.505550"
@@ -16,7 +15,6 @@ async def test_get_locations(mock_datetime, mock_client_session):
     mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
     mock_datetime.strptime.side_effect = mocked_strptime_isoformat
 
-    mock_client_session.get = mocked_session_get
     output = await jhu.get_locations()
 
     assert isinstance(output, list)
