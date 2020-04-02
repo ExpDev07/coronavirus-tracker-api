@@ -6,81 +6,26 @@ import pytest
 import app
 from app import location
 from app.services.location import jhu
-from app.utils import date
+from tests.fixtures import mock_client_session
+from tests.fixtures import mocked_session_get
+from tests.fixtures import mocked_strptime_isoformat
 
 DATETIME_STRING = "2020-03-17T10:23:22.505550"
 
 
-def mocked_requests_get(*args, **kwargs):
-    class FakeRequestsGetResponse:
-        """
-        Returns instance of `FakeRequestsGetResponse`
-        when calling `app.services.location.jhu.requests.get()`
-        """
-
-        def __init__(self, url, filename, state):
-            self.url = url
-            self.filename = filename
-            self.state = state
-            self.text = self.read_file(self.state)
-
-        def read_file(self, state):
-            """
-            Mock HTTP GET-method and return text from file
-            """
-            state = state.lower()
-
-            # Determine filepath.
-            filepath = "tests/example_data/{}.csv".format(state)
-
-            # Return fake response.
-            print("Try to read {}".format(filepath))
-            with open(filepath, "r") as file:
-                return file.read()
-
-    # get url from `request.get`
-    url = args[0]
-
-    # get filename from url
-    filename = url.split("/")[-1]
-
-    # clean up for id token (e.g. Deaths)
-    state = filename.split("-")[-1].replace(".csv", "").lower().capitalize()
-
-    return FakeRequestsGetResponse(url, filename, state)
-
-
-def mocked_strptime_isoformat(*args, **kwargs):
-    class DateTimeStrpTime:
-        """
-        Returns instance of `DateTimeStrpTime`
-        when calling `app.services.location.jhu.datetime.trptime(date, '%m/%d/%y').isoformat()`
-        """
-
-        def __init__(self, date, strformat):
-            self.date = date
-            self.strformat = strformat
-
-        def isoformat(self):
-            return datetime.datetime.strptime(self.date, self.strformat).isoformat()
-
-    date = args[0]
-    strformat = args[1]
-
-    return DateTimeStrpTime(date, strformat)
-
-
+@pytest.mark.asyncio
 @mock.patch("app.services.location.jhu.datetime")
-@mock.patch("app.services.location.jhu.requests.get", side_effect=mocked_requests_get)
-def test_get_locations(mock_request_get, mock_datetime):
-    # mock app.services.location.jhu.datetime.utcnow().isoformat()
+async def test_get_locations(mock_datetime):
     mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
     mock_datetime.strptime.side_effect = mocked_strptime_isoformat
 
-    output = jhu.get_locations()
-    assert isinstance(output, list)
-    assert isinstance(output[0], location.Location)
+    async with mock_client_session() as mocked_client_session:
+        mocked_client_session.get = mocked_session_get
+        output = await jhu.get_locations()
 
-    # `jhu.get_locations()` creates id based on confirmed list
-    location_confirmed = jhu.get_category("confirmed")
-    assert len(output) == len(location_confirmed["locations"])
+        assert isinstance(output, list)
+        assert isinstance(output[0], location.Location)
+
+        # `jhu.get_locations()` creates id based on confirmed list
+        location_confirmed = await jhu.get_category("confirmed")
+        assert len(output) == len(location_confirmed["locations"])
