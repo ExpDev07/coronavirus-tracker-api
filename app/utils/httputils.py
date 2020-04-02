@@ -1,10 +1,11 @@
+"""app.utils.httputils.py"""
 import logging
 
 from aiohttp import ClientSession
 
 
 # Singleton aiohttp.ClientSession instance.
-client_session: ClientSession
+CLIENT_SESSION: ClientSession
 
 
 LOGGER = logging.getLogger(__name__)
@@ -17,14 +18,14 @@ async def setup_client_session():
     See: https://docs.aiohttp.org/en/stable/client_quickstart.html#make-a-request
 
     """
-    global client_session
+    global CLIENT_SESSION  # pylint: disable=global-statement
     LOGGER.info("Setting up global aiohttp.ClientSession.")
-    client_session = ClientSession()
+    CLIENT_SESSION = ClientSession()
 
 
 async def teardown_client_session():
     """Close the application-global aiohttp.ClientSession.
     """
-    global client_session
+    global CLIENT_SESSION  # pylint: disable=global-statement
     LOGGER.info("Closing global aiohttp.ClientSession.")
-    await client_session.close()
+    await CLIENT_SESSION.close()

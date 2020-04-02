@@ -6,6 +6,6 @@ from . import V1
 @V1.get("/confirmed")
 async def confirmed():
     """Confirmed cases."""
-    confirmed = await get_category("confirmed")
+    confirmed_data = await get_category("confirmed")
 
-    return confirmed
+    return confirmed_data

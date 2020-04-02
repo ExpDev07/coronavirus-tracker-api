@@ -55,7 +55,7 @@ async def get_category(category):
     url = BASE_URL + "time_series_covid19_%s_global.csv" % category
 
     # Request the data
-    async with httputils.client_session.get(url) as response:
+    async with httputils.CLIENT_SESSION.get(url) as response:
         text = await response.text()
 
     # Parse the CSV.

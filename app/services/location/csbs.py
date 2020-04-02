@@ -39,7 +39,7 @@ async def get_locations():
     :returns: The locations.
     :rtype: dict
     """
-    async with httputils.client_session.get(BASE_URL) as response:
+    async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
         text = await response.text()
 
     data = list(csv.DictReader(text.splitlines()))

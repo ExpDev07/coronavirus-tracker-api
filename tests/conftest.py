@@ -80,12 +80,12 @@ def mock_client_session_class(request):
     See: https://docs.pytest.org/en/5.4.1/unittest.html#mixing-pytest-fixtures-into-unittest-testcase-subclasses-using-marks
     """
 
-    httputils.client_session = request.cls.mock_client_session = mock.AsyncMock()
-    httputils.client_session.get = mocked_session_get
+    httputils.CLIENT_SESSION = request.cls.mock_client_session = mock.AsyncMock()
+    httputils.CLIENT_SESSION.get = mocked_session_get
     try:
         yield
     finally:
-        del httputils.client_session
+        del httputils.CLIENT_SESSION
 
 
 @pytest.fixture
@@ -94,12 +94,12 @@ async def mock_client_session():
     instance.
     """
 
-    httputils.client_session = mock.AsyncMock()
-    httputils.client_session.get = mocked_session_get
+    httputils.CLIENT_SESSION = mock.AsyncMock()
+    httputils.CLIENT_SESSION.get = mocked_session_get
     try:
-        yield httputils.client_session
+        yield httputils.CLIENT_SESSION
     finally:
-        del httputils.client_session
+        del httputils.CLIENT_SESSION
 
 
 @asynccontextmanager
