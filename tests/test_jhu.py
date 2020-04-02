@@ -4,9 +4,9 @@ import pytest
 
 from app import location
 from app.services.location import jhu
-from tests.fixtures import mock_client_session
-from tests.fixtures import mocked_session_get
-from tests.fixtures import mocked_strptime_isoformat
+from tests.conftest import mock_client_session
+from tests.conftest import mocked_session_get
+from tests.conftest import mocked_strptime_isoformat
 
 DATETIME_STRING = "2020-03-17T10:23:22.505550"
 

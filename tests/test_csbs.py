@@ -1,8 +1,8 @@
 import pytest
 
 from app.services.location import csbs
-from tests.fixtures import mock_client_session
-from tests.fixtures import mocked_session_get
+from tests.conftest import mock_client_session
+from tests.conftest import mocked_session_get
 
 
 def mocked_csbs_requests_get(*args, **kwargs):
