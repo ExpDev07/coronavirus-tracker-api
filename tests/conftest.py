@@ -8,10 +8,10 @@ import os
 
 import pytest
 from async_asgi_testclient import TestClient as AsyncTestClient
+from fastapi.testclient import TestClient
 
 from app.main import APP
 from app.utils import httputils
-from fastapi.testclient import TestClient
 
 try:
     from unittest.mock import AsyncMock
@@ -24,8 +24,6 @@ try:
 except ImportError:
     # Python 3.6 backwards compat
     from async_generator import asynccontextmanager
-
-
 
 
 @pytest.fixture
