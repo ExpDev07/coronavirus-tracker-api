@@ -1,3 +1,4 @@
+"""app.services.location.csbs.py"""
 import csv
 from datetime import datetime
 
@@ -18,12 +19,12 @@ class CSBSLocationService(LocationService):
         # Get the locations
         return get_locations()
 
-    def get(self, id):
-        return self.get_all()[id]
+    def get(self, loc_id):  # pylint: disable=arguments-differ
+        return self.get_all()[loc_id]
 
 
 # Base URL for fetching data
-base_url = "https://facts.csbs.org/covid-19/covid19_county.csv"
+BASE_URL = "https://facts.csbs.org/covid-19/covid19_county.csv"
 
 
 @cached(cache=TTLCache(maxsize=1, ttl=3600))
@@ -34,7 +35,7 @@ def get_locations():
     :returns: The locations.
     :rtype: dict
     """
-    request = requests.get(base_url)
+    request = requests.get(BASE_URL)
     text = request.text
 
     data = list(csv.DictReader(text.splitlines()))
@@ -47,11 +48,11 @@ def get_locations():
         county = item["County Name"]
 
         # Ensure country is specified.
-        if county == "Unassigned" or county == "Unknown":
+        if county in {"Unassigned", "Unknown"}:
             continue
 
         # Coordinates.
-        coordinates = Coordinates(item["Latitude"], item["Longitude"])
+        coordinates = Coordinates(item["Latitude"], item["Longitude"])  # pylint: disable=unused-variable
 
         # Date string without "EDT" at end.
         last_update = " ".join(item["Last Update"].split(" ")[0:2])

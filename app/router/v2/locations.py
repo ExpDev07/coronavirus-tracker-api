@@ -1,12 +1,14 @@
+"""app.router.v2.locations.py"""
 from fastapi import HTTPException, Request
 
 from ...enums.sources import Sources
 from ...models.location import LocationResponse as Location
 from ...models.location import LocationsResponse as Locations
-from . import router
+from . import V2
 
 
-@router.get("/locations", response_model=Locations, response_model_exclude_unset=True)
+# pylint: disable=unused-argument,too-many-arguments,redefined-builtin
+@V2.get("/locations", response_model=Locations, response_model_exclude_unset=True)
 def get_locations(
     request: Request,
     source: Sources = "jhu",
@@ -53,7 +55,8 @@ def get_locations(
     }
 
 
-@router.get("/locations/{id}", response_model=Location)
+# pylint: disable=invalid-name
+@V2.get("/locations/{id}", response_model=Location)
 def get_location_by_id(request: Request, id: int, source: Sources = "jhu", timelines: bool = True):
     """
     Getting specific location by id.

@@ -1,3 +1,4 @@
+"""app.services.location.jhu.py"""
 import csv
 from datetime import datetime
 
@@ -21,18 +22,16 @@ class JhuLocationService(LocationService):
         # Get the locations.
         return get_locations()
 
-    def get(self, id):
+    def get(self, loc_id):  # pylint: disable=arguments-differ
         # Get location at the index equal to provided id.
-        return self.get_all()[id]
+        return self.get_all()[loc_id]
 
 
 # ---------------------------------------------------------------
 
 
-"""
-Base URL for fetching category.
-"""
-base_url = (
+# Base URL for fetching category.
+BASE_URL = (
     "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
 )
 
@@ -50,7 +49,7 @@ def get_category(category):
     category = category.lower()
 
     # URL to request data from.
-    url = base_url + "time_series_covid19_%s_global.csv" % category
+    url = BASE_URL + "time_series_covid19_%s_global.csv" % category
 
     # Request the data
     request = requests.get(url)

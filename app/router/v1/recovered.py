@@ -1,9 +1,9 @@
+"""app.router.v1.recovered.py"""
 from ...services.location.jhu import get_category
-from . import router
+from . import V1
 
 
-@router.get("/recovered")
+@V1.get("/recovered")
 def recovered():
-    recovered = get_category("recovered")
-
-    return recovered
+    """Recovered cases."""
+    return get_category("recovered")

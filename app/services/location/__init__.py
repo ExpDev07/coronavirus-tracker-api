@@ -1,3 +1,4 @@
+"""app.services.location"""
 from abc import ABC, abstractmethod
 
 
@@ -17,7 +18,7 @@ class LocationService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id):
+    def get(self, id):  # pylint: disable=redefined-builtin,invalid-name
         """
         Gets and returns location with the provided id.
 

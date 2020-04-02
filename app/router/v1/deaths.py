@@ -1,9 +1,9 @@
+"""app.router.v1.deaths.py"""
 from ...services.location.jhu import get_category
-from . import router
+from . import V1
 
 
-@router.get("/deaths")
+@V1.get("/deaths")
 def deaths():
-    deaths = get_category("deaths")
-
-    return deaths
+    """Total deaths."""
+    return get_category("deaths")
