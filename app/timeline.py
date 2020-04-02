@@ -1,5 +1,5 @@
+"""app.timeline.py"""
 from collections import OrderedDict
-from datetime import datetime
 
 
 class Timeline:
@@ -7,8 +7,8 @@ class Timeline:
     Timeline with history of data.
     """
 
-    def __init__(self, history={}):
-        self.__timeline = history
+    def __init__(self, history=None):
+        self.__timeline = history if history else {}
 
     @property
     def timeline(self):
@@ -26,7 +26,7 @@ class Timeline:
         values = list(self.timeline.values())
 
         # Last item is the latest.
-        if len(values):
+        if values:
             return values[-1] or 0
 
         # Fallback value of 0.

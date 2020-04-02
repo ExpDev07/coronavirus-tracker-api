@@ -1,16 +1,16 @@
+"""app.utils.countries.py"""
 import logging
-from itertools import chain
 
 LOGGER = logging.getLogger(__name__)
 
 # Default country code.
-default_country_code = "XX"
+DEFAULT_COUNTRY_CODE = "XX"
 
 # Mapping of country names to alpha-2 codes according to
 # https://en.wikipedia.org/wiki/ISO_3166-1.
 # As a reference see also https://github.com/TakahikoKawasaki/nv-i18n (in Java)
 # fmt: off
-country_name__country_code = {
+COUNTRY_NAME__COUNTRY_CODE = {
     "Afghanistan"                                  : "AF",
     "Åland Islands"                                : "AX",
     "Albania"                                      : "AL",
@@ -363,13 +363,13 @@ country_name__country_code = {
 }
 
 # fmt: on
-def country_code(s):
+def country_code(value):
     """
     Return two letter country code (Alpha-2) according to https://en.wikipedia.org/wiki/ISO_3166-1
     Defaults to "XX".
     """
-    country_code = country_name__country_code.get(s, default_country_code)
-    if country_code == default_country_code:
-        LOGGER.warning(f"No country code found for '{s}'. Using '{country_code}'!")
+    code = COUNTRY_NAME__COUNTRY_CODE.get(value, DEFAULT_COUNTRY_CODE)
+    if code == DEFAULT_COUNTRY_CODE:
+        LOGGER.warning(f"No country code found for '{value}'. Using '{code}'!")
 
-    return country_code
+    return code

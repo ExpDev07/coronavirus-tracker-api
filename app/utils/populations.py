@@ -1,19 +1,16 @@
+"""app.utils.populations.py"""
 import logging
-from io import BytesIO, StringIO
-from zipfile import ZipFile, ZipInfo
 
 import requests
-from cachetools import TTLCache, cached
-
-from .countries import country_code
 
 LOGGER = logging.getLogger(__name__)
 
 # Fetching of the populations.
 def fetch_populations():
     """
-    Returns a dictionary containing the population of each country fetched from the GeoNames (https://www.geonames.org/).
-    
+    Returns a dictionary containing the population of each country fetched from the GeoNames.
+    https://www.geonames.org/
+
     :returns: The mapping of populations.
     :rtype: dict
     """
@@ -34,7 +31,7 @@ def fetch_populations():
 
 
 # Mapping of alpha-2 codes country codes to population.
-populations = fetch_populations()
+POPULATIONS = fetch_populations()
 
 # Retrieving.
 def country_population(country_code, default=None):
@@ -44,4 +41,4 @@ def country_population(country_code, default=None):
     :returns: The population.
     :rtype: int
     """
-    return populations.get(country_code, default)
+    return POPULATIONS.get(country_code, default)

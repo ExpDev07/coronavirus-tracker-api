@@ -1,10 +1,11 @@
+"""app.router.v1.all.py"""
 from ...services.location.jhu import get_category
-from . import router
+from . import V1
 
 
-@router.get("/all")
-def all():
-    # Get all the categories.
+@V1.get("/all")
+def all():  # pylint: disable=redefined-builtin
+    """Get all the categories."""
     confirmed = get_category("confirmed")
     deaths = get_category("deaths")
     recovered = get_category("recovered")

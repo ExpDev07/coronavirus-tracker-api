@@ -1,3 +1,4 @@
+"""app.router.v2"""
 from fastapi import APIRouter
 
-router = APIRouter()
+V2 = APIRouter()

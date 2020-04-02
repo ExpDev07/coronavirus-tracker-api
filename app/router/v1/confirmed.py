@@ -1,9 +1,9 @@
+"""app.router.v1.confirmed.py"""
 from ...services.location.jhu import get_category
-from . import router
+from . import V1
 
 
-@router.get("/confirmed")
+@V1.get("/confirmed")
 def confirmed():
-    confirmed = get_category("confirmed")
-
-    return confirmed
+    """Confirmed cases."""
+    return get_category("confirmed")

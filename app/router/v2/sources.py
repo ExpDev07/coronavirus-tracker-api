@@ -1,10 +1,11 @@
-from ...data import data_sources
-from . import router
+"""app.router.v2.sources.py"""
+from ...data import DATA_SOURCES
+from . import V2
 
 
-@router.get("/sources")
+@V2.get("/sources")
 async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
     """
-    return {"sources": list(data_sources.keys())}
+    return {"sources": list(DATA_SOURCES.keys())}
