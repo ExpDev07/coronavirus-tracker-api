@@ -1,0 +1,17 @@
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
+
+# ENVS RECOMENDATIONS
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# PREPARE FOLDER
+WORKDIR /api
+
+# COPY DEPENDENCIES
+COPY requirements.txt ./
+
+# INSTALL DEPENDENCIES
+RUN pip install -r requirements.txt
+
+# COPY PROJECT
+COPY . /

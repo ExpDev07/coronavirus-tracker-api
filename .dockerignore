@@ -1,0 +1,5 @@
+.gitignore
+README.md
+.github
+.travis.yml
+.env.example
