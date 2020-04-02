@@ -73,21 +73,29 @@ class FakeRequestsGetResponse:
             return file.read()
 
 
-@asynccontextmanager
-async def mock_client_session():
-    """Context manager that replaces the global client_session with an AsyncMock instance.
+@pytest.fixture(scope="class")
+def mock_client_session_class(request):
+    """Class fixture to expose an AsyncMock to unittest.TestCase subclasses.
 
-    :Example:
-
-    >>> async with mock_client_session() as mocked_client_session:
-    >>>     mocked_client_session.get = mocked_session_get
-    >>>     # test code...
-
+    See: https://docs.pytest.org/en/5.4.1/unittest.html#mixing-pytest-fixtures-into-unittest-testcase-subclasses-using-marks
     """
 
-    httputils.client_session = mocked_client_session = mock.AsyncMock()
+    httputils.client_session = request.cls.mock_client_session = mock.AsyncMock()
     try:
-        yield mocked_client_session
+        yield
+    finally:
+        del httputils.client_session
+
+
+@pytest.fixture
+async def mock_client_session():
+    """Context manager fixture that replaces the global client_session with an AsyncMock
+    instance.
+    """
+
+    httputils.client_session = mock.AsyncMock()
+    try:
+        yield httputils.client_session
     finally:
         del httputils.client_session
 
