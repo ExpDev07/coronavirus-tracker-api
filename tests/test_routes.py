@@ -6,9 +6,10 @@ from unittest import mock
 import pytest
 from async_asgi_testclient import TestClient
 
+from app.main import APP
+
 from .conftest import mocked_strptime_isoformat
 from .test_jhu import DATETIME_STRING
-from app.main import APP
 
 
 @pytest.mark.usefixtures("mock_client_session_class")

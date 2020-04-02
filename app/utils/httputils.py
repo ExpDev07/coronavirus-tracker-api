@@ -3,7 +3,6 @@ import logging
 
 from aiohttp import ClientSession
 
-
 # Singleton aiohttp.ClientSession instance.
 CLIENT_SESSION: ClientSession
 
