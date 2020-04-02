@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+async-asgi-testclient = "*"
 bandit = "*"
 black = "==19.10b0"
 coveralls = "*"
@@ -11,6 +12,7 @@ invoke = "*"
 isort = "*"
 pylint = "*"
 pytest = "*"
+pytest-asyncio = "*"
 pytest-cov = "*"
 
 [packages]
