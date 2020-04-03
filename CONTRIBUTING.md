@@ -13,6 +13,7 @@ Please write new test cases for new code you create.
 * If you're unable to find an open issue, [open a new one](https://github.com/ExpDev07/coronavirus-tracker-api/issues/new). Be sure to include a **title and clear description**, as much relevant information as possible
 * Open  a new [GitHub Pull Request to coronavirus-tracker-api](https://github.com/ExpDev07/coronavirus-tracker-api/pulls) with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). Include the relevant issue number if applicable.
 * We will love you forever if you include unit tests. We can always use more test coverage
+* If you have updated [Pipefile](./Pipfile), you have to update `Pipfile.lock`, `requirements.txt` and `requirements-dev.txt`. See section [Update requirements files](./README.md#update-requirements-files).
 
 ## Your First Code Contribution
 
