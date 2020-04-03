@@ -413,7 +413,7 @@ And don't despair if don't get the python setup working on the first try. No one
 ## Running / Development
 
 * `pipenv run dev`
-* Visit your app at [http://localhost:5000](http://localhost:5000).
+* Visit your app at [http://localhost:8000](http://localhost:8000).
 
 ### Running Tests
 > [pytest](https://docs.pytest.org/en/latest/)
