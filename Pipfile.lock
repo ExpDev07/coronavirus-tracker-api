@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fbd18d0bdfc45ec9e02a2f72483d8c0289f0226e87883ee6da7ed75f4f4800a9"
+            "sha256": "1911b081cecdda482b2a9c7c03ebba985c447846506b607df01563600c23126b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -90,6 +90,7 @@
                 "sha256:6988bd2b895eef432d562370bb707d540f32f7360ab13da45340101bc2307d84"
             ],
             "index": "pypi",
+            "markers": "python_version < '3.7'",
             "version": "==0.6"
         },
         "fastapi": {
@@ -145,6 +146,7 @@
                 "sha256:a933e3bb13da54383f9e8f35dc4f9cb9eb9b3b78c6b36f311254d6d0d92c6c7c"
             ],
             "index": "pypi",
+            "markers": "python_version < '3.7'",
             "version": "==1.1.0"
         },
         "multidict": {
@@ -465,6 +467,7 @@
                 "sha256:34513a8a0c4962bc66d35b359558fd8a5e10cd472d37aec5f66858addef32c1e"
             ],
             "index": "pypi",
+            "markers": "python_version < '3.8'",
             "version": "==1.6.0"
         },
         "invoke": {
