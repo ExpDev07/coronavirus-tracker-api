@@ -11,8 +11,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from .data import data_source
-from .router.v1 import router as v1router
-from .router.v2 import router as v2router
+from .router.v1 import V1
+from .router.v2 import V2
+from .utils.httputils import setup_client_session, teardown_client_session
 
 # ############
 # FastAPI App
@@ -21,10 +22,15 @@ LOGGER = logging.getLogger("api")
 
 APP = FastAPI(
     title="Coronavirus Tracker",
-    description="API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak. Project page: https://github.com/ExpDev07/coronavirus-tracker-api.",
+    description=(
+        "API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak."
+        " Project page: https://github.com/ExpDev07/coronavirus-tracker-api."
+    ),
     version="2.0.1",
     docs_url="/",
     redoc_url="/docs",
+    on_startup=[setup_client_session],
+    on_shutdown=[teardown_client_session],
 )
 
 # #####################
@@ -36,7 +42,7 @@ APP.add_middleware(
     CORSMiddleware, allow_credentials=True, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],
 )
 
-# TODO this could probably just be a FastAPI dependency.
+
 @APP.middleware("http")
 async def add_datasource(request: Request, call_next):
     """
@@ -64,7 +70,9 @@ async def add_datasource(request: Request, call_next):
 
 
 @APP.exception_handler(pydantic.error_wrappers.ValidationError)
-async def handle_validation_error(request: Request, exc: pydantic.error_wrappers.ValidationError):
+async def handle_validation_error(
+    request: Request, exc: pydantic.error_wrappers.ValidationError
+):  # pylint: disable=unused-argument
     """
     Handles validation errors.
     """
@@ -77,12 +85,12 @@ async def handle_validation_error(request: Request, exc: pydantic.error_wrappers
 
 
 # Include routers.
-APP.include_router(v1router, prefix="", tags=["v1"])
-APP.include_router(v2router, prefix="/v2", tags=["v2"])
+APP.include_router(V1, prefix="", tags=["v1"])
+APP.include_router(V2, prefix="/v2", tags=["v2"])
 
 
 # Running of app.
 if __name__ == "__main__":
     uvicorn.run(
-        "app.main:APP", host="127.0.0.1", port=int(os.getenv("PORT", 5000)), log_level="info",
+        "app.main:APP", host="127.0.0.1", port=int(os.getenv("PORT", "5000")), log_level="info",
     )

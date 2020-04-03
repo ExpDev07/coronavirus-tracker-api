@@ -67,3 +67,6 @@ target/
 
 # OSX Stuff
 .DS_Store
+
+# IntelliJ/Pycharm
+.idea/

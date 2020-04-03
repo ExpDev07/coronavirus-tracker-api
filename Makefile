@@ -17,7 +17,7 @@ TEST = tests
 test:
 	pytest -v $(TEST)  --cov-report term --cov-report xml --cov=$(APP)
 lint:
-	pylint $(APP) || true
+	pylint $(APP)
 
 fmt:
 	invoke fmt

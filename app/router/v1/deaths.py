@@ -1,9 +1,11 @@
+"""app.router.v1.deaths.py"""
 from ...services.location.jhu import get_category
-from . import router
+from . import V1
 
 
-@router.get("/deaths")
-def deaths():
-    deaths = get_category("deaths")
+@V1.get("/deaths")
+async def deaths():
+    """Total deaths."""
+    deaths_data = await get_category("deaths")
 
-    return deaths
+    return deaths_data

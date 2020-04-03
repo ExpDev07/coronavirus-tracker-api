@@ -1,13 +1,15 @@
+"""app.router.v2.locations.py"""
 from fastapi import HTTPException, Request
 
 from ...enums.sources import Sources
 from ...models.location import LocationResponse as Location
 from ...models.location import LocationsResponse as Locations
-from . import router
+from . import V2
 
 
-@router.get("/locations", response_model=Locations, response_model_exclude_unset=True)
-def get_locations(
+# pylint: disable=unused-argument,too-many-arguments,redefined-builtin
+@V2.get("/locations", response_model=Locations, response_model_exclude_unset=True)
+async def get_locations(
     request: Request,
     source: Sources = "jhu",
     country_code: str = None,
@@ -26,7 +28,7 @@ def get_locations(
     params.pop("timelines", None)
 
     # Retrieve all the locations.
-    locations = request.state.source.get_all()
+    locations = await request.state.source.get_all()
 
     # Attempt to filter out locations with properties matching the provided query params.
     for key, value in params.items():
@@ -53,9 +55,11 @@ def get_locations(
     }
 
 
-@router.get("/locations/{id}", response_model=Location)
-def get_location_by_id(request: Request, id: int, source: Sources = "jhu", timelines: bool = True):
+# pylint: disable=invalid-name
+@V2.get("/locations/{id}", response_model=Location)
+async def get_location_by_id(request: Request, id: int, source: Sources = "jhu", timelines: bool = True):
     """
     Getting specific location by id.
     """
-    return {"location": request.state.source.get(id).serialize(timelines)}
+    location = await request.state.source.get(id)
+    return {"location": location.serialize(timelines)}

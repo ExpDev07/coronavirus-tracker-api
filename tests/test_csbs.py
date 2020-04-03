@@ -1,9 +1,5 @@
-import datetime
-from unittest import mock
-
 import pytest
 
-import app
 from app.services.location import csbs
 
 
@@ -21,7 +17,7 @@ def mocked_csbs_requests_get(*args, **kwargs):
             """
             Mock HTTP GET-method and return text from file
             """
-            filepath = "tests/example_data/sample_covid19_county.csv"
+            filepath = "tests/example_data/covid19_county.csv"
             print("Try to read {}".format(filepath))
             with open(filepath, "r") as file:
                 return file.read()
@@ -29,9 +25,10 @@ def mocked_csbs_requests_get(*args, **kwargs):
     return FakeRequestsGetResponse()
 
 
-@mock.patch("app.services.location.csbs.requests.get", side_effect=mocked_csbs_requests_get)
-def test_get_locations(mock_request_get):
-    data = csbs.get_locations()
+@pytest.mark.asyncio
+async def test_get_locations(mock_client_session):
+    data = await csbs.get_locations()
+
     assert isinstance(data, list)
 
     # check to see that Unknown/Unassigned has been filtered

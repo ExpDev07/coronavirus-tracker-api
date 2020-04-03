@@ -1,16 +1,17 @@
+"""app.router.v2.latest.py"""
 from fastapi import Request
 
 from ...enums.sources import Sources
 from ...models.latest import LatestResponse as Latest
-from . import router
+from . import V2
 
 
-@router.get("/latest", response_model=Latest)
-def get_latest(request: Request, source: Sources = "jhu"):
+@V2.get("/latest", response_model=Latest)
+async def get_latest(request: Request, source: Sources = "jhu"):  # pylint: disable=unused-argument
     """
     Getting latest amount of total confirmed cases, deaths, and recoveries.
     """
-    locations = request.state.source.get_all()
+    locations = await request.state.source.get_all()
     return {
         "latest": {
             "confirmed": sum(map(lambda location: location.confirmed, locations)),

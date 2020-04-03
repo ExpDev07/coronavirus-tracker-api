@@ -1,9 +1,11 @@
+"""app.router.v1.confirmed.py"""
 from ...services.location.jhu import get_category
-from . import router
+from . import V1
 
 
-@router.get("/confirmed")
-def confirmed():
-    confirmed = get_category("confirmed")
+@V1.get("/confirmed")
+async def confirmed():
+    """Confirmed cases."""
+    confirmed_data = await get_category("confirmed")
 
-    return confirmed
+    return confirmed_data
