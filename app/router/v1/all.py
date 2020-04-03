@@ -4,11 +4,11 @@ from . import V1
 
 
 @V1.get("/all")
-def all():  # pylint: disable=redefined-builtin
+async def all():  # pylint: disable=redefined-builtin
     """Get all the categories."""
-    confirmed = get_category("confirmed")
-    deaths = get_category("deaths")
-    recovered = get_category("recovered")
+    confirmed = await get_category("confirmed")
+    deaths = await get_category("deaths")
+    recovered = await get_category("recovered")
 
     return {
         # Data.

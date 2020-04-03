@@ -13,6 +13,7 @@ from fastapi.responses import JSONResponse
 from .data import data_source
 from .router.v1 import V1
 from .router.v2 import V2
+from .utils.httputils import setup_client_session, teardown_client_session
 
 # ############
 # FastAPI App
@@ -28,6 +29,8 @@ APP = FastAPI(
     version="2.0.1",
     docs_url="/",
     redoc_url="/docs",
+    on_startup=[setup_client_session],
+    on_shutdown=[teardown_client_session],
 )
 
 # #####################

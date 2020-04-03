@@ -4,6 +4,8 @@ from . import V1
 
 
 @V1.get("/deaths")
-def deaths():
+async def deaths():
     """Total deaths."""
-    return get_category("deaths")
+    deaths_data = await get_category("deaths")
+
+    return deaths_data

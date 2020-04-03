@@ -4,19 +4,28 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+async-asgi-testclient = "*"
+async_generator = "*"
+asyncmock = "*"
 bandit = "*"
 black = "==19.10b0"
 coveralls = "*"
+importlib-metadata = {version="*", markers="python_version<'3.8'"}
 invoke = "*"
 isort = "*"
 pylint = "*"
 pytest = "*"
+pytest-asyncio = "*"
 pytest-cov = "*"
 
 [packages]
+aiohttp = "*"
+asyncache = "*"
 cachetools = "*"
+dataclasses = {version="*", markers="python_version<'3.7'"}
 fastapi = "*"
 gunicorn = "*"
+idna_ssl = {version="*", markers="python_version<'3.7'"}
 python-dateutil = "*"
 python-dotenv = "*"
 requests = "*"
