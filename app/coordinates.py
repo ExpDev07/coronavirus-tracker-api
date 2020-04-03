@@ -1,3 +1,6 @@
+"""app.coordinates.py"""
+
+
 class Coordinates:
     """
     A position on earth using decimal coordinates (latitude and longitude).

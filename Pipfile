@@ -4,21 +4,31 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+async-asgi-testclient = "*"
+async_generator = "*"
+asyncmock = "*"
 bandit = "*"
 black = "==19.10b0"
+coveralls = "*"
+importlib-metadata = {version="*", markers="python_version<'3.8'"}
+invoke = "*"
 isort = "*"
-pytest = "*"
 pylint = "*"
+pytest = "*"
+pytest-asyncio = "*"
+pytest-cov = "*"
 
 [packages]
+aiohttp = "*"
+asyncache = "*"
+cachetools = "*"
+dataclasses = {version="*", markers="python_version<'3.7'"}
 fastapi = "*"
-flask = "*"
+gunicorn = "*"
+idna_ssl = {version="*", markers="python_version<'3.7'"}
+python-dateutil = "*"
 python-dotenv = "*"
 requests = "*"
-gunicorn = "*"
-flask-cors = "*"
-cachetools = "*"
-python-dateutil = "*"
 uvicorn = "*"
 
 [requires]
@@ -27,5 +37,7 @@ python_version = "3.8"
 [scripts]
 dev = "uvicorn app.main:APP --reload"
 start = "uvicorn app.main:APP"
-fmt = "black . -l 120"
-sort = "isort --apply --atomic"
+fmt = "invoke fmt"
+sort = "invoke sort"
+lint = "invoke lint"
+test = "invoke test"

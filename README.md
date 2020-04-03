@@ -6,6 +6,7 @@ Provides up-to-date data about Coronavirus outbreak. Includes numbers about conf
 Support multiple data-sources.
 
 ![Travis build](https://api.travis-ci.com/ExpDev07/coronavirus-tracker-api.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/ExpDev07/coronavirus-tracker-api/badge.svg?branch=master)](https://coveralls.io/github/ExpDev07/coronavirus-tracker-api?branch=master)
 [![License](https://img.shields.io/github/license/ExpDev07/coronavirus-tracker-api)](LICENSE.md)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 [![GitHub stars](https://img.shields.io/github/stars/ExpDev07/coronavirus-tracker-api)](https://github.com/ExpDev07/coronavirus-tracker-api/stargazers)
@@ -13,6 +14,7 @@ Support multiple data-sources.
 [![GitHub last commit](https://img.shields.io/github/last-commit/ExpDev07/coronavirus-tracker-api)](https://github.com/ExpDev07/coronavirus-tracker-api/commits/master)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/ExpDev07/coronavirus-tracker-api)](https://github.com/ExpDev07/coronavirus-tracker-api/pulls)
 [![GitHub issues](https://img.shields.io/github/issues/ExpDev07/coronavirus-tracker-api)](https://github.com/ExpDev07/coronavirus-tracker-api/issues)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/ExpDev07/coronavirus-tracker-api.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ExpDev07/coronavirus-tracker-api/alerts/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)](https://twitter.com/intent/tweet?text=COVID19%20Live%20Tracking%20API:%20&url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)
 
@@ -391,7 +393,6 @@ These are the available API wrappers created by the community. They are not nece
 You will need the following things properly installed on your computer.
 
 * [Python 3](https://www.python.org/downloads/) (with pip)
-* [Flask](https://pypi.org/project/Flask/)
 * [pipenv](https://pypi.org/project/pipenv/)
 
 ## Installation
@@ -415,32 +416,26 @@ And don't despair if don't get the python setup working on the first try. No one
 * Visit your app at [http://localhost:5000](http://localhost:5000).
 
 ### Running Tests
+> [pytest](https://docs.pytest.org/en/latest/)
 
 ```bash
-pipenv sync --dev
-pipenv shell
-make test
+pipenv run test
 ```
 
+
 ### Linting
+> [pylint](https://www.pylint.org/)
 
 ```bash
-pipenv sync --dev
-pipenv shell
-make lint
+pipenv run lint
 ```
 
 ### Formatting
+> [black](https://black.readthedocs.io/en/stable/)
 
 ```bash
 pipenv run fmt
 ```
-or
-```bash
-pipenv shell
-make fmt
-```
-
 
 ### Building
 
@@ -474,6 +469,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Turreted"><img src="https://avatars2.githubusercontent.com/u/41593269?v=4" width="100px;" alt=""/><br /><sub><b>Turreted</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Turreted" title="Code">💻</a></td>
+    <td align="center"><a href="http://ibtida.me"><img src="https://avatars1.githubusercontent.com/u/33792969?v=4" width="100px;" alt=""/><br /><sub><b>Ibtida Bhuiyan</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=ibhuiyan17" title="Code">💻</a></td>
   </tr>
 </table>
 

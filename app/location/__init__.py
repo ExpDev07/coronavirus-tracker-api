@@ -1,14 +1,18 @@
+"""app.location"""
 from ..coordinates import Coordinates
 from ..utils import countries
 from ..utils.populations import country_population
 
 
-class Location:
+# pylint: disable=redefined-builtin,invalid-name
+class Location:  # pylint: disable=too-many-instance-attributes
     """
     A location in the world affected by the coronavirus.
     """
 
-    def __init__(self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered):
+    def __init__(
+        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered
+    ):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
         self.country = country.strip()
@@ -31,7 +35,7 @@ class Location:
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.default_country_code).upper()
+        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
 
     @property
     def country_population(self):
@@ -71,6 +75,7 @@ class TimelinedLocation(Location):
     A location with timelines.
     """
 
+    # pylint: disable=too-many-arguments
     def __init__(self, id, country, province, coordinates, last_updated, timelines):
         super().__init__(
             # General info.
@@ -88,6 +93,7 @@ class TimelinedLocation(Location):
         # Set timelines.
         self.timelines = timelines
 
+    # pylint: disable=arguments-differ
     def serialize(self, timelines=False):
         """
         Serializes the location into a dict.

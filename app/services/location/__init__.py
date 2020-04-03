@@ -1,3 +1,4 @@
+"""app.services.location"""
 from abc import ABC, abstractmethod
 
 
@@ -7,7 +8,7 @@ class LocationService(ABC):
     """
 
     @abstractmethod
-    def get_all(self):
+    async def get_all(self):
         """
         Gets and returns all of the locations.
 
@@ -17,7 +18,7 @@ class LocationService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def get(self, id):
+    async def get(self, id):  # pylint: disable=redefined-builtin,invalid-name
         """
         Gets and returns location with the provided id.
 

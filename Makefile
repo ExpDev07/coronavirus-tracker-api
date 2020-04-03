@@ -15,15 +15,12 @@ APP = app
 TEST = tests
 
 test:
-	$(PYTHON) `which py.test` -s -v $(TEST)
-
+	pytest -v $(TEST)  --cov-report term --cov-report xml --cov=$(APP)
 lint:
-	pylint $(APP) || true
+	pylint $(APP)
 
 fmt:
-	isort --apply --atomic
-	black . -l 120
+	invoke fmt
 
 check-fmt:
-	isort -rc --check
-	black . --check --diff
+	invoke check --fmt --sort

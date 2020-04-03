@@ -1,7 +1,8 @@
+"""app.router"""
 from fastapi import APIRouter
 
-# Create the router.
-router = APIRouter()
+# pylint: disable=redefined-builtin
+from .v1 import all, confirmed, deaths, recovered
 
 # The routes.
-from . import latest, sources, locations  # isort:skip
+from .v2 import latest, sources, locations  # isort:skip
