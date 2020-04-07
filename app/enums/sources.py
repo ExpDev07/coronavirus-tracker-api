@@ -8,3 +8,4 @@ class Sources(str, Enum):
 
     jhu = "jhu"
     csbs = "csbs"
+    nyt = "nyt"
