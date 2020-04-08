@@ -5,6 +5,7 @@ from datetime import datetime
 from asyncache import cached
 from cachetools import TTLCache
 
+from ...utils import httputils
 from . import LocationService
 
 
@@ -38,4 +39,16 @@ async def get_category(category):
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
 async def get_locations():
+    """
+    Retrieves the locations from the categories. The locations are cached for 1 hour.
+
+    :returns: The locations.
+    :rtype: List[Location]
+    """
     pass
+    '''
+    async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
+        text = await response.text()
+
+    data = list(csv.DictReader(text.splitlines()))
+    '''
