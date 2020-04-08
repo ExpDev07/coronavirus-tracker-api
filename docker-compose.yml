@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  api:
+    build: .
+    image: expdev07/coronavirus-tracker-api:2.0
+    restart: always
+    command: uvicorn --host 0.0.0.0 app.main:APP
+    volumes:
+      - .:/api
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true

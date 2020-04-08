@@ -32,7 +32,7 @@ Support multiple data-sources.
 
 Currently 2 different data-sources are available to retrieve the data:
 
-* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE). 
+* **jhu** - https://github.com/CSSEGISandData/COVID-19 - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
 
 * **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
 
@@ -40,7 +40,7 @@ __jhu__ data-source will be used as a default source if you don't specify a *sou
 
 ## API Reference
 
-All endpoints are located at ``coronavirus-tracker-api.herokuapp.com/v2/`` and are accessible via https. For instance: you can get data per location by using this URL: 
+All endpoints are located at ``coronavirus-tracker-api.herokuapp.com/v2/`` and are accessible via https. For instance: you can get data per location by using this URL:
 *[https://coronavirus-tracker-api.herokuapp.com/v2/locations](https://coronavirus-tracker-api.herokuapp.com/v2/locations)*
 
 You can open the URL in your browser to further inspect the response. Or you can make this curl call in your terminal to see the prettified response:
@@ -56,7 +56,7 @@ Consume our API through [our super awesome and interactive SwaggerUI](https://co
 
 The [OpenAPI](https://swagger.io/docs/specification/about/) json definition can be downloaded at https://coronavirus-tracker-api.herokuapp.com/openapi.json
 
-## API Endpoints 
+## API Endpoints
 
 ### Sources Endpoint
 
@@ -365,8 +365,9 @@ These are the available API wrappers created by the community. They are not nece
 
 ### C#
 
-* [CovidSharp by @Abdirahiim](https://github.com/Abdirahiim/covidtrackerapiwrapper) 
+* [CovidSharp by @Abdirahiim](https://github.com/Abdirahiim/covidtrackerapiwrapper)
 * [Covid19Tracker.NET by @egbakou](https://github.com/egbakou/Covid19Tracker.NET)
+* [CovidDotNet by @degant](https://github.com/degant/CovidDotNet)
 
 ### Python
 
@@ -408,12 +409,12 @@ You will need the following things properly installed on your computer.
 3. Create virtual environment and install all dependencies `$ pipenv sync --dev`
 4. Activate/enter the virtual environment `$ pipenv shell`
 
-And don't despair if don't get the python setup working on the first try. No one did. Guido got pretty close... once. But that's another story. Good luck. 
+And don't despair if don't get the python setup working on the first try. No one did. Guido got pretty close... once. But that's another story. Good luck.
 
 ## Running / Development
 
 * `pipenv run dev`
-* Visit your app at [http://localhost:5000](http://localhost:5000).
+* Visit your app at [http://localhost:8000](http://localhost:8000).
 
 ### Running Tests
 > [pytest](https://docs.pytest.org/en/latest/)
@@ -436,6 +437,14 @@ pipenv run lint
 ```bash
 pipenv run fmt
 ```
+
+### Update requirements files
+
+```bash
+invoke generate-reqs
+```
+
+[Pipfile.lock](./Pipfile.lock) will be automatically updated during `pipenv install`.
 
 ### Building
 
@@ -470,6 +479,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/Turreted"><img src="https://avatars2.githubusercontent.com/u/41593269?v=4" width="100px;" alt=""/><br /><sub><b>Turreted</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Turreted" title="Code">💻</a></td>
     <td align="center"><a href="http://ibtida.me"><img src="https://avatars1.githubusercontent.com/u/33792969?v=4" width="100px;" alt=""/><br /><sub><b>Ibtida Bhuiyan</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=ibhuiyan17" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/james-gray"><img src="https://avatars1.githubusercontent.com/u/2904597?v=4" width="100px;" alt=""/><br /><sub><b>James Gray</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=james-gray" title="Code">💻</a></td>
   </tr>
 </table>
 

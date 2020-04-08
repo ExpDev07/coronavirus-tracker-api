@@ -64,3 +64,10 @@ def lint(ctx):
 def test(ctx):
     """Run pytest tests."""
     ctx.run(" ".join(["pytest", "-v"]))
+
+
+@invoke.task
+def generate_reqs(ctx):
+    """Generate requirements.txt"""
+    reqs = ["pipenv lock -r > requirements.txt", "pipenv lock -r --dev > requirements-dev.txt"]
+    [ctx.run(req) for req in reqs]
