@@ -11,7 +11,9 @@ WORKDIR /api
 COPY requirements.txt ./
 
 # INSTALL DEPENDENCIES
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r  requirements.txt
 
 # COPY PROJECT
-COPY . /
+COPY . /api/
+
+CMD ["uvicorn", "--host", "0.0.0.0", "app.main:APP"]
