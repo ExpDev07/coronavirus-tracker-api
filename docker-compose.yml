@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   api:
@@ -8,6 +8,6 @@ services:
     volumes:
       - .:/api
     ports:
-      - "8000:8000"
+      - "80:80"
     stdin_open: true
     tty: true
