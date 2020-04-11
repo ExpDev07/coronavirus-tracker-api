@@ -413,8 +413,17 @@ And don't despair if don't get the python setup working on the first try. No one
 
 ## Running / Development
 
+For a live reloading on code changes.
+
 * `pipenv run dev`
-* Visit your app at [http://localhost:8000](http://localhost:8000).
+
+Without live reloading.
+
+* `pipenv run start`
+
+Visit your app at [http://localhost:8000](http://localhost:8000).
+
+Alternatively run our API with Docker.
 
 ### Running Tests
 > [pytest](https://docs.pytest.org/en/latest/)
@@ -446,7 +455,22 @@ invoke generate-reqs
 
 [Pipfile.lock](./Pipfile.lock) will be automatically updated during `pipenv install`.
 
-### Building
+### Docker
+
+Our Docker image is based on [tiangolo/uvicorn-gunicorn-fastapi/](https://hub.docker.com/r/tiangolo/uvicorn-gunicorn-fastapi/).
+
+```bash
+invoke docker --build
+```
+
+Run with `docker run` or `docker-compose`
+
+### Invoke
+
+Additional developer commands can be run by calling them with the [python `invoke` task runner](http://www.pyinvoke.org/).
+```bash
+invoke --list
+```
 
 ### Deploying
 
