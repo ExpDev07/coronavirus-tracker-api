@@ -20,7 +20,7 @@ def fetch_populations():
     mappings = {}
 
     # Fetch the countries.
-    countries = requests.get("http://api.geonames.org/countryInfoJSON?username=dperic").json()["geonames"]
+    countries = requests.get("https://www.webcodesign.de/population").json()["data"]
 
     # Go through all the countries and perform the mapping.
     for country in countries:
