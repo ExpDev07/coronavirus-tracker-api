@@ -1,0 +1,302 @@
+[
+    {
+        "id": 0,
+        "country": "US",
+        "country_code": "US",
+        "province": "Washington",
+        "coordinates": {
+            "latitude": null,
+            "longitude": null
+        },
+        "last_updated": "2020-04-12T19:14:59.638001Z",
+        "latest": {
+            "confirmed": 384,
+            "deaths": 7,
+            "recovered": 0
+        },
+        "timelines": {
+            "confirmed": {
+                "latest": 384,
+                "timeline": {
+                    "2020-01-21T00:00:00Z": 1,
+                    "2020-01-22T00:00:00Z": 1,
+                    "2020-01-23T00:00:00Z": 1,
+                    "2020-01-24T00:00:00Z": 1,
+                    "2020-01-25T00:00:00Z": 1,
+                    "2020-01-26T00:00:00Z": 1,
+                    "2020-01-27T00:00:00Z": 1,
+                    "2020-01-28T00:00:00Z": 1,
+                    "2020-01-29T00:00:00Z": 1,
+                    "2020-01-30T00:00:00Z": 1,
+                    "2020-01-31T00:00:00Z": 1,
+                    "2020-02-28T00:00:00Z": 2,
+                    "2020-03-10T00:00:00Z": 61,
+                    "2020-03-11T00:00:00Z": 69,
+                    "2020-03-12T00:00:00Z": 107,
+                    "2020-03-15T00:00:00Z": 175,
+                    "2020-03-17T00:00:00Z": 265,
+                    "2020-03-18T00:00:00Z": 309,
+                    "2020-03-19T00:00:00Z": 347,
+                    "2020-03-20T00:00:00Z": 384
+                }
+            },
+            "deaths": {
+                "latest": 7,
+                "timeline": {
+                    "2020-01-21T00:00:00Z": 0,
+                    "2020-01-22T00:00:00Z": 0,
+                    "2020-01-23T00:00:00Z": 0,
+                    "2020-01-24T00:00:00Z": 0,
+                    "2020-01-25T00:00:00Z": 0,
+                    "2020-01-26T00:00:00Z": 0,
+                    "2020-01-27T00:00:00Z": 0,
+                    "2020-01-28T00:00:00Z": 0,
+                    "2020-01-29T00:00:00Z": 0,
+                    "2020-01-30T00:00:00Z": 0,
+                    "2020-01-31T00:00:00Z": 0,
+                    "2020-02-28T00:00:00Z": 0,
+                    "2020-03-10T00:00:00Z": 0,
+                    "2020-03-11T00:00:00Z": 1,
+                    "2020-03-12T00:00:00Z": 3,
+                    "2020-03-15T00:00:00Z": 3,
+                    "2020-03-17T00:00:00Z": 4,
+                    "2020-03-18T00:00:00Z": 5,
+                    "2020-03-19T00:00:00Z": 6,
+                    "2020-03-20T00:00:00Z": 7
+                }
+            },
+            "recovered": {
+                "latest": 0,
+                "timeline": {}
+            }
+        },
+        "state": "Washington",
+        "county": "Snohomish"
+    },
+    {
+        "id": 1,
+        "country": "US",
+        "country_code": "US",
+        "province": "Illinois",
+        "coordinates": {
+            "latitude": null,
+            "longitude": null
+        },
+        "last_updated": "2020-04-12T19:14:59.638001Z",
+        "latest": {
+            "confirmed": 2,
+            "deaths": 0,
+            "recovered": 0
+        },
+        "timelines": {
+            "confirmed": {
+                "latest": 2,
+                "timeline": {
+                    "2020-01-24T00:00:00Z": 1,
+                    "2020-01-25T00:00:00Z": 1,
+                    "2020-01-26T00:00:00Z": 1,
+                    "2020-01-27T00:00:00Z": 1,
+                    "2020-01-28T00:00:00Z": 1,
+                    "2020-01-29T00:00:00Z": 1,
+                    "2020-01-30T00:00:00Z": 2,
+                    "2020-01-31T00:00:00Z": 2
+                }
+            },
+            "deaths": {
+                "latest": 0,
+                "timeline": {
+                    "2020-01-24T00:00:00Z": 0,
+                    "2020-01-25T00:00:00Z": 0,
+                    "2020-01-26T00:00:00Z": 0,
+                    "2020-01-27T00:00:00Z": 0,
+                    "2020-01-28T00:00:00Z": 0,
+                    "2020-01-29T00:00:00Z": 0,
+                    "2020-01-30T00:00:00Z": 0,
+                    "2020-01-31T00:00:00Z": 0
+                }
+            },
+            "recovered": {
+                "latest": 0,
+                "timeline": {}
+            }
+        },
+        "state": "Illinois",
+        "county": "Cook"
+    },
+    {
+        "id": 2,
+        "country": "US",
+        "country_code": "US",
+        "province": "California",
+        "coordinates": {
+            "latitude": null,
+            "longitude": null
+        },
+        "last_updated": "2020-04-12T19:14:59.638001Z",
+        "latest": {
+            "confirmed": 1,
+            "deaths": 0,
+            "recovered": 0
+        },
+        "timelines": {
+            "confirmed": {
+                "latest": 1,
+                "timeline": {
+                    "2020-01-25T00:00:00Z": 1,
+                    "2020-01-26T00:00:00Z": 1,
+                    "2020-01-27T00:00:00Z": 1,
+                    "2020-01-28T00:00:00Z": 1,
+                    "2020-01-29T00:00:00Z": 1,
+                    "2020-01-30T00:00:00Z": 1,
+                    "2020-01-31T00:00:00Z": 1
+                }
+            },
+            "deaths": {
+                "latest": 0,
+                "timeline": {
+                    "2020-01-25T00:00:00Z": 0,
+                    "2020-01-26T00:00:00Z": 0,
+                    "2020-01-27T00:00:00Z": 0,
+                    "2020-01-28T00:00:00Z": 0,
+                    "2020-01-29T00:00:00Z": 0,
+                    "2020-01-30T00:00:00Z": 0,
+                    "2020-01-31T00:00:00Z": 0
+                }
+            },
+            "recovered": {
+                "latest": 0,
+                "timeline": {}
+            }
+        },
+        "state": "California",
+        "county": "Orange"
+    },
+    {
+        "id": 3,
+        "country": "US",
+        "country_code": "US",
+        "province": "Arizona",
+        "coordinates": {
+            "latitude": null,
+            "longitude": null
+        },
+        "last_updated": "2020-04-12T19:14:59.638001Z",
+        "latest": {
+            "confirmed": 1,
+            "deaths": 0,
+            "recovered": 0
+        },
+        "timelines": {
+            "confirmed": {
+                "latest": 1,
+                "timeline": {
+                    "2020-01-26T00:00:00Z": 1,
+                    "2020-01-27T00:00:00Z": 1,
+                    "2020-01-28T00:00:00Z": 1,
+                    "2020-01-29T00:00:00Z": 1,
+                    "2020-01-30T00:00:00Z": 1,
+                    "2020-01-31T00:00:00Z": 1
+                }
+            },
+            "deaths": {
+                "latest": 0,
+                "timeline": {
+                    "2020-01-26T00:00:00Z": 0,
+                    "2020-01-27T00:00:00Z": 0,
+                    "2020-01-28T00:00:00Z": 0,
+                    "2020-01-29T00:00:00Z": 0,
+                    "2020-01-30T00:00:00Z": 0,
+                    "2020-01-31T00:00:00Z": 0
+                }
+            },
+            "recovered": {
+                "latest": 0,
+                "timeline": {}
+            }
+        },
+        "state": "Arizona",
+        "county": "Maricopa"
+    },
+    {
+        "id": 4,
+        "country": "US",
+        "country_code": "US",
+        "province": "California",
+        "coordinates": {
+            "latitude": null,
+            "longitude": null
+        },
+        "last_updated": "2020-04-12T19:14:59.638001Z",
+        "latest": {
+            "confirmed": 1,
+            "deaths": 0,
+            "recovered": 0
+        },
+        "timelines": {
+            "confirmed": {
+                "latest": 1,
+                "timeline": {
+                    "2020-01-26T00:00:00Z": 1,
+                    "2020-01-27T00:00:00Z": 1,
+                    "2020-01-28T00:00:00Z": 1,
+                    "2020-01-29T00:00:00Z": 1,
+                    "2020-01-30T00:00:00Z": 1,
+                    "2020-01-31T00:00:00Z": 1
+                }
+            },
+            "deaths": {
+                "latest": 0,
+                "timeline": {
+                    "2020-01-26T00:00:00Z": 0,
+                    "2020-01-27T00:00:00Z": 0,
+                    "2020-01-28T00:00:00Z": 0,
+                    "2020-01-29T00:00:00Z": 0,
+                    "2020-01-30T00:00:00Z": 0,
+                    "2020-01-31T00:00:00Z": 0
+                }
+            },
+            "recovered": {
+                "latest": 0,
+                "timeline": {}
+            }
+        },
+        "state": "California",
+        "county": "Los Angeles"
+    },
+    {
+        "id": 5,
+        "country": "US",
+        "country_code": "US",
+        "province": "California",
+        "coordinates": {
+            "latitude": null,
+            "longitude": null
+        },
+        "last_updated": "2020-04-12T19:14:59.638001Z",
+        "latest": {
+            "confirmed": 1,
+            "deaths": 0,
+            "recovered": 0
+        },
+        "timelines": {
+            "confirmed": {
+                "latest": 1,
+                "timeline": {
+                    "2020-01-31T00:00:00Z": 1
+                }
+            },
+            "deaths": {
+                "latest": 0,
+                "timeline": {
+                    "2020-01-31T00:00:00Z": 0
+                }
+            },
+            "recovered": {
+                "latest": 0,
+                "timeline": {}
+            }
+        },
+        "state": "California",
+        "county": "Santa Clara"
+    }
+]

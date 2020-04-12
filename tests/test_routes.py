@@ -140,11 +140,14 @@ class FlaskRoutesTest(unittest.TestCase):
     [
         ({"source": "csbs"}, 200),
         ({"source": "jhu"}, 200),
+        ({"source": "nyt"}, 200),
         ({"timelines": True}, 200),
         ({"timelines": "true"}, 200),
         ({"timelines": 1}, 200),
         ({"source": "jhu", "timelines": True}, 200),
+        ({"source": "nyt", "timelines": True}, 200),
         ({"source": "csbs", "country_code": "US"}, 200),
+        ({"source": "nyt", "country_code": "US"}, 200),
         ({"source": "jhu", "country_code": "US"}, 404),
     ],
 )
@@ -162,10 +165,12 @@ async def test_locations_status_code(async_api_client, query_params, expected_st
     [
         {"source": "csbs"},
         {"source": "jhu"},
+        {"source": "nyt"},
         {"timelines": True},
         {"timelines": "true"},
         {"timelines": 1},
         {"source": "jhu", "timelines": True},
+        {"source": "nyt", "timelines": True},
     ],
 )
 async def test_latest(async_api_client, query_params, mock_client_session):
