@@ -24,13 +24,17 @@ Support multiple data-sources.
 ![Covid-19 Recovered](https://covid19-badges.herokuapp.com/recovered/latest)
 ![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
 
+## New York Times is now available as a source!
+
+**Specify source parameter with ?source=nyt. NYT also provides a timeseries! To view timelines of cases by US counties use ?source=nyt&timelines=1**
+
 ## Recovered cases showing 0
 
-**JHU (our main data provider) [no longer provides data for amount of recoveries](https://github.com/CSSEGISandData/COVID-19/issues/1250), and as a result, the API will be showing 0 for this statistic. Apolegies for any inconvenience. Hopefully we'll be able to find an alternative data-source that offers this.**
+**JHU (our main data provider) [no longer provides data for amount of recoveries](https://github.com/CSSEGISandData/COVID-19/issues/1250), and as a result, the API will be showing 0 for this statistic. Apologies for any inconvenience. Hopefully we'll be able to find an alternative data-source that offers this.**
 
 ## Available data-sources:
 
-Currently 2 different data-sources are available to retrieve the data:
+Currently 3 different data-sources are available to retrieve the data:
 
 * **jhu** - https://github.com/CSSEGISandData/COVID-19 - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
 
