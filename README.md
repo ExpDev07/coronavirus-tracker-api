@@ -40,7 +40,7 @@ Currently 3 different data-sources are available to retrieve the data:
 
 * **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
 
-* **nyt** - https://github.com/nytimes/covid-19-data - The New York Times is releasing a series of data files with cumulative counts of coronavirus cases in the United States, at the state and county level, over time. 
+* **nyt** - https://github.com/nytimes/covid-19-data - The New York Times is releasing a series of data files with cumulative counts of coronavirus cases in the United States. This API provides the timeseries at the US county level.
 
 __jhu__ data-source will be used as a default source if you don't specify a *source parameter* in your request.
 
