@@ -26,7 +26,7 @@ Support multiple data-sources.
 
 ## New York Times is now available as a source!
 
-**Specify source parameter with ?source=nyt. NYT also provides a timeseries! To view timelines of cases by US counties use ?source=nyt&timelines=1**
+**Specify source parameter with ?source=nyt. NYT also provides a timeseries! To view timelines of cases by US counties use ?source=nyt&timelines=true**
 
 ## Recovered cases showing 0
 

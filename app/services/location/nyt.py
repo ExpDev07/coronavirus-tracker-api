@@ -85,8 +85,7 @@ async def get_locations():
     # The normalized locations.
     locations = []
 
-    idx = 0
-    for county_state, histories in grouped_locations.items():
+    for idx, (county_state, histories) in enumerate(grouped_locations.items()):
         # Make location history for confirmed and deaths from dates.
         # List is tuples of (date, amount) in order of increasing dates.
         confirmed_list = histories["confirmed"]
@@ -120,7 +119,5 @@ async def get_locations():
                 },
             )
         )
-
-        idx += 1
 
     return locations
