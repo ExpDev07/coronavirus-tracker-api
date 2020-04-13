@@ -511,6 +511,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Turreted"><img src="https://avatars2.githubusercontent.com/u/41593269?v=4" width="100px;" alt=""/><br /><sub><b>Turreted</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=Turreted" title="Code">💻</a></td>
     <td align="center"><a href="http://ibtida.me"><img src="https://avatars1.githubusercontent.com/u/33792969?v=4" width="100px;" alt=""/><br /><sub><b>Ibtida Bhuiyan</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=ibhuiyan17" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/james-gray"><img src="https://avatars1.githubusercontent.com/u/2904597?v=4" width="100px;" alt=""/><br /><sub><b>James Gray</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=james-gray" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/nischalshankar"><img src="https://avatars2.githubusercontent.com/u/33793411?v=4" width="100px;" alt=""/><br /><sub><b>Nischal Shankar</b></sub></a><br /><a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=nischalshankar" title="Code">💻</a> <a href="https://github.com/ExpDev07/coronavirus-tracker-api/commits?author=nischalshankar" title="Documentation">📖</a></td>
   </tr>
 </table>
 
