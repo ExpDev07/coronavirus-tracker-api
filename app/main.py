@@ -26,7 +26,7 @@ APP = FastAPI(
         "API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak."
         " Project page: https://github.com/ExpDev07/coronavirus-tracker-api."
     ),
-    version="2.0.1",
+    version="2.0.2",
     docs_url="/",
     redoc_url="/docs",
     on_startup=[setup_client_session],
