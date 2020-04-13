@@ -171,6 +171,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "nischalshankar",
+      "name": "Nischal Shankar",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/33793411?v=4",
+      "profile": "https://github.com/nischalshankar",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
