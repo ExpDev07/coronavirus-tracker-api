@@ -20,7 +20,7 @@ async def get_locations(
     """
     Getting the locations.
     """
-    # All query paramameters.
+    # All query parameters.
     params = dict(request.query_params)
 
     # Remove reserved params.
