@@ -24,17 +24,23 @@ Support multiple data-sources.
 ![Covid-19 Recovered](https://covid19-badges.herokuapp.com/recovered/latest)
 ![Covid-19 Deaths](https://covid19-badges.herokuapp.com/deaths/latest)
 
+## New York Times is now available as a source!
+
+**Specify source parameter with ?source=nyt. NYT also provides a timeseries! To view timelines of cases by US counties use ?source=nyt&timelines=true**
+
 ## Recovered cases showing 0
 
-**JHU (our main data provider) [no longer provides data for amount of recoveries](https://github.com/CSSEGISandData/COVID-19/issues/1250), and as a result, the API will be showing 0 for this statistic. Apolegies for any inconvenience. Hopefully we'll be able to find an alternative data-source that offers this.**
+**JHU (our main data provider) [no longer provides data for amount of recoveries](https://github.com/CSSEGISandData/COVID-19/issues/1250), and as a result, the API will be showing 0 for this statistic. Apologies for any inconvenience. Hopefully we'll be able to find an alternative data-source that offers this.**
 
 ## Available data-sources:
 
-Currently 2 different data-sources are available to retrieve the data:
+Currently 3 different data-sources are available to retrieve the data:
 
 * **jhu** - https://github.com/CSSEGISandData/COVID-19 - Worldwide Data repository operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE).
 
 * **csbs** - https://www.csbs.org/information-covid-19-coronavirus - U.S. County data that comes from the Conference of State Bank Supervisors.
+
+* **nyt** - https://github.com/nytimes/covid-19-data - The New York Times is releasing a series of data files with cumulative counts of coronavirus cases in the United States, at the state and county level, over time. 
 
 __jhu__ data-source will be used as a default source if you don't specify a *source parameter* in your request.
 
@@ -71,7 +77,8 @@ __Sample response__
 {
     "sources": [
         "jhu",
-        "csbs"
+        "csbs",
+        "nyt"
     ]
 }
 ```
@@ -87,7 +94,7 @@ GET /v2/latest
 __Query String Parameters__
 | __Query string parameter__ | __Description__                                                                  | __Type__ |
 | -------------------------- | -------------------------------------------------------------------------------- | -------- |
-| source                     | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String   |
+| source                     | The data-source where data will be retrieved from *(jhu/csbs/nyt)*. Default is *jhu* | String   |
 
 __Sample response__
 ```json
@@ -117,7 +124,7 @@ __Path Parameters__
 __Query String Parameters__
 | __Query string parameter__ | __Description__                                                                  | __Type__ |
 | -------------------------- | -------------------------------------------------------------------------------- | -------- |
-| source                     | The data-source where data will be retrieved from *(jhu/csbs)*. Default is *jhu* | String   |
+| source                     | The data-source where data will be retrieved from *(jhu/csbs/nyt)*. Default is *jhu* | String   |
 
 #### Example Request
 ```http
@@ -160,7 +167,7 @@ GET /v2/locations
 __Query String Parameters__
 | __Query string parameter__ | __Description__                                                                                                                                  | __Type__ |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| source                     | The data-source where data will be retrieved from.<br>__Value__ can be: *jhu/csbs*. __Default__ is *jhu*                                         | String   |
+| source                     | The data-source where data will be retrieved from.<br>__Value__ can be: *jhu/csbs/nyt*. __Default__ is *jhu*                                         | String   |
 | country_code               | The ISO ([alpha-2 country_code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to the Country/Province for which you're calling the Endpoint | String   |
 | timelines                  | To set the visibility of timelines (*daily tracking*).<br>__Value__ can be: *0/1*. __Default__ is *0* (timelines are not visible)                | Integer  |
 
