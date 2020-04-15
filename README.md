@@ -472,6 +472,11 @@ invoke docker --build
 
 Run with `docker run` or `docker-compose`
 
+#### Alternate Docker images
+
+If a full `gunicorn` deployment is unnecessary or [impractical on your hardware](https://fastapi.tiangolo.com/deployment/#raspberry-pi-and-other-architectures) consider using our single instance [`Uvicorn`](https://www.uvicorn.org/) based [Dockerfile](uvicorn.Dockerfile).
+
+
 ### Invoke
 
 Additional developer commands can be run by calling them with the [python `invoke` task runner](http://www.pyinvoke.org/).
