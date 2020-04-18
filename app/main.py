@@ -60,7 +60,7 @@ async def add_datasource(request: Request, call_next):
     request.state.source = source
 
     # Move on...
-    LOGGER.info(f"source provided: {source.__class__.__name__}")
+    LOGGER.debug(f"source provided: {source.__class__.__name__}")
     response = await call_next(request)
     return response
 
