@@ -12,8 +12,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 
 from .data import data_source
-from .router.v1 import V1
-from .router.v2 import V2
+from .routers import V1, V2
 from .utils.httputils import setup_client_session, teardown_client_session
 
 # ############
