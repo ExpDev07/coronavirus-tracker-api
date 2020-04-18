@@ -1,4 +1,4 @@
-"""app.router.v1.py"""
+"""app.routers.v1.py"""
 from fastapi import APIRouter
 
 from ..services.location.jhu import get_category
