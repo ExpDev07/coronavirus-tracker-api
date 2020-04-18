@@ -24,7 +24,7 @@ A clear and concise description of what you expected to happen.
 **Screenshots or Requests**
 If applicable, add screenshots or `httpie/curl`requests to help explain your problem.
 ```sh
- http GET https://coronavirus-tracker-api.herokuapp.com/v2/locations/IT -v                                                                                                                                                            
+$ http GET https://coronavirus-tracker-api.herokuapp.com/v2/locations/IT -v                                                                                                                                                            
 GET /v2/locations/IT HTTP/1.1
 Accept: */*
 Accept-Encoding: gzip, deflate
