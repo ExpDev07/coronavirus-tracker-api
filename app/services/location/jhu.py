@@ -57,15 +57,15 @@ async def get_category(category):
     url = BASE_URL + "time_series_covid19_%s_global.csv" % category
 
     # Request the data
-    logger.info("Requesting data...")
+    logger.info("jhu Requesting data...")
     async with httputils.CLIENT_SESSION.get(url) as response:
         text = await response.text()
 
-    logger.info("Data received")
+    logger.info("jhu Data received")
 
     # Parse the CSV.
     data = list(csv.DictReader(text.splitlines()))
-    logger.info("CSV parsed")
+    logger.info("jhu CSV parsed")
 
     # The normalized locations.
     locations = []
@@ -98,7 +98,7 @@ async def get_category(category):
                 "latest": int(latest or 0),
             }
         )
-    logger.info("Data normalized")
+    logger.info("jhu Data normalized")
 
     # Latest total.
     latest = sum(map(lambda location: location["latest"], locations))

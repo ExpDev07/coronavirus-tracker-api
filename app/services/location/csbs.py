@@ -41,11 +41,11 @@ async def get_locations():
     :rtype: dict
     """
     logger = logging.getLogger("services.location.csbs")
-    logger.info("Requesting data...")
+    logger.info("csbs Requesting data...")
     async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
         text = await response.text()
 
-    logger.info("Data received")
+    logger.info("csbs Data received")
 
     data = list(csv.DictReader(text.splitlines()))
     logger.info("CSV parsed")
@@ -83,7 +83,7 @@ async def get_locations():
                 int(item["Death"] or 0),
             )
         )
-    logger.info("Data normalized")
+    logger.info("csbs Data normalized")
 
     # Return the locations.
     return locations

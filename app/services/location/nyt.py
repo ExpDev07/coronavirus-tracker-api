@@ -75,7 +75,7 @@ async def get_locations():
     logger = logging.getLogger("services.location.nyt")
 
     # Request the data.
-    logger.info("Requesting data...")
+    logger.info("nyt Requesting data...")
     async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
         text = await response.text()
 
@@ -83,7 +83,7 @@ async def get_locations():
 
     # Parse the CSV.
     data = list(csv.DictReader(text.splitlines()))
-    logger.info("CSV parsed")
+    logger.info("nyt CSV parsed")
 
     # Group together locations (NYT data ordered by dates not location).
     grouped_locations = get_grouped_locations_dict(data)
@@ -125,6 +125,6 @@ async def get_locations():
                 },
             )
         )
-    logger.info("Data normalized")
+    logger.info("nyt Data normalized")
 
     return locations
