@@ -8,6 +8,7 @@ import pydantic
 import uvicorn
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 
 from .data import data_source
@@ -41,6 +42,7 @@ APP = FastAPI(
 APP.add_middleware(
     CORSMiddleware, allow_credentials=True, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],
 )
+APP.add_middleware(GZipMiddleware, minimum_size=1000)
 
 
 @APP.middleware("http")
