@@ -1,5 +1,6 @@
 """app.services.location.nyt.py"""
 import csv
+import logging
 from datetime import datetime
 
 from asyncache import cached
@@ -71,13 +72,18 @@ async def get_locations():
     :returns: The complete data for US Counties.
     :rtype: dict
     """
+    logger = logging.getLogger("services.location.nyt")
 
     # Request the data.
+    logger.info("Requesting data...")
     async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
         text = await response.text()
 
+    logger.info("Data received")
+
     # Parse the CSV.
     data = list(csv.DictReader(text.splitlines()))
+    logger.info("CSV parsed")
 
     # Group together locations (NYT data ordered by dates not location).
     grouped_locations = get_grouped_locations_dict(data)
@@ -119,5 +125,6 @@ async def get_locations():
                 },
             )
         )
+    logger.info("Data normalized")
 
     return locations

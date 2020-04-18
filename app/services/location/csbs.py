@@ -1,5 +1,6 @@
 """app.services.location.csbs.py"""
 import csv
+import logging
 from datetime import datetime
 
 from asyncache import cached
@@ -39,10 +40,15 @@ async def get_locations():
     :returns: The locations.
     :rtype: dict
     """
+    logger = logging.getLogger("services.location.csbs")
+    logger.info("Requesting data...")
     async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
         text = await response.text()
 
+    logger.info("Data received")
+
     data = list(csv.DictReader(text.splitlines()))
+    logger.info("CSV parsed")
 
     locations = []
 
@@ -77,6 +83,7 @@ async def get_locations():
                 int(item["Death"] or 0),
             )
         )
+    logger.info("Data normalized")
 
     # Return the locations.
     return locations
