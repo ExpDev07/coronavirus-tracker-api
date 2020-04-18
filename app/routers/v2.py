@@ -20,7 +20,7 @@ class Sources(str, enum.Enum):
 
 
 @V2.get("/latest", response_model=LatestResponse)
-async def get_latest(request: Request, source: Sources = "jhu"):
+async def get_latest(request: Request, source: Sources = "jhu"):  # pylint: disable=unused-argument
     """
     Getting latest amount of total confirmed cases, deaths, and recoveries.
     """
