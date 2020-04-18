@@ -7,6 +7,7 @@ import requests
 import app.io
 
 LOGGER = logging.getLogger(__name__)
+GEONAMES_URL = "http://api.geonames.org/countryInfoJSON"
 GEONAMES_BACKUP_PATH = "geonames_population_mappings.json"
 
 # Fetching of the populations.
@@ -25,9 +26,7 @@ def fetch_populations():
 
     # Fetch the countries.
     try:
-        countries = requests.get(
-            "http://api.geonames.org/countryInfoJSON", params={"username": "dperic"}, timeout=2
-        ).json()["geonames"]
+        countries = requests.get(GEONAMES_URL, params={"username": "dperic"}, timeout=2).json()["geonames"]
         # Go through all the countries and perform the mapping.
         for country in countries:
             mappings.update({country["countryCode"]: int(country["population"]) or None})
