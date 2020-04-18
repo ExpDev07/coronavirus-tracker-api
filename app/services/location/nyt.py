@@ -12,6 +12,8 @@ from ...timeline import Timeline
 from ...utils import httputils
 from . import LocationService
 
+LOGGER = logging.getLogger("services.location.nyt")
+
 
 class NYTLocationService(LocationService):
     """
@@ -72,18 +74,16 @@ async def get_locations():
     :returns: The complete data for US Counties.
     :rtype: dict
     """
-    logger = logging.getLogger("services.location.nyt")
-
     # Request the data.
-    logger.info("Requesting data...")
+    LOGGER.info("nyt Requesting data...")
     async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
         text = await response.text()
 
-    logger.info("Data received")
+    LOGGER.info("Data received")
 
     # Parse the CSV.
     data = list(csv.DictReader(text.splitlines()))
-    logger.info("CSV parsed")
+    LOGGER.info("nyt CSV parsed")
 
     # Group together locations (NYT data ordered by dates not location).
     grouped_locations = get_grouped_locations_dict(data)
@@ -125,6 +125,6 @@ async def get_locations():
                 },
             )
         )
-    logger.info("Data normalized")
+    LOGGER.info("nyt Data normalized")
 
     return locations

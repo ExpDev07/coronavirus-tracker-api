@@ -11,6 +11,8 @@ from ...location.csbs import CSBSLocation
 from ...utils import httputils
 from . import LocationService
 
+LOGGER = logging.getLogger("services.location.csbs")
+
 
 class CSBSLocationService(LocationService):
     """
@@ -40,15 +42,14 @@ async def get_locations():
     :returns: The locations.
     :rtype: dict
     """
-    logger = logging.getLogger("services.location.csbs")
-    logger.info("Requesting data...")
+    LOGGER.info("csbs Requesting data...")
     async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
         text = await response.text()
 
-    logger.info("Data received")
+    LOGGER.info("csbs Data received")
 
     data = list(csv.DictReader(text.splitlines()))
-    logger.info("CSV parsed")
+    LOGGER.info("csbs CSV parsed")
 
     locations = []
 
@@ -83,7 +84,7 @@ async def get_locations():
                 int(item["Death"] or 0),
             )
         )
-    logger.info("Data normalized")
+    LOGGER.info("csbs Data normalized")
 
     # Return the locations.
     return locations

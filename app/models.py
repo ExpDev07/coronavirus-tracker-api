@@ -1,9 +1,44 @@
+"""app.models.py"""
 from typing import Dict, List
 
 from pydantic import BaseModel
 
-from .latest import Latest
-from .timeline import Timelines
+
+class Latest(BaseModel):
+    """
+    Latest model.
+    """
+
+    confirmed: int
+    deaths: int
+    recovered: int
+
+
+class LatestResponse(BaseModel):
+    """
+    Response for latest.
+    """
+
+    latest: Latest
+
+
+class Timeline(BaseModel):
+    """
+    Timeline model.
+    """
+
+    latest: int
+    timeline: Dict[str, int] = {}
+
+
+class Timelines(BaseModel):
+    """
+    Timelines model.
+    """
+
+    confirmed: Timeline
+    deaths: Timeline
+    recovered: Timeline
 
 
 class Location(BaseModel):

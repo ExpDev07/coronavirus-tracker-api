@@ -1,14 +1,41 @@
-"""app.router.v2.locations.py"""
-from fastapi import HTTPException, Request
+"""app.routers.v2"""
+import enum
 
-from ...enums.sources import Sources
-from ...models.location import LocationResponse as Location
-from ...models.location import LocationsResponse as Locations
-from . import V2
+from fastapi import APIRouter, HTTPException, Request
+
+from ..data import DATA_SOURCES
+from ..models import LatestResponse, LocationResponse, LocationsResponse
+
+V2 = APIRouter()
+
+
+class Sources(str, enum.Enum):
+    """
+    A source available for retrieving data.
+    """
+
+    jhu = "jhu"
+    csbs = "csbs"
+    nyt = "nyt"
+
+
+@V2.get("/latest", response_model=LatestResponse)
+async def get_latest(request: Request, source: Sources = "jhu"):  # pylint: disable=unused-argument
+    """
+    Getting latest amount of total confirmed cases, deaths, and recoveries.
+    """
+    locations = await request.state.source.get_all()
+    return {
+        "latest": {
+            "confirmed": sum(map(lambda location: location.confirmed, locations)),
+            "deaths": sum(map(lambda location: location.deaths, locations)),
+            "recovered": sum(map(lambda location: location.recovered, locations)),
+        }
+    }
 
 
 # pylint: disable=unused-argument,too-many-arguments,redefined-builtin
-@V2.get("/locations", response_model=Locations, response_model_exclude_unset=True)
+@V2.get("/locations", response_model=LocationsResponse, response_model_exclude_unset=True)
 async def get_locations(
     request: Request,
     source: Sources = "jhu",
@@ -56,10 +83,18 @@ async def get_locations(
 
 
 # pylint: disable=invalid-name
-@V2.get("/locations/{id}", response_model=Location)
+@V2.get("/locations/{id}", response_model=LocationResponse)
 async def get_location_by_id(request: Request, id: int, source: Sources = "jhu", timelines: bool = True):
     """
     Getting specific location by id.
     """
     location = await request.state.source.get(id)
     return {"location": location.serialize(timelines)}
+
+
+@V2.get("/sources")
+async def sources():
+    """
+    Retrieves a list of data-sources that are availble to use.
+    """
+    return {"sources": list(DATA_SOURCES.keys())}
