@@ -374,6 +374,6 @@ def country_code(value):
     """
     code = COUNTRY_NAME__COUNTRY_CODE.get(value, DEFAULT_COUNTRY_CODE)
     if code == DEFAULT_COUNTRY_CODE:
-        LOGGER.info(f"No country code found for '{value}'. Using '{code}'!")
+        LOGGER.debug(f"No country code found for '{value}'. Using '{code}'!")
 
     return code
