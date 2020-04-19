@@ -1,6 +1,7 @@
 """app.services.location.jhu.py"""
 import csv
 import logging
+import os
 from datetime import datetime
 
 from asyncache import cached
@@ -57,7 +58,7 @@ async def get_category(category):
     url = BASE_URL + "time_series_covid19_%s_global.csv" % category
 
     # Request the data
-    LOGGER.info("jhu Requesting data...")
+    LOGGER.info(f"pid:{os.getpid()}: jhu Requesting data...")
     async with httputils.CLIENT_SESSION.get(url) as response:
         text = await response.text()
 
