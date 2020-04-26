@@ -2,17 +2,19 @@
 import functools
 import logging
 
-import pydantic
+from pydantic import AnyUrl, BaseSettings, HttpUrl
 
 CFG_LOGGER = logging.getLogger("app.config")
 
 
-class _Settings(pydantic.BaseSettings):
+class _Settings(BaseSettings):
     port: int = 5000
+    rediscloud_url: HttpUrl = None
+    local_redis_url: AnyUrl = "redis://localhost:6379"
 
 
 @functools.lru_cache()
-def get_settings(**kwargs):
+def get_settings(**kwargs) -> BaseSettings:
     """
     Read settings from the environment or `.env` file.
     https://pydantic-docs.helpmanual.io/usage/settings/#dotenv-env-support
