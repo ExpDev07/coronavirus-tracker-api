@@ -19,6 +19,7 @@ from . import LocationService
 LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
 
+
 class JhuLocationService(LocationService):
     """
     Service for retrieving locations from Johns Hopkins CSSE (https://github.com/CSSEGISandData/COVID-19).
