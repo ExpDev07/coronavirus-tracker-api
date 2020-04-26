@@ -3,6 +3,7 @@ import csv
 import logging
 import os
 from datetime import datetime
+from pprint import pformat as pf
 
 from asyncache import cached
 from cachetools import TTLCache
@@ -16,7 +17,7 @@ from ...utils import httputils
 from . import LocationService
 
 LOGGER = logging.getLogger("services.location.jhu")
-
+PID = os.getpid()
 
 class JhuLocationService(LocationService):
     """
@@ -53,20 +54,21 @@ async def get_category(category):
     """
     # Adhere to category naming standard.
     category = category.lower()
+    data_id = f"jhu.{category}"
 
     # URL to request data from.
     url = BASE_URL + "time_series_covid19_%s_global.csv" % category
 
     # Request the data
-    LOGGER.info(f"pid:{os.getpid()}: jhu Requesting data...")
+    LOGGER.info(f"{data_id} Requesting data...")
     async with httputils.CLIENT_SESSION.get(url) as response:
         text = await response.text()
 
-    LOGGER.info("jhu Data received")
+    LOGGER.debug(f"{data_id} Data received")
 
     # Parse the CSV.
     data = list(csv.DictReader(text.splitlines()))
-    LOGGER.info("jhu CSV parsed")
+    LOGGER.debug(f"{data_id} CSV parsed")
 
     # The normalized locations.
     locations = []
@@ -99,18 +101,20 @@ async def get_category(category):
                 "latest": int(latest or 0),
             }
         )
-    LOGGER.info("jhu Data normalized")
+    LOGGER.debug(f"{data_id} Data normalized")
 
     # Latest total.
     latest = sum(map(lambda location: location["latest"], locations))
 
     # Return the final data.
-    return {
+    results = {
         "locations": locations,
         "latest": latest,
         "last_updated": datetime.utcnow().isoformat() + "Z",
         "source": "https://github.com/ExpDev07/coronavirus-tracker-api",
     }
+    LOGGER.info(f"{data_id} results:\n{pf(results, depth=1)}")
+    return results
 
 
 @cached(cache=TTLCache(maxsize=1024, ttl=3600))
@@ -121,6 +125,8 @@ async def get_locations():
     :returns: The locations.
     :rtype: List[Location]
     """
+    data_id = "jhu.locations"
+    LOGGER.info(f"pid:{PID}: {data_id} Requesting data...")
     # Get all of the data categories locations.
     confirmed = await get_category("confirmed")
     deaths = await get_category("deaths")
@@ -174,6 +180,7 @@ async def get_locations():
                 },
             )
         )
+    LOGGER.info(f"{data_id} Data normalized")
 
     # Finally, return the locations.
     return locations
