@@ -27,8 +27,8 @@ dataclasses = {version = "*",markers = "python_version<'3.7'"}
 fastapi = "*"
 gunicorn = "*"
 idna_ssl = {version = "*",markers = "python_version<'3.7'"}
+pydantic = {extras = ["dotenv"],version = "*"}
 python-dateutil = "*"
-python-dotenv = "*"
 requests = "*"
 uvicorn = "*"
 

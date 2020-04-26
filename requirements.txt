@@ -15,7 +15,7 @@ httptools==0.1.1 ; sys_platform != 'win32' and sys_platform != 'cygwin' and plat
 idna-ssl==1.1.0 ; python_version < '3.7'
 idna==2.9
 multidict==4.7.5
-pydantic==1.5
+pydantic[dotenv]==1.5.1
 python-dateutil==2.8.1
 python-dotenv==0.13.0
 requests==2.23.0
