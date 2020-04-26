@@ -1,8 +1,8 @@
 """app.services.location.jhu.py"""
 import csv
-import datetime as dt
 import logging
 import os
+from datetime import datetime
 from pprint import pformat as pf
 
 from asyncache import cached
@@ -110,7 +110,7 @@ async def get_category(category):
     results = {
         "locations": locations,
         "latest": latest,
-        "last_updated": dt.datetime.utcnow().isoformat() + "Z",
+        "last_updated": datetime.utcnow().isoformat() + "Z",
         "source": "https://github.com/ExpDev07/coronavirus-tracker-api",
     }
     LOGGER.info(f"{data_id} results:\n{pf(results, depth=1)}")
@@ -161,18 +161,18 @@ async def get_locations():
                 # Coordinates.
                 Coordinates(coordinates["lat"], coordinates["long"]),
                 # Last update.
-                dt.datetime.utcnow().isoformat() + "Z",
+                datetime.utcnow().isoformat() + "Z",
                 # Timelines (parse dates as ISO).
                 {
                     "confirmed": Timeline(
                         {
-                            dt.datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
+                            datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
                             for date, amount in timelines["confirmed"].items()
                         }
                     ),
                     "deaths": Timeline(
                         {
-                            dt.datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
+                            datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
                             for date, amount in timelines["deaths"].items()
                         }
                     ),
