@@ -74,16 +74,17 @@ async def get_locations():
     :returns: The complete data for US Counties.
     :rtype: dict
     """
+    data_id = "nyt.locations"
     # Request the data.
-    LOGGER.info("nyt Requesting data...")
+    LOGGER.info(f"{data_id} Requesting data...")
     async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
         text = await response.text()
 
-    LOGGER.info("Data received")
+    LOGGER.debug(f"{data_id} Data received")
 
     # Parse the CSV.
     data = list(csv.DictReader(text.splitlines()))
-    LOGGER.info("nyt CSV parsed")
+    LOGGER.debug(f"{data_id} CSV parsed")
 
     # Group together locations (NYT data ordered by dates not location).
     grouped_locations = get_grouped_locations_dict(data)
@@ -125,6 +126,6 @@ async def get_locations():
                 },
             )
         )
-    LOGGER.info("nyt Data normalized")
+    LOGGER.info(f"{data_id} Data normalized")
 
     return locations

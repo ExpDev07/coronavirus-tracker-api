@@ -36,7 +36,7 @@ uvicorn = "*"
 python_version = "3.8"
 
 [scripts]
-dev = "uvicorn app.main:APP --reload"
+dev = "uvicorn app.main:APP --reload  --log-level=debug"
 start = "uvicorn app.main:APP"
 fmt = "invoke fmt"
 sort = "invoke sort"
