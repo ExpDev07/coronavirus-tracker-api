@@ -8,7 +8,7 @@ from pprint import pformat as pf
 from asyncache import cached
 from cachetools import TTLCache
 
-from ...caches import check_cache, get_cache, load_cache
+from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location import TimelinedLocation
 from ...timeline import Timeline
