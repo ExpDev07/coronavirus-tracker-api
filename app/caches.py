@@ -1,27 +1,29 @@
 """app.caches.py"""
-# from walrus import Database
-import logging
-import asyncio
 import functools
+import logging
+from typing import Union
 
 import aiocache
 
-import config
+from .config import get_settings
 
 LOGGER = logging.getLogger(name="app.caches")
 
-SETTINGS = config.get_settings()
+SETTINGS = get_settings()
 
 if SETTINGS.rediscloud_url:
     REDIS_URL = SETTINGS.rediscloud_url
+    LOGGER.info("Using Rediscloud")
 else:
     REDIS_URL = SETTINGS.local_redis_url
+    LOGGER.info("Using Local Redis")
 
 
 @functools.lru_cache()
-def get_cache(namespace, redis=False) -> aiocache.RedisCache:
+def get_cache(namespace) -> Union[aiocache.RedisCache, aiocache.SimpleMemoryCache]:
     """Retunr """
-    if redis:
+    if REDIS_URL:
+        LOGGER.info("using RedisCache")
         return aiocache.RedisCache(
             endpoint=REDIS_URL.host,
             port=REDIS_URL.port,
@@ -29,25 +31,20 @@ def get_cache(namespace, redis=False) -> aiocache.RedisCache:
             namespace=namespace,
             create_connection_timeout=5,
         )
+    LOGGER.info("using SimpleMemoryCache")
     return aiocache.SimpleMemoryCache(namespace=namespace)
 
 
-CACHE = get_cache("test", redis=False)
+async def check_cache(data_id: str, namespace: str = None):
+    cache = get_cache(namespace)
+    result = await cache.get(data_id, None)
+    LOGGER.info(f"{data_id} cache pulled")
+    await cache.close()
+    return result
 
 
-async def cach_test():
-    try:
-        await CACHE.set("foo", {"foobar": "bar"}, ttl=30)
-    except OSError as redis_err:
-        LOGGER.error(f"Redis Error: {redis_err}")
-        return
-    print(await CACHE.get("foo"))
-    await CACHE.close()
-
-
-if __name__ == "__main__":
-    # print(REDIS_DB)
-    # h = REDIS_DB.Hash("Test Hash")
-    # h["foo"] = "bar"
-    # print(h)
-    asyncio.get_event_loop().run_until_complete(cach_test())
+async def load_cache(data_id: str, data, namespace: str = None, cache_life: int = 3600):
+    cache = get_cache(namespace)
+    await cache.set(data_id, data, ttl=cache_life)
+    LOGGER.info(f"{data_id} cache loaded")
+    await cache.close()

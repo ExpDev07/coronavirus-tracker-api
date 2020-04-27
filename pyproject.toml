@@ -1,5 +1,5 @@
 [tool.black]
-line-length = 100
+line-length = 120
 target-version = ['py36', 'py37', 'py38']
 include = '\.pyi?$'
 exclude = '''
@@ -23,4 +23,4 @@ multi_line_output = 3
 include_trailing_comma = "True"
 force_grid_wrap = 0
 use_parentheses = "True"
-line_length = 100
+line_length = 120
