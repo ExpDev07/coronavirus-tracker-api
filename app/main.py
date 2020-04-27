@@ -2,7 +2,6 @@
 app.main.py
 """
 import logging
-import os
 
 import pydantic
 import uvicorn
@@ -11,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 
+from .config import get_settings
 from .data import data_source
 from .routers import V1, V2
 from .utils.httputils import setup_client_session, teardown_client_session
@@ -19,6 +19,8 @@ from .utils.httputils import setup_client_session, teardown_client_session
 # FastAPI App
 # ############
 LOGGER = logging.getLogger("api")
+
+SETTINGS = get_settings()
 
 APP = FastAPI(
     title="Coronavirus Tracker",
@@ -93,5 +95,5 @@ APP.include_router(V2, prefix="/v2", tags=["v2"])
 # Running of app.
 if __name__ == "__main__":
     uvicorn.run(
-        "app.main:APP", host="127.0.0.1", port=int(os.getenv("PORT", "5000")), log_level="info",
+        "app.main:APP", host="127.0.0.1", port=SETTINGS.port, log_level="info",
     )
