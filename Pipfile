@@ -20,6 +20,7 @@ pytest-cov = "*"
 responses = "*"
 
 [packages]
+aiocache = {extras = ["redis"],version = "*"}
 aiohttp = "*"
 asyncache = "*"
 cachetools = "*"
