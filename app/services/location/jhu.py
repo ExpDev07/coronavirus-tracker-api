@@ -57,6 +57,8 @@ async def get_category(category):
     category = category.lower()
     data_id = f"jhu.{category}"
 
+    # TODO: check cache
+
     # URL to request data from.
     url = BASE_URL + "time_series_covid19_%s_global.csv" % category
 
@@ -115,6 +117,8 @@ async def get_category(category):
         "source": "https://github.com/ExpDev07/coronavirus-tracker-api",
     }
     LOGGER.info(f"{data_id} results:\n{pf(results, depth=1)}")
+    # save the results to distributed cache
+    # TODO: async
     return results
 
 
