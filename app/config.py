@@ -2,14 +2,14 @@
 import functools
 import logging
 
-from pydantic import AnyUrl, BaseSettings, HttpUrl
+from pydantic import AnyUrl, BaseSettings
 
 CFG_LOGGER = logging.getLogger("app.config")
 
 
 class _Settings(BaseSettings):
     port: int = 5000
-    rediscloud_url: HttpUrl = None
+    rediscloud_url: AnyUrl = None
     local_redis_url: AnyUrl = None
 
 
