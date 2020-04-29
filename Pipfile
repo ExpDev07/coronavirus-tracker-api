@@ -21,6 +21,7 @@ responses = "*"
 
 [packages]
 aiocache = {extras = ["redis"],version = "*"}
+aiofiles = "*"
 aiohttp = "*"
 asyncache = "*"
 cachetools = "*"
