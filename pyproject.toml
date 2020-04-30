@@ -24,3 +24,39 @@ include_trailing_comma = "True"
 force_grid_wrap = 0
 use_parentheses = "True"
 line_length = 120
+
+[tool.pylint.master]
+extension-pkg-whitelist = "pydantic"
+ignore = "CVS"
+suggestion-mode = "yes"
+[tool.pylint.messages_control]
+disable = '''
+duplicate-code,
+line-too-long,
+logging-fstring-interpolation,
+bad-continuation,
+'''
+[tool.pylint.logging]
+logging-modules = "logging"
+[tool.pylint.imports]
+allow-wildcard-with-all = "no"
+[tool.pylint.format]
+indent-after-paren = "4"
+max-line-length = "120"  # matches black setting
+max-module-lines = "800"
+no-space-check = '''
+trailing-comma,
+dict-separator
+'''
+single-line-class-stmt = "no"
+single-line-if-stmt = "no"
+[tool.pylint.miscellaneous]
+notes= '''
+FIXME,
+XXX
+'''
+[tool.pylint.similarities]
+ignore-comments = "yes"
+ignore-docstrings = "yes"
+ignore-imports = "no"
+min-similarity-lines = "4"
