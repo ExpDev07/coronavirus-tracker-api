@@ -46,6 +46,7 @@ def check(ctx, fmt=False, sort=False, diff=False):  # pylint: disable=redefined-
         fmt_args.append("--diff")
         sort_args.append("--diff")
 
+    # FIXME: run each command and check return code
     cmd_args = []
     if fmt:
         cmd_args.extend(fmt_args)
