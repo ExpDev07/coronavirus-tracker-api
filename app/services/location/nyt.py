@@ -66,7 +66,7 @@ def get_grouped_locations_dict(data):
     return grouped_locations
 
 
-@cached(cache=TTLCache(maxsize=1024, ttl=3600))
+@cached(cache=TTLCache(maxsize=128, ttl=3600))
 async def get_locations():
     """
     Returns a list containing parsed NYT data by US county. The data is cached for 1 hour.

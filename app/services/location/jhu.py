@@ -46,10 +46,10 @@ BASE_URL = (
 )
 
 
-@cached(cache=TTLCache(maxsize=1024, ttl=1800))
+@cached(cache=TTLCache(maxsize=128, ttl=1800))
 async def get_category(category):
     """
-    Retrieves the data for the provided category. The data is cached for 1 hour.
+    Retrieves the data for the provided category. The data is cached for 30 minutes locally, 1 hour via shared Redis.
 
     :returns: The data for category.
     :rtype: dict
