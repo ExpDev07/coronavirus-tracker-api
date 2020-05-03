@@ -32,6 +32,7 @@ idna_ssl = {version = "*",markers = "python_version<'3.7'"}
 pydantic = {extras = ["dotenv"],version = "*"}
 python-dateutil = "*"
 requests = "*"
+scout-apm = "*"
 uvicorn = "*"
 
 [requires]
