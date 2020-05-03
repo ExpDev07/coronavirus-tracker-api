@@ -41,9 +41,11 @@ APP = FastAPI(
 #######################
 
 # Scout APM
-if SETTINGS.scout_name:
+if SETTINGS.scout_name:  # pragma: no cover
     LOGGER.info(f"Adding Scout APM middleware for `{SETTINGS.scout_name}`")
     APP.add_middleware(ScoutMiddleware)
+else:
+    LOGGER.debug("No SCOUT_NAME config")
 
 # Enable CORS.
 APP.add_middleware(
