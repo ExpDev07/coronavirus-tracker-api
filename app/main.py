@@ -9,6 +9,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
+from scout_apm.async_.starlette import ScoutMiddleware
 
 from .config import get_settings
 from .data import data_source
@@ -38,6 +39,13 @@ APP = FastAPI(
 # #####################
 # Middleware
 #######################
+
+# Scout APM
+if SETTINGS.scout_name:  # pragma: no cover
+    LOGGER.info(f"Adding Scout APM middleware for `{SETTINGS.scout_name}`")
+    APP.add_middleware(ScoutMiddleware)
+else:
+    LOGGER.debug("No SCOUT_NAME config")
 
 # Enable CORS.
 APP.add_middleware(

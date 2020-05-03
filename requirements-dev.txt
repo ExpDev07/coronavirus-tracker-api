@@ -43,7 +43,7 @@ smmap==3.0.2
 stevedore==1.32.0
 toml==0.10.0
 typed-ast==1.4.1
-urllib3==1.25.9
+urllib3[secure]==1.25.9 ; python_version >= '3.5'
 wcwidth==0.1.9
 wrapt==1.12.1
 zipp==3.1.0

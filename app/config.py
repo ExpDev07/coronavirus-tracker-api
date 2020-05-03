@@ -11,6 +11,8 @@ class _Settings(BaseSettings):
     port: int = 5000
     rediscloud_url: AnyUrl = None
     local_redis_url: AnyUrl = None
+    # Scout APM
+    scout_name: str = None
 
 
 @functools.lru_cache()
