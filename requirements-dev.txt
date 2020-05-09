@@ -1,6 +1,6 @@
 -i https://pypi.org/simple
 appdirs==1.4.3
-astroid==2.4.0
+astroid==2.4.1
 async-asgi-testclient==1.4.4
 async-generator==1.10
 asyncmock==0.4.2
@@ -13,8 +13,8 @@ click==7.1.2
 coverage==5.1
 coveralls==2.0.0
 docopt==0.6.2
-gitdb==4.0.4
-gitpython==3.1.1
+gitdb==4.0.5
+gitpython==3.1.2
 idna==2.9
 importlib-metadata==1.6.0 ; python_version < '3.8'
 invoke==1.4.1
@@ -29,17 +29,17 @@ pathspec==0.8.0
 pbr==5.4.5
 pluggy==0.13.1
 py==1.8.1
-pylint==2.5.0
+pylint==2.5.2
 pyparsing==2.4.7
-pytest-asyncio==0.11.0
+pytest-asyncio==0.12.0
 pytest-cov==2.8.1
-pytest==5.4.1
+pytest==5.4.2
 pyyaml==5.3.1
-regex==2020.4.4
+regex==2020.5.7
 requests==2.23.0
 responses==0.10.14
 six==1.14.0
-smmap==3.0.2
+smmap==3.0.4
 stevedore==1.32.0
 toml==0.10.0
 typed-ast==1.4.1

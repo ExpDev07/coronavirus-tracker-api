@@ -33,6 +33,7 @@ pydantic = {extras = ["dotenv"],version = "*"}
 python-dateutil = "*"
 requests = "*"
 scout-apm = "*"
+sentry-sdk = "*"
 uvicorn = "*"
 
 [requires]
