@@ -4,6 +4,8 @@ app.main.py
 import logging
 
 import pydantic
+import sentry_asgi
+import sentry_sdk
 import uvicorn
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,6 +24,9 @@ from .utils.httputils import setup_client_session, teardown_client_session
 LOGGER = logging.getLogger("api")
 
 SETTINGS = get_settings()
+
+if SETTINGS.sentry_dsn:  # pragma: no cover
+    sentry_sdk.init(dsn=SETTINGS.sentry_dsn)
 
 APP = FastAPI(
     title="Coronavirus Tracker",
@@ -46,6 +51,11 @@ if SETTINGS.scout_name:  # pragma: no cover
     APP.add_middleware(ScoutMiddleware)
 else:
     LOGGER.debug("No SCOUT_NAME config")
+
+# Sentry Error Tracking
+if SETTINGS.sentry_dsn:  # pragma: no cover
+    LOGGER.info("Adding Sentry middleware")
+    APP.add_middleware(sentry_asgi.SentryMiddleware)
 
 # Enable CORS.
 APP.add_middleware(
