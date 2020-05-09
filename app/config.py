@@ -13,6 +13,8 @@ class _Settings(BaseSettings):
     local_redis_url: AnyUrl = None
     # Scout APM
     scout_name: str = None
+    # Sentry
+    sentry_dsn: str = None
 
 
 @functools.lru_cache()
