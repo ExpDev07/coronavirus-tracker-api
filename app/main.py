@@ -4,7 +4,6 @@ app.main.py
 import logging
 
 import pydantic
-import sentry_asgi
 import sentry_sdk
 import uvicorn
 from fastapi import FastAPI, Request, Response
@@ -12,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 from scout_apm.async_.starlette import ScoutMiddleware
+from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
 from .config import get_settings
 from .data import data_source
@@ -55,7 +55,7 @@ else:
 # Sentry Error Tracking
 if SETTINGS.sentry_dsn:  # pragma: no cover
     LOGGER.info("Adding Sentry middleware")
-    APP.add_middleware(sentry_asgi.SentryMiddleware)
+    APP.add_middleware(SentryAsgiMiddleware)
 
 # Enable CORS.
 APP.add_middleware(
