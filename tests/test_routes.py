@@ -126,7 +126,9 @@ class FlaskRoutesTest(unittest.TestCase):
 
         return_data = response.json()
 
-        filepath = "tests/expected_output/v2_{state}_id_{test_id}.json".format(state=state, test_id=test_id)
+        filepath = "tests/expected_output/v2_{state}_id_{test_id}.json".format(
+            state=state, test_id=test_id
+        )
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
@@ -151,7 +153,9 @@ class FlaskRoutesTest(unittest.TestCase):
         ({"source": "jhu", "country_code": "US"}, 404),
     ],
 )
-async def test_locations_status_code(async_api_client, query_params, expected_status, mock_client_session):
+async def test_locations_status_code(
+    async_api_client, query_params, expected_status, mock_client_session
+):
     response = await async_api_client.get("/v2/locations", query_string=query_params)
 
     print(f"GET {response.url}\n{response}")

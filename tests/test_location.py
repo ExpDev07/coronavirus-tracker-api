@@ -48,7 +48,12 @@ def test_location_class(
 
     # Location.
     location_obj = location.TimelinedLocation(
-        test_id, country, province, coords, now, {"confirmed": confirmed, "deaths": deaths, "recovered": recovered,}
+        test_id,
+        country,
+        province,
+        coords,
+        now,
+        {"confirmed": confirmed, "deaths": deaths, "recovered": recovered,},
     )
 
     assert location_obj.country_code == country_code

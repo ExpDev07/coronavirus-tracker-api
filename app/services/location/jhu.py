@@ -41,9 +41,7 @@ class JhuLocationService(LocationService):
 
 
 # Base URL for fetching category.
-BASE_URL = (
-    "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
-)
+BASE_URL = "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
 
 
 @cached(cache=TTLCache(maxsize=4, ttl=1800))

@@ -49,7 +49,11 @@ else:
 
 # Enable CORS.
 APP.add_middleware(
-    CORSMiddleware, allow_credentials=True, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 APP.add_middleware(GZipMiddleware, minimum_size=1000)
 

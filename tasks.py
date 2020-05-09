@@ -72,12 +72,21 @@ def test(ctx):
 @invoke.task
 def generate_reqs(ctx):
     """Generate requirements.txt"""
-    reqs = ["pipenv lock -r > requirements.txt", "pipenv lock -r --dev > requirements-dev.txt"]
+    reqs = [
+        "pipenv lock -r > requirements.txt",
+        "pipenv lock -r --dev > requirements-dev.txt",
+    ]
     [ctx.run(req) for req in reqs]
 
 
 @invoke.task
-def docker(ctx, build=False, run=False, tag="covid-tracker-api:latest", name=f"covid-api-{random.randint(0,999)}"):
+def docker(
+    ctx,
+    build=False,
+    run=False,
+    tag="covid-tracker-api:latest",
+    name=f"covid-api-{random.randint(0,999)}",
+):
     """Build and run docker container."""
     if not any([build, run]):
         raise invoke.Exit(message="Specify either --build or --run", code=1)

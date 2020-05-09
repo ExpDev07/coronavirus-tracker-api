@@ -51,6 +51,7 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *,cover
+locustfile.py
 
 # Translations
 *.mo
