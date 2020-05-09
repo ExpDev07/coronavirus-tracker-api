@@ -92,7 +92,11 @@ async def get_locations():
             )
         LOGGER.info(f"{data_id} Data normalized")
         # save the results to distributed cache
-        await load_cache(data_id, locations)
-
+        # TODO: fix json serialization
+        try:
+            await load_cache(data_id, locations)
+        except TypeError as type_err:
+            LOGGER.error(type_err)
+            
     # Return the locations.
     return locations
