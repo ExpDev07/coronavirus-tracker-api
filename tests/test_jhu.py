@@ -22,3 +22,11 @@ async def test_get_locations(mock_client_session):
     # `jhu.get_locations()` creates id based on confirmed list
     location_confirmed = await jhu.get_category("confirmed")
     assert len(output) == len(location_confirmed["locations"])
+
+    # `jhu.get_locations()` creates id based on deaths list
+    location_deaths = await jhu.get_category("deaths")
+    assert len(output) == len(location_deaths["locations"])
+
+    # `jhu.get_locations()` creates id based on recovered list
+    location_recovered = await jhu.get_category("recovered")
+    assert len(output) == len(location_recovered["locations"])

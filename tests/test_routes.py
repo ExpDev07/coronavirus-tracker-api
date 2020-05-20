@@ -112,8 +112,7 @@ class FlaskRoutesTest(unittest.TestCase):
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
-        # TODO: Why is this failing?
-        # assert return_data == json.loads(expected_json_output)
+        assert return_data == json.loads(expected_json_output)
 
     async def test_v2_locations_id(self):
         state = "locations"
@@ -130,8 +129,7 @@ class FlaskRoutesTest(unittest.TestCase):
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
-        # TODO: Why is this failing?
-        # assert return_data == expected_json_output
+        assert return_data == json.loads(expected_json_output)
 
 
 @pytest.mark.asyncio
