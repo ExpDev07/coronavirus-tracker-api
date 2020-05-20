@@ -28,7 +28,9 @@ def fetch_populations(save=False):
 
     # Fetch the countries.
     try:
-        countries = requests.get(GEONAMES_URL, params={"username": "dperic"}, timeout=1.25).json()["geonames"]
+        countries = requests.get(GEONAMES_URL, params={"username": "dperic"}, timeout=1.25).json()[
+            "geonames"
+        ]
         # Go through all the countries and perform the mapping.
         for country in countries:
             mappings.update({country["countryCode"]: int(country["population"]) or None})

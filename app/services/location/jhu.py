@@ -41,12 +41,10 @@ class JhuLocationService(LocationService):
 
 
 # Base URL for fetching category.
-BASE_URL = (
-    "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
-)
+BASE_URL = "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
 
 
-@cached(cache=TTLCache(maxsize=128, ttl=1800))
+@cached(cache=TTLCache(maxsize=4, ttl=1800))
 async def get_category(category):
     """
     Retrieves the data for the provided category. The data is cached for 30 minutes locally, 1 hour via shared Redis.
@@ -129,7 +127,7 @@ async def get_category(category):
     return results
 
 
-@cached(cache=TTLCache(maxsize=1024, ttl=1800))
+@cached(cache=TTLCache(maxsize=1, ttl=1800))
 async def get_locations():
     """
     Retrieves the locations from the categories. The locations are cached for 1 hour.

@@ -11,7 +11,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
     """
 
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered
+        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
     ):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
@@ -66,7 +66,11 @@ class Location:  # pylint: disable=too-many-instance-attributes
             # Last updated.
             "last_updated": self.last_updated,
             # Latest data (statistics).
-            "latest": {"confirmed": self.confirmed, "deaths": self.deaths, "recovered": self.recovered},
+            "latest": {
+                "confirmed": self.confirmed,
+                "deaths": self.deaths,
+                "recovered": self.recovered,
+            },
         }
 
 

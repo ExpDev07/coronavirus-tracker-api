@@ -10,7 +10,11 @@ IO_PARAMS = (
     [
         ("test_file.txt", string.ascii_lowercase, {}),
         ("test_json_file.json", {"a": 0, "b": 1, "c": 2}, {}),
-        ("test_custom_json.json", {"z": -1, "b": 1, "y": -2, "a": 0}, {"indent": 4, "sort_keys": True}),
+        (
+            "test_custom_json.json",
+            {"z": -1, "b": 1, "y": -2, "a": 0},
+            {"indent": 4, "sort_keys": True},
+        ),
     ],
 )
 
