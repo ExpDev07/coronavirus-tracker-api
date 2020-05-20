@@ -11,7 +11,7 @@ from cachetools import TTLCache
 from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location import TimelinedLocation
-from ...timeline import Timeline
+from ...models import Timeline
 from ...utils import countries
 from ...utils import date as date_util
 from ...utils import httputils
@@ -175,18 +175,18 @@ async def get_locations():
                 # Timelines (parse dates as ISO).
                 {
                     "confirmed": Timeline(
-                        {
+                        timeline={
                             datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
                             for date, amount in timelines["confirmed"].items()
                         }
                     ),
                     "deaths": Timeline(
-                        {
+                        timeline={
                             datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
                             for date, amount in timelines["deaths"].items()
                         }
                     ),
-                    "recovered": Timeline({}),
+                    "recovered": Timeline(),
                 },
             )
         )

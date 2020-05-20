@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 
-from app import timeline
+from app import models
 
 
 def test_timeline_class():
@@ -15,7 +15,7 @@ def test_timeline_class():
         "1/23/20": 3,
     }
 
-    history_data = timeline.Timeline(history=timeseries)
+    history_data = models.Timeline(timeline=timeseries)
 
     # validate last value
     assert history_data.latest == 7

@@ -9,7 +9,7 @@ from cachetools import TTLCache
 from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location.nyt import NYTLocation
-from ...timeline import Timeline
+from ...models import Timeline
 from ...utils import httputils
 from . import LocationService
 
@@ -119,18 +119,18 @@ async def get_locations():
                     last_updated=datetime.utcnow().isoformat() + "Z",  # since last request
                     timelines={
                         "confirmed": Timeline(
-                            {
+                            timeline={
                                 datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
                                 for date, amount in confirmed_history.items()
                             }
                         ),
                         "deaths": Timeline(
-                            {
+                            timeline={
                                 datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
                                 for date, amount in deaths_history.items()
                             }
                         ),
-                        "recovered": Timeline({}),
+                        "recovered": Timeline(),
                     },
                 )
             )
