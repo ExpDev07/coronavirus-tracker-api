@@ -35,9 +35,24 @@ async def test_get_locations(mock_client_session):
 @pytest.mark.parametrize(
     "key, locations, index, expected",
     [
-        (("Thailand", "TH"), [{"country": "Thailand", "province": "TH", "history": {"test": "yes"}}], 0, {"test": "yes"}), # Success
-        (("Deutschland", "DE"), [{"country": "Deutschland", "province": "DE", "history": {"test": "no"}}], 1, {}), # IndexError
-        (("US", "NJ"), [{"country": "Deutschland", "province": "DE", "history": {"test": "no"}}], 0, {}), # Invaid Key Merge
+        (
+            ("Thailand", "TH"),
+            [{"country": "Thailand", "province": "TH", "history": {"test": "yes"}}],
+            0,
+            {"test": "yes"},
+        ),  # Success
+        (
+            ("Deutschland", "DE"),
+            [{"country": "Deutschland", "province": "DE", "history": {"test": "no"}}],
+            1,
+            {},
+        ),  # IndexError
+        (
+            ("US", "NJ"),
+            [{"country": "Deutschland", "province": "DE", "history": {"test": "no"}}],
+            0,
+            {},
+        ),  # Invaid Key Merge
     ],
 )
 def test_parse_history(key, locations, index, expected):
