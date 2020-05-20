@@ -97,6 +97,6 @@ async def get_locations():
             await load_cache(data_id, locations)
         except TypeError as type_err:
             LOGGER.error(type_err)
-            
+
     # Return the locations.
     return locations
