@@ -161,7 +161,7 @@ async def get_locations():
         # Get the timelines.
 
         # TEMP: Fix for merging recovery data. See TODO above for more details.
-        key = (location['country'], location['province'])
+        key = (location["country"], location["province"])
 
         timelines = {
             "confirmed": location["history"],
@@ -216,7 +216,7 @@ def parse_history(key: tuple, locations: list, index: int):
     """
     Helper for validating and extracting history content from
     locations data based on index. Validates with the current country/province
-    key to make sure no index/column issue. 
+    key to make sure no index/column issue.
 
     TEMP: solution because implement a more efficient and better approach in the refactor.
     """
@@ -224,7 +224,7 @@ def parse_history(key: tuple, locations: list, index: int):
     try:
         if key == (locations[index]["country"], locations[index]["province"]):
             location_history = locations[index]["history"]
-    except IndexError or KeyError as e:
-        LOGGER.warn(f"iteration data merge error: {index} {key}")
-    
+    except (IndexError, KeyError):
+        LOGGER.debug(f"iteration data merge error: {index} {key}")
+
     return location_history
