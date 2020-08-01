@@ -33,10 +33,9 @@ scout-apm==2.15.2
 sentry-sdk==0.16.2
 six==1.15.0
 starlette==0.13.6
-typing-extensions==3.7.4.2
 urllib3[secure]==1.25.10 ; python_version >= '3.5'
-uvicorn==0.11.7
+uvicorn==0.11.8
 uvloop==0.14.0 ; sys_platform != 'win32' and sys_platform != 'cygwin' and platform_python_implementation != 'PyPy'
 websockets==8.1
 wrapt==1.12.1
-yarl==1.5.0
+yarl==1.5.1
