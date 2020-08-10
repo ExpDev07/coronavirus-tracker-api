@@ -22,3 +22,42 @@ async def test_get_locations(mock_client_session):
     # `jhu.get_locations()` creates id based on confirmed list
     location_confirmed = await jhu.get_category("confirmed")
     assert len(output) == len(location_confirmed["locations"])
+
+    # `jhu.get_locations()` creates id based on deaths list
+    location_deaths = await jhu.get_category("deaths")
+    assert len(output) == len(location_deaths["locations"])
+
+    # `jhu.get_locations()` creates id based on recovered list
+    location_recovered = await jhu.get_category("recovered")
+    assert len(output) == len(location_recovered["locations"])
+
+
+@pytest.mark.parametrize(
+    "key, locations, index, expected",
+    [
+        (
+            ("Thailand", "TH"),
+            [{"country": "Thailand", "province": "TH", "history": {"test": "yes"}}],
+            0,
+            {"test": "yes"},
+        ),  # Success
+        (
+            ("Deutschland", "DE"),
+            [{"country": "Deutschland", "province": "DE", "history": {"test": "no"}}],
+            1,
+            {},
+        ),  # IndexError
+        (
+            ("US", "NJ"),
+            [{"country": "Deutschland", "province": "DE", "history": {"test": "no"}}],
+            0,
+            {},
+        ),  # Invaid Key Merge
+    ],
+)
+def test_parse_history(key, locations, index, expected):
+    """
+    Test validating and extracting history content from
+    locations data based on index.
+    """
+    assert jhu.parse_history(key, locations, index) == expected

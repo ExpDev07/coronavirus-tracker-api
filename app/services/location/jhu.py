@@ -9,9 +9,8 @@ from asyncache import cached
 from cachetools import TTLCache
 
 from ...caches import check_cache, load_cache
-from ...coordinates import Coordinates
 from ...location import TimelinedLocation
-from ...models import Timeline
+from ...models import Coordinates, Timeline
 from ...utils import countries
 from ...utils import date as date_util
 from ...utils import httputils
@@ -140,22 +139,31 @@ async def get_locations():
     # Get all of the data categories locations.
     confirmed = await get_category("confirmed")
     deaths = await get_category("deaths")
-    # recovered = await get_category("recovered")
+    recovered = await get_category("recovered")
 
     locations_confirmed = confirmed["locations"]
     locations_deaths = deaths["locations"]
-    # locations_recovered = recovered["locations"]
+    locations_recovered = recovered["locations"]
 
     # Final locations to return.
     locations = []
-
+    # ***************************************************************************
+    # TODO: This iteration approach assumes the indexes remain the same
+    #       and opens us to a CRITICAL ERROR. The removal of a column in the data source
+    #       would break the API or SHIFT all the data confirmed, deaths, recovery producting
+    #       incorrect data to consumers.
+    # ***************************************************************************
     # Go through locations.
     for index, location in enumerate(locations_confirmed):
         # Get the timelines.
+
+        # TEMP: Fix for merging recovery data. See TODO above for more details.
+        key = (location["country"], location["province"])
+
         timelines = {
-            "confirmed": locations_confirmed[index]["history"],
-            "deaths": locations_deaths[index]["history"],
-            # 'recovered' : locations_recovered[index]['history'],
+            "confirmed": location["history"],
+            "deaths": parse_history(key, locations_deaths, index),
+            "recovered": parse_history(key, locations_recovered, index),
         }
 
         # Grab coordinates.
@@ -169,7 +177,7 @@ async def get_locations():
                 location["country"],
                 location["province"],
                 # Coordinates.
-                Coordinates(coordinates["lat"], coordinates["long"]),
+                Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
                 # Last update.
                 datetime.utcnow().isoformat() + "Z",
                 # Timelines (parse dates as ISO).
@@ -186,7 +194,12 @@ async def get_locations():
                             for date, amount in timelines["deaths"].items()
                         }
                     ),
-                    "recovered": Timeline(),
+                    "recovered": Timeline(
+                        {
+                            datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
+                            for date, amount in timelines["recovered"].items()
+                        }
+                    ),
                 },
             )
         )
@@ -194,3 +207,21 @@ async def get_locations():
 
     # Finally, return the locations.
     return locations
+
+
+def parse_history(key: tuple, locations: list, index: int):
+    """
+    Helper for validating and extracting history content from
+    locations data based on index. Validates with the current country/province
+    key to make sure no index/column issue.
+
+    TEMP: solution because implement a more efficient and better approach in the refactor.
+    """
+    location_history = {}
+    try:
+        if key == (locations[index]["country"], locations[index]["province"]):
+            location_history = locations[index]["history"]
+    except (IndexError, KeyError):
+        LOGGER.debug(f"iteration data merge error: {index} {key}")
+
+    return location_history
