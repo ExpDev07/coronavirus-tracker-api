@@ -14,7 +14,7 @@ chardet==3.0.4
 click==7.1.2
 cryptography==3.0
 dataclasses==0.6 ; python_version < '3.7'
-fastapi==0.60.1
+fastapi==0.61.0
 gunicorn==20.0.4
 h11==0.9.0
 hiredis==1.1.0
@@ -30,13 +30,12 @@ python-dateutil==2.8.1
 python-dotenv==0.14.0
 requests==2.24.0
 scout-apm==2.15.2
-sentry-sdk==0.16.2
+sentry-sdk==0.16.3
 six==1.15.0
 starlette==0.13.6
-typing-extensions==3.7.4.2
 urllib3[secure]==1.25.10 ; python_version >= '3.5'
-uvicorn==0.11.7
+uvicorn==0.11.8
 uvloop==0.14.0 ; sys_platform != 'win32' and sys_platform != 'cygwin' and platform_python_implementation != 'PyPy'
 websockets==8.1
 wrapt==1.12.1
-yarl==1.5.0
+yarl==1.5.1
