@@ -57,4 +57,4 @@ def test_location_class(
     )
 
     assert location_obj.country_code == country_code
-    assert not location_obj.serialize() == None
+    assert location_obj.serialize() is not None
