@@ -2,7 +2,6 @@ import pytest
 
 from app.utils import countries
 
-
 """
 Todo:
     * Test cases for capturing of stdout/stderr

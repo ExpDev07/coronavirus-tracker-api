@@ -20,7 +20,7 @@ TARGETS_DESCRIPTION = "Paths/directories to format. [default: . ]"
 def sort(ctx, targets="."):
     """Sort module imports."""
     print("sorting imports ...")
-    args = ["isort", "-rc", "--atomic", targets]
+    args = ["isort", "--atomic", targets]
     ctx.run(" ".join(args))
 
 
@@ -40,7 +40,7 @@ def check(ctx, fmt=False, sort=False, diff=False):  # pylint: disable=redefined-
         sort = True
 
     fmt_args = ["black", "--check", "."]
-    sort_args = ["isort", "-rc", "--check", "."]
+    sort_args = ["isort", "--check", "."]
 
     if diff:
         fmt_args.append("--diff")
