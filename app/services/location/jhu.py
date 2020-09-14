@@ -9,8 +9,9 @@ from asyncache import cached
 from cachetools import TTLCache
 
 from ...caches import check_cache, load_cache
+from ...coordinates import Coordinates
 from ...location import TimelinedLocation
-from ...models import Coordinates, Timeline
+from ...models import Timeline
 from ...utils import countries
 from ...utils import date as date_util
 from ...utils import httputils
