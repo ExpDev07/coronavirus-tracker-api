@@ -196,7 +196,7 @@ async def get_locations():
                         }
                     ),
                     "recovered": Timeline(
-                        {
+                        timeline={
                             datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
                             for date, amount in timelines["recovered"].items()
                         }
