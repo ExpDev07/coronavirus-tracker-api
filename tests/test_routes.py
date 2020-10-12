@@ -87,11 +87,11 @@ class FlaskRoutesTest(unittest.TestCase):
         assert return_data == json.loads(expected_json_output)
 
     async def test_v2_latest(self):
-        state = "latest"
-
         with mock.patch("app.services.location.jhu.datetime") as mock_datetime:
             mock_datetime.utcnow.return_value.isoformat.return_value = DATETIME_STRING
             mock_datetime.strptime.side_effect = mocked_strptime_isoformat
+            state = "latest"
+
             response = await self.asgi_client.get(f"/v2/{state}")
 
         return_data = response.json()
@@ -112,8 +112,7 @@ class FlaskRoutesTest(unittest.TestCase):
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
-        # TODO: Why is this failing?
-        # assert return_data == json.loads(expected_json_output)
+        assert return_data == json.loads(expected_json_output)
 
     async def test_v2_locations_id(self):
         state = "locations"
@@ -126,12 +125,13 @@ class FlaskRoutesTest(unittest.TestCase):
 
         return_data = response.json()
 
-        filepath = "tests/expected_output/v2_{state}_id_{test_id}.json".format(state=state, test_id=test_id)
+        filepath = "tests/expected_output/v2_{state}_id_{test_id}.json".format(
+            state=state, test_id=test_id
+        )
         with open(filepath, "r") as file:
             expected_json_output = file.read()
 
-        # TODO: Why is this failing?
-        # assert return_data == expected_json_output
+        assert return_data == json.loads(expected_json_output)
 
 
 @pytest.mark.asyncio
@@ -151,7 +151,9 @@ class FlaskRoutesTest(unittest.TestCase):
         ({"source": "jhu", "country_code": "US"}, 404),
     ],
 )
-async def test_locations_status_code(async_api_client, query_params, expected_status, mock_client_session):
+async def test_locations_status_code(
+    async_api_client, query_params, expected_status, mock_client_session
+):
     response = await async_api_client.get("/v2/locations", query_string=query_params)
 
     print(f"GET {response.url}\n{response}")

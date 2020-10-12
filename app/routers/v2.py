@@ -65,11 +65,17 @@ async def get_locations(
 
         # Do filtering.
         try:
-            locations = [location for location in locations if str(getattr(location, key)).lower() == str(value)]
+            locations = [
+                location
+                for location in locations
+                if str(getattr(location, key)).lower() == str(value)
+            ]
         except AttributeError:
             pass
         if not locations:
-            raise HTTPException(404, detail=f"Source `{source}` does not have the desired location data.")
+            raise HTTPException(
+                404, detail=f"Source `{source}` does not have the desired location data.",
+            )
 
     # Return final serialized data.
     return {
@@ -84,7 +90,9 @@ async def get_locations(
 
 # pylint: disable=invalid-name
 @V2.get("/locations/{id}", response_model=LocationResponse)
-async def get_location_by_id(request: Request, id: int, source: Sources = "jhu", timelines: bool = True):
+async def get_location_by_id(
+    request: Request, id: int, source: Sources = "jhu", timelines: bool = True
+):
     """
     Getting specific location by id.
     """

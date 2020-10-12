@@ -1,5 +1,5 @@
 [tool.black]
-line-length = 120
+line-length = 100
 target-version = ['py36', 'py37', 'py38']
 include = '\.pyi?$'
 exclude = '''
@@ -23,7 +23,7 @@ multi_line_output = 3
 include_trailing_comma = "True"
 force_grid_wrap = 0
 use_parentheses = "True"
-line_length = 120
+line_length = 100
 
 [tool.pylint.master]
 extension-pkg-whitelist = "pydantic"
@@ -42,7 +42,7 @@ logging-modules = "logging"
 allow-wildcard-with-all = "no"
 [tool.pylint.format]
 indent-after-paren = "4"
-max-line-length = "120"  # matches black setting
+max-line-length = "100"  # matches black setting
 max-module-lines = "800"
 no-space-check = '''
 trailing-comma,

@@ -6,6 +6,7 @@ from datetime import datetime
 from asyncache import cached
 from cachetools import TTLCache
 
+from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
 from ...utils import httputils
@@ -34,7 +35,7 @@ class CSBSLocationService(LocationService):
 BASE_URL = "https://facts.csbs.org/covid-19/covid19_county.csv"
 
 
-@cached(cache=TTLCache(maxsize=1, ttl=3600))
+@cached(cache=TTLCache(maxsize=1, ttl=1800))
 async def get_locations():
     """
     Retrieves county locations; locations are cached for 1 hour
@@ -44,48 +45,58 @@ async def get_locations():
     """
     data_id = "csbs.locations"
     LOGGER.info(f"{data_id} Requesting data...")
-    async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
-        text = await response.text()
+    # check shared cache
+    cache_results = await check_cache(data_id)
+    if cache_results:
+        LOGGER.info(f"{data_id} using shared cache results")
+        locations = cache_results
+    else:
+        LOGGER.info(f"{data_id} shared cache empty")
+        async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
+            text = await response.text()
 
-    LOGGER.debug(f"{data_id} Data received")
+        LOGGER.debug(f"{data_id} Data received")
 
-    data = list(csv.DictReader(text.splitlines()))
-    LOGGER.debug(f"{data_id} CSV parsed")
+        data = list(csv.DictReader(text.splitlines()))
+        LOGGER.debug(f"{data_id} CSV parsed")
 
-    locations = []
+        locations = []
 
-    for i, item in enumerate(data):
-        # General info.
-        state = item["State Name"]
-        county = item["County Name"]
+        for i, item in enumerate(data):
+            # General info.
+            state = item["State Name"]
+            county = item["County Name"]
 
-        # Ensure country is specified.
-        if county in {"Unassigned", "Unknown"}:
-            continue
+            # Ensure country is specified.
+            if county in {"Unassigned", "Unknown"}:
+                continue
 
-        # Coordinates.
-        coordinates = Coordinates(item["Latitude"], item["Longitude"])  # pylint: disable=unused-variable
+            # Date string without "EDT" at end.
+            last_update = " ".join(item["Last Update"].split(" ")[0:2])
 
-        # Date string without "EDT" at end.
-        last_update = " ".join(item["Last Update"].split(" ")[0:2])
-
-        # Append to locations.
-        locations.append(
-            CSBSLocation(
-                # General info.
-                i,
-                state,
-                county,
-                # Coordinates.
-                Coordinates(item["Latitude"], item["Longitude"]),
-                # Last update (parse as ISO).
-                datetime.strptime(last_update, "%Y-%m-%d %H:%M").isoformat() + "Z",
-                # Statistics.
-                int(item["Confirmed"] or 0),
-                int(item["Death"] or 0),
+            # Append to locations.
+            locations.append(
+                CSBSLocation(
+                    # General info.
+                    i,
+                    state,
+                    county,
+                    # Coordinates.
+                    Coordinates(item["Latitude"], item["Longitude"]),
+                    # Last update (parse as ISO).
+                    datetime.strptime(last_update, "%Y-%m-%d %H:%M").isoformat() + "Z",
+                    # Statistics.
+                    int(item["Confirmed"] or 0),
+                    int(item["Death"] or 0),
+                )
             )
-        )
-    LOGGER.info(f"{data_id} Data normalized")
+        LOGGER.info(f"{data_id} Data normalized")
+        # save the results to distributed cache
+        # TODO: fix json serialization
+        try:
+            await load_cache(data_id, locations)
+        except TypeError as type_err:
+            LOGGER.error(type_err)
 
     # Return the locations.
     return locations

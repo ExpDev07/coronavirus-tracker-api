@@ -6,11 +6,10 @@ import logging
 import pydantic
 import sentry_sdk
 import uvicorn
-from fastapi import FastAPI, Request, Response, openapi
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
-from fastapi.staticfiles import StaticFiles
 from scout_apm.async_.starlette import ScoutMiddleware
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
@@ -35,9 +34,9 @@ APP = FastAPI(
         "API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak."
         " Project page: https://github.com/ExpDev07/coronavirus-tracker-api."
     ),
-    version="2.0.3",
-    docs_url=None,
-    redoc_url=None,
+    version="2.0.4",
+    docs_url="/",
+    redoc_url="/docs",
     on_startup=[setup_client_session],
     on_shutdown=[teardown_client_session],
 )
@@ -60,7 +59,11 @@ if SETTINGS.sentry_dsn:  # pragma: no cover
 
 # Enable CORS.
 APP.add_middleware(
-    CORSMiddleware, allow_credentials=True, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 APP.add_middleware(GZipMiddleware, minimum_size=1000)
 
@@ -109,31 +112,6 @@ async def handle_validation_error(
 # Include routers.
 APP.include_router(V1, prefix="", tags=["v1"])
 APP.include_router(V2, prefix="/v2", tags=["v2"])
-APP.mount("/static", StaticFiles(directory="static"), name="static")
-
-# ##############
-# Swagger/Redocs
-# ##############
-
-
-@APP.get("/", include_in_schema=False)
-async def custom_swagger_ui_html():
-    """Serve Swagger UI."""
-    return openapi.docs.get_swagger_ui_html(
-        openapi_url=APP.openapi_url,
-        title=f"{APP.title} - Swagger UI",
-        oauth2_redirect_url=APP.swagger_ui_oauth2_redirect_url,
-        swagger_js_url="/static/swagger-ui-bundle.js",
-        swagger_css_url="/static/swagger-ui.css",
-    )
-
-
-@APP.get("/docs", include_in_schema=False)
-async def redoc_html():
-    """Serve ReDoc UI."""
-    return openapi.docs.get_redoc_html(
-        openapi_url=APP.openapi_url, title=f"{APP.title} - ReDoc", redoc_js_url="/static/redoc.standalone.js",
-    )
 
 
 # Running of app.
