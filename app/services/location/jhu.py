@@ -85,7 +85,7 @@ async def get_category(category):
             dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
 
             # Make location history from dates.
-            history = {date: int(amount or 0) for date, amount in dates.items()}
+            history = {date: int(float(amount or 0)) for date, amount in dates.items()}
 
             # Country for this location.
             country = item["Country/Region"]
