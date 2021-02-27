@@ -25,7 +25,7 @@ def test_requirements_txt():
     )
 
     return_code_2 = subprocess.call(
-        "pipenv lock -r --dev \
+        "pipenv lock -r --dev-only \
                                     > {}".format(
             req_dev_test_file_path
         ),
