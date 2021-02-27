@@ -1,4 +1,9 @@
 import subprocess
+import sys
+
+import pytest
+
+PYTHON_VERSION = float(f"{sys.version_info.major}.{sys.version_info.minor}")
 
 
 def test_invoke_list():
@@ -8,6 +13,7 @@ def test_invoke_list():
     assert return_code == 0
 
 
+@pytest.mark.skipif(reason="Minor marker differences", condition=PYTHON_VERSION != 3.8)
 def test_requirements_txt():
     """Validate that requirements.txt and requirements-dev.txt
        are up2date with Pipefile"""
@@ -25,7 +31,7 @@ def test_requirements_txt():
     )
 
     return_code_2 = subprocess.call(
-        "pipenv lock -r --dev \
+        "pipenv lock -r --dev-only \
                                     > {}".format(
             req_dev_test_file_path
         ),

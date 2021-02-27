@@ -34,7 +34,7 @@ python-dateutil = "*"
 requests = "*"
 scout-apm = "*"
 sentry-sdk = "*"
-uvicorn = "*"
+uvicorn = {extras = ["standard"],version = "*"}
 
 [requires]
 python_version = "3.8"
