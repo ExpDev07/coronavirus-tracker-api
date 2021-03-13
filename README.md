@@ -2,6 +2,7 @@
     Coronavirus Tracker API
 </h1>
 
+
 Provides up-to-date data about Coronavirus outbreak. Includes numbers about confirmed cases, deaths and recovered.
 Support multiple data-sources.
 
@@ -17,6 +18,8 @@ Support multiple data-sources.
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/ExpDev07/coronavirus-tracker-api.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ExpDev07/coronavirus-tracker-api/alerts/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)](https://twitter.com/intent/tweet?text=COVID19%20Live%20Tracking%20API:%20&url=https%3A%2F%2Fgithub.com%2FExpDev07%2Fcoronavirus-tracker-api)
+
+  <a href="https://www.statuscake.com" title="Website Uptime Monitoring"><img src="https://app.statuscake.com/button/index.php?Track=5886026&Days=1&Design=2" /></a>
 
 **Live global stats (provided by [fight-covid19/bagdes](https://github.com/fight-covid19/bagdes)) from this API:**
 
