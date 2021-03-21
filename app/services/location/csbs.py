@@ -35,7 +35,7 @@ class CSBSLocationService(LocationService):
 BASE_URL = "https://facts.csbs.org/covid-19/covid19_county.csv"
 
 
-@cached(cache=TTLCache(maxsize=1, ttl=1800))
+@cached(cache=TTLCache(maxsize=1, ttl=3600))
 async def get_locations():
     """
     Retrieves county locations; locations are cached for 1 hour
