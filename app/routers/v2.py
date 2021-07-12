@@ -36,6 +36,10 @@ async def get_latest(
     }
 
 
+@V2.get("/test")
+async def test():
+    return {1: "ok"}
+
 # pylint: disable=unused-argument,too-many-arguments,redefined-builtin
 @V2.get("/locations", response_model=LocationsResponse, response_model_exclude_unset=True)
 async def get_locations(
