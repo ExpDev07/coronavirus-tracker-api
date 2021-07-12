@@ -15,6 +15,10 @@ Please write new test cases for new code you create.
 * We will love you forever if you include unit tests. We can always use more test coverage
 * If you have updated [Pipefile](./Pipfile), you have to update `Pipfile.lock`, `requirements.txt` and `requirements-dev.txt`. See section [Update requirements files](./README.md#update-requirements-files).
 
+## Some about the database
+
+* There is gonna be something that must be added into the database because blah blah this is a test. This is something in consideration about the database wanting to be added to add stability blah 
+
 ## Your First Code Contribution
 
 Unsure where to begin contributing to coronavirus-tracker-api ? You can start by looking through these issues labels:
