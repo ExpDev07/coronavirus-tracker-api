@@ -9,7 +9,7 @@ import app.io
 LOGGER = logging.getLogger(__name__)
 ########################################
 #second aggregates pattern
-#repost
+#repost again
 ######################################
 class GEONAMES
     GEONAMES_URL = ""
