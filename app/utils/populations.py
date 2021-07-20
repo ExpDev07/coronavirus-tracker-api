@@ -7,9 +7,6 @@ import requests
 import app.io
 
 LOGGER = logging.getLogger(__name__)
-GEONAMES_URL = "http://api.geonames.org/countryInfoJSON"
-GEONAMES_BACKUP_PATH = "geonames_population_mappings.json"
-
 class GEONAMES
     GEONAMES_URL = ""
     GEONAMES_BACKUP_PATH = ""
