@@ -3,19 +3,14 @@ from ..services.location.csbs import CSBSLocationService
 from ..services.location.jhu import JhuLocationService
 from ..services.location.nyt import NYTLocationService
 
-# Mapping of services to data-sources.
-DATA_SOURCES = {
-    "jhu": JhuLocationService(),
-    "csbs": CSBSLocationService(),
-    "nyt": NYTLocationService(),
-}
+class data_provide:
+    dataProvide = {}
 
+def default_set (this):
+    this.dataProvide['nyt'] = NYTLocationService()
+    this.dataProvide['csbs'] = CSBSLocationService()
+    this.dataProvide['jhu'] = JhuLocationService()
 
-def data_source(source):
-    """
-    Retrieves the provided data-source service.
+def get_data_provide(this, provide):
+    return this.dataProvide.get(source.lower())
 
-    :returns: The service.
-    :rtype: LocationService
-    """
-    return DATA_SOURCES.get(source.lower())
