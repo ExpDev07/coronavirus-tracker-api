@@ -21,6 +21,7 @@ from .utils.httputils import setup_client_session, teardown_client_session
 # ############
 # FastAPI App
 # ############
+# this is a test
 LOGGER = logging.getLogger("api")
 
 SETTINGS = get_settings()
