@@ -7,6 +7,10 @@ import requests
 import app.io
 
 LOGGER = logging.getLogger(__name__)
+########################################
+#second aggregates pattern
+#repost
+######################################
 class GEONAMES
     GEONAMES_URL = ""
     GEONAMES_BACKUP_PATH = ""
