@@ -10,6 +10,20 @@ LOGGER = logging.getLogger(__name__)
 GEONAMES_URL = "http://api.geonames.org/countryInfoJSON"
 GEONAMES_BACKUP_PATH = "geonames_population_mappings.json"
 
+class GEONAMES
+    GEONAMES_URL = ""
+    GEONAMES_BACKUP_PATH = ""
+
+def defaule_set(self):
+    self.GEONAMES_URL = "http://api.geonames.org/countryInfoJSON"
+    self.GEONAMES_BACKUP_PATH = "geonames_population_mappings.json"
+
+def get_GEONAMES_URL(self):
+    return self.GEONAME_URL
+
+def get GEONAME_BACKUP_PATH(self)
+    return self.GEONAME_BACKUP_PATH
+
 # Fetching of the populations.
 def fetch_populations(save=False):
     """
