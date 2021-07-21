@@ -14,18 +14,30 @@ class Location:  # pylint: disable=too-many-instance-attributes
         self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
     ):  # pylint: disable=too-many-arguments
         # General info.
-        self.id = id
-        self.country = country.strip()
-        self.province = province.strip()
-        self.coordinates = coordinates
+        self._id = id
+        self._country = country.strip()
+        self._province = province.strip()
+        self._coordinates = coordinates
 
         # Last update.
-        self.last_updated = last_updated
+        self._last_updated = last_updated
 
         # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
+        self._confirmed = confirmed
+        self._deaths = deaths
+        self._recovered = recovered
+
+    @property
+    def confirmed(self):
+        return self._confirmed
+
+    @property
+    def deaths(self):
+        return self._deaths
+
+    @property
+    def recovered(self):
+        return self._recovered
 
     @property
     def country_code(self):
@@ -35,7 +47,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
+        return (countries.country_code(self._country) or countries.DEFAULT_COUNTRY_CODE).upper()
 
     @property
     def country_population(self):
@@ -56,20 +68,20 @@ class Location:  # pylint: disable=too-many-instance-attributes
         """
         return {
             # General info.
-            "id": self.id,
-            "country": self.country,
+            "id": self._id,
+            "country": self._country,
             "country_code": self.country_code,
             "country_population": self.country_population,
-            "province": self.province,
+            "province": self._province,
             # Coordinates.
-            "coordinates": self.coordinates.serialize(),
+            "coordinates": self._coordinates.serialize(),
             # Last updated.
-            "last_updated": self.last_updated,
+            "last_updated": self._last_updated,
             # Latest data (statistics).
             "latest": {
-                "confirmed": self.confirmed,
-                "deaths": self.deaths,
-                "recovered": self.recovered,
+                "confirmed": self._confirmed,
+                "deaths": self._deaths,
+                "recovered": self._recovered,
             },
         }
 
@@ -95,7 +107,7 @@ class TimelinedLocation(Location):
         )
 
         # Set timelines.
-        self.timelines = timelines
+        self._timelines = timelines
 
     # pylint: disable=arguments-differ
     def serialize(self, timelines=False):
@@ -115,7 +127,7 @@ class TimelinedLocation(Location):
                     "timelines": {
                         # Serialize all the timelines.
                         key: value.serialize()
-                        for (key, value) in self.timelines.items()
+                        for (key, value) in self._timelines.items()
                     }
                 }
             )

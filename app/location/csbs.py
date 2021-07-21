@@ -22,8 +22,16 @@ class CSBSLocation(Location):
             recovered=0,
         )
 
-        self.state = state
-        self.county = county
+        self._state = state
+        self._county = county
+
+    @property
+    def state(self):
+        return self._state
+
+    @property
+    def county(self):
+        return self._county
 
     def serialize(self, timelines=False):  # pylint: disable=arguments-differ,unused-argument
         """
@@ -36,7 +44,7 @@ class CSBSLocation(Location):
 
         # Update with new fields.
         serialized.update(
-            {"state": self.state, "county": self.county,}
+            {"state": self._state, "county": self._county,}
         )
 
         # Return the serialized location.

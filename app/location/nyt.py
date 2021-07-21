@@ -11,8 +11,8 @@ class NYTLocation(TimelinedLocation):
     def __init__(self, id, state, county, coordinates, last_updated, timelines):
         super().__init__(id, "US", state, coordinates, last_updated, timelines)
 
-        self.state = state
-        self.county = county
+        self._state = state
+        self._county = county
 
     def serialize(self, timelines=False):  # pylint: disable=arguments-differ,unused-argument
         """
@@ -25,7 +25,7 @@ class NYTLocation(TimelinedLocation):
 
         # Update with new fields.
         serialized.update(
-            {"state": self.state, "county": self.county,}
+            {"state": self._state, "county": self._county,}
         )
 
         # Return the serialized location.
