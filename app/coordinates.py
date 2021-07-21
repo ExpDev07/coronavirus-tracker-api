@@ -7,8 +7,8 @@ class Coordinates:
     """
 
     def __init__(self, latitude, longitude):
-        self.latitude = latitude
-        self.longitude = longitude
+        self._latitude = latitude
+        self._longitude = longitude
 
     def serialize(self):
         """
@@ -17,7 +17,7 @@ class Coordinates:
         :returns: The serialized coordinates.
         :rtype: dict
         """
-        return {"latitude": self.latitude, "longitude": self.longitude}
+        return {"latitude": self._latitude, "longitude": self._longitude}
 
     def __str__(self):
-        return "lat: %s, long: %s" % (self.latitude, self.longitude)
+        return "lat: %s, long: %s" % (self._latitude, self._longitude)
