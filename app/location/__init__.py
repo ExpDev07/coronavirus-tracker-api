@@ -29,14 +29,32 @@ class Location:  # pylint: disable=too-many-instance-attributes
 
     @property
     def confirmed(self):
+        """
+        Gets the latest amount of total confirmed cases of this location.
+
+        :returns: The latest amount of total confirmed cases.
+        :rtype: int
+        """
         return self._confirmed
 
     @property
     def deaths(self):
+        """
+        Gets the latest amount of total death cases of this location.
+
+        :returns: The latest amount of total death cases.
+        :rtype: int
+        """
         return self._deaths
 
     @property
     def recovered(self):
+        """
+        Gets the latest amount of total recovered cases of this location.
+
+        :returns: The latest amount of total recovered cases.
+        :rtype: int
+        """
         return self._recovered
 
     @property
