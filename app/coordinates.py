@@ -19,10 +19,9 @@ class Serialize:
         :rtype: dict
         """
 
-        return {self.latitude,self.longitude}
+        return {cord}
 
     def __str__(self):
-        return "lat: %s, long: %s" % (self.latitude, self.longitude)
+        return "lat: %s, long: %s" % (cord)
 
-latitude = Coordinates("latitude")
-longitude = Coordinates("longitude")
+cord = Coordinates("latitude","longitude")
