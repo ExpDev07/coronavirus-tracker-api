@@ -18,8 +18,6 @@ class Serialize:
         :returns: The serialized coordinates.
         :rtype: dict
         """
-        self.latitude=latitude
-        self.longitude=longitude
 
         return {self.latitude,self.longitude}
 
@@ -27,4 +25,4 @@ class Serialize:
         return "lat: %s, long: %s" % (self.latitude, self.longitude)
 
 latitude = Coordinates("latitude")
-longitude= Coordinates("longitude")
+longitude = Coordinates("longitude")
