@@ -10,21 +10,14 @@ class Coordinates:
         self.latitude = latitude
         self.longitude = longitude
 
-class Serialize:
-    def serialize(self,latitude,longitude):
+    def serialize(self):
         """
         Serializes the coordinates into a dict.
 
         :returns: The serialized coordinates.
         :rtype: dict
         """
-        self.latitude=latitude
-        self.longitude=longitude
-
-        return {self.latitude,self.longitude}
+        return {"latitude": self.latitude, "longitude": self.longitude}
 
     def __str__(self):
         return "lat: %s, long: %s" % (self.latitude, self.longitude)
-
-latitude = Coordinates("latitude")
-longitude= Coordinates("longitude")
