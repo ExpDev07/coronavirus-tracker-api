@@ -2,17 +2,20 @@
 from ..services.location.csbs import CSBSLocationService
 from ..services.location.jhu import JhuLocationService
 from ..services.location.nyt import NYTLocationService
-from ..services.location import LocationService
 
 # Mapping of services to data-sources.
-class DATA_SOURCES:
-    data_SOURCES = {}
+DATA_SOURCES = {
+    "jhu": JhuLocationService(),
+    "csbs": CSBSLocationService(),
+    "nyt": NYTLocationService(),
+}
 
-    def data(self):
-        self.data_SOURCES['jhu'] = JhuLocationService()
-        self.data_SOURCES['csbs'] = CSBSLocationService()
-        self.data_SOURCES['nyt'] = NYTLocationService()
 
-    def data_source(self, source: str)-> LocationService:
+def data_source(source):
+    """
+    Retrieves the provided data-source service.
 
-         return self.data_SOURCES.get(source.lower())
+    :returns: The service.
+    :rtype: LocationService
+    """
+    return DATA_SOURCES.get(source.lower())
