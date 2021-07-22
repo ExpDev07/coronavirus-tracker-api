@@ -9,9 +9,9 @@ class DATA_SOURCES:
     DATA_SOURCES = {}
 
     def data(self)
-    self.data_Sources['jhu'] = JhuLocationService()
-    self.data_Sources['csbs'] = CSBSLocationService()
-    self.data_Sources['nyt'] = NYTLocationService()
+    self.DATA_SOURCES['jhu'] = JhuLocationService()
+    self.DATA_SOURCES['csbs'] = CSBSLocationService()
+    self.DATA_SOURCES['nyt'] = NYTLocationService()
 
     def data_source(self, source : str)-> LocationService:
-         return self.dataSource.get(source.lower())
+         return self.DATA_SOURCES.get(source.lower())
