@@ -52,7 +52,7 @@ async def get_locations():
         locations = cache_results
     else:
         LOGGER.info(f"{data_id} shared cache empty")
-        async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
+        async with httputils.Session.getClientSession().get(BASE_URL) as response:
             text = await response.text()
 
         LOGGER.debug(f"{data_id} Data received")
@@ -84,7 +84,8 @@ async def get_locations():
                     # Coordinates.
                     Coordinates(item["Latitude"], item["Longitude"]),
                     # Last update (parse as ISO).
-                    datetime.strptime(last_update, "%Y-%m-%d %H:%M").isoformat() + "Z",
+                    datetime.strptime(
+                        last_update, "%Y-%m-%d %H:%M").isoformat() + "Z",
                     # Statistics.
                     int(item["Confirmed"] or 0),
                     int(item["Death"] or 0),

@@ -85,7 +85,7 @@ async def get_locations():
         locations = cache_results
     else:
         LOGGER.info(f"{data_id} shared cache empty")
-        async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
+        async with httputils.Session.getClientSession().get(BASE_URL) as response:
             text = await response.text()
 
         LOGGER.debug(f"{data_id} Data received")
@@ -104,10 +104,12 @@ async def get_locations():
             # Make location history for confirmed and deaths from dates.
             # List is tuples of (date, amount) in order of increasing dates.
             confirmed_list = histories["confirmed"]
-            confirmed_history = {date: int(amount or 0) for date, amount in confirmed_list}
+            confirmed_history = {date: int(amount or 0)
+                                 for date, amount in confirmed_list}
 
             deaths_list = histories["deaths"]
-            deaths_history = {date: int(amount or 0) for date, amount in deaths_list}
+            deaths_history = {date: int(amount or 0)
+                              for date, amount in deaths_list}
 
             # Normalize the item and append to locations.
             locations.append(
@@ -115,7 +117,8 @@ async def get_locations():
                     id=idx,
                     state=county_state[1],
                     county=county_state[0],
-                    coordinates=Coordinates(None, None),  # NYT does not provide coordinates
+                    # NYT does not provide coordinates
+                    coordinates=Coordinates(None, None),
                     last_updated=datetime.utcnow().isoformat() + "Z",  # since last request
                     timelines={
                         "confirmed": Timeline(

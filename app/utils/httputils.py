@@ -6,8 +6,14 @@ from aiohttp import ClientSession
 
 class Session:
     # Singleton aiohttp.ClientSession instance.
-    CLIENT_SESSION: ClientSession
-    LOGGER = logging.getLogger(__name__)
+    __CLIENT_SESSION: ClientSession
+    __LOGGER = logging.getLogger(__name__)
+
+    def getClientSession(self):
+        return self.__CLIENT_SESSION
+
+    def getLogger(self):
+        return self.__LOGGER
 
     async def setup_client_session(self):
         """Set up the application-global aiohttp.ClientSession instance.
@@ -16,13 +22,13 @@ class Session:
         See: https://docs.aiohttp.org/en/stable/client_quickstart.html#make-a-request
 
         """
-        global CLIENT_SESSION  # pylint: disable=global-statement
-        self.LOGGER.info("Setting up global aiohttp.ClientSession.")
-        CLIENT_SESSION = ClientSession()
+        # global CLIENT_SESSION  # pylint: disable=global-statement
+        self.getLogger().info("Setting up global aiohttp.ClientSession.")
+        self.getClientSession() = ClientSession()
 
     async def teardown_client_session(self):
         """Close the application-global aiohttp.ClientSession.
         """
-        global CLIENT_SESSION  # pylint: disable=global-statement
-        self.LOGGER.info("Closing global aiohttp.ClientSession.")
-        await CLIENT_SESSION.close()
+        # global CLIENT_SESSION  # pylint: disable=global-statement
+        self.getLogger().info("Closing global aiohttp.ClientSession.")
+        await self.getClientSession().close()

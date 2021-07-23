@@ -16,7 +16,7 @@ from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 from .config import get_settings
 from .data import data_source
 from .routers import V1, V2
-from .utils.httputils import setup_client_session, teardown_client_session
+from .utils.httputils import Session
 
 # ############
 # FastAPI App
@@ -37,8 +37,8 @@ APP = FastAPI(
     version="2.0.4",
     docs_url="/",
     redoc_url="/docs",
-    on_startup=[setup_client_session],
-    on_shutdown=[teardown_client_session],
+    on_startup=[Session.setup_client_session],
+    on_shutdown=[Session.teardown_client_session],
 )
 
 # #####################

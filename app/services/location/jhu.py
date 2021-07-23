@@ -68,7 +68,7 @@ async def get_category(category):
 
         # Request the data
         LOGGER.info(f"{data_id} Requesting data...")
-        async with httputils.CLIENT_SESSION.get(url) as response:
+        async with httputils.Session.getClientSession().get(url) as response:
             text = await response.text()
 
         LOGGER.debug(f"{data_id} Data received")
@@ -82,10 +82,12 @@ async def get_category(category):
 
         for item in data:
             # Filter out all the dates.
-            dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
+            dates = dict(
+                filter(lambda element: date_util.is_date(element[0]), item.items()))
 
             # Make location history from dates.
-            history = {date: int(float(amount or 0)) for date, amount in dates.items()}
+            history = {date: int(float(amount or 0))
+                       for date, amount in dates.items()}
 
             # Country for this location.
             country = item["Country/Region"]
@@ -101,7 +103,7 @@ async def get_category(category):
                     "country_code": countries.country_code(country),
                     "province": item["Province/State"],
                     # Coordinates.
-                    "coordinates": {"lat": item["Lat"], "long": item["Long"],},
+                    "coordinates": {"lat": item["Lat"], "long": item["Long"], },
                     # History.
                     "history": history,
                     # Latest statistic.
@@ -178,7 +180,8 @@ async def get_locations():
                 location["country"],
                 location["province"],
                 # Coordinates.
-                Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
+                Coordinates(
+                    latitude=coordinates["lat"], longitude=coordinates["long"]),
                 # Last update.
                 datetime.utcnow().isoformat() + "Z",
                 # Timelines (parse dates as ISO).
