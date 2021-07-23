@@ -1,7 +1,5 @@
 """app.utils.httputils.py"""
-import logging
-
-from aiohttp import ClientSession
+import logging from aiohttp import ClientSession
 
 
 class Session:
@@ -10,11 +8,11 @@ class Session:
     __LOGGER = logging.getLogger(__name__)
 
     def getClientSession(self):
-        """returns __CLIENT_SESSION"""
+        """returns value in __CLIENT_SESSION"""
         return self.__CLIENT_SESSION
 
     def getLogger(self):
-        """returns __LOGGER"""
+        """returns value in __LOGGER"""
         return self.__LOGGER
 
     async def setup_client_session(self):
