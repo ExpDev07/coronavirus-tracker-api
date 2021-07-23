@@ -5,8 +5,9 @@ from aiohttp import ClientSession
 
 class Session:
     # Singleton aiohttp.ClientSession instance.
-    __CLIENT_SESSION: ClientSession
-    __LOGGER = logging.getLogger(__name__)
+    def __init__(self):
+        __CLIENT_SESSION: ClientSession
+        __LOGGER = logging.getLogger(__name__)
 
     def getClientSession(self):
         """returns value in __CLIENT_SESSION"""
