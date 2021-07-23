@@ -25,7 +25,7 @@ class Session:
         """
         # global CLIENT_SESSION  # pylint: disable=global-statement
         self.getLogger().info("Setting up global aiohttp.ClientSession.")
-        self.getClientSession() = ClientSession()
+        self.__CLIENT_SESSION = ClientSession()
 
     async def teardown_client_session(self):
         """Close the application-global aiohttp.ClientSession.
