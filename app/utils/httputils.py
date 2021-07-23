@@ -1,5 +1,6 @@
 """app.utils.httputils.py"""
-import logging from aiohttp import ClientSession
+import logging
+from aiohttp import ClientSession
 
 
 class Session:
