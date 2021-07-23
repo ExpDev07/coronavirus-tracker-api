@@ -4,6 +4,10 @@ from ..services.location.jhu import JhuLocationService
 from ..services.location.nyt import NYTLocationService
 
 class DataSources:
+    """
+    Class to represent the root of the aggregate containing the location services.
+    """
+
     # Mapping of services to data-sources.
     __DATA_SOURCES_MAP = {
         "jhu": JhuLocationService(),
