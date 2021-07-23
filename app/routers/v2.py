@@ -3,10 +3,11 @@ import enum
 
 from fastapi import APIRouter, HTTPException, Request
 
-from ..data import DATA_SOURCES
+from ..data import DataSources
 from ..models import LatestResponse, LocationResponse, LocationsResponse
 
 V2 = APIRouter()
+DATA_SOURCES = DataSources()
 
 
 class Sources(str, enum.Enum):
@@ -107,4 +108,4 @@ async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
     """
-    return {"sources": list(DATA_SOURCES.keys())}
+    return {"sources": list(DATA_SOURCES.get_data_sources().keys())}
