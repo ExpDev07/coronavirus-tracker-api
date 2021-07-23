@@ -18,7 +18,11 @@ class DataSources:
             "nyt": NYTLocationService(),
         }
 
-    def get_data_source(self, source):
+    def get_data_sources(self):
+        """Return the keys stored in __data_source"""
+        return self.__data_source.keys()
+
+    def get_data_source_service(self, source):
         """
         Retrieves the provided data-source service.
 

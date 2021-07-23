@@ -3,8 +3,14 @@ import enum
 
 from fastapi import APIRouter, HTTPException, Request
 
-from ..data import DATA_SOURCES
+from ..data import DataSources
 from ..models import LatestResponse, LocationResponse, LocationsResponse
+
+# ############
+# Constructing DataSources object for retriving data source services
+# ############
+dataSources = DataSources()
+
 
 V2 = APIRouter()
 
@@ -107,4 +113,4 @@ async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
     """
-    return {"sources": list(DATA_SOURCES.keys())}
+    return {"sources": list(dataSources.get_data_sources)}

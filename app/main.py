@@ -79,7 +79,7 @@ async def add_datasource(request: Request, call_next):
     Attach the data source to the request.state.
     """
     # Retrieve the datas ource from query param.
-    source = dataSources.get_data_source(
+    source = dataSources.get_data_source_service(
         request.query_params.get("source", default="jhu"))
     # Abort with 404 if source cannot be found.
     if not source:
