@@ -7,13 +7,13 @@ from app.utils import httputils
 async def test_setup_teardown_client_session():
     with pytest.raises(AttributeError):
         # Ensure client_session is undefined prior to setup
-        httputils.CLIENT_SESSION
+        testSession = httputils.Session()
 
-    await httputils.setup_client_session()
+    await testSession.setup_client_session()
 
-    assert httputils.CLIENT_SESSION
+    assert testSession.getClientSession()
 
-    await httputils.teardown_client_session()
-    assert httputils.CLIENT_SESSION.closed
+    await testSession.teardown_client_session()
+    assert testSession.getClientSession().closed
 
-    del httputils.CLIENT_SESSION
+    del testSession
