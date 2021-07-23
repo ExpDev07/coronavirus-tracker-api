@@ -1,6 +1,6 @@
 """app.locations.csbs.py"""
 from . import Location
-
+from . import Statistics
 
 class CSBSLocation(Location):
     """
@@ -8,7 +8,7 @@ class CSBSLocation(Location):
     """
 
     # pylint: disable=too-many-arguments,redefined-builtin
-    def __init__(self, id, state, county, coordinates, last_updated, confirmed, deaths):
+    def __init__(self, id, state, county, coordinates, last_updated, statistics):
         super().__init__(
             # General info.
             id,
@@ -17,8 +17,8 @@ class CSBSLocation(Location):
             coordinates,
             last_updated,
             # Statistics.
-            confirmed=confirmed,
-            deaths=deaths,
+            confirmed=statistics.confirmed,
+            deaths=statistics.deaths,
             recovered=0,
         )
 

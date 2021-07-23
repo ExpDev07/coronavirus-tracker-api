@@ -5,13 +5,22 @@ from ..utils.populations import country_population
 
 
 # pylint: disable=redefined-builtin,invalid-name
+class Statistics:
+    """
+    Statistics regarding confirmed, deaths, and recovered cases regarding a location.
+    """
+    def __init__(self, confirmed, deaths, recovered,):
+        self.confirmed = confirmed
+        self.deaths = deaths
+        self.recovered = recovered
+
 class Location:  # pylint: disable=too-many-instance-attributes
     """
     A location in the world affected by the coronavirus.
     """
 
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+        self, id, country, province, coordinates, last_updated, statistics
     ):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
@@ -23,9 +32,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         self.last_updated = last_updated
 
         # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
+        self.statistics = statistics
 
     @property
     def country_code(self):
@@ -67,9 +74,9 @@ class Location:  # pylint: disable=too-many-instance-attributes
             "last_updated": self.last_updated,
             # Latest data (statistics).
             "latest": {
-                "confirmed": self.confirmed,
-                "deaths": self.deaths,
-                "recovered": self.recovered,
+                "confirmed": self.statistics.confirmed,
+                "deaths": self.statistics.deaths,
+                "recovered": self.statistics.recovered,
             },
         }
 
