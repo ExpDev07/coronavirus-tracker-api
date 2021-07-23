@@ -13,6 +13,12 @@ from ...models import Timeline
 from ...utils import httputils
 from . import LocationService
 
+# ############
+# Creating Session Object
+# ############
+clientSession = httputils.Session()
+
+
 LOGGER = logging.getLogger("services.location.nyt")
 
 
@@ -85,7 +91,7 @@ async def get_locations():
         locations = cache_results
     else:
         LOGGER.info(f"{data_id} shared cache empty")
-        async with httputils.Session.getClientSession().get(BASE_URL) as response:
+        async with clientSession.getClientSession().get(BASE_URL) as response:
             text = await response.text()
 
         LOGGER.debug(f"{data_id} Data received")

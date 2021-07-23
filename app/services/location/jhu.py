@@ -17,6 +17,12 @@ from ...utils import date as date_util
 from ...utils import httputils
 from . import LocationService
 
+# ############
+# Creating Session Object
+# ############
+clientSession = httputils.Session()
+
+
 LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
 
@@ -68,7 +74,7 @@ async def get_category(category):
 
         # Request the data
         LOGGER.info(f"{data_id} Requesting data...")
-        async with httputils.Session.getClientSession().get(url) as response:
+        async with clientSession.getClientSession().get(url) as response:
             text = await response.text()
 
         LOGGER.debug(f"{data_id} Data received")
