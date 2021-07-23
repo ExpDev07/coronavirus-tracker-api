@@ -3,6 +3,7 @@ from ..services.location.csbs import CSBSLocationService
 from ..services.location.jhu import JhuLocationService
 from ..services.location.nyt import NYTLocationService
 
+
 class DataSources:
     """
     Class to represent the root of the aggregate containing the location services.
