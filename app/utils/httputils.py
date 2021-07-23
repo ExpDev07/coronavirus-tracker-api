@@ -10,9 +10,11 @@ class Session:
     __LOGGER = logging.getLogger(__name__)
 
     def getClientSession(self):
+        """returns __CLIENT_SESSION"""
         return self.__CLIENT_SESSION
 
     def getLogger(self):
+        """returns __LOGGER"""
         return self.__LOGGER
 
     async def setup_client_session(self):
