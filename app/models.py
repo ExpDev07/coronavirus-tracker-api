@@ -22,40 +22,35 @@ class LatestResponse(BaseModel):
     latest: Latest
 
 
-class Timeline(BaseModel):
-    """
-    Timeline model.
-    """
+class Timeline(basemodel):  
 
-    timeline: Dict[str, int] = {}
+  def __init__(self, timeline):  
 
-    @validator("timeline")
-    @classmethod
-    def sort_timeline(cls, value):
-        """Sort the timeline history before inserting into the model"""
-        return dict(sorted(value.items()))
+   self.timeline = timeline  
 
-    @property
-    def latest(self):
-        """Get latest available history value."""
-        return list(self.timeline.values())[-1] if self.timeline else 0
+ 
 
-    def serialize(self):
-        """
-        Serialize the model into dict
-        TODO: override dict() instead of using serialize
-        """
-        return {**self.dict(), "latest": self.latest}
+class Timelines(basemodel):  
 
+  def __init__(self, confirmed, deaths, recovered):  
 
-class Timelines(BaseModel):
-    """
-    Timelines model.
-    """
+   self.confirmed = confirmed  
 
-    confirmed: Timeline
-    deaths: Timeline
-    recovered: Timeline
+   self.deaths = deaths  
+
+   self.recovered = recovered  
+
+ 
+
+  if __name__ == "__main__":  
+
+   confirm = Timeline({'Sat':10, 'Wed':20})  
+
+   death = Timeline({'Sat':10, 'Wed':20}) 
+
+   recovered = Timeline({'Sat':10, 'Wed':20})  
+
+   timelines_1 = Timelines(confirm, death, recovered) 
 
 
 class Location(BaseModel):

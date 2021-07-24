@@ -2,7 +2,7 @@
 
 
 class Coordinates:
-    """
+     """
     A position on earth using decimal coordinates (latitude and longitude).
     """
 
@@ -13,7 +13,6 @@ class Coordinates:
     def serialize(self):
         """
         Serializes the coordinates into a dict.
-
         :returns: The serialized coordinates.
         :rtype: dict
         """
@@ -21,3 +20,4 @@ class Coordinates:
 
     def __str__(self):
         return "lat: %s, long: %s" % (self.latitude, self.longitude)
+© 2021 GitHub, Inc.
