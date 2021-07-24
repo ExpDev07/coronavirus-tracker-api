@@ -10,6 +10,7 @@ from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
 from ...utils import httputils
+from ...utils.data_urls import DataURLs
 from . import LocationService
 
 LOGGER = logging.getLogger("services.location.csbs")
@@ -31,10 +32,6 @@ class CSBSLocationService(LocationService):
         return locations[loc_id]
 
 
-# Base URL for fetching data
-BASE_URL = "https://facts.csbs.org/covid-19/covid19_county.csv"
-
-
 @cached(cache=TTLCache(maxsize=1, ttl=1800))
 async def get_locations():
     """
@@ -52,7 +49,7 @@ async def get_locations():
         locations = cache_results
     else:
         LOGGER.info(f"{data_id} shared cache empty")
-        async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
+        async with httputils.CLIENT_SESSION.get(DataURLs.CSBS) as response:
             text = await response.text()
 
         LOGGER.debug(f"{data_id} Data received")
