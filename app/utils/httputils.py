@@ -44,4 +44,4 @@ class Session:
         self.reassignLogger()
         self.__LOGGER.info("Closing global aiohttp.ClientSession.")
         await CLIENT_SESSION.close()
-        self.reassignClientSession(self)
+        self.reassignClientSession()
