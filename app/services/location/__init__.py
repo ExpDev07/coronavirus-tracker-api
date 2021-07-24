@@ -2,6 +2,13 @@
 from abc import ABC, abstractmethod
 
 
+class LocationServices:
+    def __init__(self,location_services: list[LocationService]):
+        self.location_services = location_services
+
+    def add_service(self,location_service):
+        self.location_services.append(location_service)
+
 class LocationService(ABC):
     """
     Service for retrieving locations.
