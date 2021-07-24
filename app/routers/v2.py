@@ -3,7 +3,6 @@ import enum
 
 from fastapi import APIRouter, HTTPException, Request
 
-from ..data import DATA_SOURCES
 from ..models import LatestResponse, LocationResponse, LocationsResponse
 
 V2 = APIRouter()
@@ -26,7 +25,7 @@ async def get_latest(
     """
     Getting latest amount of total confirmed cases, deaths, and recoveries.
     """
-    locations = await request.state.source.get_all()
+    locations = await request.state.source.get_service().get_all()
     return {
         "latest": {
             "confirmed": sum(map(lambda location: location.confirmed, locations)),
@@ -57,7 +56,7 @@ async def get_locations(
     params.pop("timelines", None)
 
     # Retrieve all the locations.
-    locations = await request.state.source.get_all()
+    locations = await request.state.source.get_service().get_all()
 
     # Attempt to filter out locations with properties matching the provided query params.
     for key, value in params.items():
@@ -98,7 +97,7 @@ async def get_location_by_id(
     """
     Getting specific location by id.
     """
-    location = await request.state.source.get(id)
+    location = await request.state.source.get_service().get(id)
     return {"location": location.serialize(timelines)}
 
 
@@ -107,4 +106,4 @@ async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
     """
-    return {"sources": list(DATA_SOURCES.keys())}
+    return {"sources": [source.value for source in Sources]}

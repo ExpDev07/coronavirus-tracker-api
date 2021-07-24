@@ -14,7 +14,7 @@ from scout_apm.async_.starlette import ScoutMiddleware
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
 from .config import get_settings
-from .data import data_source
+from .data import Source
 from .routers import V1, V2
 from .utils.httputils import setup_client_session, teardown_client_session
 
@@ -74,10 +74,10 @@ async def add_datasource(request: Request, call_next):
     Attach the data source to the request.state.
     """
     # Retrieve the datas ource from query param.
-    source = data_source(request.query_params.get("source", default="jhu"))
+    source = Source(request.query_params.get("source", default="jhu"))
 
     # Abort with 404 if source cannot be found.
-    if not source:
+    if not source.get_service():
         return Response("The provided data-source was not found.", status_code=404)
 
     # Attach source to request.
