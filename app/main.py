@@ -15,7 +15,7 @@ from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
 from .config import get_settings
 from .data import data_source
-from .routers import V1, V2
+from .routers import V1, V2, V3
 from .utils.httputils import setup_client_session, teardown_client_session
 
 # ############
@@ -34,7 +34,7 @@ APP = FastAPI(
         "API for tracking the global coronavirus (COVID-19, SARS-CoV-2) outbreak."
         " Project page: https://github.com/ExpDev07/coronavirus-tracker-api."
     ),
-    version="2.0.4",
+    version="3.0.0",
     docs_url="/",
     redoc_url="/docs",
     on_startup=[setup_client_session],
@@ -112,6 +112,7 @@ async def handle_validation_error(
 # Include routers.
 APP.include_router(V1, prefix="", tags=["v1"])
 APP.include_router(V2, prefix="/v2", tags=["v2"])
+APP.include_router(V3, prefix="/v3", tags=["v3"])
 
 
 # Running of app.
