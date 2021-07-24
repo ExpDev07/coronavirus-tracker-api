@@ -9,6 +9,9 @@ class LocationServices:
     def add_service(self,location_service):
         self.location_services.append(location_service)
 
+    def get_service(self):
+        return location_services
+
 class LocationService(ABC):
     """
     Service for retrieving locations.
