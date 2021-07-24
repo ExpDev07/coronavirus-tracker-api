@@ -26,3 +26,10 @@ class LocationService(ABC):
         :rtype: Location
         """
         raise NotImplementedError
+
+class BASE_URLs(str):
+    csbs = "https://facts.csbs.org/covid-19/covid19_county.csv"
+    jhu = "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
+    nyt = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+
+
