@@ -28,7 +28,7 @@ async def all_categories():
 
 
 @V1.get("/confirmed")
-async def get_confirmed():
+async def get_confirmed(self):
     """Confirmed cases."""
     confirmed_data = int(self.all_categories.confirmed)
 
@@ -36,7 +36,7 @@ async def get_confirmed():
 
 
 @V1.get("/deaths")
-async def get_deaths():
+async def get_deaths(self):
     """Total deaths."""
     deaths_data = int(self.all_categories.deaths)
 
@@ -44,7 +44,7 @@ async def get_deaths():
 
 
 @V1.get("/recovered")
-async def get_recovered():
+async def get_recovered(self):
     """Recovered cases."""
     recovered_data = int(self.all_categories.recovered)
 
