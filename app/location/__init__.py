@@ -3,6 +3,23 @@ from ..coordinates import Coordinates
 from ..utils import countries
 from ..utils.populations import country_population
 
+# put confirmed cases, deaths cases, recovered cases into one class
+# Inseated of using confirmed cases, deaths cases, recovered cases as attributes, we can use CaseNumbers class instance as attribute
+class CaseNumbers:
+    def __init__(self, confirmed = 0, deaths = 0, recovered = 0):
+        self.confirmed = confirmed
+        self.deaths = deaths
+        self.recovered = recovered
+
+class Locationinfo:
+    def __init__(self, id, country, province, coordinates):
+        self.id = id
+        self.country = country.strip()
+        self.province = province.strip()
+        self.coordinates = coordinates
+
+
+
 
 # pylint: disable=redefined-builtin,invalid-name
 class Location:  # pylint: disable=too-many-instance-attributes
@@ -10,22 +27,18 @@ class Location:  # pylint: disable=too-many-instance-attributes
     A location in the world affected by the coronavirus.
     """
 
+    # Use instance of class CaseNumbers as attribute
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+        self, locationinfo, last_updated, casenumbers
     ):  # pylint: disable=too-many-arguments
         # General info.
-        self.id = id
-        self.country = country.strip()
-        self.province = province.strip()
-        self.coordinates = coordinates
+        self.locationinfo = locationinfo
 
         # Last update.
         self.last_updated = last_updated
 
         # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
+        self.casenumbers = casenumbers
 
     @property
     def country_code(self):
@@ -67,9 +80,9 @@ class Location:  # pylint: disable=too-many-instance-attributes
             "last_updated": self.last_updated,
             # Latest data (statistics).
             "latest": {
-                "confirmed": self.confirmed,
-                "deaths": self.deaths,
-                "recovered": self.recovered,
+                "confirmed": self.casenumbers.confirmed,
+                "deaths": self.casenumbers.deaths,
+                "recovered": self.casenumbers.recovered,
             },
         }
 
@@ -80,7 +93,7 @@ class TimelinedLocation(Location):
     """
 
     # pylint: disable=too-many-arguments
-    def __init__(self, id, country, province, coordinates, last_updated, timelines):
+    def __init__(self, id, country, province, coordinates, last_updated, timelines, casenumbers):
         super().__init__(
             # General info.
             id,
@@ -89,11 +102,15 @@ class TimelinedLocation(Location):
             coordinates,
             last_updated,
             # Statistics (retrieve latest from timelines).
-            confirmed=timelines.get("confirmed").latest or 0,
-            deaths=timelines.get("deaths").latest or 0,
-            recovered=timelines.get("recovered").latest or 0,
+            casenumbers
+            #confirmed=timelines.get("confirmed").latest or 0,
+            #deaths=timelines.get("deaths").latest or 0,
+            #recovered=timelines.get("recovered").latest or 0,
         )
-
+        #set case numbers
+        self.casenumbers.confirmed=timelines.get("confirmed").latest or 0
+        self.casenumbers.deaths=timelines.get("deaths").latest or 0
+        self.casenumbers.recovered=timelines.get("recovered").latest or 0
         # Set timelines.
         self.timelines = timelines
 
