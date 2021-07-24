@@ -8,7 +8,8 @@ from cachetools import TTLCache
 
 from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
-from ...location.csbs import CSBSLocation
+from ...location.location_root import LocationRoot
+#from ...location.csbs import CSBSLocation
 from ...utils import httputils
 from . import LocationService
 
@@ -74,21 +75,25 @@ async def get_locations():
             # Date string without "EDT" at end.
             last_update = " ".join(item["Last Update"].split(" ")[0:2])
 
+            #access location aggregate root, and append it to locations.
+            location_csbs = LocationRoot()
+            location_csbs.set_csbs(
+                # General info.
+                i,
+                state,
+                county,
+                # Coordinates.
+                Coordinates(item["Latitude"], item["Longitude"]),
+                # Last update (parse as ISO).
+                datetime.strptime(last_update, "%Y-%m-%d %H:%M").isoformat() + "Z",
+                # Statistics.
+                int(item["Confirmed"] or 0),
+                int(item["Death"] or 0),
+            )
+            #location.method(args)
             # Append to locations.
             locations.append(
-                CSBSLocation(
-                    # General info.
-                    i,
-                    state,
-                    county,
-                    # Coordinates.
-                    Coordinates(item["Latitude"], item["Longitude"]),
-                    # Last update (parse as ISO).
-                    datetime.strptime(last_update, "%Y-%m-%d %H:%M").isoformat() + "Z",
-                    # Statistics.
-                    int(item["Confirmed"] or 0),
-                    int(item["Death"] or 0),
-                )
+                location_csbs.location
             )
         LOGGER.info(f"{data_id} Data normalized")
         # save the results to distributed cache

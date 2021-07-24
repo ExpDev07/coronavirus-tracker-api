@@ -8,7 +8,8 @@ from cachetools import TTLCache
 
 from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
-from ...location.nyt import NYTLocation
+#from ...location.nyt import NYTLocation
+from ...location.location_root import LocationRoot
 from ...models import Timeline
 from ...utils import httputils
 from . import LocationService
@@ -109,30 +110,34 @@ async def get_locations():
             deaths_list = histories["deaths"]
             deaths_history = {date: int(amount or 0) for date, amount in deaths_list}
 
+            #access location aggregate root, and append it to locations.
+            location_nyt = LocationRoot()
+            location_nyt.set_nyt(
+                id=idx,
+                state=county_state[1],
+                county=county_state[0],
+                coordinates=Coordinates(None, None),  # NYT does not provide coordinates
+                last_updated=datetime.utcnow().isoformat() + "Z",  # since last request
+                timelines={
+                    "confirmed": Timeline(
+                        timeline={
+                            datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
+                            for date, amount in confirmed_history.items()
+                        }
+                    ),
+                    "deaths": Timeline(
+                        timeline={
+                            datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
+                            for date, amount in deaths_history.items()
+                        }
+                    ),
+                    "recovered": Timeline(),
+                },
+            )
+
             # Normalize the item and append to locations.
             locations.append(
-                NYTLocation(
-                    id=idx,
-                    state=county_state[1],
-                    county=county_state[0],
-                    coordinates=Coordinates(None, None),  # NYT does not provide coordinates
-                    last_updated=datetime.utcnow().isoformat() + "Z",  # since last request
-                    timelines={
-                        "confirmed": Timeline(
-                            timeline={
-                                datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
-                                for date, amount in confirmed_history.items()
-                            }
-                        ),
-                        "deaths": Timeline(
-                            timeline={
-                                datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
-                                for date, amount in deaths_history.items()
-                            }
-                        ),
-                        "recovered": Timeline(),
-                    },
-                )
+                location_nyt.location
             )
         LOGGER.info(f"{data_id} Data normalized")
         # save the results to distributed cache
