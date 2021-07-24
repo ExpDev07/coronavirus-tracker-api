@@ -3,30 +3,14 @@ from ..coordinates import Coordinates
 from ..utils import countries
 from ..utils.populations import country_population
 
+class Country:
+    def __init__(self, id, country, province, coordinates):
 
-# pylint: disable=redefined-builtin,invalid-name
-class Location:  # pylint: disable=too-many-instance-attributes
-    """
-    A location in the world affected by the coronavirus.
-    """
-
-    def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
-    ):  # pylint: disable=too-many-arguments
-        # General info.
         self.id = id
         self.country = country.strip()
         self.province = province.strip()
         self.coordinates = coordinates
-
-        # Last update.
-        self.last_updated = last_updated
-
-        # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
-
+        
     @property
     def country_code(self):
         """
@@ -47,6 +31,23 @@ class Location:  # pylint: disable=too-many-instance-attributes
         """
         return country_population(self.country_code)
 
+
+# pylint: disable=redefined-builtin,invalid-name
+class Location:  # pylint: disable=too-many-instance-attributes
+    """
+    A location in the world affected by the coronavirus.
+    """
+
+    def __init__(self, last_updated, confirmed, deaths, recovered):  # pylint: disable=too-many-arguments
+
+        # Last update.
+        self.last_updated = last_updated
+
+        # Statistics.
+        self.confirmed = confirmed
+        self.deaths = deaths
+        self.recovered = recovered
+
     def serialize(self):
         """
         Serializes the location into a dict.
@@ -54,6 +55,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         :returns: The serialized location.
         :rtype: dict
         """
+        
         return {
             # General info.
             "id": self.id,
