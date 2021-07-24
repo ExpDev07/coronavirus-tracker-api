@@ -3,7 +3,7 @@ import enum
 
 from fastapi import APIRouter, HTTPException, Request
 
-from ..data import DATA_SOURCES
+from ..data import Source
 from ..models import LatestResponse, LocationResponse, LocationsResponse
 
 V2 = APIRouter()
@@ -101,10 +101,10 @@ async def get_location_by_id(
     location = await request.state.source.get(id)
     return {"location": location.serialize(timelines)}
 
-
+SOURCE = Source()
 @V2.get("/sources")
 async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
     """
-    return {"sources": list(DATA_SOURCES.keys())}
+    return {"sources": list(SOURCE.all_data_source)}
