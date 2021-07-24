@@ -2,7 +2,7 @@
 import enum
 
 from fastapi import APIRouter, HTTPException, Request
-
+from ..services import ServiceRoot
 from ..data import DATA_SOURCES
 from ..models import LatestResponse, LocationResponse, LocationsResponse
 
@@ -26,7 +26,11 @@ async def get_latest(
     """
     Getting latest amount of total confirmed cases, deaths, and recoveries.
     """
-    locations = await request.state.source.get_all()
+
+    #service root for aggregate pattern
+    service = ServiceRoot(source)
+
+    locations = await service.get_all()
     return {
         "latest": {
             "confirmed": sum(map(lambda location: location.confirmed, locations)),
@@ -56,8 +60,10 @@ async def get_locations(
     params.pop("source", None)
     params.pop("timelines", None)
 
+    service = ServiceRoot(source)
+
     # Retrieve all the locations.
-    locations = await request.state.source.get_all()
+    locations = await service.get_all()
 
     # Attempt to filter out locations with properties matching the provided query params.
     for key, value in params.items():
@@ -98,7 +104,12 @@ async def get_location_by_id(
     """
     Getting specific location by id.
     """
-    location = await request.state.source.get(id)
+
+    #aggregate root for service layer
+    service = ServiceRoot(source)
+
+    # Retrieve location.
+    location = await service.get(id)
     return {"location": location.serialize(timelines)}
 
 
