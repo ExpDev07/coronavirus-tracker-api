@@ -1,23 +1,18 @@
 """app.coordinates.py"""
 
+class Coordinates:  
+def __init__(self, lat_long):  
+self.lat_long = lat_long  
 
-class Coordinates:
-     """
-    A position on earth using decimal coordinates (latitude and longitude).
-    """
+if __name__ == "__main__":  
+us_lat, us_long = 45, 60  
+us = Point(us_lat, us_long) 
+us_coord = Coorinates(us) 
 
-    def __init__(self, latitude, longitude):
-        self.latitude = latitude
-        self.longitude = longitude
 
-    def serialize(self):
-        """
-        Serializes the coordinates into a dict.
-        :returns: The serialized coordinates.
-        :rtype: dict
-        """
-        return {"latitude": self.latitude, "longitude": self.longitude}
 
-    def __str__(self):
-        return "lat: %s, long: %s" % (self.latitude, self.longitude)
-© 2021 GitHub, Inc.
+class Point:  
+
+def __init__(self, x, y):  
+self.x = x  
+self.y = y  
