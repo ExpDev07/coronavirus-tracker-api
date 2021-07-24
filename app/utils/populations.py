@@ -36,10 +36,10 @@ def fetch_populations(save=False):
             mappings.update({country["countryCode"]: int(country["population"]) or None})
 
         if mappings and save:
-            LOGGER.info(f"Saving population data to {app.io.save(GEONAMES_BACKUP_PATH, mappings)}")
+            LOGGER.info(f"Saving population data to {app.io.IO.save(GEONAMES_BACKUP_PATH, mappings)}")
     except (json.JSONDecodeError, KeyError, requests.exceptions.Timeout) as err:
         LOGGER.warning(f"Error pulling population data. {err.__class__.__name__}: {err}")
-        mappings = app.io.load(GEONAMES_BACKUP_PATH)
+        mappings = app.io.IO.load(GEONAMES_BACKUP_PATH)
         LOGGER.info(f"Using backup data from {GEONAMES_BACKUP_PATH}")
     # Finally, return the mappings.
     LOGGER.info("Fetched populations")

@@ -24,7 +24,7 @@ def test_save(tmp_path, name, content, kwargs):
     test_path = tmp_path / name
     assert not test_path.exists()
 
-    result = app.io.save(test_path, content, **kwargs)
+    result = app.io.IO.save(test_path, content, **kwargs)
     assert result == test_path
     assert test_path.exists()
 
@@ -34,8 +34,8 @@ def test_round_trip(tmp_path, name, content, kwargs):
     test_path = tmp_path / name
     assert not test_path.exists()
 
-    app.io.save(test_path, content, **kwargs)
-    assert app.io.load(test_path) == content
+    app.io.IO.save(test_path, content, **kwargs)
+    assert app.io.IO.load(test_path) == content
 
 
 @pytest.mark.asyncio
@@ -44,7 +44,7 @@ async def test_async_save(tmp_path, name, content, kwargs):
     test_path = tmp_path / name
     assert not test_path.exists()
 
-    result = await app.io.AIO.save(test_path, content, **kwargs)
+    result = await app.io.IO.async_save(test_path, content, **kwargs)
     assert result == test_path
     assert test_path.exists()
 
@@ -55,6 +55,6 @@ async def test_async_round_trip(tmp_path, name, content, kwargs):
     test_path = tmp_path / name
     assert not test_path.exists()
 
-    await app.io.AIO.save(test_path, content, **kwargs)
-    load_results = await app.io.AIO.load(test_path)
+    await app.io.IO.async_save(test_path, content, **kwargs)
+    load_results = await app.io.IO.async_load(test_path)
     assert load_results == content
