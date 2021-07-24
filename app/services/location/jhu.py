@@ -2,7 +2,7 @@
 import csv
 import logging
 import os
-from datetime import datetime
+from datetime import date, datetime
 from pprint import pformat as pf
 
 from asyncache import cached
@@ -12,7 +12,7 @@ from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location import TimelinedLocation
 from ...models import Timeline
-from ...utils import countries
+from ...utils.countries import CountryCode
 from ...utils import date as date_util
 from ...utils import httputils
 from . import LocationService
@@ -82,32 +82,30 @@ async def get_category(category):
 
         for item in data:
             # Filter out all the dates.
-            dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
+            dates = dict(
+                filter(lambda element: date_util.is_date(element[0]), item.items()))
 
             # Make location history from dates.
-            history = {date: int(float(amount or 0)) for date, amount in dates.items()}
+            history = History(dates)
 
             # Country for this location.
             country = item["Country/Region"]
 
-            # Latest data insert value.
-            latest = list(history.values())[-1]
+            # Country Code for this location
+            countryCode = CountryCode(country)
+
+            # lat long
+            latLong = LatLong(item)
+
+            # current location
+            currLoaction = Location(
+                country, countryCode, latLong, history).getJsonObject()
 
             # Normalize the item and append to locations.
             locations.append(
-                {
-                    # General info.
-                    "country": country,
-                    "country_code": countries.country_code(country),
-                    "province": item["Province/State"],
-                    # Coordinates.
-                    "coordinates": {"lat": item["Lat"], "long": item["Long"],},
-                    # History.
-                    "history": history,
-                    # Latest statistic.
-                    "latest": int(latest or 0),
-                }
+                currLoaction
             )
+
         LOGGER.debug(f"{data_id} Data normalized")
 
         # Latest total.
@@ -125,6 +123,40 @@ async def get_category(category):
 
     LOGGER.info(f"{data_id} results:\n{pf(results, depth=1)}")
     return results
+
+
+class LatLong():
+    def __init__(self, item):
+        self.lat = item["Lat"]
+        self.long = item["Long"]
+
+
+class History:
+    def __init__(self, dates):
+        self.value = {date: int(float(amount or 0))
+                      for date, amount in dates.items()}
+        self.latest = list(self.value.values())[-1]
+
+
+class Location:
+    def __init__(self, coutrny, countryCode: CountryCode, latLong: LatLong, history: History):
+        self.country = coutrny
+        self.countryCode = countryCode
+        self.latLong = latLong
+        self.history = history
+
+    def getJsonObject(self):
+        return {
+            # General info.
+            "country": self.country,
+            "country_code": self.countryCode.code,
+            # Coordinates.
+            "coordinates": {"lat": self.latLong.lat, "long": self.latLong.long},
+            # History.
+            "history": self.history.value,
+            # Latest statistic.
+            "latest": int(self.history.latest or 0),
+        }
 
 
 @cached(cache=TTLCache(maxsize=1, ttl=1800))
@@ -178,7 +210,8 @@ async def get_locations():
                 location["country"],
                 location["province"],
                 # Coordinates.
-                Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
+                Coordinates(
+                    latitude=coordinates["lat"], longitude=coordinates["long"]),
                 # Last update.
                 datetime.utcnow().isoformat() + "Z",
                 # Timelines (parse dates as ISO).
