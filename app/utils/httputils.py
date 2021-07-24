@@ -7,24 +7,36 @@ from aiohttp import ClientSession
 CLIENT_SESSION: ClientSession
 
 
-LOGGER = logging.getLogger(__name__)
+# LOGGER = logging.getLogger(__name__)
 
 
-async def setup_client_session():
-    """Set up the application-global aiohttp.ClientSession instance.
+class Session:
+    def _init_(self):
+        self.__CLIENT_SESSION = CLIENT_SESSION
+        self.__LOGGER = logging.getLogger(__name__)
 
-    aiohttp recommends that only one ClientSession exist for the lifetime of an application.
-    See: https://docs.aiohttp.org/en/stable/client_quickstart.html#make-a-request
+    def getClientSession(self):
+        return self.__CLIENT_SESSION
 
-    """
-    global CLIENT_SESSION  # pylint: disable=global-statement
-    LOGGER.info("Setting up global aiohttp.ClientSession.")
-    CLIENT_SESSION = ClientSession()
+    def reassignClientSession(self):
+        self.__CLIENT_SESSION = CLIENT_SESSION  # reassign to updated CLIENT_SESSION
 
+    async def setup_client_session(self):
+        """Set up the application-global aiohttp.ClientSession instance.
 
-async def teardown_client_session():
-    """Close the application-global aiohttp.ClientSession.
-    """
-    global CLIENT_SESSION  # pylint: disable=global-statement
-    LOGGER.info("Closing global aiohttp.ClientSession.")
-    await CLIENT_SESSION.close()
+        aiohttp recommends that only one ClientSession exist for the lifetime of an application.
+        See: https://docs.aiohttp.org/en/stable/client_quickstart.html#make-a-request
+
+        """
+        global CLIENT_SESSION  # pylint: disable=global-statement
+        self.__LOGGER.info("Setting up global aiohttp.ClientSession.")
+        CLIENT_SESSION = ClientSession()
+        self.reassignClientSession(self)
+
+    async def teardown_client_session(self):
+        """Close the application-global aiohttp.ClientSession.
+        """
+        global CLIENT_SESSION  # pylint: disable=global-statement
+        self.__LOGGER.info("Closing global aiohttp.ClientSession.")
+        await CLIENT_SESSION.close()
+        self.reassignClientSession(self)
