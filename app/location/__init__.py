@@ -74,14 +74,14 @@ class Location:  # pylint: disable=too-many-instance-attributes
         }
 
 
-class TimelinedLocation(Location):
+class TimelinedLocation:
     """
     A location with timelines.
     """
 
     # pylint: disable=too-many-arguments
-    def __init__(self, id, country, province, coordinates, last_updated, timelines):
-        super().__init__(
+    def __init__(self, id, country, province, coordinates, last_updated, timelines, location):
+        Location.__init__(
             # General info.
             id,
             country,
@@ -96,6 +96,7 @@ class TimelinedLocation(Location):
 
         # Set timelines.
         self.timelines = timelines
+        self.location  = Location
 
     # pylint: disable=arguments-differ
     def serialize(self, timelines=False):

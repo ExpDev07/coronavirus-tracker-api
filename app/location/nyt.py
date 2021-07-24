@@ -2,17 +2,18 @@
 from . import TimelinedLocation
 
 
-class NYTLocation(TimelinedLocation):
+class NYTLocation:
     """
     A NYT (county) Timelinedlocation.
     """
 
     # pylint: disable=too-many-arguments,redefined-builtin
-    def __init__(self, id, state, county, coordinates, last_updated, timelines):
-        super().__init__(id, "US", state, coordinates, last_updated, timelines)
+    def __init__(self, id, state, county, coordinates, last_updated, timelines, timelinedLocation):
+        TimelinedLocation.__init__(id, "US", state, coordinates, last_updated, timelines)
 
         self.state = state
         self.county = county
+        self.timelinedLocation = TimelinedLocation
 
     def serialize(self, timelines=False):  # pylint: disable=arguments-differ,unused-argument
         """
