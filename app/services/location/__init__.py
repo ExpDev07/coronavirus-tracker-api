@@ -32,6 +32,7 @@ class LocationGateway(ABC):
     """
     real processing for all kinds of locations
     """
+
     @abstractmethod
     async def get_locations(self):
         """
