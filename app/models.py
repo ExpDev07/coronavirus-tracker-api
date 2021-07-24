@@ -22,6 +22,12 @@ class LatestResponse(BaseModel):
     latest: Latest
 
 
+class ClientResponse_Latest:
+    def __init__(self, basemodel):
+        self.obj_basemodel = BaseModel
+
+
+
 class Timeline(BaseModel):
     """
     Timeline model.
