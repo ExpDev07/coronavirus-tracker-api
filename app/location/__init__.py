@@ -11,7 +11,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
     """
 
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+        self, id, country, province, coordinates, last_updated, latest
     ):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
@@ -23,9 +23,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         self.last_updated = last_updated
 
         # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
+        self.latest
 
     @property
     def country_code(self):
@@ -66,11 +64,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
             # Last updated.
             "last_updated": self.last_updated,
             # Latest data (statistics).
-            "latest": {
-                "confirmed": self.confirmed,
-                "deaths": self.deaths,
-                "recovered": self.recovered,
-            },
+            "latest": self.latest.serialize(),,
         }
 
 

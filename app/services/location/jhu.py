@@ -182,26 +182,26 @@ async def get_locations():
                 # Last update.
                 datetime.utcnow().isoformat() + "Z",
                 # Timelines (parse dates as ISO).
-                {
-                    "confirmed": Timeline(
+                Latest(
+                    confirmed = Timeline(
                         timeline={
                             datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
                             for date, amount in timelines["confirmed"].items()
                         }
                     ),
-                    "deaths": Timeline(
+                    deaths = Timeline(
                         timeline={
                             datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
                             for date, amount in timelines["deaths"].items()
                         }
                     ),
-                    "recovered": Timeline(
+                    recovered = Timeline(
                         timeline={
                             datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
                             for date, amount in timelines["recovered"].items()
                         }
                     ),
-                },
+                )
             )
         )
     LOGGER.info(f"{data_id} Data normalized")
