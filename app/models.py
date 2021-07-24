@@ -4,6 +4,7 @@ from typing import Dict, List
 from pydantic import BaseModel, validator
 
 
+
 class Latest(BaseModel):
     """
     Latest model.
