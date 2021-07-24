@@ -26,3 +26,15 @@ class LocationService(ABC):
         :rtype: Location
         """
         raise NotImplementedError
+
+
+class LocationGateway(ABC):
+    """
+    real processing for all kinds of locations
+    """
+    @abstractmethod
+    async def get_locations(self):
+        """
+        parse all locations from the datasource
+        """
+        raise NotImplementedError
