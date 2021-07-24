@@ -15,7 +15,7 @@ from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
 from .config import get_settings
 from .data import data_source
-from .routers import V1, V2
+from .routers import Version_1, Version_2
 from .utils.httputils import setup_client_session, teardown_client_session
 
 # ############
@@ -110,8 +110,8 @@ async def handle_validation_error(
 
 
 # Include routers.
-APP.include_router(V1, prefix="", tags=["v1"])
-APP.include_router(V2, prefix="/v2", tags=["v2"])
+APP.include_router(Version_1, prefix="", tags=["v1"])
+APP.include_router(Version_2, prefix="/v2", tags=["v2"])
 
 
 # Running of app.
