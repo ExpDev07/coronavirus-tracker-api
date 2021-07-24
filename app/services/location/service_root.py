@@ -1,4 +1,6 @@
-
+from jhu import JHULocationService
+from nyt import NYTLocationService
+from csbs import CSBSLocationService
 
 class ServiceRoot:
 
