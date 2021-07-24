@@ -51,9 +51,10 @@ async def get_recovered():
     return recovered_data
 
 
+
     class PositivityRate:
 
         async def total_positivity_rate():
             total_test: int
-            p_rate = float(get_confirmed()/total_test)*100
+            p_rate = float((confirmed_data/total_test)*100)
             return p_rate
