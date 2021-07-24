@@ -27,7 +27,7 @@ def mocked_csbs_requests_get(*args, **kwargs):
 
 @pytest.mark.asyncio
 async def test_get_locations(mock_client_session):
-    data = await csbs.get_locations()
+    data = await csbs.CSBSLocationService().get_locations()
 
     assert isinstance(data, list)
 
