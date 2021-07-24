@@ -10,7 +10,7 @@ LOGGER = logging.getLogger(__name__)
 GEONAMES_URL = "http://api.geonames.org/countryInfoJSON"
 GEONAMES_BACKUP_PATH = "geonames_population_mappings.json"
 
-class population:
+class Population:
 # Fetching of the populations.
   def fetch_populations(save=False):
       """
@@ -58,4 +58,4 @@ class population:
       :returns: The population.
       :rtype: int
       """
-      return POPULATIONS.get(country_code, default)
+      return Population.POPULATIONS.get(country_code, default)
