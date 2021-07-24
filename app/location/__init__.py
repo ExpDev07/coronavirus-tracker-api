@@ -1,6 +1,6 @@
 """app.location"""
 from ..coordinates import Coordinates
-from ..utils import countries
+from ..utils.countries import CountryCodeUtil
 from ..utils.populations import country_population
 
 
@@ -9,6 +9,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
     """
     A location in the world affected by the coronavirus.
     """
+    country_code_util = CountryCodeUtil()
 
     def __init__(
         self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
@@ -31,17 +32,15 @@ class Location:  # pylint: disable=too-many-instance-attributes
     def country_code(self):
         """
         Gets the alpha-2 code represention of the country. Returns 'XX' if none is found.
-
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
+        return (country_code_util.get_country_code(self.country) or country_code_util.DEFAULT_COUNTRY_CODE).upper()
 
     @property
     def country_population(self):
         """
         Gets the population of this location.
-
         :returns: The population.
         :rtype: int
         """
@@ -50,7 +49,6 @@ class Location:  # pylint: disable=too-many-instance-attributes
     def serialize(self):
         """
         Serializes the location into a dict.
-
         :returns: The serialized location.
         :rtype: dict
         """
@@ -101,7 +99,6 @@ class TimelinedLocation(Location):
     def serialize(self, timelines=False):
         """
         Serializes the location into a dict.
-
         :param timelines: Whether to include the timelines.
         :returns: The serialized location.
         :rtype: dict
@@ -122,3 +119,4 @@ class TimelinedLocation(Location):
 
         # Return the serialized location.
         return serialized
+
