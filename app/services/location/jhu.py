@@ -12,7 +12,7 @@ from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location import TimelinedLocation
 from ...models import Timeline
-from ...utils import countries
+from ...utils import Country
 from ...utils import date as date_util
 from ...utils import httputils
 from . import LocationService
@@ -98,7 +98,7 @@ async def get_category(category):
                 {
                     # General info.
                     "country": country,
-                    "country_code": countries.country_code(country),
+                    "country_code": Country().country_code(country),
                     "province": item["Province/State"],
                     # Coordinates.
                     "coordinates": {"lat": item["Lat"], "long": item["Long"],},

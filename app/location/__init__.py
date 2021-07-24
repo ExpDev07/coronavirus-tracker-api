@@ -1,8 +1,6 @@
 """app.location"""
 from ..coordinates import Coordinates
-from ..utils import countries
-from ..utils.populations import country_population
-
+from ..utils import Country
 
 # pylint: disable=redefined-builtin,invalid-name
 class Location:  # pylint: disable=too-many-instance-attributes
@@ -11,12 +9,12 @@ class Location:  # pylint: disable=too-many-instance-attributes
     """
 
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+        self, id, country, coordinates, last_updated, confirmed, deaths, recovered,
     ):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
-        self.country = country.strip()
-        self.province = province.strip()
+        self.country = country.name.strip()
+        self.province = country.province.strip()
         self.coordinates = coordinates
 
         # Last update.
@@ -26,26 +24,6 @@ class Location:  # pylint: disable=too-many-instance-attributes
         self.confirmed = confirmed
         self.deaths = deaths
         self.recovered = recovered
-
-    @property
-    def country_code(self):
-        """
-        Gets the alpha-2 code represention of the country. Returns 'XX' if none is found.
-
-        :returns: The country code.
-        :rtype: str
-        """
-        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
-
-    @property
-    def country_population(self):
-        """
-        Gets the population of this location.
-
-        :returns: The population.
-        :rtype: int
-        """
-        return country_population(self.country_code)
 
     def serialize(self):
         """
@@ -57,10 +35,10 @@ class Location:  # pylint: disable=too-many-instance-attributes
         return {
             # General info.
             "id": self.id,
-            "country": self.country,
-            "country_code": self.country_code,
-            "country_population": self.country_population,
-            "province": self.province,
+            "country": self.country.name,
+            "country_code": self.country.country_code,
+            "country_population": self.country.country_population,
+            "province": self.country.province,
             # Coordinates.
             "coordinates": self.coordinates.serialize(),
             # Last updated.
@@ -80,12 +58,12 @@ class TimelinedLocation(Location):
     """
 
     # pylint: disable=too-many-arguments
-    def __init__(self, id, country, province, coordinates, last_updated, timelines):
+    def __init__(self, id, country, coordinates, last_updated, timelines):
         super().__init__(
             # General info.
             id,
-            country,
-            province,
+            country.name,
+            country.province,
             coordinates,
             last_updated,
             # Statistics (retrieve latest from timelines).

@@ -12,6 +12,7 @@ from ...location.nyt import NYTLocation
 from ...models import Timeline
 from ...utils import httputils
 from . import LocationService
+from ...utils import Country
 
 LOGGER = logging.getLogger("services.location.nyt")
 
@@ -113,8 +114,7 @@ async def get_locations():
             locations.append(
                 NYTLocation(
                     id=idx,
-                    state=county_state[1],
-                    county=county_state[0],
+                    country=Country("","",county_state[1],county=county_state[0]),
                     coordinates=Coordinates(None, None),  # NYT does not provide coordinates
                     last_updated=datetime.utcnow().isoformat() + "Z",  # since last request
                     timelines={

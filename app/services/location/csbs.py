@@ -10,6 +10,7 @@ from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
 from ...utils import httputils
+from ...utils import Country
 from . import LocationService
 
 LOGGER = logging.getLogger("services.location.csbs")
@@ -79,8 +80,7 @@ async def get_locations():
                 CSBSLocation(
                     # General info.
                     i,
-                    state,
-                    county,
+                    Country("","",state,county),
                     # Coordinates.
                     Coordinates(item["Latitude"], item["Longitude"]),
                     # Last update (parse as ISO).
