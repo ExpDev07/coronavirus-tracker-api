@@ -7,7 +7,7 @@ from asyncache import cached
 from cachetools import TTLCache
 
 from ...caches import check_cache, load_cache
-from ...coordinates import Coordinates
+from ...models import Coordinates
 from ...location.csbs import CSBSLocation
 from ...utils import httputils
 from . import LocationService

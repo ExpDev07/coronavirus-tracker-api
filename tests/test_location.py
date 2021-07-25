@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 
-from app import coordinates, location, models
+from app import models, location, models
 
 
 def mocked_timeline(*args, **kwargs):
@@ -36,7 +36,7 @@ def test_location_class(
     recovered_latest,
 ):
     # id, country, province, coordinates, confirmed, deaths, recovered
-    coords = coordinates.Coordinates(latitude=latitude, longitude=longitude)
+    coords = models.Coordinates(latitude=latitude, longitude=longitude)
 
     # Timelines
     confirmed = models.Timeline(confirmed_latest)
