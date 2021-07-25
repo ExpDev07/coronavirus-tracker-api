@@ -1,7 +1,7 @@
 """app.location"""
 from ..coordinates import Coordinates
 from ..utils.countries import Country
-from ..utils.populations import country_population
+from ..utils.populations import Population
 
 
 # pylint: disable=redefined-builtin,invalid-name
@@ -45,7 +45,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         :returns: The population.
         :rtype: int
         """
-        return country_population(self.country_code)
+        return Population.country_population(self.country_code)
 
     def serialize(self):
         """
