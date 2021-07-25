@@ -6,11 +6,11 @@ from ..services.location.nyt import NYTLocationService
 class Data()
     def __init__(self.source)
     # Mapping of services to data-sources.
-    DATA_SOURCES = {
-        "jhu": JhuLocationService(),
-        "csbs": CSBSLocationService(),
-        "nyt": NYTLocationService(),
-    }
+        DATA_SOURCES = {
+            "jhu": JhuLocationService(),
+            "csbs": CSBSLocationService(),
+            "nyt": NYTLocationService(),
+        }
 
 
     def data_source(self):
