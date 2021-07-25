@@ -10,12 +10,16 @@ DATA_SOURCES = {
     "nyt": NYTLocationService(),
 }
 
+class DataSourceRequest:
+    def __init__(self, request): # request is of Obj reference of Reqeust from FastAPI
+        self.request = request 
+        
+    def get_data_source(self):
+        """
+        Retrieves the provided data-source service.
 
-def data_source(source):
-    """
-    Retrieves the provided data-source service.
-
-    :returns: The service.
-    :rtype: LocationService
-    """
-    return DATA_SOURCES.get(source.lower())
+        :returns: The service.
+        :rtype: LocationService
+        """
+        request_source = self.request.query_params.get("source", default="jhu") # gets source parameters 
+        return DATA_SOURCES.get(request_source.lower())
