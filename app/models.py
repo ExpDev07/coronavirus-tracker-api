@@ -69,10 +69,7 @@ class Location(BaseModel):
     country_population: int = None
     province: str = ""
     county: str = ""
-    last_updated: str  # TODO use datetime.datetime type.
     coordinates: Dict
-    latest: Latest
-    timelines: Timelines = {}
 
 
 class LocationResponse(BaseModel):
@@ -90,3 +87,8 @@ class LocationsResponse(BaseModel):
 
     latest: Latest
     locations: List[Location] = []
+        
+class Updated(BaseModel):
+    last_updated: str  # TODO use datetime.datetime type.
+    latest: Latest
+    timelines: Timelines = {}
