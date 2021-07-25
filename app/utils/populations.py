@@ -14,7 +14,7 @@ GEONAMES_BACKUP_PATH = "geonames_population_mappings.json"
 class POPULATION:
     # Fetching of the populations.
     POPULATION = fetch_population()
-    
+
     def __init__(self):
         self.population = POPULATION
         

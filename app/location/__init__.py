@@ -11,6 +11,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
     """
 
     def __init__(
+        
         self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
     ):  # pylint: disable=too-many-arguments
         # General info.
