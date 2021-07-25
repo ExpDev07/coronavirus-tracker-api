@@ -58,18 +58,35 @@ class Timelines(BaseModel):
     recovered: Timeline
 
 
+"""
+make sure to import datetime
+"""
+class Country():
+  name: str
+  country_code: str
+  country_population: int
+  continent: str
+
+  """
+  def __init__(self, n, cc, cp, c):
+    name = n
+    country_code = cc
+    country_population = cp
+    continent = c
+  """
+  def __str__(self):
+    return country_code + " (" + name + "): " + country_population  
+
 class Location(BaseModel):
     """
     Location model.
     """
 
     id: int
-    country: str
-    country_code: str
-    country_population: int = None
+    country: Country
     province: str = ""
     county: str = ""
-    last_updated: str  # TODO use datetime.datetime type.
+    last_updated:  # TODO use datetime.datetime type.
     coordinates: Dict
     latest: Latest
     timelines: Timelines = {}
