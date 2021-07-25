@@ -3,6 +3,65 @@ from ..coordinates import Coordinates
 from ..utils import countries
 from ..utils.populations import country_population
 
+class Statistics:
+    def __init__(self, confirmed=0, deaths=0, recovered=0):
+        self.__confirmed = confirmed
+        self.__deaths = deaths
+        self.__recovered = recovered
+
+    @property()
+    def confirmed(self):
+        return self.__confirmed
+    
+    @confirmed.setter
+    def confirmed(self, value):
+        self.__confirmed = value
+
+    @property()
+    def deaths(self):
+        return self.__deaths
+
+    @deaths.setter
+    def deaths(self, value):
+        self.__deaths = value
+
+    @property()
+    def recovered(self):
+        return self.__recovered
+
+    @recovered.setter
+    def recovered(self, value):
+        self.__recovered = value
+
+class Geoinfo:
+    def __init__(self, country, province, coordinates):
+        self.__country = country.strip()
+        self.__province = province.strip()
+        self.__coordinates = coordinates
+
+    @property()
+    def country(self):
+        return self.__country
+    
+    @country.setter
+    def country(self, value):
+        self.__country = value
+
+    @property()
+    def province(self):
+        return self.__province
+
+    @province.setter
+    def province(self, value):
+        self.__province = value
+
+    @property()
+    def coordinates(self):
+        return self.__coordinates
+
+    @coordinates.setter
+    def coordinates(self, lat, longt):
+        self.coordinates = Coordinates(lat, longt)
 
 # pylint: disable=redefined-builtin,invalid-name
 class Location:  # pylint: disable=too-many-instance-attributes
@@ -11,21 +70,17 @@ class Location:  # pylint: disable=too-many-instance-attributes
     """
 
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+        self, id, geoinfo, last_updated, statistics
     ):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
-        self.country = country.strip()
-        self.province = province.strip()
-        self.coordinates = coordinates
+        self.geoinfo = geoinfo
 
         # Last update.
         self.last_updated = last_updated
 
         # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
+        self.statistics = statistics
 
     @property
     def country_code(self):
@@ -35,7 +90,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
+        return (countries.country_code(self.geoinfo.country) or countries.DEFAULT_COUNTRY_CODE).upper()
 
     @property
     def country_population(self):
@@ -57,19 +112,19 @@ class Location:  # pylint: disable=too-many-instance-attributes
         return {
             # General info.
             "id": self.id,
-            "country": self.country,
+            "country": self.geoinfo.country,
             "country_code": self.country_code,
             "country_population": self.country_population,
-            "province": self.province,
+            "province": self.geoinfo.province,
             # Coordinates.
-            "coordinates": self.coordinates.serialize(),
+            "coordinates": self.geoinfo.coordinates.serialize(),
             # Last updated.
             "last_updated": self.last_updated,
             # Latest data (statistics).
             "latest": {
-                "confirmed": self.confirmed,
-                "deaths": self.deaths,
-                "recovered": self.recovered,
+                "confirmed": self.statistics.confirmed,
+                "deaths": self.statistics.deaths,
+                "recovered": self.statistics.recovered,
             },
         }
 
@@ -80,20 +135,18 @@ class TimelinedLocation(Location):
     """
 
     # pylint: disable=too-many-arguments
-    def __init__(self, id, country, province, coordinates, last_updated, timelines):
+    def __init__(self, id, geoinfo, last_updated, statistics, timelines):
         super().__init__(
             # General info.
             id,
-            country,
-            province,
-            coordinates,
+            geoinfo,
             last_updated,
             # Statistics (retrieve latest from timelines).
-            confirmed=timelines.get("confirmed").latest or 0,
-            deaths=timelines.get("deaths").latest or 0,
-            recovered=timelines.get("recovered").latest or 0,
+            statistics
         )
-
+        self.statistics.confirmed = timelines.get("confirmed").latest or 0
+        self.statistics.deaths = timelines.get("deaths").latest or 0
+        self.statistics.recovered = timelines.get("recovered").latest or 0
         # Set timelines.
         self.timelines = timelines
 
