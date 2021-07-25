@@ -4,9 +4,9 @@ from typing import Dict, List
 from pydantic import BaseModel, validator
 
 
-class Latest(BaseModel):
+class Cases(BaseModel):
     """
-    Latest model.
+    Latest Cases model.
     """
 
     confirmed: int
@@ -16,10 +16,10 @@ class Latest(BaseModel):
 
 class LatestResponse(BaseModel):
     """
-    Response for latest.
+    Response for latest Cases.
     """
 
-    latest: Latest
+    latest: Cases
 
 
 class Timeline(BaseModel):
@@ -71,7 +71,7 @@ class Location(BaseModel):
     county: str = ""
     last_updated: str  # TODO use datetime.datetime type.
     coordinates: Dict
-    latest: Latest
+    latest: Cases
     timelines: Timelines = {}
 
 
@@ -88,5 +88,5 @@ class LocationsResponse(BaseModel):
     Response for locations.
     """
 
-    latest: Latest
+    latest: Cases
     locations: List[Location] = []
