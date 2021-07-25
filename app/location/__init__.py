@@ -11,21 +11,12 @@ class Location:  # pylint: disable=too-many-instance-attributes
     """
 
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
-    ):  # pylint: disable=too-many-arguments
+        self, id, country, province, coordinates):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
         self.country = country.strip()
         self.province = province.strip()
         self.coordinates = coordinates
-
-        # Last update.
-        self.last_updated = last_updated
-
-        # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
 
     @property
     def country_code(self):
@@ -73,6 +64,23 @@ class Location:  # pylint: disable=too-many-instance-attributes
             },
         }
 
+    def add_last_updated(self):
+
+    def add_latest(self):
+
+class Last_Updated:
+    def __init__(last_updated): 
+        self.last_updated = last_updated
+
+    def set_updated(self):
+
+class Latest:
+    def __init__(confirmed, deaths, recovered): 
+        self.confirmed = confirmed
+        self.deaths = deaths
+        self.recovered = recovered
+
+    def set_latest(self):
 
 class TimelinedLocation(Location):
     """
