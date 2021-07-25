@@ -64,10 +64,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
             },
         }
 
-    def add_last_updated(self):
-
-    def add_latest(self):
-
+    
 class Last_Updated:
     def __init__(last_updated): 
         self.last_updated = last_updated
