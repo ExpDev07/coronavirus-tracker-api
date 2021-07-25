@@ -6,11 +6,15 @@ from ..utils.populations import country_population
 # put confirmed cases, deaths cases, recovered cases into one class
 # Inseated of using confirmed cases, deaths cases, recovered cases as attributes, we can use CaseNumbers class instance as attribute
 class CaseNumbers:
-    def __init__(self, confirmed = 0, deaths = 0, recovered = 0):
+    def __init__(self, id, confirmed = 0, deaths = 0, recovered = 0):
+        self.id = id
         self.confirmed = confirmed
         self.deaths = deaths
         self.recovered = recovered
 
+
+#put all location information into one class
+#CaseNumbers, Locationinfo, coordinates and Location forms one aggregate
 class Locationinfo:
     def __init__(self, id, country, province, coordinates):
         self.id = id
@@ -29,7 +33,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
 
     # Use instance of class CaseNumbers as attribute
     def __init__(
-        self, locationinfo, last_updated, casenumbers
+        self, id, locationinfo, last_updated, casenumbers
     ):  # pylint: disable=too-many-arguments
         # General info.
         self.locationinfo = locationinfo
@@ -48,7 +52,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
+        return (countries.country_code(self.locationinfo.country) or countries.DEFAULT_COUNTRY_CODE).upper()
 
     @property
     def country_population(self):
@@ -69,13 +73,13 @@ class Location:  # pylint: disable=too-many-instance-attributes
         """
         return {
             # General info.
-            "id": self.id,
-            "country": self.country,
+            "id": self.locationinfo.id,
+            "country": self.locationinfo.country,
             "country_code": self.country_code,
             "country_population": self.country_population,
-            "province": self.province,
+            "province": self.locationinfo.province,
             # Coordinates.
-            "coordinates": self.coordinates.serialize(),
+            "coordinates": self.locationinfo.coordinates.serialize(),
             # Last updated.
             "last_updated": self.last_updated,
             # Latest data (statistics).
@@ -93,13 +97,10 @@ class TimelinedLocation(Location):
     """
 
     # pylint: disable=too-many-arguments
-    def __init__(self, id, country, province, coordinates, last_updated, timelines, casenumbers):
+    def __init__(self, locationinfo, last_updated, timelines, casenumbers):
         super().__init__(
             # General info.
-            id,
-            country,
-            province,
-            coordinates,
+            locationinfo,
             last_updated,
             # Statistics (retrieve latest from timelines).
             casenumbers

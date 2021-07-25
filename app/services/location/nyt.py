@@ -13,6 +13,8 @@ from ...models import Timeline
 from ...utils import httputils
 from . import LocationService
 
+from urls import URLs
+
 LOGGER = logging.getLogger("services.location.nyt")
 
 
@@ -36,7 +38,7 @@ class NYTLocationService(LocationService):
 
 
 # Base URL for fetching category.
-BASE_URL = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+# BASE_URL = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
 
 
 def get_grouped_locations_dict(data):
@@ -85,7 +87,7 @@ async def get_locations():
         locations = cache_results
     else:
         LOGGER.info(f"{data_id} shared cache empty")
-        async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
+        async with httputils.CLIENT_SESSION.get(URLs.NYT) as response:
             text = await response.text()
 
         LOGGER.debug(f"{data_id} Data received")

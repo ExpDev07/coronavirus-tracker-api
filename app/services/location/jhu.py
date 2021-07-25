@@ -17,6 +17,8 @@ from ...utils import date as date_util
 from ...utils import httputils
 from . import LocationService
 
+from urls import URLs
+
 LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
 
@@ -41,7 +43,7 @@ class JhuLocationService(LocationService):
 
 
 # Base URL for fetching category.
-BASE_URL = "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
+# BASE_URL = "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
 
 
 @cached(cache=TTLCache(maxsize=4, ttl=1800))
@@ -64,7 +66,7 @@ async def get_category(category):
     else:
         LOGGER.info(f"{data_id} shared cache empty")
         # URL to request data from.
-        url = BASE_URL + "time_series_covid19_%s_global.csv" % category
+        url = URLs.JHU + "time_series_covid19_%s_global.csv" % category
 
         # Request the data
         LOGGER.info(f"{data_id} Requesting data...")
