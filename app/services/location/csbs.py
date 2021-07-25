@@ -1,7 +1,6 @@
 """app.services.location.csbs.py"""
 import csv
 import logging
-from datetime import datetime
 
 from asyncache import cached
 from cachetools import TTLCache
@@ -10,6 +9,7 @@ from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
 from ...utils import httputils
+from ...utils import Date
 from . import LocationService
 
 LOGGER = logging.getLogger("services.location.csbs")
@@ -84,7 +84,7 @@ async def get_locations():
                     # Coordinates.
                     Coordinates(item["Latitude"], item["Longitude"]),
                     # Last update (parse as ISO).
-                    datetime.strptime(last_update, "%Y-%m-%d %H:%M").isoformat() + "Z",
+                    Date().format_date(last_update, "%Y-%m-%d %H:%M") + "Z",
                     # Statistics.
                     int(item["Confirmed"] or 0),
                     int(item["Death"] or 0),

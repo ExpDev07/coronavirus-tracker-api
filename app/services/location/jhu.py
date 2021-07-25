@@ -2,7 +2,7 @@
 import csv
 import logging
 import os
-from datetime import datetime
+from ...utils import Date
 from pprint import pformat as pf
 
 from asyncache import cached
@@ -79,14 +79,14 @@ async def get_category(category):
 
         # The normalized locations.
         locations = []
-
+        date_util = Date()
         for item in data:
             # Filter out all the dates.
-            dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
-
+            dates = dict(filter(lambda element:  date_util.is_date(element[0]), item.items()))
+        
             # Make location history from dates.
-            history = {date: int(float(amount or 0)) for date, amount in dates.items()}
-
+            history = date_util.get_history(dates.items)
+            
             # Country for this location.
             country = item["Country/Region"]
 
@@ -117,7 +117,7 @@ async def get_category(category):
         results = {
             "locations": locations,
             "latest": latest,
-            "last_updated": datetime.utcnow().isoformat() + "Z",
+            "last_updated": Date().format_now(),
             "source": "https://github.com/ExpDev07/coronavirus-tracker-api",
         }
         # save the results to distributed cache
@@ -156,6 +156,8 @@ async def get_locations():
     # ***************************************************************************
     # Go through locations.
     for index, location in enumerate(locations_confirmed):
+
+        date_util = Date()
         # Get the timelines.
 
         # TEMP: Fix for merging recovery data. See TODO above for more details.
@@ -163,13 +165,13 @@ async def get_locations():
 
         timelines = {
             "confirmed": location["history"],
-            "deaths": parse_history(key, locations_deaths, index),
-            "recovered": parse_history(key, locations_recovered, index),
+            "deaths": date_util.parse_history(key, locations_deaths, index),
+            "recovered": date_util.parse_history(key, locations_recovered, index),
         }
 
         # Grab coordinates.
         coordinates = location["coordinates"]
-
+        
         # Create location (supporting timelines) and append.
         locations.append(
             TimelinedLocation(
@@ -180,24 +182,24 @@ async def get_locations():
                 # Coordinates.
                 Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
                 # Last update.
-                datetime.utcnow().isoformat() + "Z",
+                date_util.format_now(),
                 # Timelines (parse dates as ISO).
                 {
                     "confirmed": Timeline(
                         timeline={
-                            datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
+                            date_util.format_date(date, amount, "%m/%d/%y") + "Z": amount
                             for date, amount in timelines["confirmed"].items()
                         }
                     ),
                     "deaths": Timeline(
                         timeline={
-                            datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
+                            date_util.format_date(date, amount, "%m/%d/%y") + "Z": amount
                             for date, amount in timelines["deaths"].items()
                         }
                     ),
                     "recovered": Timeline(
                         timeline={
-                            datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
+                            date_util.format_date(date, amount, "%m/%d/%y") + "Z": amount
                             for date, amount in timelines["recovered"].items()
                         }
                     ),
@@ -209,20 +211,3 @@ async def get_locations():
     # Finally, return the locations.
     return locations
 
-
-def parse_history(key: tuple, locations: list, index: int):
-    """
-    Helper for validating and extracting history content from
-    locations data based on index. Validates with the current country/province
-    key to make sure no index/column issue.
-
-    TEMP: solution because implement a more efficient and better approach in the refactor.
-    """
-    location_history = {}
-    try:
-        if key == (locations[index]["country"], locations[index]["province"]):
-            location_history = locations[index]["history"]
-    except (IndexError, KeyError):
-        LOGGER.debug(f"iteration data merge error: {index} {key}")
-
-    return location_history
