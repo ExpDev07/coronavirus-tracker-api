@@ -3,15 +3,17 @@ from typing import Dict, List
 
 from pydantic import BaseModel, validator
 
-
+class Stats:
+    confirmed: int
+    deaths: int
+    recovered: int
+    
 class Latest(BaseModel):
     """
     Latest model.
     """
 
-    confirmed: int
-    deaths: int
-    recovered: int
+    stats: Stats
 
 
 class LatestResponse(BaseModel):
