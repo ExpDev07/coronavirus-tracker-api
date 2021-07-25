@@ -122,3 +122,21 @@ class TimelinedLocation(Location):
 
         # Return the serialized location.
         return serialized
+
+
+class ClientLocation:
+    def set_Location(
+            self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,):
+        # General info.
+        self.id = id
+        self.country = country.strip()
+        self.province = province.strip()
+        self.coordinates = coordinates
+
+        # Last update.
+        self.last_updated = last_updated
+
+        # Statistics.
+        self.confirmed = confirmed
+        self.deaths = deaths
+        self.recovered = recovered
