@@ -1,10 +1,10 @@
 """app.locations.nyt.py"""
-from . import TimelinedLocation
+from . import TimelinedLocationObject
 
 
-class NYTLocation(TimelinedLocation):
+class NYTLocation(TimelinedLocationObject):
     """
-    A NYT (county) Timelinedlocation.
+    A NYT (county) TimelinedLocationObject.
     """
 
     # pylint: disable=too-many-arguments,redefined-builtin

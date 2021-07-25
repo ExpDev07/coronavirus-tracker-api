@@ -72,21 +72,23 @@ class Location:  # pylint: disable=too-many-instance-attributes
                 "recovered": self.recovered,
             },
         }
+class LocationInfo:
+    def __init__(self, country, province, coordinates):
+        self.country = country,
+        self.province = province,
+        self.coordinates = coordinates,
 
-
-class TimelinedLocation(Location):
+class TimelinedLocationObjectObject(Location):
     """
     A location with timelines.
     """
 
     # pylint: disable=too-many-arguments
-    def __init__(self, id, country, province, coordinates, last_updated, timelines):
+    def __init__(self, id, location, last_updated, timelines):
         super().__init__(
             # General info.
             id,
-            country,
-            province,
-            coordinates,
+            location,
             last_updated,
             # Statistics (retrieve latest from timelines).
             confirmed=timelines.get("confirmed").latest or 0,

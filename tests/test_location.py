@@ -45,13 +45,16 @@ def test_location_class(
 
     # Date now.
     now = datetime.utcnow().isoformat() + "Z"
-
+    
     # Location.
-    location_obj = location.TimelinedLocation(
-        test_id,
+    location_obj = location.LocationInfo(
         country,
         province,
-        coords,
+        coords
+    )
+    location_obj = location.TimelinedLocationObject(
+        test_id,
+        location,
         now,
         {"confirmed": confirmed, "deaths": deaths, "recovered": recovered,},
     )
