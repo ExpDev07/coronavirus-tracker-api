@@ -2,30 +2,29 @@
 from abc import ABC, abstractmethod
 
 
-class LocationService(ABC):
+class LocationService:
     """
     Service for retrieving locations.
     """
+    """
+        Service for retrieving locations from csbs
+        """
 
-    @abstractmethod
+    def __init__(self, gateway: "LocationGateway"):
+        self.gateway = gateway
+
     async def get_all(self):
-        """
-        Gets and returns all of the locations.
+        # Get the locations.
+        locations = await self.gateway.get_locations()
+        return locations
 
-        :returns: The locations.
-        :rtype: List[Location]
-        """
-        raise NotImplementedError
+    async def get(self, loc_id):  # pylint: disable=arguments-differ
+        # Get location at the index equal to the provided id.
+        locations = await self.get_all()
+        return locations[loc_id]
 
-    @abstractmethod
-    async def get(self, id):  # pylint: disable=redefined-builtin,invalid-name
-        """
-        Gets and returns location with the provided id.
-
-        :returns: The location.
-        :rtype: Location
-        """
-        raise NotImplementedError
+    def set_gateway(self, gateway: "LocationGateway"):
+        self.gateway = gateway
 
 
 class LocationGateway(ABC):

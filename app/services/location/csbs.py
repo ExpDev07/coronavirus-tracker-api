@@ -15,22 +15,7 @@ from . import LocationService, LocationGateway
 LOGGER = logging.getLogger("services.location.csbs")
 
 
-class CSBSLocationService(LocationService):
-    """
-    Service for retrieving locations from csbs
-    """
-    def __init__(self):
-        self.gateway = CSBSGateway("https://facts.csbs.org/covid-19/covid19_county.csv")
 
-    async def get_all(self):
-        # Get the locations.
-        locations = await self.gateway.get_locations()
-        return locations
-
-    async def get(self, loc_id):  # pylint: disable=arguments-differ
-        # Get location at the index equal to the provided id.
-        locations = await self.get_all()
-        return locations[loc_id]
 
 
 class CSBSGateway(LocationGateway):
