@@ -12,10 +12,11 @@ from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location import TimelinedLocation
 from ...models import Timeline
-from ...utils import countries
+from ...utils.countries import Country
 from ...utils import date as date_util
 from ...utils import httputils
 from . import LocationService
+
 
 LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
@@ -94,11 +95,12 @@ async def get_category(category):
             latest = list(history.values())[-1]
 
             # Normalize the item and append to locations.
+
             locations.append(
                 {
                     # General info.
                     "country": country,
-                    "country_code": countries.country_code(country),
+                    "country_code": Country(country),
                     "province": item["Province/State"],
                     # Coordinates.
                     "coordinates": {"lat": item["Lat"], "long": item["Long"],},
@@ -169,13 +171,14 @@ async def get_locations():
 
         # Grab coordinates.
         coordinates = location["coordinates"]
+        # Creation of Country Class
 
         # Create location (supporting timelines) and append.
         locations.append(
             TimelinedLocation(
                 # General info.
                 index,
-                location["country"],
+                Country(location["country"]),
                 location["province"],
                 # Coordinates.
                 Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),

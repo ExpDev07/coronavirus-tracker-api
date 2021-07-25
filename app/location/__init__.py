@@ -1,6 +1,7 @@
 """app.location"""
 from ..coordinates import Coordinates
-from ..utils import countries
+from ..utils.countries import Country
+# from ..utils import country
 from ..utils.populations import country_population
 
 
@@ -10,12 +11,13 @@ class Location:  # pylint: disable=too-many-instance-attributes
     A location in the world affected by the coronavirus.
     """
 
-    def __init__(
+    def __init__( 
         self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
     ):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
-        self.country = country.strip()
+        self.country_obj = country # country_obj should contain a reference to a Country Class that is being passed 
+        self.country = self.country_obj.get_country().strip()
         self.province = province.strip()
         self.coordinates = coordinates
 
@@ -27,6 +29,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         self.deaths = deaths
         self.recovered = recovered
 
+
     @property
     def country_code(self):
         """
@@ -35,7 +38,8 @@ class Location:  # pylint: disable=too-many-instance-attributes
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
+        country_code = (self.country.get_country_code() or self.country.get_default_country_code()).upper
+        return country_code
 
     @property
     def country_population(self):
@@ -91,7 +95,7 @@ class TimelinedLocation(Location):
             # Statistics (retrieve latest from timelines).
             confirmed=timelines.get("confirmed").latest or 0,
             deaths=timelines.get("deaths").latest or 0,
-            recovered=timelines.get("recovered").latest or 0,
+            recovered=timelines.get("recovered").latest or 0
         )
 
         # Set timelines.
