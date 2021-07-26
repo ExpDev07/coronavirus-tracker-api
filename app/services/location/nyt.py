@@ -12,7 +12,7 @@ from ...location.nyt import NYTLocation
 from ...models import Timeline
 from ...utils import httputils
 from . import LocationService
-
+from ...utils.baseurls import BaseUrl
 LOGGER = logging.getLogger("services.location.nyt")
 
 
@@ -36,7 +36,7 @@ class NYTLocationService(LocationService):
 
 
 # Base URL for fetching category.
-BASE_URL = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+BASE_URL = BaseUrl.NYT
 
 
 def get_grouped_locations_dict(data):
