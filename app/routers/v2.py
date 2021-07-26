@@ -19,6 +19,13 @@ class Sources(str, enum.Enum):
     NYT = "nyt"
 
 
+def get_latest_data(locations):
+    return {
+        "confirmed": sum(map(lambda location: location.confirmed, locations)),
+        "deaths": sum(map(lambda location: location.deaths, locations)),
+        "recovered": sum(map(lambda location: location.recovered, locations)),
+    }
+
 @V2.get("/latest", response_model=LatestResponse)
 async def get_latest(
     request: Request, source: Sources = Sources.JHU
@@ -27,14 +34,10 @@ async def get_latest(
     Getting latest amount of total confirmed cases, deaths, and recoveries.
     """
     locations = await request.state.source.get_all()
+    latest_data = get_latest_data(locations)
     return {
-        "latest": {
-            "confirmed": sum(map(lambda location: location.confirmed, locations)),
-            "deaths": sum(map(lambda location: location.deaths, locations)),
-            "recovered": sum(map(lambda location: location.recovered, locations)),
-        }
+        "latest": latest_data
     }
-
 
 # pylint: disable=unused-argument,too-many-arguments,redefined-builtin
 @V2.get("/locations", response_model=LocationsResponse, response_model_exclude_unset=True)
@@ -79,13 +82,10 @@ async def get_locations(
                 404, detail=f"Source `{source}` does not have the desired location data.",
             )
 
+    latest_data = get_latest_data(locations)
     # Return final serialized data.
     return {
-        "latest": {
-            "confirmed": sum(map(lambda location: location.confirmed, locations)),
-            "deaths": sum(map(lambda location: location.deaths, locations)),
-            "recovered": sum(map(lambda location: location.recovered, locations)),
-        },
+        "latest": latest_data,
         "locations": [location.serialize(timelines) for location in locations],
     }
 
