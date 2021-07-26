@@ -16,6 +16,7 @@ from ...utils import countries
 from ...utils import date as date_util
 from ...utils import httputils
 from . import LocationService
+from ...utils.baseurls import BaseUrl
 
 LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
@@ -41,7 +42,7 @@ class JhuLocationService(LocationService):
 
 
 # Base URL for fetching category.
-BASE_URL = "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
+BASE_URL = BaseUrl.JHU
 
 
 @cached(cache=TTLCache(maxsize=4, ttl=1800))
@@ -226,3 +227,4 @@ def parse_history(key: tuple, locations: list, index: int):
         LOGGER.debug(f"iteration data merge error: {index} {key}")
 
     return location_history
+
