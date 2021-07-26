@@ -11,6 +11,7 @@ from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
 from ...utils import httputils
 from . import LocationService
+from ...utils.baseurls import BaseUrl
 
 LOGGER = logging.getLogger("services.location.csbs")
 
@@ -32,7 +33,7 @@ class CSBSLocationService(LocationService):
 
 
 # Base URL for fetching data
-BASE_URL = "https://facts.csbs.org/covid-19/covid19_county.csv"
+BASE_URL = BaseUrl.CSBS
 
 
 @cached(cache=TTLCache(maxsize=1, ttl=1800))
@@ -100,3 +101,4 @@ async def get_locations():
 
     # Return the locations.
     return locations
+
