@@ -5,9 +5,36 @@ from fastapi import APIRouter, HTTPException, Request
 
 from ..data import DATA_SOURCES
 from ..models import LatestResponse, LocationResponse, LocationsResponse
+from app import data
 
 V2 = APIRouter()
 
+'''
+Builder Pattern
+'''
+class Data:
+    def __init__(self, locations):
+        self.__data = {"latest": {}}
+        self.__locations = locations
+
+    def build_confirmed(self):
+        self.__data["latest"]["confirmed"] = sum(map(lambda location: location.confirmed, self.__locations))
+        return self
+    
+    def build_deaths(self):
+        self.__data["latest"]["deaths"] = sum(map(lambda location: location.deaths, self.__locations))
+        return self
+
+    def build_recovered(self):
+        self.__data["latest"]["recovered"] = sum(map(lambda location: location.recovered, self.__locations))
+        return self
+
+    def build_generic(self, key, data):
+        self.__data[key] = data
+        return self
+
+    def get_return(self):
+        return self.__data
 
 class Sources(str, enum.Enum):
     """
@@ -27,13 +54,13 @@ async def get_latest(
     Getting latest amount of total confirmed cases, deaths, and recoveries.
     """
     locations = await request.state.source.get_all()
-    return {
-        "latest": {
-            "confirmed": sum(map(lambda location: location.confirmed, locations)),
-            "deaths": sum(map(lambda location: location.deaths, locations)),
-            "recovered": sum(map(lambda location: location.recovered, locations)),
-        }
-    }
+
+    
+    return Data(locations)\
+                        .build_deaths()\
+                        .build_recovered()\
+                        .build_confirmed()\
+                        .get_return()
 
 
 # pylint: disable=unused-argument,too-many-arguments,redefined-builtin
@@ -80,15 +107,13 @@ async def get_locations(
             )
 
     # Return final serialized data.
-    return {
-        "latest": {
-            "confirmed": sum(map(lambda location: location.confirmed, locations)),
-            "deaths": sum(map(lambda location: location.deaths, locations)),
-            "recovered": sum(map(lambda location: location.recovered, locations)),
-        },
-        "locations": [location.serialize(timelines) for location in locations],
-    }
 
+    return Data(locations)\
+                        .build_deaths()\
+                        .build_recovered()\
+                        .build_confirmed()\
+                        .build_generic("locations", [location.serialize(timelines) for location in locations])\
+                        .get_return()
 
 # pylint: disable=invalid-name
 @V2.get("/locations/{id}", response_model=LocationResponse)
