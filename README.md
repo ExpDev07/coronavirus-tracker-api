@@ -5,6 +5,8 @@
 Provides up-to-date data about Coronavirus outbreak. Includes numbers about confirmed cases, deaths and recovered.
 Support multiple data-sources.
 
+Test
+
 ![Travis build](https://api.travis-ci.com/ExpDev07/coronavirus-tracker-api.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/ExpDev07/coronavirus-tracker-api/badge.svg?branch=master)](https://coveralls.io/github/ExpDev07/coronavirus-tracker-api?branch=master)
 [![License](https://img.shields.io/github/license/ExpDev07/coronavirus-tracker-api)](LICENSE.md)
