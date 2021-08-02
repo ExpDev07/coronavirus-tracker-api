@@ -439,11 +439,6 @@ class Country:
 
         return code
 
-    class Coordinates:
-    """
-    A position on earth using decimal coordinates (latitude and longitude).
-    """
-
     def coordinates(self, latitude, longitude):
         self.latitude = latitude
         self.longitude = longitude
