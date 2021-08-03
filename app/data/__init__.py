@@ -2,12 +2,16 @@
 from ..services.location.csbs import CSBSLocationService
 from ..services.location.jhu import JhuLocationService
 from ..services.location.nyt import NYTLocationService
+from ..services.location import LocationServiceAbstractionImpl
+
+
+
 
 # Mapping of services to data-sources.
 DATA_SOURCES = {
-    "jhu": JhuLocationService(),
-    "csbs": CSBSLocationService(),
-    "nyt": NYTLocationService(),
+    "jhu": LocationServiceAbstractionImpl(JhuLocationService()),
+    "csbs": LocationServiceAbstractionImpl(CSBSLocationService()),
+    "nyt": LocationServiceAbstractionImpl(NYTLocationService()),
 }
 
 
