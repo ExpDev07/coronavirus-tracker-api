@@ -62,7 +62,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
             "country_population": self.country_population,
             "province": self.province,
             # Coordinates.
-            "coordinates": self.coordinates.serialize(),
+            "coordinates": self.coordinates.dict(),
             # Last updated.
             "last_updated": self.last_updated,
             # Latest data (statistics).

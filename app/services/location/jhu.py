@@ -169,6 +169,7 @@ async def get_locations():
 
         # Grab coordinates.
         coordinates = location["coordinates"]
+        # print(coordinates)
 
         # Create location (supporting timelines) and append.
         locations.append(
@@ -178,7 +179,9 @@ async def get_locations():
                 location["country"],
                 location["province"],
                 # Coordinates.
-                Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
+                Coordinates(
+                    latitude=coordinates["lat"] or None, longitude=coordinates["long"] or None
+                ),
                 # Last update.
                 datetime.utcnow().isoformat() + "Z",
                 # Timelines (parse dates as ISO).

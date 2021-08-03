@@ -82,7 +82,7 @@ async def get_locations():
                     state,
                     county,
                     # Coordinates.
-                    Coordinates(item["Latitude"], item["Longitude"]),
+                    Coordinates(latitude=item["Latitude"], longitude=item["Longitude"]),
                     # Last update (parse as ISO).
                     datetime.strptime(last_update, "%Y-%m-%d %H:%M").isoformat() + "Z",
                     # Statistics.
