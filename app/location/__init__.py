@@ -1,6 +1,6 @@
 """app.location"""
 from ..coordinates import Coordinates
-from ..utils import countries
+from ..utils.countries import CountryCodeProvider
 from ..utils.populations import country_population
 
 
@@ -27,6 +27,9 @@ class Location:  # pylint: disable=too-many-instance-attributes
         self.deaths = deaths
         self.recovered = recovered
 
+        #country data
+        self.country_code_provider = CountryCodeProvider()
+
     @property
     def country_code(self):
         """
@@ -35,7 +38,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
+        return (self.country_code_provider.country_code(self.country) or self.country_code_provider.DEFAULT_COUNTRY_CODE).upper()
 
     @property
     def country_population(self):
