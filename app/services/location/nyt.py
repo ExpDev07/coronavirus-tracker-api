@@ -16,27 +16,12 @@ from . import LocationService
 LOGGER = logging.getLogger("services.location.nyt")
 
 
-class NYTLocationService(LocationService):
+class NYTLocationService:
     """
-    Service for retrieving locations from New York Times (https://github.com/nytimes/covid-19-data).
+    Service for retrieving locations from Johns Hopkins CSSE (https://github.com/CSSEGISandData/COVID-19).
     """
-
-    async def get_all(self):
-        # Get the locations.
-        locations = await get_locations()
-        return locations
-
-    async def get(self, loc_id):  # pylint: disable=arguments-differ
-        # Get location at the index equal to provided id.
-        locations = await self.get_all()
-        return locations[loc_id]
-
-
-# ---------------------------------------------------------------
-
-
-# Base URL for fetching category.
-BASE_URL = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+    # Base URL for fetching category.
+    BASE_URL = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
 
 
 def get_grouped_locations_dict(data):
@@ -104,10 +89,12 @@ async def get_locations():
             # Make location history for confirmed and deaths from dates.
             # List is tuples of (date, amount) in order of increasing dates.
             confirmed_list = histories["confirmed"]
-            confirmed_history = {date: int(amount or 0) for date, amount in confirmed_list}
+            confirmed_history = {date: int(amount or 0)
+                                 for date, amount in confirmed_list}
 
             deaths_list = histories["deaths"]
-            deaths_history = {date: int(amount or 0) for date, amount in deaths_list}
+            deaths_history = {date: int(amount or 0)
+                              for date, amount in deaths_list}
 
             # Normalize the item and append to locations.
             locations.append(
@@ -115,7 +102,8 @@ async def get_locations():
                     id=idx,
                     state=county_state[1],
                     county=county_state[0],
-                    coordinates=Coordinates(None, None),  # NYT does not provide coordinates
+                    # NYT does not provide coordinates
+                    coordinates=Coordinates(None, None),
                     last_updated=datetime.utcnow().isoformat() + "Z",  # since last request
                     timelines={
                         "confirmed": Timeline(

@@ -1,28 +1,14 @@
 """app.services.location"""
-from abc import ABC, abstractmethod
 
 
-class LocationService(ABC):
-    """
-    Service for retrieving locations.
-    """
+class LocationService:
 
-    @abstractmethod
+    def __init__(self, resource):
+        self.resource = resource
+
     async def get_all(self):
-        """
-        Gets and returns all of the locations.
+        return await self.resource.get_locations()
 
-        :returns: The locations.
-        :rtype: List[Location]
-        """
-        raise NotImplementedError
-
-    @abstractmethod
-    async def get(self, id):  # pylint: disable=redefined-builtin,invalid-name
-        """
-        Gets and returns location with the provided id.
-
-        :returns: The location.
-        :rtype: Location
-        """
-        raise NotImplementedError
+    async def get(self, id):
+        locations = await self.get_all()
+        return locations[id]

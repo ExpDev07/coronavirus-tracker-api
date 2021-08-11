@@ -21,27 +21,12 @@ LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
 
 
-class JhuLocationService(LocationService):
+class JhuLocationService:
     """
     Service for retrieving locations from Johns Hopkins CSSE (https://github.com/CSSEGISandData/COVID-19).
     """
-
-    async def get_all(self):
-        # Get the locations.
-        locations = await get_locations()
-        return locations
-
-    async def get(self, loc_id):  # pylint: disable=arguments-differ
-        # Get location at the index equal to provided id.
-        locations = await self.get_all()
-        return locations[loc_id]
-
-
-# ---------------------------------------------------------------
-
-
-# Base URL for fetching category.
-BASE_URL = "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
+    # Base URL for fetching category.
+    BASE_URL = "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
 
 
 @cached(cache=TTLCache(maxsize=4, ttl=1800))
@@ -82,10 +67,12 @@ async def get_category(category):
 
         for item in data:
             # Filter out all the dates.
-            dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
+            dates = dict(
+                filter(lambda element: date_util.is_date(element[0]), item.items()))
 
             # Make location history from dates.
-            history = {date: int(float(amount or 0)) for date, amount in dates.items()}
+            history = {date: int(float(amount or 0))
+                       for date, amount in dates.items()}
 
             # Country for this location.
             country = item["Country/Region"]
@@ -101,7 +88,7 @@ async def get_category(category):
                     "country_code": countries.country_code(country),
                     "province": item["Province/State"],
                     # Coordinates.
-                    "coordinates": {"lat": item["Lat"], "long": item["Long"],},
+                    "coordinates": {"lat": item["Lat"], "long": item["Long"], },
                     # History.
                     "history": history,
                     # Latest statistic.
@@ -178,7 +165,8 @@ async def get_locations():
                 location["country"],
                 location["province"],
                 # Coordinates.
-                Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
+                Coordinates(
+                    latitude=coordinates["lat"], longitude=coordinates["long"]),
                 # Last update.
                 datetime.utcnow().isoformat() + "Z",
                 # Timelines (parse dates as ISO).
