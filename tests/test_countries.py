@@ -21,3 +21,18 @@ Todo:
 )
 def test_countries_country_name__country_code(country_name, expected_country_code):
     assert countries.country_code(country_name) == expected_country_code
+
+__shared_instance = None
+@staticmethod
+def getInstance():
+    """Static Access Methods """
+    if Country.__shared_instance == None:
+        Country()
+    return Country.__shared_instance
+
+def __init__(self) -> None:
+    """ Virtual Private Constructor"""
+    if Country.__shared_instance != None:
+        raise Exception("Singleton Class already initialized. Please use getInstance()")
+    else:
+        Country.__shared_instance = self
