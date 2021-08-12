@@ -1,6 +1,6 @@
 import pytest
 
-from app.utils import countries
+from app.location import country
 
 """
 Todo:
