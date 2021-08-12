@@ -449,7 +449,7 @@ class Country:
     def __init__(self) -> None:
         """ Virtual Private Constructor"""
         if Country.__shared_instance != None:
-            raise Exception("This is a singleton class !")
+            raise Exception("Singleton Class already initialized. Please use getInstance()")
         else:
             Country.__shared_instance = self
 
