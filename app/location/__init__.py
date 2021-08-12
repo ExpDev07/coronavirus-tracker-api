@@ -2,32 +2,53 @@
 from ..coordinates import Coordinates
 from ..utils.countries import CountryCodeUtil
 from ..utils.populations import country_population
+from abc import ABC, abstractmethod
 
+class LocationBuilder(ABC):
+    """
+        An Abstract class to inherit to build coordinates of a location. 
+    """
+    @abstractmethod
+    def country_code(self):
+        pass
+    
+    @abstractmethod
+    def country_population(self):
+        pass
+    
+    @abstractmethod
+    def serialize(self):
+        pass
 
 # pylint: disable=redefined-builtin,invalid-name
-class Location:  # pylint: disable=too-many-instance-attributes
+class Location(LocationBuilder):  # pylint: disable=too-many-instance-attributes
     """
     A location in the world affected by the coronavirus.
     """
-    country_code_util = CountryCodeUtil()
-
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+        self, locationDict
     ):  # pylint: disable=too-many-arguments
         # General info.
-        self.id = id
-        self.country = country.strip()
-        self.province = province.strip()
-        self.coordinates = coordinates
+        #if all True, then location would be constructed of all the params passed.
+        pass
 
-        # Last update.
-        self.last_updated = last_updated
+    def build_location_dict(self,locationDict):
+        self.country_code_util = CountryCodeUtil()
 
-        # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
+        self.location_dict = locationDict.fromkeys([list(locationDict.keys())])
+        for key, value in locationDict.items():
+            if value:
+                if key == "country":
+                    self.location_dict[key] = self.format_country(value)
+                elif key == "province":
+                    self.location_dict[key] = self.format_province(value)
+                elif key == "coordinates":
+                    self.location_dict[key] = self.format_coordinates(value)
+                else:
+                    self.location_dict[key] = value
 
+        self.location_dict["country_population"] = self.country_population
+            
     @property
     def country_code(self):
         """
@@ -35,7 +56,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         :returns: The country code.
         :rtype: str
         """
-        return (country_code_util.get_country_code(self.country) or country_code_util.DEFAULT_COUNTRY_CODE).upper()
+        return (self.country_code_util.get_country_code(self.location_dict["country"]) or self.country_code_util.DEFAULT_COUNTRY_CODE).upper()
 
     @property
     def country_population(self):
@@ -54,68 +75,29 @@ class Location:  # pylint: disable=too-many-instance-attributes
         """
         return {
             # General info.
-            "id": self.id,
-            "country": self.country,
-            "country_code": self.country_code,
-            "country_population": self.country_population,
-            "province": self.province,
+            "id": self.location_dict["id"],
+            "country": self.location_dict["country"],
+            "country_code": self.location_dict["country_code"],
+            "country_population":  self.location_dict["country_population"],
+            "province": self.location_dict["province"],
             # Coordinates.
-            "coordinates": self.coordinates.serialize(),
+            "coordinates": self.location_dict["coordinates"],
             # Last updated.
-            "last_updated": self.last_updated,
+            "last_updated":  self.location_dict["last_updated"],
             # Latest data (statistics).
             "latest": {
-                "confirmed": self.confirmed,
-                "deaths": self.deaths,
-                "recovered": self.recovered,
+                "confirmed": self.location_dict["confirmed"],
+                "deaths": self.location_dict["deaths"],
+                "recovered": self.location_dict["recovered"],
             },
         }
+    
 
+    def format_country(self,country):
+        return country.strip()
 
-class TimelinedLocation(Location):
-    """
-    A location with timelines.
-    """
+    def format_province(self,province):
+        return province.strip()
 
-    # pylint: disable=too-many-arguments
-    def __init__(self, id, country, province, coordinates, last_updated, timelines):
-        super().__init__(
-            # General info.
-            id,
-            country,
-            province,
-            coordinates,
-            last_updated,
-            # Statistics (retrieve latest from timelines).
-            confirmed=timelines.get("confirmed").latest or 0,
-            deaths=timelines.get("deaths").latest or 0,
-            recovered=timelines.get("recovered").latest or 0,
-        )
-
-        # Set timelines.
-        self.timelines = timelines
-
-    # pylint: disable=arguments-differ
-    def serialize(self, timelines=False):
-        """
-        Serializes the location into a dict.
-        :param timelines: Whether to include the timelines.
-        :returns: The serialized location.
-        :rtype: dict
-        """
-        serialized = super().serialize()
-
-        # Whether to include the timelines or not.
-        if timelines:
-            serialized.update(
-                {
-                    "timelines": {
-                        # Serialize all the timelines.
-                        key: value.serialize()
-                        for (key, value) in self.timelines.items()
-                    }
-                }
-            )
-
-        # Return the serialized location.
-        return serialized
+    def format_coordinates(self, coordinates):
+        return coordinates.serialize()
