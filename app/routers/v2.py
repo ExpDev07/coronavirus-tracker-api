@@ -18,6 +18,20 @@ class Sources(str, enum.Enum):
     CSBS = "csbs"
     NYT = "nyt"
 
+SingletonInstance = none;
+        def getInstance();
+        if Sources().__SingletonInstance == none:
+            Sources();
+        return Sources().__SingletonInstance
+
+        def __init__(self):
+            if Sources().__SingletonInstance == none:
+               Sources().__SingletonInstance = super(Sources(), self).__init__(str, enum.Enum);
+            else:
+               raise Exception("Cannot create another Singleton class!")
+
+               return Sources().__SingletonInstance;
+
 
 @V2.get("/latest", response_model=LatestResponse)
 async def get_latest(
