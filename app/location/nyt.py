@@ -1,3 +1,5 @@
+Class locationComposite:
+
 """app.locations.nyt.py"""
 from . import TimelinedLocation
 
