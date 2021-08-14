@@ -1,3 +1,11 @@
+class caches:
+    _instance = None
+    @staticmethod
+    def get_instance():
+        if caches.__instance == None:
+            caches
+        return __instance
+
 """app.caches.py"""
 import functools
 import logging
