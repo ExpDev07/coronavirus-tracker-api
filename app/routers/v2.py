@@ -8,7 +8,7 @@ from ..models import LatestResponse, LocationResponse, LocationsResponse
 
 V2 = APIRouter()
 
-
+ 
 class Sources(str, enum.Enum):
     """
     A source available for retrieving data.

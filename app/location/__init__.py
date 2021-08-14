@@ -3,29 +3,41 @@ from ..coordinates import Coordinates
 from ..utils import countries
 from ..utils.populations import country_population
 
+class Statistic:
+    def __init__(self, last_updated, confirmed, deaths, recovered):
+         self.last_updated = last_updated
+         self.confirmed = confirmed
+         self.deaths = deaths
+         self.recovered = recovered
+
+class TimelinedStatistic(Statistic):
+    def __init__(self, last_updated, timelines):
+        self.last_updated = last_updated
+
+        self.confirmed= timelines.get("confirmed").latest or 0,
+        self.deaths= timelines.get("deaths").latest or 0,
+        self.recovered= timelines.get("recovered").latest or 0,
+
+
 
 # pylint: disable=redefined-builtin,invalid-name
 class Location:  # pylint: disable=too-many-instance-attributes
     """
-    A location in the world affected by the coronavirus.
+    A location in the world affected by the coronavirus.ccccccvektiuhjuilijekbikvjbretdnfrtbhgdtlnnv
+
     """
 
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+        self, id, country, province, coordinates, statistics
     ):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
         self.country = country.strip()
         self.province = province.strip()
         self.coordinates = coordinates
-
-        # Last update.
-        self.last_updated = last_updated
-
+       
         # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
+        self.statistics = statistics
 
     @property
     def country_code(self):
@@ -80,7 +92,7 @@ class TimelinedLocation(Location):
     """
 
     # pylint: disable=too-many-arguments
-    def __init__(self, id, country, province, coordinates, last_updated, timelines):
+    def __init__(self, id, country, province, coordinates, last_updated, timelinedStatistics):
         super().__init__(
             # General info.
             id,
@@ -89,13 +101,11 @@ class TimelinedLocation(Location):
             coordinates,
             last_updated,
             # Statistics (retrieve latest from timelines).
-            confirmed=timelines.get("confirmed").latest or 0,
-            deaths=timelines.get("deaths").latest or 0,
-            recovered=timelines.get("recovered").latest or 0,
+            statistics=timelinedStatistics
         )
 
         # Set timelines.
-        self.timelines = timelines
+        
 
     # pylint: disable=arguments-differ
     def serialize(self, timelines=False):
