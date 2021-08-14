@@ -7,7 +7,7 @@ from ..data import DataSources
 from ..models import LatestResponse, LocationResponse, LocationsResponse
 
 V2 = APIRouter()
-DATA_SOURCES = DataSources()
+DATA_SOURCES = DataSources.get_instance()
 
 
 class Sources(str, enum.Enum):

@@ -41,7 +41,7 @@ APP = FastAPI(
     on_shutdown=[teardown_client_session],
 )
 
-DATA_SOURCES = DataSources()
+DATA_SOURCES = DataSources.get_instance()
 
 # #####################
 # Middleware
