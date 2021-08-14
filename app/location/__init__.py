@@ -132,3 +132,4 @@ class TimelinedLocation(Location):
 
         # Return the serialized location.
         return serialized
+
