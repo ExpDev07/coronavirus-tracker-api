@@ -3,9 +3,18 @@ from ..coordinates import Coordinates
 from ..utils import countries
 from ..utils.populations import country_population
 
+from abc import abstractmethod, ABCMeta
+
+class ILocation(metaclass=ABCMeta):
+
+    @abstractmethod
+    def serialize():
+        """
+        Serializes the location into a dict.
+        """
 
 # pylint: disable=redefined-builtin,invalid-name
-class Location:  # pylint: disable=too-many-instance-attributes
+class Location(ILocation):  # pylint: disable=too-many-instance-attributes
     """
     A location in the world affected by the coronavirus.
     """
@@ -72,6 +81,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
                 "recovered": self.recovered,
             },
         }
+
 
 
 class TimelinedLocation(Location):
