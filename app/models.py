@@ -19,7 +19,8 @@ class LatestResponse(BaseModel):
     Response for latest.
     """
 
-    latest: Latest
+    def location(self, Latest):
+        latest: Latest
 
 
 class Timeline(BaseModel):
@@ -88,5 +89,15 @@ class LocationsResponse(BaseModel):
     Response for locations.
     """
 
-    latest: Latest
+    def location(self, Latest):
+        latest: Latest
+
     locations: List[Location] = []
+
+
+class ResponsedLocations:
+    def __init__(self, Latest):
+        self.Latest = Latest
+
+    def produceLatest(self):
+        self.location(self.Latest)
