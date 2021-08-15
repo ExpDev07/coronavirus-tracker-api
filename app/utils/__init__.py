@@ -1,3 +1,3 @@
-import lookup
-import countries
-import populations
+import .lookup
+import .countries
+import .populations
