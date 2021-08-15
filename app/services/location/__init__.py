@@ -1,11 +1,13 @@
 """app.services.location"""
 from abc import ABC, abstractmethod
-
+from . import DataSourcesInterface
 
 class LocationService(ABC):
     """
     Service for retrieving locations.
     """
+    def __init__(self, dataSource: DataSourcesInterface):
+        self.dataSource = dataSource
 
     @abstractmethod
     async def get_all(self):
