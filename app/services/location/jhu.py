@@ -101,7 +101,7 @@ async def get_category(category):
                     "country_code": countries.country_code(country),
                     "province": item["Province/State"],
                     # Coordinates.
-                    "coordinates": {"lat": item["Lat"], "long": item["Long"],},
+                    "coordinates": {"lat": Latitude(item["Lat"]), "long": Longitude(item["Long"]),},
                     # History.
                     "history": history,
                     # Latest statistic.
@@ -178,7 +178,7 @@ async def get_locations():
                 location["country"],
                 location["province"],
                 # Coordinates.
-                Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
+                Coordinates(latitude=Latitude(coordinates["lat"]), longitude=Longitude(coordinates["long"]),
                 # Last update.
                 datetime.utcnow().isoformat() + "Z",
                 # Timelines (parse dates as ISO).
