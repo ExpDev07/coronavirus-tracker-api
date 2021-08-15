@@ -6,7 +6,6 @@ class BasicLocationService(LocationService):
     """
     Service for retrieving locations from csbs
     """
-
     async def get_all(self):
         # Get the locations.
         locations = await self.dataSource.get_locations()
