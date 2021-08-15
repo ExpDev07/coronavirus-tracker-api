@@ -16,6 +16,7 @@ from ...utils import countries
 from ...utils import date as date_util
 from ...utils import httputils
 from . import LocationService
+from ...location import factorylocation
 
 LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
@@ -171,39 +172,9 @@ async def get_locations():
         coordinates = location["coordinates"]
 
         # Create location (supporting timelines) and append.
-        locations.append(
-            TimelinedLocation(
-                # General info.
-                index,
-                location["country"],
-                location["province"],
-                # Coordinates.
-                Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
-                # Last update.
-                datetime.utcnow().isoformat() + "Z",
-                # Timelines (parse dates as ISO).
-                {
-                    "confirmed": Timeline(
-                        timeline={
-                            datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
-                            for date, amount in timelines["confirmed"].items()
-                        }
-                    ),
-                    "deaths": Timeline(
-                        timeline={
-                            datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
-                            for date, amount in timelines["deaths"].items()
-                        }
-                    ),
-                    "recovered": Timeline(
-                        timeline={
-                            datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
-                            for date, amount in timelines["recovered"].items()
-                        }
-                    ),
-                },
-            )
-        )
+        params = {"index": index, "country": location["country"], "province": location["province"],
+                  "coordinates": coordinates, "timelines": timelines}
+        locations.append(locationfactory.create_location("JHU"), params)
     LOGGER.info(f"{data_id} Data normalized")
 
     # Finally, return the locations.

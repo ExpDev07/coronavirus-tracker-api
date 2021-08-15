@@ -1,17 +1,14 @@
 """app.services.location.nyt.py"""
 import csv
 import logging
-from datetime import datetime
 
 from asyncache import cached
 from cachetools import TTLCache
 
 from ...caches import check_cache, load_cache
-from ...coordinates import Coordinates
-from ...location.nyt import NYTLocation
-from ...models import Timeline
 from ...utils import httputils
 from . import LocationService
+from ...import factorylocation
 
 LOGGER = logging.getLogger("services.location.nyt")
 
@@ -108,35 +105,11 @@ async def get_locations():
 
             deaths_list = histories["deaths"]
             deaths_history = {date: int(amount or 0) for date, amount in deaths_list}
+            params = {'index': idx, 'county_state': county_state, 'confirmed_history': confirmed_history,'deaths_history': deaths_history}
+            locations.append(locationfactory.create_location('NYT', params))
 
-            # Normalize the item and append to locations.
-            locations.append(
-                NYTLocation(
-                    id=idx,
-                    state=county_state[1],
-                    county=county_state[0],
-                    coordinates=Coordinates(None, None),  # NYT does not provide coordinates
-                    last_updated=datetime.utcnow().isoformat() + "Z",  # since last request
-                    timelines={
-                        "confirmed": Timeline(
-                            timeline={
-                                datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
-                                for date, amount in confirmed_history.items()
-                            }
-                        ),
-                        "deaths": Timeline(
-                            timeline={
-                                datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
-                                for date, amount in deaths_history.items()
-                            }
-                        ),
-                        "recovered": Timeline(),
-                    },
-                )
-            )
         LOGGER.info(f"{data_id} Data normalized")
-        # save the results to distributed cache
-        # TODO: fix json serialization
+
         try:
             await load_cache(data_id, locations)
         except TypeError as type_err:

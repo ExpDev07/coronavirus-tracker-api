@@ -11,6 +11,8 @@ from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
 from ...utils import httputils
 from . import LocationService
+from ...location import factorylocation
+
 
 LOGGER = logging.getLogger("services.location.csbs")
 
@@ -73,23 +75,9 @@ async def get_locations():
 
             # Date string without "EDT" at end.
             last_update = " ".join(item["Last Update"].split(" ")[0:2])
+            params = {"index": i, "state": state, "county": county, "item": item, "last_update": last_update}
 
-            # Append to locations.
-            locations.append(
-                CSBSLocation(
-                    # General info.
-                    i,
-                    state,
-                    county,
-                    # Coordinates.
-                    Coordinates(item["Latitude"], item["Longitude"]),
-                    # Last update (parse as ISO).
-                    datetime.strptime(last_update, "%Y-%m-%d %H:%M").isoformat() + "Z",
-                    # Statistics.
-                    int(item["Confirmed"] or 0),
-                    int(item["Death"] or 0),
-                )
-            )
+            locations.append(locationfactory.create_location('CSBS'))
         LOGGER.info(f"{data_id} Data normalized")
         # save the results to distributed cache
         # TODO: fix json serialization
