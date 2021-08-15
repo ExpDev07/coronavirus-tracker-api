@@ -1,10 +1,10 @@
 """app.locations.csbs.py"""
-from . import Location
+from . import DataLocation
 
 
-class CSBSLocation(Location):
+class CSBSLocation(DataLocation):
     """
-    A CSBS (county) location.
+    A CSBS (county) DataLocation.
     """
 
     # pylint: disable=too-many-arguments,redefined-builtin
@@ -28,7 +28,6 @@ class CSBSLocation(Location):
     def serialize(self, timelines=False):  # pylint: disable=arguments-differ,unused-argument
         """
         Serializes the location into a dict.
-
         :returns: The serialized location.
         :rtype: dict
         """

@@ -2,35 +2,36 @@
 from ..coordinates import Coordinates
 from ..utils import countries
 from ..utils.populations import country_population
+from creationalBP import DataLocation
 
 
 # pylint: disable=redefined-builtin,invalid-name
-class Location:  # pylint: disable=too-many-instance-attributes
+class Location(creationalBP):  # pylint: disable=too-many-instance-attributes
     """
     A location in the world affected by the coronavirus.
     """
 
     @property
-    def country_code(self):
+    def country_code(DataLocation):
         """
         Gets the alpha-2 code represention of the country. Returns 'XX' if none is found.
 
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
+        return (countries.country_code(super().__init__.country) or countries.DEFAULT_COUNTRY_CODE).upper()
 
     @property
-    def country_population(self):
+    def country_population(DataLocation):
         """
         Gets the population of this location.
 
         :returns: The population.
         :rtype: int
         """
-        return country_population(self.country_code)
+        return country_population(super().__init__.country_code)
 
-class TimelinedLocation(Location):
+class TimelinedLocation(DataLocation):
     """
     A location with timelines.
     """
