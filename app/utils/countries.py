@@ -1,5 +1,7 @@
 """app.utils.countries.py"""
 import logging
+import lookup
+from lookup import Lookup
 
 LOGGER = logging.getLogger(__name__)
 
@@ -367,14 +369,25 @@ COUNTRY_NAME__COUNTRY_CODE = {
 }
 
 # fmt: on
-def country_code(value):
-    """
-    Return two letter country code (Alpha-2) according to https://en.wikipedia.org/wiki/ISO_3166-1
-    Defaults to "XX".
-    """
-    code = COUNTRY_NAME__COUNTRY_CODE.get(value, DEFAULT_COUNTRY_CODE)
-    if code == DEFAULT_COUNTRY_CODE:
-        # log at sub DEBUG level
-        LOGGER.log(5, f"No country code found for '{value}'. Using '{code}'!")
 
-    return code
+class CountryCodeLookup(Lookup):
+    """
+        This is a Lookup data class for returning the country code for county name
+    """
+    def __init__(self):
+        self.type = "country_code"
+
+    def get(self, value, default=DEFAULT_COUNTRY_CODE):
+        """
+        Return two letter country code (Alpha-2) according to https://en.wikipedia.org/wiki/ISO_3166-1
+        Defaults to "XX".
+        """
+        code = COUNTRY_NAME__COUNTRY_CODE.get(value, default)
+        if code == default:
+            # log at sub DEBUG level
+            LOGGER.log(5, f"No country code found for '{value}'. Using '{code}'!")
+
+        return code
+
+# register an instance of CountryCodeLookup in lookup registry
+lookup.register_lookup(CountryCodeLookup())

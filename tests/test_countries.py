@@ -1,6 +1,7 @@
 import pytest
 
 from app.utils import countries
+from app.utils import lookup
 
 """
 Todo:
@@ -20,4 +21,4 @@ Todo:
     ],
 )
 def test_countries_country_name__country_code(country_name, expected_country_code):
-    assert countries.country_code(country_name) == expected_country_code
+    assert lookup.get('country_code',country_name) == expected_country_code

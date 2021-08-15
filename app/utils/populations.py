@@ -5,6 +5,8 @@ import logging
 import requests
 
 import app.io
+import lookup
+from lookup import Lookup
 
 LOGGER = logging.getLogger(__name__)
 GEONAMES_URL = "http://api.geonames.org/countryInfoJSON"
@@ -49,12 +51,21 @@ def fetch_populations(save=False):
 # Mapping of alpha-2 codes country codes to population.
 POPULATIONS = fetch_populations()
 
-# Retrieving.
-def country_population(country_code, default=None):
+class CountryPopulationLookup(Lookup):
     """
-    Fetches the population of the country with the provided country code.
+        This is a lookup data class for returning population for a country code
+    """
+    def __init__(self):
+        self.type = "country_population"
 
-    :returns: The population.
-    :rtype: int
-    """
-    return POPULATIONS.get(country_code, default)
+    def get(self, value, default=DEFAULT_COUNTRY_CODE):
+        """
+        Fetches the population of the country with the provided country code.
+
+        :returns: The population.
+        :rtype: int
+        """
+        return POPULATIONS.get(country_code, default)
+
+# register an instance of CountryPopulationLookup in lookup registry
+lookup.register_lookup(CountryPopulationLookup())
