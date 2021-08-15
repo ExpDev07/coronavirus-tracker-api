@@ -18,7 +18,7 @@ class CSBSFactory(dataSourceFactory):
 
 class NYTFactory(dataSourceFactory):
     def getDataSource():
-        return NYTLcationService()
+        return NYTLocationService()
 
 
 # Mapping of factories to data-sources.
