@@ -5,7 +5,14 @@ class Coordinates:
     """
     A position on earth using decimal coordinates (latitude and longitude).
     """
+    __instance = None
 
+    @staticmethod
+    def getInstance():
+        if Coordinates.__instance == None:
+            Coordinates
+        return __instance
+    
     def __init__(self, latitude, longitude):
         self.latitude = latitude
         self.longitude = longitude
