@@ -5,8 +5,6 @@ import os
 from datetime import datetime
 from pprint import pformat as pf
 
-from asyncache import cached
-from cachetools import TTLCache
 
 from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
@@ -16,6 +14,8 @@ from ...utils import countries
 from ...utils import date as date_util
 from ...utils import httputils
 from . import LocationService
+from ...caches import PROXY
+
 
 LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
@@ -44,7 +44,6 @@ class JhuLocationService(LocationService):
 BASE_URL = "https://raw.githubusercontent.com/CSSEGISandData/2019-nCoV/master/csse_covid_19_data/csse_covid_19_time_series/"
 
 
-@cached(cache=TTLCache(maxsize=4, ttl=1800))
 async def get_category(category):
     """
     Retrieves the data for the provided category. The data is cached for 30 minutes locally, 1 hour via shared Redis.
@@ -57,77 +56,67 @@ async def get_category(category):
     data_id = f"jhu.{category}"
 
     # check shared cache
-    cache_results = await check_cache(data_id)
-    if cache_results:
-        LOGGER.info(f"{data_id} using shared cache results")
-        results = cache_results
-    else:
-        LOGGER.info(f"{data_id} shared cache empty")
-        # URL to request data from.
-        url = BASE_URL + "time_series_covid19_%s_global.csv" % category
 
-        # Request the data
-        LOGGER.info(f"{data_id} Requesting data...")
-        async with httputils.CLIENT_SESSION.get(url) as response:
-            text = await response.text()
+    # URL to request data from.
+    url = BASE_URL + "time_series_covid19_%s_global.csv" % category
 
-        LOGGER.debug(f"{data_id} Data received")
+    # Request the data
 
-        # Parse the CSV.
-        data = list(csv.DictReader(text.splitlines()))
-        LOGGER.debug(f"{data_id} CSV parsed")
+    result = PROXY.cached_get(url)
 
-        # The normalized locations.
-        locations = []
+    # Parse the CSV.
+    data = list(csv.DictReader(result.text.splitlines()))
+    LOGGER.debug(f"{data_id} CSV parsed")
 
-        for item in data:
-            # Filter out all the dates.
-            dates = dict(filter(lambda element: date_util.is_date(element[0]), item.items()))
+    # The normalized locations.
+    locations = []
 
-            # Make location history from dates.
-            history = {date: int(float(amount or 0)) for date, amount in dates.items()}
+    for item in data:
+        # Filter out all the dates.
+        dates = dict(
+            filter(lambda element: date_util.is_date(element[0]), item.items()))
 
-            # Country for this location.
-            country = item["Country/Region"]
+        # Make location history from dates.
+        history = {date: int(float(amount or 0))
+                   for date, amount in dates.items()}
 
-            # Latest data insert value.
-            latest = list(history.values())[-1]
+        # Country for this location.
+        country = item["Country/Region"]
 
-            # Normalize the item and append to locations.
-            locations.append(
-                {
-                    # General info.
-                    "country": country,
-                    "country_code": countries.country_code(country),
-                    "province": item["Province/State"],
-                    # Coordinates.
-                    "coordinates": {"lat": item["Lat"], "long": item["Long"],},
-                    # History.
-                    "history": history,
-                    # Latest statistic.
-                    "latest": int(latest or 0),
-                }
-            )
-        LOGGER.debug(f"{data_id} Data normalized")
+        # Latest data insert value.
+        latest = list(history.values())[-1]
 
-        # Latest total.
-        latest = sum(map(lambda location: location["latest"], locations))
+        # Normalize the item and append to locations.
+        locations.append(
+            {
+                # General info.
+                "country": country,
+                "country_code": countries.country_code(country),
+                "province": item["Province/State"],
+                # Coordinates.
+                "coordinates": {"lat": item["Lat"], "long": item["Long"], },
+                # History.
+                "history": history,
+                # Latest statistic.
+                "latest": int(latest or 0),
+            }
+        )
+    LOGGER.debug(f"{data_id} Data normalized")
 
-        # Return the final data.
-        results = {
-            "locations": locations,
-            "latest": latest,
-            "last_updated": datetime.utcnow().isoformat() + "Z",
-            "source": "https://github.com/ExpDev07/coronavirus-tracker-api",
-        }
-        # save the results to distributed cache
-        await load_cache(data_id, results)
+    # Latest total.
+    latest = sum(map(lambda location: location["latest"], locations))
 
-    LOGGER.info(f"{data_id} results:\n{pf(results, depth=1)}")
+    # Return the final data.
+    results = {
+        "locations": locations,
+        "latest": latest,
+        "last_updated": datetime.utcnow().isoformat() + "Z",
+        "source": "https://github.com/ExpDev07/coronavirus-tracker-api",
+    }
+    # save the results to distributed cache
     return results
 
 
-@cached(cache=TTLCache(maxsize=1, ttl=1800))
 async def get_locations():
     """
     Retrieves the locations from the categories. The locations are cached for 1 hour.
@@ -135,8 +124,6 @@ async def get_locations():
     :returns: The locations.
     :rtype: List[Location]
     """
-    data_id = "jhu.locations"
-    LOGGER.info(f"pid:{PID}: {data_id} Requesting data...")
     # Get all of the data categories locations.
     confirmed = await get_category("confirmed")
     deaths = await get_category("deaths")
@@ -178,7 +165,8 @@ async def get_locations():
                 location["country"],
                 location["province"],
                 # Coordinates.
-                Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
+                Coordinates(
+                    latitude=coordinates["lat"], longitude=coordinates["long"]),
                 # Last update.
                 datetime.utcnow().isoformat() + "Z",
                 # Timelines (parse dates as ISO).
@@ -204,7 +192,6 @@ async def get_locations():
                 },
             )
         )
-    LOGGER.info(f"{data_id} Data normalized")
 
     # Finally, return the locations.
     return locations
