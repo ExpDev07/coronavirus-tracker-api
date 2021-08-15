@@ -1,8 +1,8 @@
 """app.data"""
-from ..services.location.csbs import BasicLocationService
-from ..services.location.csbslocations import CSBSLocations
-from ..services.location.jhulocations import JHULocations
-from ..services.location.nytlocations import NYTLocations
+from ..services.location.basiclocationservice import BasicLocationService
+from ..services.location.csbs import CSBSLocations
+from ..services.location.jhu import JHULocations
+from ..services.location.nyt import NYTLocations
 
 # Mapping of services to data-sources.
 DATA_SOURCES = {
