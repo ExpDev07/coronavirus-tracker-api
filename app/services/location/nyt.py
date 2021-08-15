@@ -10,8 +10,9 @@ from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location.nyt import NYTLocation
 from ...models import Timeline
-from ...utils import httputils
 from . import LocationService
+from ..ProcessSystem import ProcessSystem
+
 
 LOGGER = logging.getLogger("services.location.nyt")
 
@@ -23,7 +24,7 @@ class NYTLocationService(LocationService):
 
     async def get_all(self):
         # Get the locations.
-        locations = await get_locations()
+        locations = await NYTGateway.get_instance().get_locations()
         return locations
 
     async def get(self, loc_id):  # pylint: disable=arguments-differ
@@ -35,111 +36,121 @@ class NYTLocationService(LocationService):
 # ---------------------------------------------------------------
 
 
-# Base URL for fetching category.
-BASE_URL = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+class NYTGateway(LocationGateway):
+    __instance = None
 
+    @staticmethod
+    def get_instance():
+        if NYTGateway.__instance is None:
+            NYTGateway.__instance = JHUGateway()
+        return NYTGateway.__instance
 
-def get_grouped_locations_dict(data):
-    """
-    Helper function to group history for locations into one dict.
+    def __init__(self):
+        self.BASE_URL = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
 
-    :returns: The complete data for each unique US county
-    :rdata: dict
-    """
-    grouped_locations = {}
+        if JHUGateway.__instance is not None:
+            raise Exception("The system already has one instance")
 
-    # in increasing order of dates
-    for row in data:
-        county_state = (row["county"], row["state"])
-        date = row["date"]
-        confirmed = row["cases"]
-        deaths = row["deaths"]
+    def get_grouped_locations_dict(self, data):
+        """
+        Helper function to group history for locations into one dict.
 
-        # initialize if not existing
-        if county_state not in grouped_locations:
-            grouped_locations[county_state] = {"confirmed": [], "deaths": []}
+        :returns: The complete data for each unique US county
+        :rdata: dict
+        """
+        grouped_locations = {}
 
-        # append confirmed tuple to county_state (date, # confirmed)
-        grouped_locations[county_state]["confirmed"].append((date, confirmed))
-        # append deaths tuple to county_state (date, # deaths)
-        grouped_locations[county_state]["deaths"].append((date, deaths))
+        # in increasing order of dates
+        for row in data:
+            county_state = (row["county"], row["state"])
+            date = row["date"]
+            confirmed = row["cases"]
+            deaths = row["deaths"]
 
-    return grouped_locations
+            # initialize if not existing
+            if county_state not in grouped_locations:
+                grouped_locations[county_state] = {"confirmed": [], "deaths": []}
 
+            # append confirmed tuple to county_state (date, # confirmed)
+            grouped_locations[county_state]["confirmed"].append((date, confirmed))
+            # append deaths tuple to county_state (date, # deaths)
+            grouped_locations[county_state]["deaths"].append((date, deaths))
 
-@cached(cache=TTLCache(maxsize=1, ttl=1800))
-async def get_locations():
-    """
-    Returns a list containing parsed NYT data by US county. The data is cached for 1 hour.
+        return grouped_locations
 
-    :returns: The complete data for US Counties.
-    :rtype: dict
-    """
-    data_id = "nyt.locations"
-    # Request the data.
-    LOGGER.info(f"{data_id} Requesting data...")
-    # check shared cache
-    cache_results = await check_cache(data_id)
-    if cache_results:
-        LOGGER.info(f"{data_id} using shared cache results")
-        locations = cache_results
-    else:
-        LOGGER.info(f"{data_id} shared cache empty")
-        async with httputils.CLIENT_SESSION.get(BASE_URL) as response:
-            text = await response.text()
+    @cached(cache=TTLCache(maxsize=1, ttl=1800))
+    async def get_locations(self):
+        """
+        Returns a list containing parsed NYT data by US county. The data is cached for 1 hour.
 
-        LOGGER.debug(f"{data_id} Data received")
+        :returns: The complete data for US Counties.
+        :rtype: dict
+        """
+        data_id = "nyt.locations"
+        # Request the data.
+        LOGGER.info(f"{data_id} Requesting data...")
+        # check shared cache
+        cache_results = await check_cache(data_id)
+        if cache_results:
+            LOGGER.info(f"{data_id} using shared cache results")
+            locations = cache_results
+        else:
+            LOGGER.info(f"{data_id} shared cache empty")
+            async with ProcessSystem.get_instance().get_client_session().get(self.BASE_URL) as response:
+                text = await response.text()
 
-        # Parse the CSV.
-        data = list(csv.DictReader(text.splitlines()))
-        LOGGER.debug(f"{data_id} CSV parsed")
+            LOGGER.debug(f"{data_id} Data received")
 
-        # Group together locations (NYT data ordered by dates not location).
-        grouped_locations = get_grouped_locations_dict(data)
+            # Parse the CSV.
+            data = list(csv.DictReader(text.splitlines()))
+            LOGGER.debug(f"{data_id} CSV parsed")
 
-        # The normalized locations.
-        locations = []
+            # Group together locations (NYT data ordered by dates not location).
+            grouped_locations = self.get_grouped_locations_dict(data)
 
-        for idx, (county_state, histories) in enumerate(grouped_locations.items()):
-            # Make location history for confirmed and deaths from dates.
-            # List is tuples of (date, amount) in order of increasing dates.
-            confirmed_list = histories["confirmed"]
-            confirmed_history = {date: int(amount or 0) for date, amount in confirmed_list}
+            # The normalized locations.
+            locations = []
 
-            deaths_list = histories["deaths"]
-            deaths_history = {date: int(amount or 0) for date, amount in deaths_list}
+            for idx, (county_state, histories) in enumerate(grouped_locations.items()):
+                # Make location history for confirmed and deaths from dates.
+                # List is tuples of (date, amount) in order of increasing dates.
+                confirmed_list = histories["confirmed"]
+                confirmed_history = {date: int(amount or 0) for date, amount in confirmed_list}
 
-            # Normalize the item and append to locations.
-            locations.append(
-                NYTLocation(
-                    id=idx,
-                    state=county_state[1],
-                    county=county_state[0],
-                    coordinates=Coordinates(None, None),  # NYT does not provide coordinates
-                    last_updated=datetime.utcnow().isoformat() + "Z",  # since last request
-                    timelines={
-                        "confirmed": Timeline(
-                            timeline={
-                                datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
-                                for date, amount in confirmed_history.items()
-                            }
-                        ),
-                        "deaths": Timeline(
-                            timeline={
-                                datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
-                                for date, amount in deaths_history.items()
-                            }
-                        ),
-                        "recovered": Timeline(),
-                    },
+                deaths_list = histories["deaths"]
+                deaths_history = {date: int(amount or 0) for date, amount in deaths_list}
+
+                # Normalize the item and append to locations.
+                locations.append(
+                    NYTLocation(
+                        id=idx,
+                        state=county_state[1],
+                        county=county_state[0],
+                        coordinates=Coordinates(None, None),  # NYT does not provide coordinates
+                        last_updated=datetime.utcnow().isoformat() + "Z",  # since last request
+                        timelines={
+                            "confirmed": Timeline(
+                                timeline={
+                                    datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
+                                    for date, amount in confirmed_history.items()
+                                }
+                            ),
+                            "deaths": Timeline(
+                                timeline={
+                                    datetime.strptime(date, "%Y-%m-%d").isoformat() + "Z": amount
+                                    for date, amount in deaths_history.items()
+                                }
+                            ),
+                            "recovered": Timeline(),
+                        },
+                    )
                 )
-            )
-        LOGGER.info(f"{data_id} Data normalized")
-        # save the results to distributed cache
-        # TODO: fix json serialization
-        try:
-            await load_cache(data_id, locations)
-        except TypeError as type_err:
-            LOGGER.error(type_err)
+            LOGGER.info(f"{data_id} Data normalized")
+            # save the results to distributed cache
+            # TODO: fix json serialization
+            try:
+                await load_cache(data_id, locations)
+            except TypeError as type_err:
+                LOGGER.error(type_err)
 
-    return locations
+        return locations
