@@ -1,6 +1,6 @@
 """app.locations.csbs.py"""
 from . import Location
-
+from app.location import nyt
 
 class CSBSLocation(Location):
     """
@@ -32,6 +32,18 @@ class CSBSLocation(Location):
         :returns: The serialized location.
         :rtype: dict
         """
+        bld = csbs_Serialize_Builder(timelines)
+        director = Director(bld)
+        return director.build_product()
+
+'''
+    def serialize(self, timelines=False):  # pylint: disable=arguments-differ,unused-argument
+        """
+        Serializes the location into a dict.
+
+        :returns: The serialized location.
+        :rtype: dict
+        """
         serialized = super().serialize()
 
         # Update with new fields.
@@ -41,3 +53,7 @@ class CSBSLocation(Location):
 
         # Return the serialized location.
         return serialized
+'''
+
+
+
