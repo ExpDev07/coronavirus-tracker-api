@@ -4,8 +4,88 @@ from ..utils import countries
 from ..utils.populations import country_population
 
 
+class Location:
+    def __init__(
+            self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+        ):  # pylint: disable=too-many-arguments
+            # General info.
+            self.id = id
+            self.country = country.strip()
+            self.province = province.strip()
+            self.coordinates = coordinates
+
+            # Last update.
+            self.last_updated = last_updated
+
+            # Statistics.
+            self.confirmed = confirmed
+            self.deaths = deaths
+            self.recovered = recovered
+
+    def add(self, location):
+        pass
+
+    def remove(self, location):
+        pass
+
+    def country_code(self):
+        pass
+
+    def country_population(self):
+        pass
+
+    def serialize(self):
+        pass
+
+
+class Province(Location):
+    countries = None
+
+    def __init__(
+                self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+            ):  # pylint: disable=too-many-arguments
+                # General info.
+                self.id = id
+                self.country = country.strip()
+                self.province = None
+                self.coordinates = coordinates
+
+                # Last update.
+                self.last_updated = last_updated
+
+                # Statistics.
+                self.confirmed = confirmed
+                self.deaths = deaths
+                self.recovered = recovered
+                self.countries = []
+
+    def add(self, location):
+        self.countries.append(location)
+
+    def remove(self, location):
+        self.countries.remove(location)
+
+    def country_code(self):
+        countries_code = []
+        for i in countries
+            countries_code.append(countries.country_code(i))
+        return countries_code
+
+    def country_population(self):
+        countries_population = 0
+        for i in countries
+            countries_population=countries_population+ country_population(i)
+        return countries_population
+
+    def serialize(self):
+        for i in countries
+            i.serialize()
+
+
+
+
 # pylint: disable=redefined-builtin,invalid-name
-class Location:  # pylint: disable=too-many-instance-attributes
+class Country(Location):  # pylint: disable=too-many-instance-attributes
     """
     A location in the world affected by the coronavirus.
     """
