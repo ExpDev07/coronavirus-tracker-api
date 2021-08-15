@@ -16,6 +16,7 @@ from . import LocationService
 LOGGER = logging.getLogger("services.location.nyt")
 
 
+@singleton
 class NYTLocationService(LocationService):
     """
     Service for retrieving locations from New York Times (https://github.com/nytimes/covid-19-data).

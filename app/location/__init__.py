@@ -4,19 +4,6 @@ from ..utils import countries
 from ..utils.populations import country_population
 
 
-
-class Locations:
-    def __init__(self,locations: list[Location]):
-        self.locations = locations
-
-    def add_service(self,location):
-        self.locations.append(location)
-
-    def get_location(self):
-        return locations
-
-
-
 # pylint: disable=redefined-builtin,invalid-name
 class Location:  # pylint: disable=too-many-instance-attributes
     """

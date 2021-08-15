@@ -14,7 +14,7 @@ from . import LocationService
 
 LOGGER = logging.getLogger("services.location.csbs")
 
-
+@singleton
 class CSBSLocationService(LocationService):
     """
     Service for retrieving locations from csbs

@@ -1,17 +1,17 @@
 """app.services.location"""
 from abc import ABC, abstractmethod
 
+def singleton(cls):
+    instances = {}
 
-class LocationServices:
-    def __init__(self,location_services: list[LocationService]):
-        self.location_services = location_services
+    def wrapper(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
 
-    def add_service(self,location_service):
-        self.location_services.append(location_service)
+    return wrapper
 
-    def get_service(self):
-        return location_services
-
+@singleton
 class LocationService(ABC):
     """
     Service for retrieving locations.
