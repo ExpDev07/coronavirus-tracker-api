@@ -5,8 +5,8 @@ from ..__init__.py import country_code, country_population
 
 class DataLocation: 
 
-	def __init__ (self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
-    ):
+	def __init__ (self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,	
+):
 
 	self.id = id
         self.country = country.strip()
