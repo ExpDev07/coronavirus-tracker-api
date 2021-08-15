@@ -1,6 +1,6 @@
 """app.location"""
 from ..coordinates import Coordinates
-from ..utils import countries
+from ..utils import countries_population
 from ..utils.populations import POPULATION
 
 

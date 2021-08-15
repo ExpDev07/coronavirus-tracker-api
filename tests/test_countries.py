@@ -1,6 +1,6 @@
 import pytest
 
-from app.utils import countries
+from app.utils import countries_population
 
 """
 Todo:
@@ -19,5 +19,20 @@ Todo:
         ("Others", countries.DEFAULT_COUNTRY_CODE),
     ],
 )
+
+__instance = None
+def getInstance():
+     """ Static access method. """
+    if countries_population.__instance == None:
+        countries_populaiton()
+    return countries_population.__instance
+    
+def __init__(self):
+        """ Virtually private constructor. """
+      if countries_population.__instance != None:
+         raise Exception("This class is a singleton!")
+      else:
+         countries_population.__instance = self
+        
 def test_countries_country_name__country_code(country_name, expected_country_code):
     assert countries.country_code(country_name) == expected_country_code
