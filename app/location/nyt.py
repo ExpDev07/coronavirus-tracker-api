@@ -1,15 +1,26 @@
 """app.locations.nyt.py"""
-from . import TimelinedLocation
+from app.location import Location
 
 
-class NYTLocation(TimelinedLocation):
+class NYTLocation(Location):
     """
-    A NYT (county) Timelinedlocation.
+    A NYT (county) Location.
     """
 
     # pylint: disable=too-many-arguments,redefined-builtin
     def __init__(self, id, state, county, coordinates, last_updated, timelines):
-        super().__init__(id, "US", state, coordinates, last_updated, timelines)
+        super().__init__(
+            # General info.
+            id,
+            "US",
+            state,
+            coordinates,
+            last_updated,
+            confirmed=timelines.get("confirmed").latest or 0,
+            deaths=timelines.get("deaths").latest or 0,
+            recovered=timelines.get("recovered").latest or 0,
+            timelines=timelines
+        )
 
         self.state = state
         self.county = county

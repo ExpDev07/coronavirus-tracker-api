@@ -11,7 +11,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
     """
 
     def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
+            self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered, timelines
     ):  # pylint: disable=too-many-arguments
         # General info.
         self.id = id
@@ -26,6 +26,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
         self.confirmed = confirmed
         self.deaths = deaths
         self.recovered = recovered
+        self.timelines = timelines
 
     @property
     def country_code(self):
@@ -47,14 +48,14 @@ class Location:  # pylint: disable=too-many-instance-attributes
         """
         return country_population(self.country_code)
 
-    def serialize(self):
+    def serialize(self, timelines=False):
         """
         Serializes the location into a dict.
 
         :returns: The serialized location.
         :rtype: dict
         """
-        return {
+        serialized = {
             # General info.
             "id": self.id,
             "country": self.country,
@@ -72,43 +73,6 @@ class Location:  # pylint: disable=too-many-instance-attributes
                 "recovered": self.recovered,
             },
         }
-
-
-class TimelinedLocation(Location):
-    """
-    A location with timelines.
-    """
-
-    # pylint: disable=too-many-arguments
-    def __init__(self, id, country, province, coordinates, last_updated, timelines):
-        super().__init__(
-            # General info.
-            id,
-            country,
-            province,
-            coordinates,
-            last_updated,
-            # Statistics (retrieve latest from timelines).
-            confirmed=timelines.get("confirmed").latest or 0,
-            deaths=timelines.get("deaths").latest or 0,
-            recovered=timelines.get("recovered").latest or 0,
-        )
-
-        # Set timelines.
-        self.timelines = timelines
-
-    # pylint: disable=arguments-differ
-    def serialize(self, timelines=False):
-        """
-        Serializes the location into a dict.
-
-        :param timelines: Whether to include the timelines.
-        :returns: The serialized location.
-        :rtype: dict
-        """
-        serialized = super().serialize()
-
-        # Whether to include the timelines or not.
         if timelines:
             serialized.update(
                 {
@@ -119,6 +83,4 @@ class TimelinedLocation(Location):
                     }
                 }
             )
-
-        # Return the serialized location.
         return serialized

@@ -47,7 +47,7 @@ def test_location_class(
     now = datetime.utcnow().isoformat() + "Z"
 
     # Location.
-    location_obj = location.TimelinedLocation(
+    location_obj = location.Location(
         test_id,
         country,
         province,

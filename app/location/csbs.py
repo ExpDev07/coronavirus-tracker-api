@@ -20,6 +20,7 @@ class CSBSLocation(Location):
             confirmed=confirmed,
             deaths=deaths,
             recovered=0,
+            timelines=None
         )
 
         self.state = state
@@ -32,7 +33,7 @@ class CSBSLocation(Location):
         :returns: The serialized location.
         :rtype: dict
         """
-        serialized = super().serialize()
+        serialized = super().serialize(timelines)
 
         # Update with new fields.
         serialized.update(

@@ -10,7 +10,7 @@ from cachetools import TTLCache
 
 from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
-from ...location import TimelinedLocation
+from ...location.jhu import JHULocation
 from ...models import Timeline
 from ...utils import countries
 from ...utils import date as date_util
@@ -172,7 +172,7 @@ async def get_locations():
 
         # Create location (supporting timelines) and append.
         locations.append(
-            TimelinedLocation(
+            JHULocation(
                 # General info.
                 index,
                 location["country"],

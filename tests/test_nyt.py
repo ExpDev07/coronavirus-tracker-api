@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 
-from app.location import TimelinedLocation
+from app.location import Location
 from app.location.nyt import NYTLocation
 from app.services.location import nyt
 from tests.conftest import mocked_strptime_isoformat
@@ -23,7 +23,7 @@ async def test_get_locations(mock_client_session):
     serialized_locations = []
     for location in locations:
         assert isinstance(location, NYTLocation)
-        assert isinstance(location, TimelinedLocation)
+        assert isinstance(location, Location)
 
         # Making sure country population is a non-zero value
         assert location.country_population != 0
