@@ -1,5 +1,5 @@
 
-class serialize():
+class serialize:
     def serialize(self, timelines=False):  # pylint: disable=arguments-differ,unused-argument
         """
         Serializes the location into a dict.
