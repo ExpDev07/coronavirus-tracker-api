@@ -2,10 +2,12 @@
 from abc import ABC, abstractmethod
 
 
-class LocationService(ABC):
+class LocationServiceAdaptor:
     """
     Service for retrieving locations.
     """
+    def __init__(self, source):
+        self.source = source
 
     @abstractmethod
     async def get_all(self):
@@ -15,6 +17,7 @@ class LocationService(ABC):
         :returns: The locations.
         :rtype: List[Location]
         """
+        return await self.source.get_locations()
         raise NotImplementedError
 
     @abstractmethod
@@ -25,4 +28,5 @@ class LocationService(ABC):
         :returns: The location.
         :rtype: Location
         """
-        raise NotImplementedError
+        locations = await self.source()
+        return locations[id]

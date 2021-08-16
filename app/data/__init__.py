@@ -18,4 +18,4 @@ def data_source(source):
     :returns: The service.
     :rtype: LocationService
     """
-    return DATA_SOURCES.get(source.lower())
+    return LocationServiceAdaptor(DATA_SOURCES.get(source.lower()))
