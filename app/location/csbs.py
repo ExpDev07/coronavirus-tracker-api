@@ -1,29 +1,20 @@
 """app.locations.csbs.py"""
-from . import Location
+from . import Director, LocationBuilder, BaseInfo, GeoInfo, Statistic
 
 
-class CSBSLocation(Location):
+class CSBSLocation:
     """
     A CSBS (county) location.
     """
-
     # pylint: disable=too-many-arguments,redefined-builtin
     def __init__(self, id, state, county, coordinates, last_updated, confirmed, deaths):
-        super().__init__(
-            # General info.
-            id,
-            "US",
-            state,
-            coordinates,
-            last_updated,
-            # Statistics.
-            confirmed=confirmed,
-            deaths=deaths,
-            recovered=0,
-        )
-
-        self.state = state
-        self.county = county
+        director = Director()
+        baseinfo = BaseInfo(id=id,last_updated=last_updated)
+        geoinfo = GeoInfo(county="US", province=state, coordinates=coordinates)
+        statistic = Statistic(confirmed=confirmed, deaths=deaths, recovered=0)
+        locationBuilder = LocationBuilder(baseinfo=baseinfo, statistic=statistic, geoinfo=geoinfo)
+        director.set_builder(LocationBuilder)
+        csbs = director.build_location()
 
     def serialize(self, timelines=False):  # pylint: disable=arguments-differ,unused-argument
         """

@@ -1,5 +1,5 @@
 """app.locations.nyt.py"""
-from . import TimelinedLocation
+from . import Director, TimelinedLocationBuilder, BaseInfo, GeoInfo, Statistic
 
 
 class NYTLocation(TimelinedLocation):
@@ -9,10 +9,13 @@ class NYTLocation(TimelinedLocation):
 
     # pylint: disable=too-many-arguments,redefined-builtin
     def __init__(self, id, state, county, coordinates, last_updated, timelines):
-        super().__init__(id, "US", state, coordinates, last_updated, timelines)
 
-        self.state = state
-        self.county = county
+        director = Director()
+        baseinfo = BaseInfo(id=id,last_updated=last_updated)
+        geoinfo = GeoInfo(county="US", province=state, coordinates=coordinates)
+        locationBuilder = TimelinedLocationBuilder(baseinfo=baseinfo, geoinfo=geoinfo, timelines=timelines)
+        director.set_builder(TimelinedLocationBuilder)
+        nyt = director.build_location()
 
     def serialize(self, timelines=False):  # pylint: disable=arguments-differ,unused-argument
         """
