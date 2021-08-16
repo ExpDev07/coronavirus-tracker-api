@@ -74,6 +74,32 @@ class Location:  # pylint: disable=too-many-instance-attributes
         }
 
 
+def decoratedSerialize(func, inc_timelines, *args, **kwargs):
+    serialized = func()
+    if kwargs.get("timelines") and inc_timelines:
+        # Whether to include the timelines or not.
+        timelines = kwargs["timelines"]
+        if timelines:
+            serialized.update(
+                {
+                    "timelines": {
+                        # Serialize all the timelines.
+                        key: value.serialize()
+                        for (key, value) in self.timelines.items()
+                    }
+                }
+            )
+
+    if kwargs.get("state"):
+        state = kwargs["state"]
+        serialized.update({"state": state})
+    
+    if kwargs.get("county"):
+        county = kwargs["county"]
+        serialized.update({"county": county})
+
+    return serialized
+
 class TimelinedLocation(Location):
     """
     A location with timelines.
@@ -96,29 +122,19 @@ class TimelinedLocation(Location):
 
         # Set timelines.
         self.timelines = timelines
+        self.inc_timelines = false
 
     # pylint: disable=arguments-differ
-    def serialize(self, timelines=False):
+    @decoratedSerialize(timelines=self.timelines, inc_timelines=self.inc_timelines)
+    def serialize(self, inc_timelines=false):
         """
         Serializes the location into a dict.
-
-        :param timelines: Whether to include the timelines.
+        :param inc_timelines: Whether to include the timelines.
         :returns: The serialized location.
         :rtype: dict
         """
         serialized = super().serialize()
-
-        # Whether to include the timelines or not.
-        if timelines:
-            serialized.update(
-                {
-                    "timelines": {
-                        # Serialize all the timelines.
-                        key: value.serialize()
-                        for (key, value) in self.timelines.items()
-                    }
-                }
-            )
+        self.inc_timelines = inc_timelines
 
         # Return the serialized location.
         return serialized
