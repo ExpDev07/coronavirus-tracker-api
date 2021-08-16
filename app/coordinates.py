@@ -3,6 +3,7 @@ class CoordinateFactory:
       def create_coordinate(creation_type:int, data:float):
            if creation_type == 1: new_coordinate = Latitude(data)
            if creation_type == 2: new_coordinate = Longitude(data)
+           return new_coordinate
 class Coordinate:
       pass
 class Latitude(Coordinate):
