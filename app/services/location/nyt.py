@@ -8,7 +8,7 @@ from cachetools import TTLCache
 
 from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
-from ...location.nyt import NYTLocation
+from ...location.location_proxy import NYTLocationProxy
 from ...models import Timeline
 from ...utils import httputils
 from . import LocationService
@@ -20,6 +20,22 @@ class NYTLocationService(LocationService):
     """
     Service for retrieving locations from New York Times (https://github.com/nytimes/covid-19-data).
     """
+
+
+    __instance = None
+
+    @staticmethod
+    def getInstance():
+        if CSBSLocationService.__instance ==  None:
+            CSBSLocationService()
+        return CSBSLocationService.__instance
+
+    def __init__(self):
+        """ Virtually private constructor. """
+        if Singleton.__instance != None:
+            raise Exception("This class is a singleton!")
+        else:
+            Singleton.__instance = self
 
     async def get_all(self):
         # Get the locations.
@@ -111,7 +127,7 @@ async def get_locations():
 
             # Normalize the item and append to locations.
             locations.append(
-                NYTLocation(
+                NYTLocationProxy(
                     id=idx,
                     state=county_state[1],
                     county=county_state[0],
@@ -132,7 +148,7 @@ async def get_locations():
                         ),
                         "recovered": Timeline(),
                     },
-                )
+                ).getInfo()
             )
         LOGGER.info(f"{data_id} Data normalized")
         # save the results to distributed cache
