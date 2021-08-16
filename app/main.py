@@ -13,10 +13,10 @@ from fastapi.responses import JSONResponse
 from scout_apm.async_.starlette import ScoutMiddleware
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
-from .config import get_settings
-from .data import data_source
-from .routers import V1, V2
-from .utils.httputils import setup_client_session, teardown_client_session
+from app.config import get_settings
+from app.data import data_source
+from app.routers import V1, V2
+from app.utils.httputils import setup_client_session, teardown_client_session
 
 # ############
 # FastAPI App

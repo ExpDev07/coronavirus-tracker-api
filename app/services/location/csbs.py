@@ -19,7 +19,7 @@ class CSBSLocationService(LocationService):
     """
     Service for retrieving locations from csbs
     """
-
+'''
     async def get_all(self):
         # Get the locations.
         locations = await get_locations()
@@ -29,7 +29,7 @@ class CSBSLocationService(LocationService):
         # Get location at the index equal to the provided id.
         locations = await self.get_all()
         return locations[loc_id]
-
+'''
 
 # Base URL for fetching data
 BASE_URL = "https://facts.csbs.org/covid-19/covid19_county.csv"
