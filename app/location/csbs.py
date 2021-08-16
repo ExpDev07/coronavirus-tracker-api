@@ -1,6 +1,6 @@
 """app.locations.csbs.py"""
 from . import Location
-
+from . import serialize
 
 class CSBSLocation(Location):
     """
@@ -25,19 +25,7 @@ class CSBSLocation(Location):
         self.state = state
         self.county = county
 
-    def serialize(self, timelines=False):  # pylint: disable=arguments-differ,unused-argument
-        """
-        Serializes the location into a dict.
+   
+        
 
-        :returns: The serialized location.
-        :rtype: dict
-        """
-        serialized = super().serialize()
 
-        # Update with new fields.
-        serialized.update(
-            {"state": self.state, "county": self.county,}
-        )
-
-        # Return the serialized location.
-        return serialized
