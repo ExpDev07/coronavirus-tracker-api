@@ -1,8 +1,8 @@
 """app.locations.csbs.py"""
-from . import Location
+from . import LocationAdapter
 
 
-class CSBSLocation(Location):
+class CSBSLocation(LocationAdapter):
     """
     A CSBS (county) location.
     """
@@ -33,11 +33,6 @@ class CSBSLocation(Location):
         :rtype: dict
         """
         serialized = super().serialize()
-
-        # Update with new fields.
-        serialized.update(
-            {"state": self.state, "county": self.county,}
-        )
 
         # Return the serialized location.
         return serialized
