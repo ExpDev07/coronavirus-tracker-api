@@ -23,6 +23,7 @@ class _Settings(BaseSettings):
             sentry_dsn: str = None
 
     @functools.lru_cache()
+    @staticmethod
     def get_settings(**kwargs) -> BaseSettings:
         """
          Read settings from the environment or `.env` file.
