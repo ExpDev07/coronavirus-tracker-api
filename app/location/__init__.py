@@ -5,52 +5,70 @@ from ..utils.populations import country_population
 
 
 # pylint: disable=redefined-builtin,invalid-name
-class Location:  # pylint: disable=too-many-instance-attributes
+class BuilderLocation:  # pylint: disable=too-many-instance-attributes
     """
     A location in the world affected by the coronavirus.
     """
 
-    def __init__(
-        self, id, country, province, coordinates, last_updated, confirmed, deaths, recovered,
-    ):  # pylint: disable=too-many-arguments
-        # General info.
-        self.id = id
-        self.country = country.strip()
-        self.province = province.strip()
-        self.coordinates = coordinates
-
-        # Last update.
-        self.last_updated = last_updated
-
-        # Statistics.
-        self.confirmed = confirmed
-        self.deaths = deaths
-        self.recovered = recovered
-
+    def __init__(self):  
+        self.id = 0
+        self.country = ""
+        self.province = ""
+        self.coordinates = 0.0
+        self.last_updated = ""
+        self.confirmed = 0
+        self.deaths = 0
+        self.recovered = 0
+        
+    @staticmethod
+    def item():
+        return BuilderLocation()
+        
     @property
-    def country_code(self):
+    def withCountry_code(self):
         """
         Gets the alpha-2 code represention of the country. Returns 'XX' if none is found.
-
         :returns: The country code.
         :rtype: str
         """
-        return (countries.country_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
+        return (countries.withCountry_code(self.country) or countries.DEFAULT_COUNTRY_CODE).upper()
 
     @property
-    def country_population(self):
+    def withCountry_population(self):
         """
         Gets the population of this location.
-
         :returns: The population.
         :rtype: int
         """
-        return country_population(self.country_code)
+        return withCountry_population(self.withCountry_code)
+        
+    def withProvince(self,province):
+        self.province = province
+        return self
+        
+    def withCoordinates(self,coordinates):
+        self.coordinates = coordinates
+        return self
+        
+    def withlast_updated(self,last_updated):
+        self.last_updated = last_updated
+        return self
+    
+     def withConfirmed(self,confirmed):
+        self.confirmed = confirmed
+        return self
+    
+     def withDeaths(self,deaths):
+        self.deaths = deaths
+        return self
+    
+     def withRecovered(self,recovered):
+        self.recovered = recovered
+        return self
 
     def serialize(self):
         """
         Serializes the location into a dict.
-
         :returns: The serialized location.
         :rtype: dict
         """
@@ -72,7 +90,7 @@ class Location:  # pylint: disable=too-many-instance-attributes
                 "recovered": self.recovered,
             },
         }
-
+  
 
 class TimelinedLocation(Location):
     """
@@ -101,7 +119,6 @@ class TimelinedLocation(Location):
     def serialize(self, timelines=False):
         """
         Serializes the location into a dict.
-
         :param timelines: Whether to include the timelines.
         :returns: The serialized location.
         :rtype: dict
