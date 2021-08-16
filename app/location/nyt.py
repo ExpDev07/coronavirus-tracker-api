@@ -1,5 +1,6 @@
 """app.locations.nyt.py"""
 from . import TimelinedLocation
+from . import decoratedSerialize
 
 
 class NYTLocation(TimelinedLocation):

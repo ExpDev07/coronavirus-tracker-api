@@ -1,5 +1,6 @@
 """app.locations.csbs.py"""
 from . import Location
+from . import decoratedSerialize
 
 
 class CSBSLocation(Location):
@@ -29,7 +30,7 @@ class CSBSLocation(Location):
     def serialize(self):  # pylint: disable=arguments-differ,unused-argument
         """
         Serializes the location into a dict.
-        
+
 
         :returns: The serialized location.
         :rtype: dict
