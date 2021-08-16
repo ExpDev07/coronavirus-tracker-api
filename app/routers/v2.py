@@ -5,6 +5,7 @@ from fastapi import APIRouter, HTTPException, Request
 
 from ..data import DATA_SOURCES
 from ..models import LatestResponse, LocationResponse, LocationsResponse
+from ..translate import translateIt
 
 V2 = APIRouter()
 
@@ -29,9 +30,9 @@ async def get_latest(
     locations = await request.state.source.get_all()
     return {
         "latest": {
-            "confirmed": sum(map(lambda location: location.confirmed, locations)),
-            "deaths": sum(map(lambda location: location.deaths, locations)),
-            "recovered": sum(map(lambda location: location.recovered, locations)),
+            Translator.translateIt("confirmed": )sum(map(lambda location: location.confirmed, locations)),
+            Translator.translateIt("deaths": )sum(map(lambda location: location.deaths, locations)),
+            Translator.translateIt("recovered": )sum(map(lambda location: location.recovered, locations)),
         }
     }
 
@@ -81,12 +82,12 @@ async def get_locations(
 
     # Return final serialized data.
     return {
-        "latest": {
-            "confirmed": sum(map(lambda location: location.confirmed, locations)),
-            "deaths": sum(map(lambda location: location.deaths, locations)),
-            "recovered": sum(map(lambda location: location.recovered, locations)),
+        Translator.translateIt("latest":) {
+            Translator.translateIt("confirmed":) sum(map(lambda location: location.confirmed, locations)),
+            Translator.translateIt("deaths":) sum(map(lambda location: location.deaths, locations)),
+            Translator.translateIt("recovered":) sum(map(lambda location: location.recovered, locations)),
         },
-        "locations": [location.serialize(timelines) for location in locations],
+        Translator.translateIt("locations": [location.serialize(timelines) for location in locations]),
     }
 
 
@@ -99,7 +100,7 @@ async def get_location_by_id(
     Getting specific location by id.
     """
     location = await request.state.source.get(id)
-    return {"location": location.serialize(timelines)}
+    return {Translator.translateIt("location":) location.serialize(timelines)}
 
 
 @V2.get("/sources")
@@ -107,4 +108,4 @@ async def sources():
     """
     Retrieves a list of data-sources that are availble to use.
     """
-    return {"sources": list(DATA_SOURCES.keys())}
+    return {Translator.translateIt("sources":) list(DATA_SOURCES.keys())}

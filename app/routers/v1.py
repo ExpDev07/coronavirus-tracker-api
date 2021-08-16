@@ -2,6 +2,7 @@
 from fastapi import APIRouter
 
 from ..services.location.jhu import get_category
+from ..translate import translateIt
 
 V1 = APIRouter()
 
@@ -15,14 +16,14 @@ async def all_categories():
 
     return {
         # Data.
-        "confirmed": confirmed,
-        "deaths": deaths,
-        "recovered": recovered,
+        Translator.translateIt("confirmed":) confirmed,
+        Translator.translateIt("deaths":) deaths),
+        Translator.translateIt("recovered":) recovered,
         # Latest.
-        "latest": {
-            "confirmed": confirmed["latest"],
-            "deaths": deaths["latest"],
-            "recovered": recovered["latest"],
+        Translator.translateIt("latest":) {
+        Translator.translateIt("confirmed": confirmed["latest"]),
+        Translator.translateIt("deaths": deaths["latest"]),
+        Translator.translateIt("recovered": recovered["latest"]),
         },
     }
 
