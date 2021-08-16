@@ -1,4 +1,4 @@
-"""app.services.location.csbs.py"""
+"""app.services.location.basiclocationservice.py"""
 
 from . import LocationService
 
