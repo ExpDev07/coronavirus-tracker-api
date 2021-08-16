@@ -5,9 +5,9 @@ from ..services.location.nyt import NYTLocationService
 
 # Mapping of services to data-sources.
 DATA_SOURCES = {
-    "jhu": JhuLocationService(),
-    "csbs": CSBSLocationService(),
-    "nyt": NYTLocationService(),
+    "jhu": JhuLocationService.getInstance(),
+    "csbs": CSBSLocationService.getInstance(),
+    "nyt": NYTLocationService.getInstance(),
 }
 
 

@@ -21,6 +21,22 @@ class NYTLocationService(LocationService):
     Service for retrieving locations from New York Times (https://github.com/nytimes/covid-19-data).
     """
 
+
+    __instance = None
+
+    @staticmethod
+    def getInstance():
+        if CSBSLocationService.__instance ==  None:
+            CSBSLocationService()
+        return CSBSLocationService.__instance
+
+    def __init__(self):
+        """ Virtually private constructor. """
+        if Singleton.__instance != None:
+            raise Exception("This class is a singleton!")
+        else:
+            Singleton.__instance = self
+            
     async def get_all(self):
         # Get the locations.
         locations = await get_locations()
