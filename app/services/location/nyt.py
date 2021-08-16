@@ -11,12 +11,12 @@ from ...coordinates import Coordinates
 from ...location.nyt import NYTLocation
 from ...models import Timeline
 from ...utils import httputils
-from . import LocationService
+from . import LocationServicee
 
 LOGGER = logging.getLogger("services.location.nyt")
 
 
-class NYTLocationService(LocationService):
+class NYTLocationServicee(LocationServicee):
     """
     Service for retrieving locations from New York Times (https://github.com/nytimes/covid-19-data).
     """

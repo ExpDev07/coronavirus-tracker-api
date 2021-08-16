@@ -10,12 +10,12 @@ from ...caches import check_cache, load_cache
 from ...coordinates import Coordinates
 from ...location.csbs import CSBSLocation
 from ...utils import httputils
-from . import LocationService
+from . import LocationServicee
 
 LOGGER = logging.getLogger("services.location.csbs")
 
 
-class CSBSLocationService(LocationService):
+class CSBSLocationServicee(LocationServicee):
     """
     Service for retrieving locations from csbs
     """
@@ -29,7 +29,6 @@ class CSBSLocationService(LocationService):
         # Get location at the index equal to the provided id.
         locations = await self.get_all()
         return locations[loc_id]
-
 
 # Base URL for fetching data
 BASE_URL = "https://facts.csbs.org/covid-19/covid19_county.csv"

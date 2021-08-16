@@ -1,12 +1,14 @@
 """app.data"""
-from ..services.location.csbs import CSBSLocationService
-from ..services.location.jhu import JhuLocationService
-from ..services.location.nyt import NYTLocationService
+from ..services.location.csbs import CSBSLocationServicee
+from ..services.location.jhu import JhuLocationServicee
+from ..services.location.nyt import NYTLocationServicee
+from app.services.location.__init__ import LocationServicer
 
 class DataSourceSingletonMeta(type):
     """
-    access point to the DataSourceSingleton
+    access point to the DataSource 
     """
+
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
@@ -22,9 +24,9 @@ class DataSourceSingletonMeta(type):
 
 class DataSourceSingleton(metaclass=DataSourceSingletonMeta):
         DATA_SOURCES = {
-            "jhu": JhuLocationService(),
-            "csbs": CSBSLocationService(),
-            "nyt": NYTLocationService(),
+            "jhu": LocationServicer(JhuLocationServicee()),
+            "csbs": LocationServicer(CSBSLocationServicee()),
+            "nyt": LocationServicer(NYTLocationServicee()),
         }
         def get_data_source(self, dataSource):
             return self.DATA_SOURCES.get(dataSource.lower())

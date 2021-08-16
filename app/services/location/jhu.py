@@ -15,13 +15,13 @@ from ...models import Timeline
 from ...utils import countries
 from ...utils import date as date_util
 from ...utils import httputils
-from . import LocationService
+from . import LocationServicee
 
 LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
 
 
-class JhuLocationService(LocationService):
+class JhuLocationServicee(LocationServicee):
     """
     Service for retrieving locations from Johns Hopkins CSSE (https://github.com/CSSEGISandData/COVID-19).
     """
