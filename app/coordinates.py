@@ -1,6 +1,11 @@
 """app.coordinates.py"""
-
-class Latitude:
+class CoordinateFactory:
+      def create_coordinate(creation_type:int, data:float):
+           if creation_type == 1: new_coordinate = Latitude(data)
+           if creation_type == 2: new_coordinate = Longitude(data)
+class Coordinate:
+      pass
+class Latitude(Coordinate):
     """
     A numeric representation of a latitudinal position north or south of the Earth's equator, to track Coronavirus spread nation to nation latitudinally.
     """
@@ -13,7 +18,7 @@ class Latitude:
     def merge(other: Longitude):
         return Coordinates(self, other)
 
-class Longitude:
+class Longitude(Coordinate):
     """
     A numeric representation of a longitudinal position measuring east to west, to track Coronavirus spread nation to nation longitudinally
     """
