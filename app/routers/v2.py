@@ -99,6 +99,7 @@ async def get_location_by_id(
     Getting specific location by id.
     """
     location = await request.state.source.get(id)
+    
     return {"location": location.serialize(timelines)}
 
 

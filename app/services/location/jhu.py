@@ -20,7 +20,6 @@ from . import LocationService
 LOGGER = logging.getLogger("services.location.jhu")
 PID = os.getpid()
 
-
 class JhuLocationService(LocationService):
     """
     Service for retrieving locations from Johns Hopkins CSSE (https://github.com/CSSEGISandData/COVID-19).
@@ -34,6 +33,7 @@ class JhuLocationService(LocationService):
     async def get(self, loc_id):  # pylint: disable=arguments-differ
         # Get location at the index equal to provided id.
         locations = await self.get_all()
+
         return locations[loc_id]
 
 
@@ -52,6 +52,7 @@ async def get_category(category):
     :returns: The data for category.
     :rtype: dict
     """
+
     # Adhere to category naming standard.
     category = category.lower()
     data_id = f"jhu.{category}"
@@ -87,27 +88,24 @@ async def get_category(category):
             # Make location history from dates.
             history = {date: int(float(amount or 0)) for date, amount in dates.items()}
 
-            # Country for this location.
-            country = item["Country/Region"]
-
             # Latest data insert value.
             latest = list(history.values())[-1]
 
+            # Country for this location.
+            country = item["Country/Region"]
+
             # Normalize the item and append to locations.
-            locations.append(
-                {
-                    # General info.
-                    "country": country,
-                    "country_code": countries.country_code(country),
-                    "province": item["Province/State"],
-                    # Coordinates.
-                    "coordinates": {"lat": item["Lat"], "long": item["Long"],},
-                    # History.
-                    "history": history,
-                    # Latest statistic.
-                    "latest": int(latest or 0),
-                }
-            )
+            locations.append({
+                "country": country,
+                "country_code": countries.country_code(country),
+                "province": item["Province/State"],
+                "coordinates": {
+                    "lat": item["Lat"], 
+                    "long": item["Long"],
+                },
+                "history": history,
+                "latest": int(latest or 0),
+            })
         LOGGER.debug(f"{data_id} Data normalized")
 
         # Latest total.
@@ -135,8 +133,10 @@ async def get_locations():
     :returns: The locations.
     :rtype: List[Location]
     """
+
     data_id = "jhu.locations"
     LOGGER.info(f"pid:{PID}: {data_id} Requesting data...")
+
     # Get all of the data categories locations.
     confirmed = await get_category("confirmed")
     deaths = await get_category("deaths")
@@ -163,8 +163,8 @@ async def get_locations():
 
         timelines = {
             "confirmed": location["history"],
-            "deaths": parse_history(key, locations_deaths, index),
-            "recovered": parse_history(key, locations_recovered, index),
+            "deaths": parse_history(key, locations_deaths),
+            "recovered": parse_history(key, locations_recovered),
         }
 
         # Grab coordinates.
@@ -173,16 +173,12 @@ async def get_locations():
         # Create location (supporting timelines) and append.
         locations.append(
             TimelinedLocation(
-                # General info.
-                index,
-                location["country"],
-                location["province"],
-                # Coordinates.
-                Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
-                # Last update.
-                datetime.utcnow().isoformat() + "Z",
-                # Timelines (parse dates as ISO).
-                {
+                id=index,
+                country=location["country"],
+                province=location["province"],
+                coordinates=Coordinates(latitude=coordinates["lat"], longitude=coordinates["long"]),
+                last_updated=datetime.utcnow().isoformat() + "Z",
+                timelines={
                     "confirmed": Timeline(
                         timeline={
                             datetime.strptime(date, "%m/%d/%y").isoformat() + "Z": amount
@@ -204,25 +200,23 @@ async def get_locations():
                 },
             )
         )
+
     LOGGER.info(f"{data_id} Data normalized")
 
-    # Finally, return the locations.
     return locations
 
 
-def parse_history(key: tuple, locations: list, index: int):
+def parse_history(key: tuple, locations: list):
     """
     Helper for validating and extracting history content from
-    locations data based on index. Validates with the current country/province
+    locations data based on key. Validates with the current country/province
     key to make sure no index/column issue.
-
-    TEMP: solution because implement a more efficient and better approach in the refactor.
     """
-    location_history = {}
-    try:
-        if key == (locations[index]["country"], locations[index]["province"]):
-            location_history = locations[index]["history"]
-    except (IndexError, KeyError):
-        LOGGER.debug(f"iteration data merge error: {index} {key}")
 
-    return location_history
+    for i, location in enumerate(locations):
+        if (location["country"], location["province"]) == key:
+            return location["history"]
+
+    LOGGER.debug(f"iteration data merge error: {key}")
+
+    return {}
