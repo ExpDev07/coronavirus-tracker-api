@@ -2,7 +2,7 @@
     Coronavirus Tracker API
 </h1>
 
-Provides up-to-date data about Coronavirus outbreak. Includes numbers about confirmed cases, deaths and recovered.
+> Provides up-to-date data about Coronavirus outbreak. Includes numbers about confirmed cases, deaths and recovered.
 Support multiple data-sources.
 
 ![Travis build](https://api.travis-ci.com/ExpDev07/coronavirus-tracker-api.svg?branch=master)
