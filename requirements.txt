@@ -40,7 +40,7 @@ requests==2.25.1
 scout-apm==2.18.0
 sentry-sdk==0.20.3
 six==1.15.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-starlette==0.13.6; python_version >= '3.6'
+starlette==0.25.0; python_version >= '3.6'
 typing-extensions==3.7.4.3
 urllib3[secure]==1.26.3; python_version >= '3.5'
 uvicorn[standard]==0.13.4
